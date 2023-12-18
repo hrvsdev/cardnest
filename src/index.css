@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+	}
+
 	body {
 		@apply w-screen h-rs-screen bg-th-bg text-th-primary;
 	}

@@ -1,23 +1,24 @@
-import { ReactNode, useState } from "react";
-import { IconAdjustments, IconCreditCard, IconSmartHome, IconUser } from "@tabler/icons-react";
+import { ReactElement, useState } from "react";
+import {
+	IconCreditCard,
+	IconSmartHome,
+	IconUserCircle,
+	TablerIconsProps
+} from "@tabler/icons-react";
 import { c } from "../../utils/styles.ts";
-import { motion } from "framer-motion";
+import Show from "../../components/Show.tsx";
 
 const tabs = [
 	{
-		icon: <IconSmartHome width={28}/>,
+		icon: IconSmartHome,
 		label: "Home"
 	},
 	{
-		icon: <IconCreditCard width={28}/>,
+		icon: IconCreditCard,
 		label: "Cards"
 	},
 	{
-		icon: <IconAdjustments width={28}/>,
-		label: "More"
-	},
-	{
-		icon: <IconUser width={28}/>,
+		icon: IconUserCircle,
 		label: "You"
 	}
 ];
@@ -40,70 +41,26 @@ export default function Home() {
 }
 
 type TabButtonProps = {
-	icon: ReactNode;
+	icon: (props: TablerIconsProps) => ReactElement;
 	label: string;
 	isActive: boolean;
 	onClick: () => void;
 };
 
-const tabVariant = {
-	active: {
-		width: "40%",
-		transition: {
-			type: "tween",
-			duration: 0.4
-		}
-	},
-	inactive: {
-		width: "20%",
-		transition: {
-			type: "tween",
-			duration: 0.4
-		}
-	}
-};
-
-const tabTextVariant = {
-	active: {
-		opacity: 1,
-		x: 0,
-		display: "block",
-		transition: {
-			type: "tween",
-			duration: 0.3,
-			delay: 0.3
-		}
-	},
-	inactive: {
-		opacity: 0,
-		x: -30,
-		transition: {
-			type: "tween",
-			duration: 0.3,
-			delay: 0.1
-		},
-		transitionEnd: { display: "none" }
-	}
-};
-
-function TabButton({ icon, label, isActive, onClick }: TabButtonProps) {
+function TabButton({ icon: I, label, isActive, onClick }: TabButtonProps) {
 	return (
-		<motion.button
-			onClick={onClick}
-			variants={tabVariant}
-			animate={isActive ? "active" : "inactive"}
-		>
+		<button onClick={onClick} className="w-1/3">
 			<div
 				className={c(
-					"flex items-center w-full gap-2.5 rounded-2xl h-10 px-5 mx-auto",
-					isActive ? "bg-th-bg" : "text-th-bg"
+					"flex items-center w-full gap-2.5 rounded-2xl px-5 py-2 mx-auto",
+					isActive ? "bg-th-bg" : "bg-transparent text-th-bg justify-center"
 				)}
 			>
-				{icon}
-				<motion.span variants={tabTextVariant}>
-					{label}
-				</motion.span>
+				<I size={26} />
+				<Show when={isActive}>
+					<span>{label}</span>
+				</Show>
 			</div>
-		</motion.button>
+		</button>
 	);
 }
