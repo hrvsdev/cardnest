@@ -9,7 +9,7 @@ export default {
 			colors: {
 				"th-bg": "#00203F",
 				"th-primary": "#ADEFD1",
-				"th-text": "#F4F7FB",
+				"th-light": "#F4F7FB",
 			},
 			height: {
 				"rs-screen": "100dvh",
