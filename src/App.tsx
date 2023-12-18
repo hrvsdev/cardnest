@@ -1,7 +1,5 @@
+import Home from "./Home";
+
 export default function App() {
-  return (
-    <div className="text-lg font-bold">
-      <h1>Hello World</h1>
-    </div>
-  );
+	return <Home />;
 }

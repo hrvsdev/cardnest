@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	body {
+		@apply w-screen h-rs-screen bg-th-bg text-th-primary;
+	}
+
+	#root {
+		@apply h-full max-w-sm xs:mx-auto xs:border-x xs:border-th-primary xs:border-opacity-5;
+	}
+}
