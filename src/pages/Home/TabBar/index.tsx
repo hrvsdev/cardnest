@@ -56,7 +56,7 @@ function TabButton({ icon: I, label, isActive, onClick }: TabButtonProps) {
 			<div
 				className={c(
 					"flex items-center justify-center w-full h-10 gap-2.5 rounded-2xl mx-auto",
-					isActive ? "bg-th-dark-blue" : "text-th-dark-blue"
+					isActive ? "bg-th-dark-blue text-th-green" : "text-th-dark-blue"
 				)}
 			>
 				<I size={26} />

@@ -17,10 +17,10 @@
 	}
 
 	body {
-		@apply w-screen h-rs-screen bg-th-dark-blue text-th-green;
+		@apply w-screen h-rs-screen bg-th-dark-blue text-th-white;
 	}
 
 	#root {
-		@apply h-full max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5 relative;
+		@apply h-full max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
 	}
 }
