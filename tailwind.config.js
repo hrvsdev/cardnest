@@ -7,9 +7,9 @@ export default {
 				xs: "375px",
 			},
 			colors: {
-				"th-bg": "#00203F",
-				"th-primary": "#ADEFD1",
-				"th-light": "#F4F7FB",
+				"th-dark-blue": "#00203F",
+				"th-green": "#ADEFD1",
+				"th-white": "#F4F7FB",
 			},
 			height: {
 				"rs-screen": "100dvh",
