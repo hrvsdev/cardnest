@@ -1,9 +1,10 @@
-import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import viteTsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 4000
-  }
-})
+	plugins: [react(), viteTsconfigPaths()],
+	server: {
+		port: 4000
+	}
+});
