@@ -23,4 +23,8 @@
 	#root {
 		@apply h-full max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
 	}
+
+	input {
+		@apply outline-none;
+	}
 }

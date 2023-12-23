@@ -6,8 +6,12 @@ export default {
 			screens: {
 				xs: "375px",
 			},
+			fontSize: {
+				"heading": ["1.75rem", "2.125rem"],
+			},
 			colors: {
 				"th-black": "#00060c",
+				"th-darker-blue": "#001528",
 				"th-dark-blue": "#00203F",
 				"th-blue": "#003a72",
 				"th-sky": "#3fa1ff",
