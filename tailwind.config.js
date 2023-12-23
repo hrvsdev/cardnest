@@ -7,7 +7,10 @@ export default {
 				xs: "375px",
 			},
 			colors: {
+				"th-black": "#00060c",
 				"th-dark-blue": "#00203F",
+				"th-blue": "#003a72",
+				"th-sky": "#3fa1ff",
 				"th-green": "#ADEFD1",
 				"th-white": "#F4F7FB",
 			},
