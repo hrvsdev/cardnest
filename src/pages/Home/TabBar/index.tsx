@@ -29,7 +29,7 @@ const tabs = [
 export function TabBar() {
 	const [current, setCurrent] = useState(0);
 	return (
-		<div className="flex justify-between absolute bottom-0 bg-th-green w-full px-4 pt-4 pb-3.5 rounded-t-3xl">
+		<div className="flex justify-between bg-th-green w-full px-4 pt-4 pb-3.5 rounded-t-3xl">
 			{tabs.map((tab, index) => (
 				<TabButton
 					key={tab.label}

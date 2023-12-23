@@ -3,9 +3,11 @@ import { TabBar } from "./TabBar";
 
 export function Home() {
 	return (
-		<main className="relative h-full w-full">
+		<main className="flex flex-col justify-between relative h-full w-full">
 			<Header />
-			<div className="" />
+			<div className="overflow-y-scroll grow">
+
+			</div>
 			<TabBar />
 		</main>
 	);
