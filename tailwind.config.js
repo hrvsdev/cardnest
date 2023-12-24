@@ -9,6 +9,9 @@ export default {
 			fontSize: {
 				"heading": ["1.75rem", "2.125rem"],
 			},
+			aspectRatio: {
+				"payment-card": "1.586",
+			},
 			colors: {
 				"th-black": "#00060c",
 				"th-darker-blue": "#001528",
