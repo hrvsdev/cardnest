@@ -7,7 +7,7 @@ import {
 	TablerIconsProps
 } from "@tabler/icons-react";
 
-import { Show } from "@components/Show.tsx";
+import { Show } from "@components/Show";
 
 import { c } from "@utils/styles.ts";
 

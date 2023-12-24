@@ -2,9 +2,8 @@ import { useRef, useState } from "react";
 
 import { IconCircleX, IconSearch } from "@tabler/icons-react";
 
-import { Show } from "@components/Show.tsx";
-
 import { c } from "@utils/styles.ts";
+import { Show } from "@components/Show";
 
 export function Header() {
 	const [value, setValue] = useState("");
