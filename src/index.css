@@ -17,7 +17,7 @@
 	}
 
 	body {
-		@apply w-screen h-rs-screen bg-th-dark-blue text-th-white;
+		@apply w-screen h-rs-screen bg-gradient-to-tr from-th-darker-blue to-th-black text-th-white;
 	}
 
 	#root {

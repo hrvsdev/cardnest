@@ -17,7 +17,7 @@ export function Header() {
 	};
 
 	return (
-		<div className="p-4 bg-th-darker-blue">
+		<div className="p-4">
 			<h1 className="font-semibold text-heading mb-4 pl-0.5">Home</h1>
 			<div className="flex items-center w-full relative">
 				<IconSearch size={24} className="absolute text-th-white left-3 opacity-60" />
@@ -30,6 +30,7 @@ export function Header() {
 				</Show>
 				<input
 					id="search"
+					autoComplete="off"
 					ref={inputRef}
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
