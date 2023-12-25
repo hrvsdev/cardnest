@@ -17,11 +17,11 @@
 	}
 
 	body {
-		@apply w-screen min-h-dvh bg-gradient-to-tr from-th-darker-blue to-th-black text-th-white;
+		@apply w-screen text-th-white bg-gradient-to-tr from-th-darker-blue to-th-black bg-no-repeat bg-fixed;
 	}
 
 	#root {
-		@apply h-full max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
+		@apply min-h-dvh max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
 	}
 
 	input {
