@@ -1,27 +1,18 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 
-import {
-	IconCreditCard,
-	IconSmartHome,
-	IconUserCircle,
-	TablerIconsProps
-} from "@tabler/icons-react";
-
-import { Show } from "@components/Show";
-
-import { c } from "@utils/styles.ts";
+import { CreditCardIcon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 const tabs = [
 	{
-		icon: IconSmartHome,
+		icon: HomeIcon,
 		label: "Home"
 	},
 	{
-		icon: IconCreditCard,
+		icon: CreditCardIcon,
 		label: "Cards"
 	},
 	{
-		icon: IconUserCircle,
+		icon: UserCircleIcon,
 		label: "You"
 	}
 ];
@@ -29,7 +20,7 @@ const tabs = [
 export function TabBar() {
 	const [current, setCurrent] = useState(0);
 	return (
-		<div className="flex justify-between bg-th-green w-full px-4 pt-4 pb-3.5 rounded-t-3xl">
+		<div className="flex justify-between sticky bottom-0 p-4 border-t border-th-white/10 bg-th-black/80 backdrop-blur-md">
 			{tabs.map((tab, index) => (
 				<TabButton
 					key={tab.label}
@@ -44,25 +35,17 @@ export function TabBar() {
 }
 
 type TabButtonProps = {
-	icon: (props: TablerIconsProps) => ReactElement;
+	icon: typeof CreditCardIcon;
 	label: string;
 	isActive: boolean;
 	onClick: () => void;
 };
 
-function TabButton({ icon: I, label, isActive, onClick }: TabButtonProps) {
+function TabButton({ icon: I, isActive, onClick }: TabButtonProps) {
 	return (
 		<button onClick={onClick} className="w-1/3">
-			<div
-				className={c(
-					"flex items-center justify-center w-full h-10 gap-2.5 rounded-2xl mx-auto",
-					isActive ? "bg-th-dark-blue text-th-green" : "text-th-dark-blue"
-				)}
-			>
-				<I size={26} />
-				<Show when={isActive}>
-					<span>{label}</span>
-				</Show>
+			<div className="flex items-center justify-center gap-2.5 rounded-2xl mx-auto">
+				<I className={isActive ? "text-th-sky" : "text-th-white/70"} width={24} />
 			</div>
 		</button>
 	);
