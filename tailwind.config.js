@@ -20,13 +20,7 @@ export default {
 				"th-sky": "#3fa1ff",
 				"th-green": "#ADEFD1",
 				"th-white": "#F4F7FB",
-			},
-			height: {
-				"rs-screen": "100dvh",
-			},
-			maxHeight: {
-				"rs-screen": "100dvh",
-			},
+			}
 		},
 	},
 	plugins: [],
