@@ -1,18 +1,16 @@
 import { Header } from "@components/Header";
-import { TabBar } from "@components/TabBar";
 
 import { c } from "@utils/styles.ts";
 
 export function Home() {
 	return (
-		<main className="flex flex-col justify-between relative h-full w-full">
+		<main className="h-full w-full">
 			<Header />
-			<div className="overflow-y-auto grow space-y-4 p-4">
+			<div className="space-y-4 p-4">
 				{Object.keys(cardColorClassName).map((color) => (
 					<Card key={color} color={color as CardColor} />
 				))}
 			</div>
-			<TabBar />
 		</main>
 	);
 }
