@@ -20,6 +20,5 @@
 		"^@utils/(.*)$",
 		"",
 		"^@types/(.*)$"
-	],
-	"importOrderSeparation": true
+	]
 }

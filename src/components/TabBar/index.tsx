@@ -4,10 +4,6 @@ import { CreditCardIcon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/so
 
 import { c } from "@utils/styles.ts";
 
-
-
-
-
 const tabs = [
 	{
 		icon: HomeIcon,

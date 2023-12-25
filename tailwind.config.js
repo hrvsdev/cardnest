@@ -4,13 +4,13 @@ export default {
 	theme: {
 		extend: {
 			screens: {
-				xs: "375px",
+				xs: "375px"
 			},
 			fontSize: {
-				"heading": ["1.75rem", "2.125rem"],
+				heading: ["1.75rem", "2.125rem"]
 			},
 			aspectRatio: {
-				"payment-card": "1.586",
+				"payment-card": "1.586"
 			},
 			colors: {
 				"th-black": "#00060c",
@@ -19,9 +19,9 @@ export default {
 				"th-blue": "#003a72",
 				"th-sky": "#3fa1ff",
 				"th-green": "#ADEFD1",
-				"th-white": "#F4F7FB",
+				"th-white": "#F4F7FB"
 			}
-		},
+		}
 	},
-	plugins: [],
+	plugins: []
 };
