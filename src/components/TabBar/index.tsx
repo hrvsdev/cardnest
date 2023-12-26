@@ -22,7 +22,7 @@ const tabs = [
 export function TabBar() {
 	const [current, setCurrent] = useState(0);
 	return (
-		<div className="flex justify-between sticky bottom-0 p-4 border-t border-th-white/10 bg-th-black/80 backdrop-blur-md">
+		<div className="flex justify-between sticky bottom-0 border-t border-th-white/10 bg-th-black/80 backdrop-blur-md">
 			{tabs.map((tab, index) => (
 				<TabButton
 					key={tab.label}
@@ -46,7 +46,7 @@ type TabButtonProps = {
 function TabButton({ icon: I, isActive, onClick }: TabButtonProps) {
 	return (
 		<button onClick={onClick} className="w-1/3">
-			<div className="flex items-center justify-center gap-2.5 rounded-2xl mx-auto">
+			<div className="flex items-center justify-center py-4 gap-2.5 rounded-2xl mx-auto">
 				<I
 					width={24}
 					className={c(
