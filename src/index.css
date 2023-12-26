@@ -21,7 +21,7 @@
 	}
 
 	#root {
-		@apply min-h-dvh max-w-sm xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
+		@apply min-h-dvh max-w-app-container xs:mx-auto xs:border-x xs:border-th-green xs:border-opacity-5;
 	}
 
 	input {

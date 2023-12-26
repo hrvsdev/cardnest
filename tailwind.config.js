@@ -20,7 +20,10 @@ export default {
 				"th-sky": "#3fa1ff",
 				"th-green": "#ADEFD1",
 				"th-white": "#F4F7FB"
-			}
+			},
+			spacing: {
+				"app-container": "27rem"
+			},
 		}
 	},
 	plugins: []
