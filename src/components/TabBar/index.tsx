@@ -40,18 +40,13 @@ type TabButtonProps = {
 
 function TabButton({ icon: I, path }: TabButtonProps) {
 	return (
-		<NavLink to={path} className="w-1/3">
-			{({ isActive }) => (
-				<div className="flex items-center justify-center py-4 gap-2.5 rounded-2xl mx-auto">
-					<I
-						width={24}
-						className={c(
-							"transition-colors duration-300",
-							isActive ? "text-th-sky" : "text-th-white/70"
-						)}
-					/>
-				</div>
-			)}
+		<NavLink
+			to={path}
+			className={({ isActive }) => c("flex-1", isActive ? "text-th-sky" : "text-th-white/70")}
+		>
+			<div className="flex items-center justify-center py-4 gap-2.5 rounded-2xl mx-auto">
+				<I width={24} className={c("transition-colors duration-300")} />
+			</div>
 		</NavLink>
 	);
 }
