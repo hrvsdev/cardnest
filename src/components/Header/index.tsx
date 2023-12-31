@@ -8,7 +8,7 @@ import { c } from "@utils/styles.ts";
 
 const OFFSET = 60;
 
-export function Header() {
+export function Header({ title }: { title: string }) {
 	const [value, setValue] = useState("");
 	const [isOpaque, setIsOpaque] = useState(false);
 
@@ -37,7 +37,7 @@ export function Header() {
 
 	return (
 		<Fragment>
-			<h1 className="font-semibold text-heading pl-0.5 pt-8 mx-4">Home</h1>
+			<h1 className="font-semibold text-heading pl-0.5 pt-8 mx-4">{title}</h1>
 			<div
 				className={c(
 					"sticky top-0 p-4 backdrop-blur-md transition-[background-color] duration-500",
