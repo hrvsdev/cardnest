@@ -1,14 +1,20 @@
+import { Fragment } from "react";
+
 import { PageContainer } from "@components/Containers";
+import { Header } from "@components/Header";
 
 import { c } from "@utils/styles.ts";
 
 export function Home() {
 	return (
-		<PageContainer className="space-y-4">
-			{Object.keys(cardColorClassName).map((color) => (
-				<Card key={color} color={color as CardColor} />
-			))}
-		</PageContainer>
+		<Fragment>
+			<Header title="Home" />
+			<PageContainer className="space-y-4">
+				{Object.keys(cardColorClassName).map((color) => (
+					<Card key={color} color={color as CardColor} />
+				))}
+			</PageContainer>
+		</Fragment>
 	);
 }
 

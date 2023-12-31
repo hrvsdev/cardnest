@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import { CreditCardIcon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
@@ -7,30 +7,26 @@ import { c } from "@utils/styles.ts";
 const tabs = [
 	{
 		icon: HomeIcon,
-		label: "Home"
+		label: "Home",
+		path: "home"
 	},
 	{
 		icon: CreditCardIcon,
-		label: "Cards"
+		label: "Add Card",
+		path: "add"
 	},
 	{
 		icon: UserCircleIcon,
-		label: "You"
+		label: "You",
+		path: "user"
 	}
 ];
 
 export function TabBar() {
-	const [current, setCurrent] = useState(0);
 	return (
 		<div className="flex justify-between sticky bottom-0 border-t border-th-white/10 bg-th-black/80 backdrop-blur-md">
-			{tabs.map((tab, index) => (
-				<TabButton
-					key={tab.label}
-					icon={tab.icon}
-					label={tab.label}
-					isActive={index === current}
-					onClick={() => setCurrent(index)}
-				/>
+			{tabs.map((tab) => (
+				<TabButton key={tab.label} icon={tab.icon} label={tab.label} path={tab.path} />
 			))}
 		</div>
 	);
@@ -39,22 +35,23 @@ export function TabBar() {
 type TabButtonProps = {
 	icon: typeof CreditCardIcon;
 	label: string;
-	isActive: boolean;
-	onClick: () => void;
+	path: string;
 };
 
-function TabButton({ icon: I, isActive, onClick }: TabButtonProps) {
+function TabButton({ icon: I, path }: TabButtonProps) {
 	return (
-		<button onClick={onClick} className="w-1/3">
-			<div className="flex items-center justify-center py-4 gap-2.5 rounded-2xl mx-auto">
-				<I
-					width={24}
-					className={c(
-						"transition-colors duration-300",
-						isActive ? "text-th-sky" : "text-th-white/70"
-					)}
-				/>
-			</div>
-		</button>
+		<NavLink to={path} className="w-1/3">
+			{({ isActive }) => (
+				<div className="flex items-center justify-center py-4 gap-2.5 rounded-2xl mx-auto">
+					<I
+						width={24}
+						className={c(
+							"transition-colors duration-300",
+							isActive ? "text-th-sky" : "text-th-white/70"
+						)}
+					/>
+				</div>
+			)}
+		</NavLink>
 	);
 }
