@@ -6,8 +6,16 @@ export default {
 			screens: {
 				xs: "375px"
 			},
+			spacing: {
+				1.25: "0.3125rem",
+				"app-container": "27rem"
+			},
+			fontFamily: {
+				card: ["Manrope", "sans-serif"]
+			},
 			fontSize: {
-				heading: ["1.75rem", "2.125rem"]
+				heading: ["1.75rem", "2.125rem"],
+				"2xs": ["0.625rem", "0.75rem"]
 			},
 			aspectRatio: {
 				"payment-card": "1.586"
@@ -20,10 +28,7 @@ export default {
 				"th-sky": "#3fa1ff",
 				"th-green": "#ADEFD1",
 				"th-white": "#F4F7FB"
-			},
-			spacing: {
-				"app-container": "27rem"
-			},
+			}
 		}
 	},
 	plugins: []
