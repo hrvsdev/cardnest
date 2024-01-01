@@ -1,15 +1,12 @@
 import { Fragment } from "react";
 
+import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
 import { Header } from "@components/Header";
-import { Amex } from "@components/Logos/Amex.tsx";
-import { Diners } from "@components/Logos/Diners.tsx";
-import { Discover } from "@components/Logos/Discover.tsx";
-import { MasterCard } from "@components/Logos/MasterCard.tsx";
-import { Rupay } from "@components/Logos/Rupay.tsx";
-import { Visa } from "@components/Logos/Visa.tsx";
 
-import { c } from "@utils/styles.ts";
+import { cardColorClassName } from "@utils/card.ts";
+
+import { CardColor, CardDetails } from "@t/card";
 
 export function Home() {
 	return (
@@ -28,94 +25,7 @@ export function Home() {
 	);
 }
 
-type CardColor = keyof typeof cardColorClassName;
-
-type Card = {
-	number: string;
-	expiry: {
-		month: number;
-		year: number;
-	};
-	cardholder: string;
-	network: "visa" | "mastercard" | "amex" | "discover" | "diners" | "rupay";
-};
-
-type Props = {
-	color: CardColor;
-	card: Card;
-};
-
-function Card({ color, card }: Props) {
-	const cl = cardColorClassName[color];
-
-	const formattedCardNumber = card.number.replace(/(.{4})/g, "$1 ");
-	const formattedExpiryMonth = card.expiry.month.toString().padStart(2, "0");
-	const formattedExpiryYear = card.expiry.year.toString();
-
-	const CardNetwork = () => {
-		switch (card.network) {
-			case "visa":
-				return <Visa />;
-			case "mastercard":
-				return <MasterCard />;
-			case "amex":
-				return <Amex />;
-			case "discover":
-				return <Discover />;
-			case "diners":
-				return <Diners />;
-			case "rupay":
-				return <Rupay />;
-			default:
-				return null;
-		}
-	};
-
-	return (
-		<div className={c("w-full aspect-payment-card bg-gradient-to-br rounded-2xl font-card", cl)}>
-			<div className="flex flex-col justify-between w-full h-full p-6">
-				<div className="flex justify-between">
-					<div>
-						<p className="tracking-widest text-2xs font-light opacity-80 uppercase">Cardholder</p>
-						<p className="tracking-wider text-lg">{card.cardholder}</p>
-					</div>
-				</div>
-				<div className="tracking-widest text-2xl font-bold">{formattedCardNumber}</div>
-				<div className="flex justify-between items-end">
-					<div>
-						<p className="tracking-widest text-2xs font-light opacity-80 uppercase">Expires</p>
-						<p className="tracking-wider font-medium">
-							{formattedExpiryMonth}/{formattedExpiryYear}
-						</p>
-					</div>
-					<div className="pb-1.25">
-						<CardNetwork />
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-}
-
-const cardColorClassName = {
-	sky: "from-sky-500 to-sky-700",
-	pink: "from-pink-500 to-pink-700",
-	red: "from-red-500 to-red-700",
-	cyan: "from-cyan-500 to-cyan-700",
-	yellow: "from-yellow-500 to-yellow-700",
-	blue: "from-blue-500 to-blue-700",
-	green: "from-green-500 to-green-700",
-	emerald: "from-emerald-500 to-emerald-700",
-	fuchsia: "from-fuchsia-500 to-fuchsia-700",
-	purple: "from-purple-500 to-purple-700",
-	violet: "from-violet-500 to-violet-700",
-	indigo: "from-indigo-500 to-indigo-700",
-	orange: "from-orange-500 to-orange-700",
-	teal: "from-teal-500 to-teal-700",
-	rose: "from-rose-500 to-rose-700"
-};
-
-const cards: Card[] = [
+const cards: CardDetails[] = [
 	{
 		number: "4641060453063779",
 		expiry: {
