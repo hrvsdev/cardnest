@@ -2,7 +2,12 @@ import { Fragment } from "react";
 
 import { PageContainer } from "@components/Containers";
 import { Header } from "@components/Header";
-import { AmericanExpress, DinersClub, Discover, MasterCard, Rupay, Visa } from "@components/Icons";
+import { Amex } from "@components/Logos/Amex.tsx";
+import { Diners } from "@components/Logos/Diners.tsx";
+import { Discover } from "@components/Logos/Discover.tsx";
+import { MasterCard } from "@components/Logos/MasterCard.tsx";
+import { Rupay } from "@components/Logos/Rupay.tsx";
+import { Visa } from "@components/Logos/Visa.tsx";
 
 import { c } from "@utils/styles.ts";
 
@@ -54,11 +59,11 @@ function Card({ color, card }: Props) {
 			case "mastercard":
 				return <MasterCard />;
 			case "amex":
-				return <AmericanExpress />;
+				return <Amex />;
 			case "discover":
 				return <Discover />;
 			case "diners":
-				return <DinersClub />;
+				return <Diners />;
 			case "rupay":
 				return <Rupay />;
 			default:
