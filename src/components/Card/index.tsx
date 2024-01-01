@@ -22,7 +22,7 @@ export function Card({ color, card }: Props) {
 
 	const formattedCardNumber = card.number.replace(/(.{4})/g, "$1 ");
 	const formattedExpiryMonth = card.expiry.month.toString().padStart(2, "0");
-	const formattedExpiryYear = card.expiry.year.toString();
+	const formattedExpiryYear = card.expiry.year.toString().slice(-2);
 
 	const CardNetwork = useCallback(() => {
 		switch (card.network) {
@@ -48,14 +48,14 @@ export function Card({ color, card }: Props) {
 			<div className="flex flex-col justify-between w-full h-full p-6">
 				<div className="flex justify-between">
 					<div>
-						<p className="tracking-widest text-2xs font-light opacity-80 uppercase">Cardholder</p>
+						<p className="tracking-widest text-2xs font-light text-th-white/80 uppercase">Cardholder</p>
 						<p className="tracking-wider text-lg">{card.cardholder}</p>
 					</div>
 				</div>
 				<div className="tracking-widest text-2xl font-bold">{formattedCardNumber}</div>
 				<div className="flex justify-between items-end">
 					<div>
-						<p className="tracking-widest text-2xs font-light opacity-80 uppercase">Expires</p>
+						<p className="tracking-widest text-2xs font-light text-th-white/80 uppercase">Valid Thru</p>
 						<p className="tracking-wider font-medium">
 							{formattedExpiryMonth}/{formattedExpiryYear}
 						</p>
