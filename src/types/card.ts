@@ -1,0 +1,13 @@
+export type CardNetwork = "visa" | "mastercard" | "amex" | "discover" | "diners" | "rupay";
+
+export type CardDetails = {
+	number: string;
+	expiry: {
+		month: number;
+		year: number;
+	};
+	cardholder: string;
+	network: CardNetwork;
+};
+
+export type CardColor = "sky" | "pink" | "red" | "cyan" | "yellow" | "blue" | "green" | "emerald" | "fuchsia" | "purple" | "violet" | "indigo" | "orange" | "teal" | "rose";
