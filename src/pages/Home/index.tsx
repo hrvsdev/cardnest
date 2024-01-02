@@ -1,17 +1,21 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
-import { Header } from "@components/Header";
+import { HeaderSearch, HeaderTitle } from "@components/Header";
 
 import { cardColorClassName } from "@utils/card.ts";
 
 import { CardColor, CardDetails } from "@t/card";
 
 export function Home() {
+	const [search, setSearch] = useState("");
+
 	return (
 		<Fragment>
-			<Header title="Home" />
+			<HeaderTitle title="Home" />
+			<HeaderSearch value={search} onChange={setSearch} />
+
 			<PageContainer className="space-y-4">
 				{cards.map((card, index) => (
 					<Card
