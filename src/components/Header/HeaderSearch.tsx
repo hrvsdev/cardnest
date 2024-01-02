@@ -37,7 +37,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 
 		window.addEventListener("scroll", onScroll, { passive: true });
 		return () => window.removeEventListener("scroll", onScroll);
-	}, [isOpaque]);
+	}, []);
 
 	return (
 		<div
