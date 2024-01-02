@@ -2,7 +2,8 @@ import { Fragment, useState } from "react";
 
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
-import { HeaderSearch, HeaderTitle } from "@components/Header";
+import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
+import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 import { cardColorClassName } from "@utils/card.ts";
 

@@ -8,14 +8,6 @@ import { c } from "@utils/styles.ts";
 
 const OFFSET = 60;
 
-type TitleProps = {
-	title: string;
-};
-
-export function HeaderTitle({ title }: TitleProps) {
-	return <h1 className="font-semibold text-heading pl-0.5 pt-8 mx-4">{title}</h1>;
-}
-
 type SearchProps = {
 	value: string;
 	onChange: (value: string) => void;

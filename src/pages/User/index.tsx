@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import { PageContainer } from "@components/Containers";
-import { HeaderTitle } from "@components/Header";
+import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 export function User() {
 	return (
