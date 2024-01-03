@@ -7,10 +7,12 @@ import App from "./App.tsx";
 
 import "./index.css";
 
+const router = createBrowserRouter([{ path: "/*", element: <App /> }]);
+
 function Root() {
 	return (
 		<StrictMode>
-			<RouterProvider router={createBrowserRouter([{ path: "/*", element: <App /> }])} />
+			<RouterProvider router={router} />
 		</StrictMode>
 	);
 }
