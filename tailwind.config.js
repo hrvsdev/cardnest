@@ -17,6 +17,7 @@ export default {
 			},
 			fontSize: {
 				heading: ["1.75rem", "2.125rem"],
+				"md": ["1.0625rem", "1.375rem"],
 				"2xs": ["0.625rem", "0.75rem"]
 			},
 			aspectRatio: {
