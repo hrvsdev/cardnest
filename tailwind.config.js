@@ -8,6 +8,8 @@ export default {
 			},
 			spacing: {
 				1.25: "0.3125rem",
+				12.5: "3.125rem",
+				13: "3.25rem",
 				"app-container": "27rem"
 			},
 			fontFamily: {
