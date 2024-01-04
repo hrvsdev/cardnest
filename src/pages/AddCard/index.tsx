@@ -17,7 +17,7 @@ export function AddCard() {
 						On our website, you can't scan cards yet but you can add them manually.
 					</p>
 				</div>
-				<button className="bg-th-sky w-full h-12.5 text-md rounded-xl mt-auto">Add Card</button>
+				<button className="bg-th-sky w-full h-12.5 text-md rounded-xl">Add Card</button>
 			</PageContainer>
 		</Fragment>
 	);
