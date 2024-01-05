@@ -22,7 +22,3 @@ export function AddCard() {
 		</Fragment>
 	);
 }
-
-//<button className="bg-th-sky w-full h-12.5 text-md rounded-xl mt-auto">
-// 					Add Card
-// 				</button>
