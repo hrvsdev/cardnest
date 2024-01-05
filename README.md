@@ -11,6 +11,7 @@ git clone https://github.com/hrvsdev/cardnest
 cd cardnest
 bun install
 ```
+
 Run dev server or build the app
 
 ```bash

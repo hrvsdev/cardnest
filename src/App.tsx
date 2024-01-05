@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { AddCard } from "pages/AddCard";
+import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
 import { User } from "@pages/User";
 

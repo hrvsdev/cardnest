@@ -10,4 +10,19 @@ export type CardDetails = {
 	network: CardNetwork;
 };
 
-export type CardColor = "sky" | "pink" | "red" | "cyan" | "yellow" | "blue" | "green" | "emerald" | "fuchsia" | "purple" | "violet" | "indigo" | "orange" | "teal" | "rose";
+export type CardColor =
+	| "sky"
+	| "pink"
+	| "red"
+	| "cyan"
+	| "yellow"
+	| "blue"
+	| "green"
+	| "emerald"
+	| "fuchsia"
+	| "purple"
+	| "violet"
+	| "indigo"
+	| "orange"
+	| "teal"
+	| "rose";

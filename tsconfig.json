@@ -20,7 +20,7 @@
 			"@components/*": ["components/*"],
 			"@utils/*": ["utils/*"],
 			"@pages/*": ["pages/*"],
-			"@t/*": ["types/*"],
+			"@t/*": ["types/*"]
 		}
 	},
 	"include": ["src"],
