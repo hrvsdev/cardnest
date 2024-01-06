@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
@@ -6,6 +7,14 @@ import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 export function AddCard() {
+	return (
+		<Routes>
+			<Route index element={<AddCardPage />} />
+		</Routes>
+	);
+}
+
+export function AddCardPage() {
 	return (
 		<Fragment>
 			<HeaderTitle title="Add Card" />

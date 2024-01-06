@@ -10,9 +10,9 @@ export default function App() {
 	return (
 		<main className="flex flex-col min-h-dvh h-full w-full">
 			<Routes>
-				<Route path="home" element={<Home />} />
-				<Route path="add" element={<AddCard />} />
-				<Route path="user" element={<User />} />
+				<Route path="home/*" element={<Home />} />
+				<Route path="add/*" element={<AddCard />} />
+				<Route path="user/*" element={<User />} />
 				<Route path="*" element={<Navigate to="home" />} />
 			</Routes>
 			<TabBar />
