@@ -42,8 +42,8 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 	return (
 		<div
 			className={c(
-				"sticky top-0 p-4 backdrop-blur-md transition-[background-color] duration-500",
-				isOpaque && "bg-th-black/80 border-b border-th-white/10"
+				"sticky top-0 p-4 backdrop-blur-md transition-all duration-500 border-b",
+				isOpaque ? "bg-th-black/80 border-th-white/10" : "border-transparent"
 			)}
 		>
 			<div className="flex items-center w-full relative">
