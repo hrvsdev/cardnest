@@ -1,7 +1,9 @@
 import { Fragment } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+
+import { AddCardEditor } from "@pages/AddCard/Editor";
 
 import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
@@ -10,6 +12,7 @@ export function AddCard() {
 	return (
 		<Routes>
 			<Route index element={<AddCardPage />} />
+			<Route path="editor" element={<AddCardEditor />} />
 		</Routes>
 	);
 }
@@ -26,7 +29,9 @@ export function AddCardPage() {
 						On our website, you can't scan cards yet but you can add them manually.
 					</p>
 				</div>
-				<button className="bg-th-sky w-full h-12.5 text-md rounded-xl">Add Card</button>
+				<Link to="editor" className="w-full">
+					<button className="bg-th-sky w-full h-12.5 text-md rounded-xl">Add Card</button>
+				</Link>
 			</PageContainer>
 		</Fragment>
 	);
