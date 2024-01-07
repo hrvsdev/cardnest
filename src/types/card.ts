@@ -10,6 +10,12 @@ export type CardDetails = {
 	network: CardNetwork;
 };
 
+export type FormattedCardDetails = {
+	number: string;
+	expiry: string;
+	cardholder: string;
+};
+
 export type CardColor =
 	| "sky"
 	| "pink"
