@@ -22,8 +22,17 @@ export function AddCardEditor() {
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
-			<PageContainer>
+			<PageContainer className="space-y-8">
 				<Card color="sky" card={CARD_DETAILS} />
+				<div>
+					<label className="block space-y-2">
+						<p className="text-th-white/80 pl-2">Card number</p>
+						<input
+							className="w-full rounded-2xl px-4 py-3 text-th-white bg-th-white/5 focus:bg-opacity-10"
+							placeholder="•••• •••• •••• ••••"
+						/>
+					</label>
+				</div>
 			</PageContainer>
 		</Fragment>
 	);
