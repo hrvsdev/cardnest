@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
@@ -19,6 +19,14 @@ const CARD_DETAILS: CardDetails = {
 };
 
 export function AddCardEditor() {
+	const [cardNumber, setCardNumber] = useState("");
+
+	const onCardInput = (e: ChangeEvent<HTMLInputElement>) => {
+		const filteredCardNumber = e.target.value.replace(/\D/g, "");
+		const formattedCardNumber = filteredCardNumber.replace(/(\d{4})/g, "$1 ").trim();
+		setCardNumber(formattedCardNumber);
+	};
+
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
@@ -28,6 +36,11 @@ export function AddCardEditor() {
 					<label className="block space-y-2">
 						<p className="text-th-white/80 pl-2">Card number</p>
 						<input
+							type="text"
+							maxLength={23}
+							inputMode="numeric"
+							value={cardNumber}
+							onChange={onCardInput}
 							className="w-full rounded-2xl px-4 py-3 text-th-white bg-th-white/5 focus:bg-opacity-10"
 							placeholder="•••• •••• •••• ••••"
 						/>
