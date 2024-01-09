@@ -41,8 +41,8 @@ export function AddCardEditor() {
 							inputMode="numeric"
 							value={cardNumber}
 							onChange={onCardInput}
-							className="w-full rounded-2xl px-4 py-3 text-th-white bg-th-white/5 focus:bg-opacity-10"
-							placeholder="•••• •••• •••• ••••"
+							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
+							placeholder="Enter card number"
 						/>
 					</label>
 				</div>
