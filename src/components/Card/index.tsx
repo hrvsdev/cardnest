@@ -39,7 +39,13 @@ export function Card({ color, card, usePlaceholders = false }: Props) {
 						<p className="tracking-widest text-2xs font-light text-th-white/80 uppercase">
 							Valid Thru
 						</p>
-						<p className="tracking-wider font-medium">{formattedCard.expiry}</p>
+						<p className="tracking-wider font-medium">
+							{formattedCard.expiry.split("").map((part, i) => (
+								<span key={i} className="inline-block text-center w-2.5">
+									{part}
+								</span>
+							))}
+						</p>
 					</div>
 					<div className="pb-1.25">
 						<CardNetwork />
