@@ -12,7 +12,6 @@ import { CardDetails, FormattedCardDetails } from "@t/card.ts";
 export type Options = {
 	usePlaceholders?: boolean;
 	maskCardNumber?: boolean;
-	useFullYear?: boolean;
 };
 
 export function useFormattedCardDetails(
@@ -22,7 +21,7 @@ export function useFormattedCardDetails(
 	const cardNumber = useMemo(() => {
 		let number = card.number;
 
-		if (options?.usePlaceholders) number = `${number}${"•".repeat(16 - number.length)}`;
+		if (options?.usePlaceholders) number = number.padEnd(16, "•");
 		if (options?.maskCardNumber) {
 			const regex = /^(\d{4})(\d*)(\d{4})$/;
 			number = number.replace(regex, (_, f, m, l) => `${f}${m.replace(/\d/g, "•")}${l}`);
@@ -32,13 +31,12 @@ export function useFormattedCardDetails(
 	}, [card.number]);
 
 	const cardExpiry = useMemo(() => {
-		let month = card.expiry.month.toString().padStart(2, "0");
-		let year = card.expiry.year.toString().slice(-2);
+		let month = card.expiry.month ? card.expiry.month.toString().padStart(2, "0") : "••";
+		let year = card.expiry.year ? card.expiry.year.toString().slice(-2) : "••";
 
-		if (options?.useFullYear) year = card.expiry.year.toString();
 		if (options?.usePlaceholders) {
-			month = "••";
-			year = options.useFullYear ? "••••" : "••";
+			month = month.padEnd(2, "•");
+			year = year.padEnd(2, "•");
 		}
 
 		return `${month}/${year}`;
