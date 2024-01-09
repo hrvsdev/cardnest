@@ -27,7 +27,13 @@ export function Card({ color, card, usePlaceholders = false }: Props) {
 						<p className="tracking-wider text-lg">{formattedCard.cardholder}</p>
 					</div>
 				</div>
-				<div className="tracking-widest text-2xl font-bold">{formattedCard.number}</div>
+				<div className="tracking-widest text-2xl font-bold">
+					{formattedCard.number.split("").map((part, i) => (
+						<span key={i} className={c("inline-block text-center", part.trim() ? "w-4" : "w-2")}>
+							{part}
+						</span>
+					))}
+				</div>
 				<div className="flex justify-between items-end">
 					<div>
 						<p className="tracking-widest text-2xs font-light text-th-white/80 uppercase">
