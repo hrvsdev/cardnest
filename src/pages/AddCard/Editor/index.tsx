@@ -8,41 +8,67 @@ import { PageContainer } from "@components/Containers";
 
 import { CardDetails } from "@t/card.ts";
 
-const CARD_DETAILS: CardDetails = {
-	cardholder: "John JM Marston",
-	expiry: {
-		month: 12,
-		year: 2029
-	},
-	network: "visa",
-	number: "1234567890123456"
-};
-
 export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
+	const [expiry, setExpiry] = useState("");
 
 	const onCardInput = (e: ChangeEvent<HTMLInputElement>) => {
-		const filteredCardNumber = e.target.value.replace(/\D/g, "");
-		const formattedCardNumber = filteredCardNumber.replace(/(\d{4})/g, "$1 ").trim();
-		setCardNumber(formattedCardNumber);
+		const filteredValue = e.target.value.replace(/\D/g, "");
+		const formattedValue = filteredValue.replace(/(\d{4})/g, "$1 ").trim();
+		setCardNumber(formattedValue);
+	};
+
+	const onExpiryInput = (e: ChangeEvent<HTMLInputElement>) => {
+		let value = e.target.value;
+		let filteredValue = value.replace(/\D/g, "");
+
+		if (expiry.endsWith("/") && value.length === 2) {
+			filteredValue = value;
+		} else if (filteredValue.length >= 2) {
+			filteredValue = `${filteredValue.slice(0, 2)}/${filteredValue.slice(2)}`;
+		}
+
+		setExpiry(filteredValue);
+	};
+
+	const CARD_DETAILS: CardDetails = {
+		cardholder: "John JM Marston",
+		expiry: {
+			month: Number(expiry.slice(0, 2)),
+			year: Number(expiry.slice(3) ? `20${expiry.slice(3)}` : "")
+		},
+		network: "visa",
+		number: cardNumber.replace(/\s/g, "")
 	};
 
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
-			<PageContainer className="space-y-8">
-				<Card color="sky" card={CARD_DETAILS} />
-				<div>
+			<PageContainer>
+				<Card color="sky" card={CARD_DETAILS} usePlaceholders />
+				<div className="space-y-6 mt-8">
 					<label className="block space-y-2">
 						<p className="text-th-white/80 pl-2">Card number</p>
 						<input
 							type="text"
-							maxLength={23}
+							maxLength={19}
 							inputMode="numeric"
 							value={cardNumber}
 							onChange={onCardInput}
 							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
 							placeholder="Enter card number"
+						/>
+					</label>
+					<label className="block space-y-2">
+						<p className="text-th-white/80 pl-2">Expiry date</p>
+						<input
+							type="text"
+							maxLength={5}
+							inputMode="numeric"
+							value={expiry}
+							onChange={onExpiryInput}
+							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
+							placeholder="Enter card expiry date"
 						/>
 					</label>
 				</div>
