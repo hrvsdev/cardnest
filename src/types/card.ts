@@ -1,4 +1,5 @@
 export type CardNetwork = "visa" | "mastercard" | "amex" | "discover" | "diners" | "rupay";
+export type CardElement = "number" | "expiry" | "cardholder";
 
 export type CardDetails = {
 	number: string;
