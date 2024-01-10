@@ -31,8 +31,7 @@ export function useFormattedCardDetails(
 	}, [card.number]);
 
 	const cardExpiry = useMemo(() => {
-		let month = card.expiry.month ? card.expiry.month.toString().padStart(2, "0") : "••";
-		let year = card.expiry.year ? card.expiry.year.toString().slice(-2) : "••";
+		let [month, year] = card.expiry.includes("/") ? card.expiry.split("/") : [card.expiry, ""];
 
 		if (options?.usePlaceholders) {
 			month = month.padEnd(2, "•");
