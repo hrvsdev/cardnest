@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute } from "react";
 
 import { Show } from "@components/Show";
 
@@ -14,6 +14,7 @@ type Props = {
 	placeholder?: string;
 	maxLength?: number;
 	minLength?: number;
+	inputMode?: HTMLAttributes<HTMLInputElement>["inputMode"];
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 	onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
@@ -34,6 +35,7 @@ export function Input(props: Props) {
 				id={props.id}
 				minLength={props.minLength}
 				maxLength={props.maxLength}
+				inputMode={props.inputMode}
 				value={props.value}
 				defaultValue={props.defaultValue}
 				onChange={props.onChange}
