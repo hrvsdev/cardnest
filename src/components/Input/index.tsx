@@ -26,7 +26,7 @@ export function Input(props: Props) {
 		<div className="space-y-2">
 			<Show when={props.label}>
 				<label className="text-th-white/80 pl-2" htmlFor={props.id}>
-					Cardholder
+					{props.label}
 				</label>
 			</Show>
 			<input
