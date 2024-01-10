@@ -11,6 +11,7 @@ import { CardDetails } from "@t/card.ts";
 export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
+	const [cardholder, setCardholder] = useState("");
 
 	const onCardInput = (e: ChangeEvent<HTMLInputElement>) => {
 		const filteredValue = e.target.value.replace(/\D/g, "");
@@ -31,8 +32,13 @@ export function AddCardEditor() {
 		setExpiry(filteredValue);
 	};
 
+	const onCardholderInput = (e: ChangeEvent<HTMLInputElement>) => {
+		const filteredValue = e.target.value.replace(/[^a-zA-Z\s.'-]/g, "");
+		setCardholder(filteredValue);
+	};
+
 	const CARD_DETAILS: CardDetails = {
-		cardholder: "John JM Marston",
+		cardholder: cardholder.trim(),
 		expiry: expiry,
 		network: "visa",
 		number: cardNumber.replace(/\s/g, "")
@@ -66,6 +72,17 @@ export function AddCardEditor() {
 							onChange={onExpiryInput}
 							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
 							placeholder="Enter card expiry date"
+						/>
+					</label>
+					<label className="block space-y-2">
+						<p className="text-th-white/80 pl-2">Cardholder</p>
+						<input
+							type="text"
+							maxLength={30}
+							value={cardholder}
+							onChange={onCardholderInput}
+							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
+							placeholder="Enter cardholder name"
 						/>
 					</label>
 				</div>
