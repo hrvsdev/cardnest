@@ -2,10 +2,7 @@ export type CardNetwork = "visa" | "mastercard" | "amex" | "discover" | "diners"
 
 export type CardDetails = {
 	number: string;
-	expiry: {
-		month: number;
-		year: number;
-	};
+	expiry: string;
 	cardholder: string;
 	network: CardNetwork;
 };

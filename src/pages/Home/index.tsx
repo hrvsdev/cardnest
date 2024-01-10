@@ -33,55 +33,37 @@ export function Home() {
 const cards: CardDetails[] = [
 	{
 		number: "4641060453063779",
-		expiry: {
-			month: 10,
-			year: 2028
-		},
+		expiry: "10/28",
 		cardholder: "John Marston",
 		network: "visa"
 	},
 	{
 		number: "6521507140259291",
-		expiry: {
-			month: 12,
-			year: 2028
-		},
+		expiry: "12/28",
 		cardholder: "Sadie Adler",
 		network: "rupay"
 	},
 	{
 		number: "5358542601766168",
-		expiry: {
-			month: 5,
-			year: 2026
-		},
+		expiry: "05/26",
 		cardholder: "Abigail Roberts",
 		network: "mastercard"
 	},
 	{
 		number: "6011000990139424",
-		expiry: {
-			month: 12,
-			year: 2025
-		},
+		expiry: "12/25",
 		cardholder: "Arthur Morgan",
 		network: "discover"
 	},
 	{
 		number: "3056930902590491",
-		expiry: {
-			month: 2,
-			year: 2027
-		},
+		expiry: "02/27",
 		cardholder: "Karen Jones",
 		network: "diners"
 	},
 	{
 		number: "3714496353984317",
-		expiry: {
-			month: 6,
-			year: 2029
-		},
+		expiry: "06/29",
 		cardholder: "Jack Marston",
 		network: "amex"
 	}
