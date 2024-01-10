@@ -5,6 +5,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
+import { Input } from "@components/Input";
 
 import { CardDetails, CardElement } from "@t/card.ts";
 
@@ -52,56 +53,41 @@ export function AddCardEditor() {
 			<PageContainer>
 				<Card color="sky" card={CARD_DETAILS} usePlaceholders focused={focused} />
 				<div className="space-y-6 mt-8">
-					<div className="space-y-2">
-						<label className="text-th-white/80 pl-2" htmlFor="number">
-							Card network
-						</label>
-						<input
-							type="text"
-							id="number"
-							maxLength={19}
-							inputMode="numeric"
-							value={cardNumber}
-							onChange={onCardInput}
-							onFocus={() => setFocused("number")}
-							onBlur={() => setFocused(undefined)}
-							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
-							placeholder="Enter card number"
-						/>
-					</div>
-					<div className="space-y-2">
-						<label className="text-th-white/80 pl-2" htmlFor="expiry">
-							Expiry date
-						</label>
-						<input
-							type="text"
-							id="expiry"
-							maxLength={5}
-							inputMode="numeric"
-							value={expiry}
-							onChange={onExpiryInput}
-							onFocus={() => setFocused("expiry")}
-							onBlur={() => setFocused(undefined)}
-							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
-							placeholder="Enter card expiry date"
-						/>
-					</div>
-					<div className="space-y-2">
-						<label className="text-th-white/80 pl-2" htmlFor="cardholder">
-							Cardholder
-						</label>
-						<input
-							type="text"
-							id="cardholder"
-							maxLength={30}
-							value={cardholder}
-							onChange={onCardholderInput}
-							onFocus={() => setFocused("cardholder")}
-							onBlur={() => setFocused(undefined)}
-							className="w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10"
-							placeholder="Enter cardholder name"
-						/>
-					</div>
+					<Input
+						label="Card number"
+						type="text"
+						id="number"
+						maxLength={19}
+						inputMode="numeric"
+						placeholder="Enter card number"
+						value={cardNumber}
+						onChange={onCardInput}
+						onFocus={() => setFocused("number")}
+						onBlur={() => setFocused(undefined)}
+					/>
+					<Input
+						label="Expiry date"
+						type="text"
+						id="expiry"
+						maxLength={5}
+						inputMode="numeric"
+						placeholder="Enter card expiry date"
+						value={expiry}
+						onChange={onExpiryInput}
+						onFocus={() => setFocused("expiry")}
+						onBlur={() => setFocused(undefined)}
+					/>
+					<Input
+						label="Cardholder"
+						type="text"
+						id="cardholder"
+						maxLength={30}
+						placeholder="Enter cardholder name"
+						value={cardholder}
+						onChange={onCardholderInput}
+						onFocus={() => setFocused("cardholder")}
+						onBlur={() => setFocused(undefined)}
+					/>
 				</div>
 			</PageContainer>
 		</Fragment>
