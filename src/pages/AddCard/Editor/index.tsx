@@ -33,10 +33,7 @@ export function AddCardEditor() {
 
 	const CARD_DETAILS: CardDetails = {
 		cardholder: "John JM Marston",
-		expiry: {
-			month: Number(expiry.slice(0, 2)),
-			year: Number(expiry.slice(3) ? `20${expiry.slice(3)}` : "")
-		},
+		expiry: expiry,
 		network: "visa",
 		number: cardNumber.replace(/\s/g, "")
 	};
