@@ -42,8 +42,11 @@ export function useFormattedCardDetails(
 	}, [card.expiry]);
 
 	const cardholderName = useMemo(() => {
-		if (options?.usePlaceholders) return "Your Name";
-		return card.cardholder;
+		let name = card.cardholder;
+
+		if (!name.trim() && options?.usePlaceholders) name = "Your Name";
+
+		return name;
 	}, [card.cardholder]);
 
 	return {
