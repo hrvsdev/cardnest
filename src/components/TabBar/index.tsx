@@ -8,17 +8,17 @@ const tabs = [
 	{
 		icon: HomeIcon,
 		label: "Home",
-		path: "home"
+		path: "/home"
 	},
 	{
 		icon: CreditCardIcon,
 		label: "Add Card",
-		path: "add"
+		path: "/add"
 	},
 	{
 		icon: UserCircleIcon,
 		label: "You",
-		path: "user"
+		path: "/user"
 	}
 ];
 
