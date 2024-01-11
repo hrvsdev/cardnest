@@ -4,6 +4,7 @@ import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
+import { TabBar } from "@components/TabBar";
 
 import { cardColorClassName } from "@utils/card.ts";
 
@@ -26,6 +27,8 @@ export function Home() {
 					/>
 				))}
 			</PageContainer>
+
+			<TabBar />
 		</Fragment>
 	);
 }
