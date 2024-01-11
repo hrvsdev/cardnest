@@ -1,12 +1,9 @@
-export function Amex({ widthInRem = 4.5 }: { widthInRem?: number }) {
+export function Amex({ width = "4.5rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 34.19;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="0.0009 15.762 47.9011 16.378"
 			xmlns="http://www.w3.org/2000/svg"
 			overflow="visible"

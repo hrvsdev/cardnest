@@ -1,12 +1,9 @@
-export function Diners({ widthInRem = 2.125 }: { widthInRem?: number }) {
+export function Diners({ width = "2.125rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 86.44;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="0 1.627 24 20.7461"
 			xmlns="http://www.w3.org/2000/svg"
 			overflow="visible"

@@ -1,12 +1,9 @@
-export function Rupay({ widthInRem = 5.25 }: { widthInRem?: number }) {
+export function Rupay({ width = "5.25rem" }: { width?: number | string}) {
 	const aspectRatio = 100 / 25.81;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="2.0793 12.5612 27.6673 7.1436"
 			xmlns="http://www.w3.org/2000/svg"
 			overflow="visible"

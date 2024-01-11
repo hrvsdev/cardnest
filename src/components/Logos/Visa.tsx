@@ -1,12 +1,9 @@
-export function Visa({ widthInRem = 3.5 }: { widthInRem?: number }) {
+export function Visa({ width = "3.5rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 32.3;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="0 8.124 24 7.752"
 			overflow="visible"
 			xmlns="http://www.w3.org/2000/svg"

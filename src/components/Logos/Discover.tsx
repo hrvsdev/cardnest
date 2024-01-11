@@ -1,12 +1,9 @@
-export function Discover({ widthInRem = 5.25 }: { widthInRem?: number }) {
+export function Discover({ width = "5.25rem" }: { width?: number | string}) {
 	const aspectRatio = 100 / 17.42;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="61.445 189.779 391.036 68.139"
 			xmlns="http://www.w3.org/2000/svg"
 			overflow="visible"

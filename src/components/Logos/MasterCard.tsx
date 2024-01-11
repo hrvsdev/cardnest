@@ -1,12 +1,9 @@
-export function MasterCard({ widthInRem = 2.5 }: { widthInRem?: number }) {
+export function MasterCard({ width = "2.5rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 62.5;
-
-	const width = `${widthInRem}rem`;
-	const height = `${widthInRem / aspectRatio}rem`;
 
 	return (
 		<svg
-			style={{ width, height }}
+			style={{ width, aspectRatio }}
 			viewBox="0 0 32 20"
 			xmlns="http://www.w3.org/2000/svg"
 			overflow="visible"
