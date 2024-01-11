@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
+import { CardNetworkSelect } from "@pages/AddCard/Editor/CardNetwork.tsx";
+
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
 import { Input } from "@components/Input";
 
-import { CardDetails, CardElement } from "@t/card.ts";
+import { CardDetails, CardElement, CardNetwork } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cardholder, setCardholder] = useState("");
-
-	const [focused, setFocused] = useState<CardElement>();
+	const [network, setNetwork] = useState<CardNetwork>("other");
+	const [focused, setFocused] = useState<CardElement | undefined>(undefined);
 
 	const onCardInput = (e: ChangeEvent<HTMLInputElement>) => {
 		const filteredValue = e.target.value.replace(/\D/g, "");
@@ -43,7 +45,7 @@ export function AddCardEditor() {
 	const CARD_DETAILS: CardDetails = {
 		cardholder: cardholder.trim(),
 		expiry: expiry,
-		network: "visa",
+		network: network ?? "",
 		number: cardNumber.replace(/\s/g, "")
 	};
 
@@ -88,6 +90,8 @@ export function AddCardEditor() {
 						onFocus={() => setFocused("cardholder")}
 						onBlur={() => setFocused(undefined)}
 					/>
+
+					<CardNetworkSelect selected={network} setSelected={setNetwork} />
 				</div>
 			</PageContainer>
 		</Fragment>
