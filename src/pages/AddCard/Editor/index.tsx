@@ -5,6 +5,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 import { CardNetworkSelect } from "@pages/AddCard/Editor/CardNetwork.tsx";
 
+import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
 import { Input } from "@components/Input";
@@ -54,13 +55,13 @@ export function AddCardEditor() {
 	};
 
 	useEffect(() => {
-		if (cardNumber.length <= 6) return setNetwork("other");
-
 		const firstSixDigits = removeSpaces(cardNumber).slice(0, 6);
 
 		if (previousCardNumber.current === firstSixDigits) return;
 
 		previousCardNumber.current = firstSixDigits;
+
+		if (cardNumber.length <= 6) return setNetwork("other");
 
 		fetch(`https://data.handyapi.com/bin/${firstSixDigits}`).then((res) => {
 			if (!res.ok) setNetwork("other");
@@ -73,9 +74,9 @@ export function AddCardEditor() {
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
-			<PageContainer>
+			<PageContainer className="relative space-y-8">
 				<Card color="sky" card={card} usePlaceholders focused={focused} />
-				<div className="space-y-6 mt-8">
+				<div className="space-y-6">
 					<Input
 						label="Card number"
 						type="text"
@@ -114,6 +115,7 @@ export function AddCardEditor() {
 
 					<CardNetworkSelect selected={network} setSelected={setNetwork} />
 				</div>
+				<Button label="Save" />
 			</PageContainer>
 		</Fragment>
 	);
@@ -123,10 +125,11 @@ function SubPageHeader({ title }: { title: string }) {
 	return (
 		<div className="sticky top-0">
 			<div className="flex items-center justify-center relative w-full h-12">
-				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4">
+				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky">
 					<ChevronLeftIcon strokeWidth={2.5} className="size-4" />
+					<span className="text-sm">Back</span>
 				</Link>
-				<h1>{title}</h1>
+				<div>{title}</div>
 			</div>
 		</div>
 	);
