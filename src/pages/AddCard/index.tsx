@@ -5,6 +5,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 import { AddCardEditor } from "@pages/AddCard/Editor";
 
+import { Button } from "@components/Button";
 import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { TabBar } from "@components/TabBar";
@@ -31,10 +32,9 @@ export function AddCardPage() {
 					</p>
 				</div>
 				<Link to="editor" className="w-full">
-					<button className="bg-th-sky w-full h-12.5 text-md rounded-xl">Add Card</button>
+					<Button label="Add Card" />
 				</Link>
 			</PageContainer>
-
 			<TabBar />
 		</Fragment>
 	);
