@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
@@ -9,6 +9,8 @@ import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
 import { Input } from "@components/Input";
 
+import { removeSpaces } from "@utils/card.ts";
+
 import { CardDetails, CardElement, CardNetwork } from "@t/card.ts";
 
 export function AddCardEditor() {
@@ -17,6 +19,8 @@ export function AddCardEditor() {
 	const [cardholder, setCardholder] = useState("");
 	const [network, setNetwork] = useState<CardNetwork>("other");
 	const [focused, setFocused] = useState<CardElement | undefined>(undefined);
+
+	const previousCardNumber = useRef("");
 
 	const onCardInput = (e: ChangeEvent<HTMLInputElement>) => {
 		const filteredValue = e.target.value.replace(/\D/g, "");
@@ -42,18 +46,28 @@ export function AddCardEditor() {
 		setCardholder(filteredValue);
 	};
 
-	const CARD_DETAILS: CardDetails = {
+	const card: CardDetails = {
 		cardholder: cardholder.trim(),
 		expiry: expiry,
-		network: network ?? "",
-		number: cardNumber.replace(/\s/g, "")
+		network: network,
+		number: removeSpaces(cardNumber)
 	};
+
+	useEffect(() => {
+		if (cardNumber.length >= 7) {
+			const firstSixDigits = removeSpaces(cardNumber).slice(0, 6);
+			fetch(`https://api.freebinchecker.com/bin/${firstSixDigits}`).then((res) => {
+				if (!res.ok) setNetwork("other");
+				res.json().then((data: { scheme: CardNetwork }) => setNetwork(data.scheme));
+			});
+		}
+	}, [cardNumber]);
 
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
 			<PageContainer>
-				<Card color="sky" card={CARD_DETAILS} usePlaceholders focused={focused} />
+				<Card color="sky" card={card} usePlaceholders focused={focused} />
 				<div className="space-y-6 mt-8">
 					<Input
 						label="Card number"
