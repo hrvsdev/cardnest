@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { IconCircleX, IconSearch } from "@tabler/icons-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+import { backgroundRange, borderOpacityRange } from "@components/Header/shared";
 import { Show } from "@components/Show";
 
 import { c } from "@utils/styles.ts";
@@ -15,15 +16,7 @@ type SearchProps = {
 const TOP_OFFSET = 66;
 const BOTTOM_OFFSET = 82;
 
-const BORDER_INITIAL_OPACITY = 0;
-const BORDER_FINAL_OPACITY = 0.1;
-
-const BACKGROUND_INITIAL_COLOR = "#00060C00";
-const BACKGROUND_FINAL_COLOR = "#00060CCC";
-
 const inputRange = [TOP_OFFSET, BOTTOM_OFFSET];
-const borderOpacityRange = [BORDER_INITIAL_OPACITY, BORDER_FINAL_OPACITY];
-const backgroundRange = [BACKGROUND_INITIAL_COLOR, BACKGROUND_FINAL_COLOR];
 
 export function HeaderSearch({ value, onChange }: SearchProps) {
 	const { scrollY } = useScroll();
