@@ -1,20 +1,35 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { IconCircleX, IconSearch } from "@tabler/icons-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import { Show } from "@components/Show";
 
 import { c } from "@utils/styles.ts";
-
-const OFFSET = 60;
 
 type SearchProps = {
 	value: string;
 	onChange: (value: string) => void;
 };
 
+const TOP_OFFSET = 66;
+const BOTTOM_OFFSET = 82;
+
+const BORDER_INITIAL_OPACITY = 0;
+const BORDER_FINAL_OPACITY = 0.1;
+
+const BACKGROUND_INITIAL_COLOR = "#00060C00";
+const BACKGROUND_FINAL_COLOR = "#00060CCC";
+
+const inputRange = [TOP_OFFSET, BOTTOM_OFFSET];
+const borderOpacityRange = [BORDER_INITIAL_OPACITY, BORDER_FINAL_OPACITY];
+const backgroundRange = [BACKGROUND_INITIAL_COLOR, BACKGROUND_FINAL_COLOR];
+
 export function HeaderSearch({ value, onChange }: SearchProps) {
-	const [isOpaque, setIsOpaque] = useState(false);
+	const { scrollY } = useScroll();
+
+	const borderOpacity = useTransform(scrollY, inputRange, borderOpacityRange);
+	const background = useTransform(scrollY, inputRange, backgroundRange);
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	const showClearIcon = value.trim().length > 0;
@@ -24,35 +39,15 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 		inputRef.current?.focus();
 	};
 
-	const onScroll = () => {
-		if (!isOpaque && window.scrollY > OFFSET) {
-			setIsOpaque(true);
-		} else if (isOpaque && window.scrollY <= OFFSET) {
-			setIsOpaque(false);
-		}
-	};
-
-	useEffect(() => {
-		onScroll();
-
-		window.addEventListener("scroll", onScroll, { passive: true });
-		return () => window.removeEventListener("scroll", onScroll);
-	}, [isOpaque]);
-
 	return (
-		<div
-			className={c(
-				"sticky top-0 p-4 backdrop-blur-md transition-all duration-500 border-b",
-				isOpaque ? "bg-th-black/80 border-th-white/10" : "border-transparent"
-			)}
-		>
-			<div className="flex items-center w-full relative">
-				<IconSearch size={24} className="absolute text-th-white left-3 opacity-60" />
+		<motion.div style={{ background }} className="sticky top-0 backdrop-blur-md">
+			<div className="flex items-center w-full relative p-4">
+				<IconSearch size={24} className="absolute text-th-white left-7 opacity-60" />
 				<Show when={showClearIcon}>
 					<IconCircleX
 						size={24}
 						onClick={onClear}
-						className="absolute text-th-white right-3 opacity-60 peer"
+						className="absolute text-th-white right-7 opacity-60 peer"
 					/>
 				</Show>
 				<input
@@ -68,6 +63,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 					)}
 				/>
 			</div>
-		</div>
+			<motion.div style={{ height: 1, opacity: borderOpacity }} className="bg-th-white" />
+		</motion.div>
 	);
 }
