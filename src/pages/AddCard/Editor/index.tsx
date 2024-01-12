@@ -8,15 +8,17 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
 
-import { removeSpaces } from "@utils/card.ts";
+import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardDetails, CardElement, CardNetwork } from "@t/card.ts";
+import { CardColor, CardDetails, CardElement, CardNetwork } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cardholder, setCardholder] = useState("");
 	const [network, setNetwork] = useState<CardNetwork>("other");
+	const [theme, setTheme] = useState<CardColor>(getRandomCardTheme());
+
 	const [focused, setFocused] = useState<CardElement | undefined>(undefined);
 
 	const previousCardNumber = useRef("");
@@ -73,7 +75,7 @@ export function AddCardEditor() {
 		<Fragment>
 			<SubPageHeader title="New Card" />
 			<PageContainer className="relative space-y-8">
-				<Card color="sky" card={card} usePlaceholders focused={focused} />
+				<Card color={theme} card={card} usePlaceholders focused={focused} />
 				<div className="space-y-6">
 					<Input
 						label="Card number"
