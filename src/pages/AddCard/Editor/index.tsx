@@ -2,6 +2,7 @@ import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import { CardNetworkSelect } from "@pages/AddCard/Editor/CardNetwork.tsx";
 
@@ -122,8 +123,15 @@ export function AddCardEditor() {
 }
 
 function SubPageHeader({ title }: { title: string }) {
+	const { scrollY } = useScroll();
+
+	const input = [0, 10];
+
+	const borderOpacity = useTransform(scrollY, input, [0, 0.1]);
+	const background = useTransform(scrollY, input, ["#00060C00", "#00060CCC"]);
+
 	return (
-		<div className="sticky top-0">
+		<motion.div style={{ background }} className="sticky top-0 z-10 backdrop-blur-md">
 			<div className="flex items-center justify-center relative w-full h-12">
 				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky">
 					<ChevronLeftIcon strokeWidth={2.5} className="size-4" />
@@ -131,6 +139,7 @@ function SubPageHeader({ title }: { title: string }) {
 				</Link>
 				<div>{title}</div>
 			</div>
-		</div>
+			<motion.div style={{ height: 1, opacity: borderOpacity }} className="bg-th-white" />
+		</motion.div>
 	);
 }
