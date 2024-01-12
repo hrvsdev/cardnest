@@ -122,13 +122,24 @@ export function AddCardEditor() {
 	);
 }
 
+const HEADER_TOP_OFFSET = 0;
+const HEADER_BOTTOM_OFFSET = 16;
+
+const BORDER_INITIAL_OPACITY = 0;
+const BORDER_FINAL_OPACITY = 0.1;
+
+const BACKGROUND_INITIAL_COLOR = "#00060C00";
+const BACKGROUND_FINAL_COLOR = "#00060CCC";
+
+const inputRange = [HEADER_TOP_OFFSET, HEADER_BOTTOM_OFFSET];
+const borderOpacityRange = [BORDER_INITIAL_OPACITY, BORDER_FINAL_OPACITY];
+const backgroundRange = [BACKGROUND_INITIAL_COLOR, BACKGROUND_FINAL_COLOR];
+
 function SubPageHeader({ title }: { title: string }) {
 	const { scrollY } = useScroll();
 
-	const input = [0, 10];
-
-	const borderOpacity = useTransform(scrollY, input, [0, 0.1]);
-	const background = useTransform(scrollY, input, ["#00060C00", "#00060CCC"]);
+	const borderOpacity = useTransform(scrollY, inputRange, borderOpacityRange);
+	const background = useTransform(scrollY, inputRange, backgroundRange);
 
 	return (
 		<motion.div style={{ background }} className="sticky top-0 z-10 backdrop-blur-md">
