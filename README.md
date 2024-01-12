@@ -9,12 +9,12 @@ Clone the repo and install dependencies
 ```bash
 git clone https://github.com/hrvsdev/cardnest
 cd cardnest
-bun install
+npm/yarn/pnpm/bun install
 ```
 
 Run dev server or build the app
 
 ```bash
-bun run dev
-bun run build
+npm/yarn/pnpm/bun run dev
+npm/yarn/pnpm/bun run build
 ```
