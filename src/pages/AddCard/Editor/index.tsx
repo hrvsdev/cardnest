@@ -1,6 +1,7 @@
 import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 
 import { CardNetworkSelect } from "@pages/AddCard/Editor/CardNetwork.tsx";
+import { CardThemeSelect } from "@pages/AddCard/Editor/CardThemeSelect.tsx";
 
 import { Button } from "@components/Button";
 import { Card } from "@components/Card";
@@ -114,6 +115,7 @@ export function AddCardEditor() {
 					/>
 
 					<CardNetworkSelect selected={network} setSelected={setNetwork} />
+					<CardThemeSelect theme={theme} setTheme={setTheme} />
 				</div>
 				<Button label="Save" />
 			</PageContainer>
