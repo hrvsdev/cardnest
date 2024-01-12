@@ -18,4 +18,9 @@ export const cardColorClassName: Record<CardColor, string> = {
 	rose: "from-rose-500 to-rose-700"
 };
 
+export const getRandomCardTheme = () => {
+	const colors = Object.keys(cardColorClassName);
+	return colors[Math.floor(Math.random() * colors.length)] as CardColor;
+};
+
 export const removeSpaces = (str: string) => str.replace(/\s/g, "");
