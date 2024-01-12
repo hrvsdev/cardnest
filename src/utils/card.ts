@@ -17,3 +17,5 @@ export const cardColorClassName: Record<CardColor, string> = {
 	teal: "from-teal-500 to-teal-700",
 	rose: "from-rose-500 to-rose-700"
 };
+
+export const removeSpaces = (str: string) => str.replace(/\s/g, "");
