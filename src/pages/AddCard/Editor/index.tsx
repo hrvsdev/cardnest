@@ -54,13 +54,20 @@ export function AddCardEditor() {
 	};
 
 	useEffect(() => {
-		if (cardNumber.length >= 7) {
-			const firstSixDigits = removeSpaces(cardNumber).slice(0, 6);
-			fetch(`https://api.freebinchecker.com/bin/${firstSixDigits}`).then((res) => {
-				if (!res.ok) setNetwork("other");
-				res.json().then((data: { scheme: CardNetwork }) => setNetwork(data.scheme));
+		if (cardNumber.length <= 6) return setNetwork("other");
+
+		const firstSixDigits = removeSpaces(cardNumber).slice(0, 6);
+
+		if (previousCardNumber.current === firstSixDigits) return;
+
+		previousCardNumber.current = firstSixDigits;
+
+		fetch(`https://data.handyapi.com/bin/${firstSixDigits}`).then((res) => {
+			if (!res.ok) setNetwork("other");
+			res.json().then((data: { Scheme: string }) => {
+				setNetwork(data.Scheme.toLowerCase() as CardNetwork);
 			});
-		}
+		});
 	}, [cardNumber]);
 
 	return (
