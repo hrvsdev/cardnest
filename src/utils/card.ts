@@ -18,6 +18,8 @@ export const cardColorClassName: Record<CardColor, string> = {
 	rose: "from-rose-500 to-rose-700"
 };
 
+export const cardColors: CardColor[] = Object.keys(cardColorClassName) as CardColor[];
+
 export const getRandomCardTheme = () => {
 	const colors = Object.keys(cardColorClassName);
 	return colors[Math.floor(Math.random() * colors.length)] as CardColor;
