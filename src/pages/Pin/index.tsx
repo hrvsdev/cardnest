@@ -16,6 +16,8 @@ export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 
+	const isDisabled = pin.length === PIN_LENGTH_ARR.length || isPinIncorrect;
+
 	const onPinChange = (num: number) => {
 		console.log(num);
 		if (pin.length < PIN_LENGTH_ARR.length) {
@@ -74,22 +76,36 @@ export function Pin() {
 			<div className="flex flex-col items-center justify-center flex-1">
 				<div className="grid grid-cols-3 items-center justify-center gap-5">
 					{KEYPAD_NUMBERS.map((n) => (
-						<PinKeyboardButton key={n} label={n} onClick={() => onPinChange(n)} />
+						<KeypadButton key={n} label={n} onClick={() => onPinChange(n)} disabled={isDisabled} />
 					))}
 					<button />
-					<PinKeyboardButton label={0} onClick={() => onPinChange(0)} />
-					<PinKeyboardButton label={<BackspaceIcon className="w-8" />} onClick={backspace} />
+					<KeypadButton label={0} onClick={() => onPinChange(0)} disabled={isDisabled} />
+					<KeypadButton
+						label={<BackspaceIcon className="w-8" />}
+						onClick={backspace}
+						disabled={isDisabled}
+					/>
 				</div>
 			</div>
 		</div>
 	);
 }
 
-function PinKeyboardButton({ label, onClick }: { label: ReactNode; onClick: () => void }) {
+type KeypadButtonProps = {
+	label: ReactNode;
+	onClick: () => void;
+	disabled?: boolean;
+};
+
+function KeypadButton({ label, onClick, disabled }: KeypadButtonProps) {
 	return (
 		<button
-			className="flex items-center justify-center w-18 aspect-square border border-th-white/20 bg-th-white/5 hover:bg-th-white/10 active:scale-95 transition duration-150 rounded-full font-card text-3xl text-th-white"
+			disabled={disabled}
 			onClick={onClick}
+			className={c(
+				"flex items-center justify-center w-18 aspect-square border border-th-white/20 bg-th-white/5 transition duration-150 rounded-full font-card text-3xl text-th-white",
+				disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-th-white/10 active:scale-95"
+			)}
 		>
 			{label}
 		</button>
