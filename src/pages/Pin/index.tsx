@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 
@@ -16,13 +16,17 @@ export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
 	const isDisabled = pin.length === PIN_LENGTH_ARR.length || isPinIncorrect;
 
 	const onPinChange = (num: number) => {
-		console.log(num);
-		if (pin.length < PIN_LENGTH_ARR.length) {
-			setPin([...pin, num]);
-		}
+		if (pin.length === PIN_LENGTH_ARR.length) return;
+
+		const newPin = [...pin, num];
+
+		setPin(newPin);
+		checkPin(newPin.join(""));
 	};
 
 	const backspace = () => {
@@ -31,25 +35,24 @@ export function Pin() {
 		}
 	};
 
-	useEffect(() => {
-		const enteredPin = pin.join("");
-		if (enteredPin.length === PIN_LENGTH_ARR.length) {
-			if (enteredPin === ACTUAL_PIN) {
-				console.log("PIN correct!");
-			} else {
-				setIsPinIncorrect(true);
-			}
-		}
-	}, [pin]);
-
-	useEffect(() => {
-		if (isPinIncorrect) {
-			setTimeout(() => {
+	const checkPin = (pin: string) => {
+		if (pin.length !== PIN_LENGTH_ARR.length) return;
+		if (pin === ACTUAL_PIN) {
+			console.log("PIN correct!");
+		} else {
+			setIsPinIncorrect(true);
+			timeoutRef.current = setTimeout(() => {
 				setPin([]);
 				setIsPinIncorrect(false);
 			}, 1000);
 		}
-	}, [isPinIncorrect]);
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-center items-center py-16 grow">
