@@ -1,4 +1,4 @@
-import { useCardNetworkLogo, useFormattedCardDetails } from "@hooks/useCard.ts";
+import { useCardNetworkLogo, useFormattedCardDetails } from "@hooks/card.ts";
 import { cardColorClassName } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
