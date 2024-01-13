@@ -14,10 +14,12 @@
 		user-select: none;
 
 		font-family: "Lato", sans-serif;
+
+		@apply bg-th-black;
 	}
 
 	body {
-		@apply w-screen text-th-white bg-gradient-to-tr from-th-darker-blue to-th-black bg-no-repeat bg-fixed;
+		@apply overscroll-y-none w-screen text-th-white bg-gradient-to-tr from-th-darker-blue to-th-black bg-no-repeat bg-fixed;
 	}
 
 	#root {
