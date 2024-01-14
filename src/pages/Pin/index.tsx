@@ -4,6 +4,7 @@ import { BackspaceIcon } from "@heroicons/react/24/outline";
 
 import styles from "./styles.module.css";
 
+import { UseSetIsAuthenticated } from "@hooks/auth.ts";
 import { c } from "@utils/styles.ts";
 
 const PIN_LENGTH_ARR = [1, 2, 3, 4, 5, 6];
@@ -16,9 +17,11 @@ export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const setIsAuthenticated = UseSetIsAuthenticated();
 
 	const isDisabled = pin.length === PIN_LENGTH_ARR.length || isPinIncorrect;
+
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const onPinChange = (num: number) => {
 		if (pin.length === PIN_LENGTH_ARR.length) return;
@@ -38,7 +41,7 @@ export function Pin() {
 	const checkPin = (pin: string) => {
 		if (pin.length !== PIN_LENGTH_ARR.length) return;
 		if (pin === ACTUAL_PIN) {
-			console.log("PIN correct!");
+			setIsAuthenticated(true);
 		} else {
 			setIsPinIncorrect(true);
 			timeoutRef.current = setTimeout(() => {
