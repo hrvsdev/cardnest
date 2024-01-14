@@ -1,4 +1,5 @@
 import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { CardNetworkSelect } from "@pages/AddCard/Editor/CardNetwork.tsx";
 import { CardThemeSelect } from "@pages/AddCard/Editor/CardThemeSelect.tsx";
@@ -9,11 +10,15 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
 
+import { useSetCards } from "@hooks/cards.ts";
 import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardTheme, CardDetails, CardElement, CardNetwork } from "@t/card.ts";
+import { CardDetails, CardElement, CardNetwork, CardTheme } from "@t/card.ts";
 
 export function AddCardEditor() {
+	const navigate = useNavigate();
+	const setCards = useSetCards();
+
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cardholder, setCardholder] = useState("");
@@ -48,11 +53,9 @@ export function AddCardEditor() {
 		setCardholder(filteredValue);
 	};
 
-	const card: CardDetails = {
-		cardholder: cardholder.trim(),
-		expiry: expiry,
-		network: network,
-		number: removeSpaces(cardNumber)
+	const saveCard = () => {
+		setCards((cards) => [...cards, { ...card, theme: theme }]);
+		navigate("/");
 	};
 
 	useEffect(() => {
@@ -71,6 +74,13 @@ export function AddCardEditor() {
 			});
 		});
 	}, [cardNumber]);
+
+	const card: CardDetails = {
+		cardholder: cardholder.trim(),
+		expiry: expiry,
+		network: network,
+		number: removeSpaces(cardNumber)
+	};
 
 	return (
 		<Fragment>
@@ -117,7 +127,7 @@ export function AddCardEditor() {
 					<CardNetworkSelect selected={network} setSelected={setNetwork} />
 					<CardThemeSelect theme={theme} setTheme={setTheme} />
 				</div>
-				<Button label="Save" />
+				<Button label="Save" onClick={saveCard} />
 			</PageContainer>
 		</Fragment>
 	);
