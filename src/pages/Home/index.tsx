@@ -7,14 +7,12 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
-import { useCardsValue } from "@hooks/cards.ts";
-
-import { CardTheme } from "@t/card";
+import { useAllCards } from "@hooks/cards.ts";
 
 export function Home() {
 	const [search, setSearch] = useState("");
 
-	const cards = useCardsValue();
+	const cards = useAllCards();
 
 	return (
 		<Fragment>
@@ -22,8 +20,8 @@ export function Home() {
 			<HeaderSearch value={search} onChange={setSearch} />
 
 			<PageContainer className="space-y-4">
-				{cards.map((card) => (
-					<Card key={card.number} theme={card.theme as CardTheme} card={card} />
+				{cards.map(({ id, data }) => (
+					<Card key={id} card={data} />
 				))}
 
 				<Show when={cards.length === 0}>

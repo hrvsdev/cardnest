@@ -10,14 +10,14 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
 
-import { useSetCards } from "@hooks/cards.ts";
+import { useAddCard } from "@hooks/cards.ts";
 import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardInfo, CardField, PaymentNetwork, CardTheme } from "@t/card.ts";
+import { CardField, CardFullProfile, CardTheme, PaymentNetwork } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const navigate = useNavigate();
-	const setCards = useSetCards();
+	const addCard = useAddCard();
 
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
@@ -54,7 +54,7 @@ export function AddCardEditor() {
 	};
 
 	const saveCard = () => {
-		setCards((cards) => [...cards, { ...card, theme: theme }]);
+		addCard(card);
 		navigate("/");
 	};
 
@@ -75,7 +75,7 @@ export function AddCardEditor() {
 		});
 	}, [cardNumber]);
 
-	const card: CardInfo = {
+	const card: CardFullProfile = {
 		cardholder: cardholder.trim(),
 		expiry: expiry,
 		network: network,
