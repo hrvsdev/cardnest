@@ -13,6 +13,7 @@
     "@tabler/icons-react": "^2.44.0",
     "framer-motion": "^10.16.16",
     "jotai": "^2.6.1",
+    "nanoid": "^5.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1"
