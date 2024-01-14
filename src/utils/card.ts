@@ -1,6 +1,6 @@
-import { CardColor } from "@t/card";
+import { CardTheme } from "@t/card";
 
-export const cardColorClassName: Record<CardColor, string> = {
+export const cardThemeStyles: Record<CardTheme, string> = {
 	sky: "from-sky-500 to-sky-700",
 	pink: "from-pink-500 to-pink-700",
 	red: "from-red-500 to-red-700",
@@ -18,11 +18,10 @@ export const cardColorClassName: Record<CardColor, string> = {
 	rose: "from-rose-500 to-rose-700"
 };
 
-export const cardColors: CardColor[] = Object.keys(cardColorClassName) as CardColor[];
+export const cardThemes: CardTheme[] = Object.keys(cardThemeStyles) as CardTheme[];
 
 export const getRandomCardTheme = () => {
-	const colors = Object.keys(cardColorClassName);
-	return colors[Math.floor(Math.random() * colors.length)] as CardColor;
+	return cardThemes[Math.floor(Math.random() * cardThemes.length)] as CardTheme;
 };
 
 export const removeSpaces = (str: string) => str.replace(/\s/g, "");

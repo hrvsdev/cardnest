@@ -1,21 +1,21 @@
 import { useCardNetworkLogo, useFormattedCardDetails } from "@hooks/card.ts";
-import { cardColorClassName } from "@utils/card.ts";
+import { cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
-import { CardColor, CardDetails, CardElement } from "@t/card";
+import { CardTheme, CardDetails, CardElement } from "@t/card";
 
 type Props = {
-	color: CardColor;
+	theme: CardTheme;
 	card: CardDetails;
 	usePlaceholders?: boolean;
 	focused?: CardElement;
 };
 
-export function Card({ color, card, focused, usePlaceholders = false }: Props) {
+export function Card({ theme, card, focused, usePlaceholders = false }: Props) {
 	const formattedCard = useFormattedCardDetails(card, { usePlaceholders });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
-	const cl = cardColorClassName[color];
+	const cl = cardThemeStyles[theme];
 
 	const focusedStyle = (el: CardElement) => {
 		if (!usePlaceholders) return "";

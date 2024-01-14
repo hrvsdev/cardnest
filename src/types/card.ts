@@ -14,7 +14,7 @@ export type FormattedCardDetails = {
 	cardholder: string;
 };
 
-export type CardColor =
+export type CardTheme =
 	| "sky"
 	| "pink"
 	| "red"

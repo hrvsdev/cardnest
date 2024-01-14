@@ -11,14 +11,14 @@ import { Input } from "@components/Input";
 
 import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardColor, CardDetails, CardElement, CardNetwork } from "@t/card.ts";
+import { CardTheme, CardDetails, CardElement, CardNetwork } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cardholder, setCardholder] = useState("");
 	const [network, setNetwork] = useState<CardNetwork>("other");
-	const [theme, setTheme] = useState<CardColor>(getRandomCardTheme());
+	const [theme, setTheme] = useState<CardTheme>(getRandomCardTheme());
 
 	const [focused, setFocused] = useState<CardElement | undefined>(undefined);
 
@@ -76,7 +76,7 @@ export function AddCardEditor() {
 		<Fragment>
 			<SubPageHeader title="New Card" />
 			<PageContainer className="relative space-y-8">
-				<Card color={theme} card={card} usePlaceholders focused={focused} />
+				<Card theme={theme} card={card} usePlaceholders focused={focused} />
 				<div className="space-y-6">
 					<Input
 						label="Card number"

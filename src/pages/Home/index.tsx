@@ -6,9 +6,9 @@ import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { TabBar } from "@components/TabBar";
 
-import { cardColorClassName } from "@utils/card.ts";
+import { cardThemeStyles } from "@utils/card.ts";
 
-import { CardColor, CardDetails } from "@t/card";
+import { CardTheme, CardDetails } from "@t/card";
 
 export function Home() {
 	const [search, setSearch] = useState("");
@@ -22,7 +22,7 @@ export function Home() {
 				{cards.map((card, index) => (
 					<Card
 						key={card.number}
-						color={Object.keys(cardColorClassName)[index] as CardColor}
+						theme={Object.keys(cardThemeStyles)[index] as CardTheme}
 						card={card}
 					/>
 				))}

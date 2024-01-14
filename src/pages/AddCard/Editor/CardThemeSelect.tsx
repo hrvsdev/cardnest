@@ -1,11 +1,11 @@
-import { cardColorClassName, cardColors } from "@utils/card.ts";
+import { cardThemeStyles, cardThemes } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
-import { CardColor } from "@t/card.ts";
+import { CardTheme } from "@t/card.ts";
 
 type Props = {
-	theme: CardColor;
-	setTheme: (value: CardColor) => void;
+	theme: CardTheme;
+	setTheme: (value: CardTheme) => void;
 };
 
 export function CardThemeSelect({ theme, setTheme }: Props) {
@@ -13,7 +13,7 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 		<div className="space-y-2">
 			<p className="text-th-white/80 pl-2">Card theme</p>
 			<div className="grid grid-cols-3 gap-2">
-				{cardColors.map((it) => (
+				{cardThemes.map((it) => (
 					<div
 						key={it}
 						onClick={() => setTheme(it)}
@@ -23,7 +23,7 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 						)}
 					>
 						<div
-							className={c("rounded-lg w-full h-full bg-gradient-to-br", cardColorClassName[it])}
+							className={c("rounded-lg w-full h-full bg-gradient-to-br", cardThemeStyles[it])}
 						/>
 					</div>
 				))}
