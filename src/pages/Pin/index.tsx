@@ -4,7 +4,7 @@ import { BackspaceIcon } from "@heroicons/react/24/outline";
 
 import styles from "./styles.module.css";
 
-import { UseSetIsAuthenticated } from "@hooks/auth.ts";
+import { UseSetIsAuthenticated } from "@hooks/auth";
 import { c } from "@utils/styles.ts";
 
 const PIN_LENGTH_ARR = [1, 2, 3, 4, 5, 6];

@@ -7,7 +7,7 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
-import { useAllCards } from "@hooks/cards.ts";
+import { useAllCards } from "@hooks/card/data.ts";
 
 export function Home() {
 	const [search, setSearch] = useState("");

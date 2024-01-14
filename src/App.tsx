@@ -5,7 +5,7 @@ import { Home } from "@pages/Home";
 import { Pin } from "@pages/Pin";
 import { User } from "@pages/User";
 
-import { UseIsAuthenticatedValue } from "@hooks/auth.ts";
+import { UseIsAuthenticatedValue } from "@hooks/auth";
 
 export default function App() {
 	const isAuthenticated = UseIsAuthenticatedValue();
