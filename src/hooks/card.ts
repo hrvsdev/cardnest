@@ -7,7 +7,7 @@ import { MasterCard } from "@components/Logos/MasterCard.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { CardDetails, FormattedCardDetails } from "@t/card.ts";
+import { CardInfo, DisplayCardDetails } from "@t/card.ts";
 
 export type Options = {
 	usePlaceholders?: boolean;
@@ -15,9 +15,9 @@ export type Options = {
 };
 
 export function useFormattedCardDetails(
-	card: CardDetails,
+	card: CardInfo,
 	options?: Options
-): FormattedCardDetails {
+): DisplayCardDetails {
 	const cardNumber = useMemo(() => {
 		let number = card.number;
 

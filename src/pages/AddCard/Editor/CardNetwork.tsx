@@ -7,14 +7,14 @@ import { Visa } from "@components/Logos/Visa.tsx";
 
 import { c } from "@utils/styles.ts";
 
-import { CardNetwork } from "@t/card.ts";
+import { PaymentNetwork } from "@t/card.ts";
 
 type Props = {
-	selected: CardNetwork;
-	setSelected: (value: CardNetwork) => void;
+	selected: PaymentNetwork;
+	setSelected: (value: PaymentNetwork) => void;
 };
 
-const networks: Array<{ network: CardNetwork; logo: typeof Amex; width?: string }> = [
+const networks: Array<{ network: PaymentNetwork; logo: typeof Amex; width?: string }> = [
 	{ network: "visa", logo: Visa, width: "3rem" },
 	{ network: "mastercard", logo: MasterCard, width: "2.25rem" },
 	{ network: "rupay", logo: Rupay, width: "4.5rem" },

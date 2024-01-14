@@ -13,7 +13,7 @@ import { Input } from "@components/Input";
 import { useSetCards } from "@hooks/cards.ts";
 import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardDetails, CardElement, CardNetwork, CardTheme } from "@t/card.ts";
+import { CardInfo, CardField, PaymentNetwork, CardTheme } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const navigate = useNavigate();
@@ -22,10 +22,10 @@ export function AddCardEditor() {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cardholder, setCardholder] = useState("");
-	const [network, setNetwork] = useState<CardNetwork>("other");
+	const [network, setNetwork] = useState<PaymentNetwork>("other");
 	const [theme, setTheme] = useState<CardTheme>(getRandomCardTheme());
 
-	const [focused, setFocused] = useState<CardElement | undefined>(undefined);
+	const [focused, setFocused] = useState<CardField | undefined>(undefined);
 
 	const previousCardNumber = useRef("");
 
@@ -70,12 +70,12 @@ export function AddCardEditor() {
 		fetch(`https://data.handyapi.com/bin/${firstSixDigits}`).then((res) => {
 			if (!res.ok) setNetwork("other");
 			res.json().then((data: { Scheme: string }) => {
-				setNetwork(data.Scheme.toLowerCase() as CardNetwork);
+				setNetwork(data.Scheme.toLowerCase() as PaymentNetwork);
 			});
 		});
 	}, [cardNumber]);
 
-	const card: CardDetails = {
+	const card: CardInfo = {
 		cardholder: cardholder.trim(),
 		expiry: expiry,
 		network: network,

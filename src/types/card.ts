@@ -1,14 +1,33 @@
-export type CardNetwork = "visa" | "mastercard" | "amex" | "discover" | "diners" | "rupay" | "other";
-export type CardElement = "number" | "expiry" | "cardholder";
+export type PaymentNetwork =
+	| "visa"
+	| "mastercard"
+	| "amex"
+	| "discover"
+	| "diners"
+	| "rupay"
+	| "other";
 
-export type CardDetails = {
+export type CardField = "number" | "expiry" | "cardholder";
+
+export type CardData = {
+	id: string;
+	data: CardFullProfile;
+};
+
+export type CardFullProfile = CardInfo & CardPreferences;
+
+export type CardInfo = {
 	number: string;
 	expiry: string;
 	cardholder: string;
-	network: CardNetwork;
+	network: PaymentNetwork;
 };
 
-export type FormattedCardDetails = {
+export type CardPreferences = {
+	theme: CardTheme;
+};
+
+export type DisplayCardDetails = {
 	number: string;
 	expiry: string;
 	cardholder: string;
