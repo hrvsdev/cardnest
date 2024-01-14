@@ -55,7 +55,7 @@ export function Pin() {
 	}, []);
 
 	return (
-		<div className="flex flex-col justify-center items-center py-16 grow">
+		<div className="flex flex-col justify-center items-center grow">
 			<div className="flex flex-col text-th-white/90 items-center justify-center gap-8 flex-1">
 				<h1 className="text-2xl font-bold">Enter your current PIN</h1>
 				<div
