@@ -79,14 +79,15 @@ export function AddCardEditor() {
 		cardholder: cardholder.trim(),
 		expiry: expiry,
 		network: network,
-		number: removeSpaces(cardNumber)
+		number: removeSpaces(cardNumber),
+		theme: theme
 	};
 
 	return (
 		<Fragment>
 			<SubPageHeader title="New Card" />
 			<PageContainer className="relative space-y-8">
-				<Card theme={theme} card={card} usePlaceholders focused={focused} />
+				<Card card={card} usePlaceholders focused={focused} />
 				<div className="space-y-6">
 					<Input
 						label="Card number"
