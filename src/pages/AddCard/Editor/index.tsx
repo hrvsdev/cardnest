@@ -18,7 +18,7 @@ export function AddCardEditor() {
 	const addCard = useAddCard();
 
 	const { card, data, ...methods } = useCardEditor();
-	const { setCardNumber, setExpiry, setCardholder, setNetwork, setTheme, setFocused } = methods;
+	const { setCardNumber, setExpiry, setCardholder, setCardNetwork, setTheme, setFocused } = methods;
 
 	const saveCard = () => {
 		addCard(card);
@@ -67,7 +67,7 @@ export function AddCardEditor() {
 						onBlur={() => setFocused(undefined)}
 					/>
 
-					<CardNetworkSelect selected={data.network} setSelected={setNetwork} />
+					<CardNetworkSelect selected={data.network} setSelected={setCardNetwork} />
 					<CardThemeSelect theme={data.theme} setTheme={setTheme} />
 				</div>
 				<Button label="Save" onClick={saveCard} />
