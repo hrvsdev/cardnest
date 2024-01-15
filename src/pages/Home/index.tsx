@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { UpdateCardEditor } from "@pages/Home/CardView";
+import { CardView } from "@pages/Home/Card";
 
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
@@ -16,7 +16,7 @@ export function Home() {
 	return (
 		<Routes>
 			<Route index element={<HomePage />} />
-			<Route path="cards/:cardId" element={<UpdateCardEditor />} />
+			<Route path="cards/:cardId" element={<CardView />} />
 		</Routes>
 	);
 }
