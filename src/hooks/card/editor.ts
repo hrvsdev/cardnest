@@ -8,7 +8,7 @@ type CardEditorValue = CardFullProfile & { focused?: CardField };
 
 export const useCardEditor = (initialState: Partial<CardEditorValue> = {}): CardEditorState => {
 	const [data, setData] = useState<CardEditorValue>({
-		number: initialState.number ?? "",
+		number: addSpaces(initialState.number ?? ""),
 		expiry: initialState.expiry ?? "",
 		cardholder: initialState.cardholder ?? "",
 		network: initialState.network ?? "other",
