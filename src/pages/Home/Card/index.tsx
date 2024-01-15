@@ -1,6 +1,8 @@
 import { Fragment, useEffect } from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 
+import { IconPencil } from "@tabler/icons-react";
+
 import { UpdateCardEditor } from "@pages/Home/Card/Editor";
 
 import { CopyButton } from "@components/Button/CopyButton.tsx";
@@ -16,7 +18,7 @@ export function CardView() {
 	return (
 		<Routes>
 			<Route index element={<CardViewPage />} />
-			<Route path="update" element={<UpdateCardEditor />} />
+			<Route path="edit" element={<UpdateCardEditor />} />
 		</Routes>
 	);
 }
@@ -27,6 +29,8 @@ function CardViewPage() {
 
 	const card = useCard(params.cardId);
 
+	const edit = () => navigate("edit");
+
 	useEffect(() => {
 		if (!card) navigate("/");
 	}, [card]);
@@ -35,7 +39,12 @@ function CardViewPage() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="Card" />
+			<SubPageHeader
+				title="Card"
+				onRightButtonClick={edit}
+				rightButtonLabel="Edit"
+				rightButtonIcon={<IconPencil size={18} />}
+			/>
 			<PageContainer className="relative space-y-8">
 				<CardPreview card={card.data} />
 				<div className="space-y-6">
