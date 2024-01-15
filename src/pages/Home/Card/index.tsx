@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 
 import { UpdateCardEditor } from "@pages/Home/Card/Editor";
 
+import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
@@ -38,9 +39,24 @@ function CardViewPage() {
 			<PageContainer className="relative space-y-8">
 				<CardPreview card={card.data} />
 				<div className="space-y-6">
-					<Input readOnly label="Card number" value={addSpaces(card.data.number)} />
-					<Input readOnly label="Expiry date" value={card.data.expiry} />
-					<Input readOnly label="Cardholder" value={card.data.cardholder} />
+					<Input
+						readOnly
+						label="Card number"
+						value={addSpaces(card.data.number)}
+						rightIcon={<CopyButton text={card.data.number} />}
+					/>
+					<Input
+						readOnly
+						label="Expiry date"
+						value={card.data.expiry}
+						rightIcon={<CopyButton text={card.data.expiry} />}
+					/>
+					<Input
+						readOnly
+						label="Cardholder"
+						value={card.data.cardholder}
+						rightIcon={<CopyButton text={card.data.cardholder} />}
+					/>
 				</div>
 			</PageContainer>
 		</Fragment>
