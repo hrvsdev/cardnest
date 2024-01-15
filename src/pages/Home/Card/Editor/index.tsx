@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { Fragment, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@components/Button";
 import { CardEditor } from "@components/Card/Editor";
@@ -11,9 +11,12 @@ import { useCardEditor } from "@hooks/card/editor.ts";
 
 export function UpdateCardEditor() {
 	const navigate = useNavigate();
+	const params = useParams();
 
-	const card = useCard("6l4p9CbV");
+	const card = useCard(params.cardId);
 	const updateCard = useUpdateCard();
+
+	if (!card) return null;
 
 	const editorState = useCardEditor(card.data);
 
@@ -21,6 +24,10 @@ export function UpdateCardEditor() {
 		updateCard({ id: card.id, data: editorState.card });
 		navigate("/");
 	};
+
+	useEffect(() => {
+		if (!card) navigate("/");
+	}, [card]);
 
 	return (
 		<Fragment>
