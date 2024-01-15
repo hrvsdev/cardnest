@@ -1,4 +1,7 @@
 import { Fragment, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+
+import { CardView } from "@pages/Home/CardView";
 
 import { Card } from "@components/Card";
 import { PageContainer } from "@components/Containers";
@@ -10,6 +13,15 @@ import { TabBar } from "@components/TabBar";
 import { useAllCards } from "@hooks/card/data.ts";
 
 export function Home() {
+	return (
+		<Routes>
+			<Route index element={<HomePage />} />
+			<Route path="cards/:cardId" element={<CardView />} />
+		</Routes>
+	);
+}
+
+function HomePage() {
 	const [search, setSearch] = useState("");
 
 	const cards = useAllCards();
