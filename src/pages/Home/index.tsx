@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { CardView } from "@pages/Home/CardView";
 
-import { Card } from "@components/Card";
+import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
@@ -33,7 +33,7 @@ function HomePage() {
 
 			<PageContainer className="space-y-4">
 				{cards.map(({ id, data }) => (
-					<Card key={id} card={data} />
+					<CardPreview key={id} card={data} />
 				))}
 
 				<Show when={cards.length === 0}>
