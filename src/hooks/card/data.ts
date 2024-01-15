@@ -32,7 +32,8 @@ const deleteCardAtom = atom(null, (_, set, id: string) => {
 });
 
 export const useAllCards = () => useAtomValue(getAllCardsAtom);
-export const useCard = (id: string) => {
+export const useCard = (id: string | undefined) => {
+	if (!id) return null;
 	return useAtomValue(cardsAtom)[id];
 };
 
