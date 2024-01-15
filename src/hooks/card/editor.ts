@@ -2,12 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardField, CardFullProfile, CardTheme, PaymentNetwork } from "@t/card.ts";
+import { CardEditorState, CardField, CardFullProfile, CardTheme, PaymentNetwork } from "@t/card.ts";
 
-type CardEditorState = CardFullProfile & { focused?: CardField };
+type CardEditorValue = CardFullProfile & { focused?: CardField };
 
-export const useCardEditor = (initialState: Partial<CardEditorState> = {}) => {
-	const [data, setData] = useState<CardEditorState>({
+export const useCardEditor = (initialState: Partial<CardEditorValue> = {}): CardEditorState => {
+	const [data, setData] = useState<CardEditorValue>({
 		number: initialState.number ?? "",
 		expiry: initialState.expiry ?? "",
 		cardholder: initialState.cardholder ?? "",
@@ -42,7 +42,7 @@ export const useCardEditor = (initialState: Partial<CardEditorState> = {}) => {
 
 	const setTheme = (theme: CardTheme) => setData({ ...card, theme });
 	const setFocused = (focused?: CardField) => setData({ ...data, focused });
-	const setNetwork = (network: PaymentNetwork) => setData({ ...data, network });
+	const setCardNetwork = (network: PaymentNetwork) => setData({ ...data, network });
 
 	const card = useMemo<CardFullProfile>(() => {
 		return {
@@ -80,6 +80,6 @@ export const useCardEditor = (initialState: Partial<CardEditorState> = {}) => {
 		setExpiry,
 		setTheme,
 		setFocused,
-		setNetwork
+		setCardNetwork
 	};
 };
