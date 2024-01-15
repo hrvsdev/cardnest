@@ -33,6 +33,21 @@ export type DisplayCardDetails = {
 	cardholder: string;
 };
 
+export type CardEditorState = {
+	card: CardFullProfile;
+	data: CardFullProfile & CardFocusedState;
+	setCardNumber: (cardNumber: string) => void;
+	setExpiry: (expiry: string) => void;
+	setCardholder: (cardholder: string) => void;
+	setCardNetwork: (cardNetwork: PaymentNetwork) => void;
+	setFocused: (focused?: CardField) => void;
+	setTheme: (theme: CardTheme) => void;
+};
+
+export type CardFocusedState = {
+	focused?: CardField;
+};
+
 export type CardTheme =
 	| "sky"
 	| "pink"
