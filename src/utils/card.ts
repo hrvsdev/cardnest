@@ -24,5 +24,5 @@ export const getRandomCardTheme = () => {
 	return cardThemes[Math.floor(Math.random() * cardThemes.length)] as CardTheme;
 };
 
-export const addSpaces = (str: string) => str.replace(/(\d{4})/g, "$1 ").trim();
+export const addSpaces = (str: string) => str.replace(/(.{4})/g, "$1 ").trim();
 export const removeSpaces = (str: string) => str.replace(/\s/g, "");
