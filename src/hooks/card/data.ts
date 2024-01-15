@@ -2,10 +2,13 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 import { genId } from "@utils/id.ts";
+import { getFromLocalStorage } from "@utils/local-storage.ts";
 
 import { CardData, CardFullProfile } from "@t/card.ts";
 
-const cardsAtom = atomWithStorage<Record<string, CardData>>("cardnest/cards", {});
+const KEY = "cardnest/cards";
+
+const cardsAtom = atomWithStorage<Record<string, CardData>>(KEY, getFromLocalStorage(KEY) ?? {});
 
 const getAllCardsAtom = atom((get) => {
 	return Object.values(get(cardsAtom));
