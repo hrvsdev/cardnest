@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 import { CardView } from "@pages/Home/Card";
 
@@ -16,7 +16,7 @@ export function Home() {
 	return (
 		<Routes>
 			<Route index element={<HomePage />} />
-			<Route path="cards/:cardId" element={<CardView />} />
+			<Route path="cards/:cardId/*" element={<CardView />} />
 		</Routes>
 	);
 }
@@ -33,7 +33,9 @@ function HomePage() {
 
 			<PageContainer className="space-y-4">
 				{cards.map(({ id, data }) => (
-					<CardPreview key={id} card={data} />
+					<Link to={`cards/${id}`} key={id} className="block">
+						<CardPreview card={data} />
+					</Link>
 				))}
 
 				<Show when={cards.length === 0}>
