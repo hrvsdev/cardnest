@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute, ReactNode } from "react";
 
 import { Show } from "@components/Show";
 
@@ -11,6 +11,8 @@ type Props = {
 	type?: HTMLInputTypeAttribute;
 	id?: string;
 	label?: string;
+	disabled?: boolean;
+	readOnly?: boolean;
 	placeholder?: string;
 	maxLength?: number;
 	minLength?: number;
@@ -19,6 +21,7 @@ type Props = {
 	onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 	className?: string;
+	rightIcon?: ReactNode;
 };
 
 export function Input(props: Props) {
@@ -29,24 +32,34 @@ export function Input(props: Props) {
 					{props.label}
 				</label>
 			</Show>
-			<input
-				type={props.type}
-				name={props.name}
-				id={props.id}
-				minLength={props.minLength}
-				maxLength={props.maxLength}
-				inputMode={props.inputMode}
-				value={props.value}
-				defaultValue={props.defaultValue}
-				onChange={props.onChange}
-				onFocus={props.onFocus}
-				onBlur={props.onBlur}
-				placeholder={props.placeholder}
-				className={c(
-					"w-full rounded-2xl px-4 py-3 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10",
-					props.className
-				)}
-			/>
+			<div className="flex items-center w-full relative">
+				<Show when={props.rightIcon}>
+					<div className="absolute right-0 size-12 flex justify-center items-center">
+						{props.rightIcon}
+					</div>
+				</Show>
+				<input
+					type={props.type}
+					name={props.name}
+					id={props.id}
+					disabled={props.disabled}
+					readOnly={props.readOnly}
+					minLength={props.minLength}
+					maxLength={props.maxLength}
+					inputMode={props.inputMode}
+					value={props.value}
+					defaultValue={props.defaultValue}
+					onChange={props.onChange}
+					onFocus={props.onFocus}
+					onBlur={props.onBlur}
+					placeholder={props.placeholder}
+					className={c(
+						"w-full rounded-2xl pl-4 h-12 tracking-widest placeholder:tracking-normal text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10",
+						props.rightIcon ? "pr-12" : "p-4",
+						props.className
+					)}
+				/>
+			</div>
 		</div>
 	);
 }
