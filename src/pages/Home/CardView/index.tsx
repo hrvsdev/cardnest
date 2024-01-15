@@ -24,7 +24,7 @@ export function UpdateCardEditor() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="Card" />
+			<SubPageHeader title="Edit Card" />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
 				<Button label="Update" onClick={update} />
