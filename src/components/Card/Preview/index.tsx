@@ -2,7 +2,7 @@ import { useCardNetworkLogo, useFormattedCardDetails } from "@hooks/card/formatt
 import { cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
-import { CardField, CardFullProfile } from "@t/card";
+import { CardField, CardFullProfile } from "@t/card.ts";
 
 type Props = {
 	card: CardFullProfile;
@@ -10,7 +10,7 @@ type Props = {
 	focused?: CardField;
 };
 
-export function Card({ card, focused, usePlaceholders = false }: Props) {
+export function CardPreview({ card, focused, usePlaceholders = false }: Props) {
 	const formattedCard = useFormattedCardDetails(card, { usePlaceholders });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
