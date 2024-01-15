@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { getRandomCardTheme, removeSpaces } from "@utils/card.ts";
+import { addSpaces, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
 import { CardEditorState, CardField, CardFullProfile, CardTheme, PaymentNetwork } from "@t/card.ts";
 
@@ -19,8 +19,7 @@ export const useCardEditor = (initialState: Partial<CardEditorValue> = {}): Card
 
 	const setCardNumber = (value: string) => {
 		const filteredValue = value.replace(/\D/g, "");
-		const formattedValue = filteredValue.replace(/(\d{4})/g, "$1 ").trim();
-		setData({ ...data, number: formattedValue });
+		setData({ ...data, number: addSpaces(filteredValue) });
 	};
 
 	const setExpiry = (value: string) => {
