@@ -53,15 +53,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		setNetwork((d?.Scheme || "other").toLowerCase() as PaymentNetwork);
 	};
 
-	const card = useMemo<CardFullProfile>(() => {
-		return {
-			number: removeSpaces(number),
-			cardholder: cardholder.trim(),
-			expiry,
-			network,
-			theme
-		};
-	}, [number, expiry, cardholder, network, theme]);
+	const data = { number, cardholder, expiry, network, theme, focused };
 
 	const data = useMemo<CardEditorValue>(() => {
 		return {
