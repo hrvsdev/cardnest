@@ -17,7 +17,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const previousNumber = useRef("");
 
 	const setFormattedCardNumber = (value: string) => {
-		const filteredValue = value.replace(/\D/g, "");
+		const filteredValue = value.replace(/\D/g, "").slice(0, 16)
 		setNumber(addSpaces(filteredValue));
 		fetchAndSetCardNetwork(filteredValue).then();
 	};
