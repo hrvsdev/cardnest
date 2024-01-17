@@ -17,7 +17,7 @@ export function AddCardEditor() {
 	const editorState = useCardEditor();
 
 	const saveCard = () => {
-		addCard(editorState.card);
+		addCard(editorState.data);
 		navigate("/");
 	};
 

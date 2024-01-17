@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { addSpaces, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
@@ -55,19 +55,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 
 	const data = { number, cardholder, expiry, network, theme, focused };
 
-	const data = useMemo<CardEditorValue>(() => {
-		return {
-			cardholder,
-			expiry,
-			network,
-			number,
-			theme,
-			focused
-		};
-	}, [number, expiry, cardholder, network, theme, focused]);
-
 	return {
-		card,
 		data,
 		setCardNumber: setFormattedCardNumber,
 		setCardholder: setFormattedCardholder,

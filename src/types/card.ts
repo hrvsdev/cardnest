@@ -34,7 +34,6 @@ export type DisplayCardDetails = {
 };
 
 export type CardEditorState = {
-	card: CardFullProfile;
 	data: CardFullProfile & CardFocusedState;
 	setCardNumber: (cardNumber: string) => void;
 	setExpiry: (expiry: string) => void;

@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
-import { CardPreview } from "@components/Card/Preview";
 import { CardNetworkSelect } from "@components/Card/Editor/CardNetwork.tsx";
 import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
+import { CardPreview } from "@components/Card/Preview";
 import { Input } from "@components/Input";
 
 import { CardEditorState } from "@t/card.ts";
@@ -12,12 +12,12 @@ type Props = {
 };
 
 export function CardEditor({ state }: Props) {
-	const { card, data, ...methods } = state;
+	const { data, ...methods } = state;
 	const { setCardNumber, setExpiry, setCardholder, setCardNetwork, setTheme, setFocused } = methods;
 
 	return (
 		<Fragment>
-			<CardPreview card={card} usePlaceholders focused={data.focused} />
+			<CardPreview card={data} usePlaceholders focused={data.focused} />
 			<div className="space-y-6">
 				<Input
 					label="Card number"

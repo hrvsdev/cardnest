@@ -21,7 +21,7 @@ export function UpdateCardEditor() {
 	const editorState = useCardEditor(card.data);
 
 	const update = () => {
-		updateCard({ id: card.id, data: editorState.card });
+		updateCard({ id: card.id, data: editorState.data });
 		navigate("/");
 	};
 
