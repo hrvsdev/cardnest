@@ -6,79 +6,89 @@ import { CardEditorState, CardField, CardFullProfile, CardTheme, PaymentNetwork 
 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 
-export const useCardEditor = (initialState: Partial<CardEditorValue> = {}): CardEditorState => {
-	const [data, setData] = useState<CardEditorValue>({
-		number: addSpaces(initialState.number ?? ""),
-		expiry: initialState.expiry ?? "",
-		cardholder: initialState.cardholder ?? "",
-		network: initialState.network ?? "other",
-		theme: initialState.theme ?? getRandomCardTheme()
-	});
+export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorState => {
+	const [number, setNumber] = useState<string>(addSpaces(init.number ?? ""));
+	const [expiry, setExpiry] = useState<string>(init.expiry ?? "");
+	const [cardholder, setCardholder] = useState<string>(init.cardholder ?? "");
+	const [network, setNetwork] = useState<PaymentNetwork>(init.network ?? "other");
+	const [theme, setTheme] = useState<CardTheme>(init.theme ?? getRandomCardTheme());
+	const [focused, setFocused] = useState<CardField | undefined>(init.focused);
 
 	const previousCardNumber = useRef("");
 
 	const setCardNumber = (value: string) => {
 		const filteredValue = value.replace(/\D/g, "");
-		setData({ ...data, number: addSpaces(filteredValue) });
+		setNumber(addSpaces(filteredValue));
 	};
 
-	const setExpiry = (value: string) => {
+	const setFormattedExpiry = (value: string) => {
 		let filteredValue = value.replace(/\D/g, "");
 
-		if (data.expiry.endsWith("/") && value.length === 2) {
+		if (expiry.endsWith("/") && value.length === 2) {
 			filteredValue = value;
 		} else if (filteredValue.length >= 2) {
 			filteredValue = `${filteredValue.slice(0, 2)}/${filteredValue.slice(2)}`;
 		}
 
-		setData({ ...data, expiry: filteredValue });
+		setExpiry(filteredValue);
 	};
 
-	const setCardholder = (value: string) => {
+	const setFormattedCardholder = (value: string) => {
 		const filteredValue = value.replace(/[^a-zA-Z\s.'-]/g, "");
-		setData({ ...data, cardholder: filteredValue });
+		setCardholder(filteredValue);
 	};
 
-	const setTheme = (theme: CardTheme) => setData({ ...data, theme });
-	const setFocused = (focused?: CardField) => setData({ ...data, focused });
-	const setCardNetwork = (network: PaymentNetwork) => setData({ ...data, network });
+	const setCardNetwork = (cardNumber: string) => {
+		fetchCardNetwork(cardNumber).then(setNetwork);
+	};
 
-	const card = useMemo<CardFullProfile>(() => {
-		return {
-			cardholder: data.cardholder.trim(),
-			expiry: data.expiry,
-			network: data.network,
-			number: removeSpaces(data.number),
-			theme: data.theme
-		};
-	}, [data.number, data.expiry, data.cardholder, data.network, data.theme]);
+	const fetchCardNetwork = async (cardNumber: string): Promise<PaymentNetwork> => {
+		let out: PaymentNetwork = "other";
 
-	useEffect(() => {
-		const firstSixDigits = removeSpaces(data.number).slice(0, 6);
+		const firstSixDigits = removeSpaces(cardNumber.slice(0, 6));
 
-		if (previousCardNumber.current === firstSixDigits) return;
+		if (firstSixDigits.length < 6 || previousCardNumber.current === firstSixDigits) return out;
 
 		previousCardNumber.current = firstSixDigits;
 
-		if (data.number.length <= 6) return setData({ ...data, network: "other" });
+		const res = await fetch(`https://data.handyapi.com/bin/${firstSixDigits}`);
+		if (!res.ok) return out;
 
-		fetch(`https://data.handyapi.com/bin/${firstSixDigits}`).then((res) => {
-			if (!res.ok) setData({ ...data, network: "other" });
-			res.json().then((d: { Scheme: string }) => {
-				const network = (d.Scheme || "other").toLowerCase() as PaymentNetwork;
-				setData({ ...data, network });
-			});
-		});
-	}, [data.number]);
+		const d: { Scheme: string } | undefined = await res.json();
+		out = (d?.Scheme || "other").toLowerCase() as PaymentNetwork;
+
+		return out;
+	};
+
+	const card = useMemo<CardFullProfile>(() => {
+		return {
+			cardholder: cardholder.trim(),
+			expiry,
+			network,
+			number: removeSpaces(number),
+			theme
+		};
+	}, [number, expiry, cardholder, network, theme]);
+
+	useEffect(() => {
+		setCardNetwork(removeSpaces(number));
+	}, [number]);
 
 	return {
 		card,
-		data,
+		data: {
+			number,
+			expiry,
+			cardholder,
+			network,
+			theme,
+			focused
+		},
 		setCardNumber,
-		setCardholder,
-		setExpiry,
+		setCardholder: setFormattedCardholder,
+		setExpiry: setFormattedExpiry,
 		setTheme,
-		setFocused,
-		setCardNetwork
+		setCardNetwork,
+		setFocused
 	};
 };
