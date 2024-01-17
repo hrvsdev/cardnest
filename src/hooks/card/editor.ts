@@ -7,12 +7,12 @@ import { CardEditorState, CardField, CardFullProfile, CardTheme, PaymentNetwork 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 
 export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorState => {
-	const [number, setNumber] = useState<string>(addSpaces(init.number ?? ""));
-	const [expiry, setExpiry] = useState<string>(init.expiry ?? "");
-	const [cardholder, setCardholder] = useState<string>(init.cardholder ?? "");
-	const [network, setNetwork] = useState<PaymentNetwork>(init.network ?? "other");
-	const [theme, setTheme] = useState<CardTheme>(init.theme ?? getRandomCardTheme());
-	const [focused, setFocused] = useState<CardField | undefined>(init.focused);
+	const [number, setNumber] = useState(addSpaces(init.number ?? ""));
+	const [expiry, setExpiry] = useState(init.expiry ?? "");
+	const [cardholder, setCardholder] = useState(init.cardholder ?? "");
+	const [network, setNetwork] = useState(init.network ?? "other");
+	const [theme, setTheme] = useState(init.theme ?? getRandomCardTheme());
+	const [focused, setFocused] = useState(init.focused);
 
 	const previousCardNumber = useRef("");
 
