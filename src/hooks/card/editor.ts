@@ -39,7 +39,7 @@ export const useCardEditor = (initialState: Partial<CardEditorValue> = {}): Card
 		setData({ ...data, cardholder: filteredValue });
 	};
 
-	const setTheme = (theme: CardTheme) => setData({ ...card, theme });
+	const setTheme = (theme: CardTheme) => setData({ ...data, theme });
 	const setFocused = (focused?: CardField) => setData({ ...data, focused });
 	const setCardNetwork = (network: PaymentNetwork) => setData({ ...data, network });
 
