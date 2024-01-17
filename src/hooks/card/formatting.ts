@@ -16,7 +16,7 @@ export type Options = {
 	maskCardNumber?: boolean;
 };
 
-export function useFormattedCardDetails(card: CardInfo, options?: Options): DisplayCardDetails {
+export function useFormattedCardViewDetails(card: CardInfo, options?: Options): DisplayCardDetails {
 	const cardNumber = useMemo(() => {
 		let number = removeSpaces(card.number);
 

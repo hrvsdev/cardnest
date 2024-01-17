@@ -1,4 +1,4 @@
-import { useCardNetworkLogo, useFormattedCardDetails } from "@hooks/card/formatting.ts";
+import { useCardNetworkLogo, useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
 import { cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function CardPreview({ card, focused, usePlaceholders = false }: Props) {
-	const formattedCard = useFormattedCardDetails(card, { usePlaceholders });
+	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
 	const cl = cardThemeStyles[card.theme];
