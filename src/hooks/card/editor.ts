@@ -16,7 +16,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 
 	const previousCardNumber = useRef("");
 
-	const setCardNumber = (value: string) => {
+	const setFormattedCardNumber = (value: string) => {
 		const filteredValue = value.replace(/\D/g, "");
 		setNumber(addSpaces(filteredValue));
 	};
@@ -87,8 +87,8 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		setCardNumber,
 		setCardholder: setFormattedCardholder,
 		setExpiry: setFormattedExpiry,
+		setCardNetwork: setNetwork,
 		setTheme,
-		setCardNetwork,
 		setFocused
 	};
 };
