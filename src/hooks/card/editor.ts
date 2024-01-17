@@ -46,11 +46,14 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 
 		previousNumber.current = firstSixDigits;
 
-		const res = await fetch(`https://data.handyapi.com/bin/${firstSixDigits}`);
-		if (!res.ok) setNetwork("other");
+		try {
+			const res = await fetch(`https://data.handyapi.com/bin/${firstSixDigits}`);
 
-		const d: { Scheme: string } | undefined = await res.json();
-		setNetwork((d?.Scheme || "other").toLowerCase() as PaymentNetwork);
+			const d: { Scheme: string } | undefined = await res.json();
+			setNetwork((d?.Scheme || "other").toLowerCase() as PaymentNetwork);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const data = { number, cardholder, expiry, network, theme, focused };
