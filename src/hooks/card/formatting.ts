@@ -7,7 +7,7 @@ import { MasterCard } from "@components/Logos/MasterCard.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { addSpaces } from "@utils/card.ts";
+import { addSpaces, removeSpaces } from "@utils/card.ts";
 
 import { CardInfo, DisplayCardDetails } from "@t/card.ts";
 
@@ -18,7 +18,7 @@ export type Options = {
 
 export function useFormattedCardDetails(card: CardInfo, options?: Options): DisplayCardDetails {
 	const cardNumber = useMemo(() => {
-		let number = card.number;
+		let number = removeSpaces(card.number);
 
 		if (options?.usePlaceholders) number = number.padEnd(16, "•");
 		if (options?.maskCardNumber) {
