@@ -17,13 +17,19 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const previousNumber = useRef("");
 
 	const setFormattedCardNumber = (value: string) => {
-		const filteredValue = value.replace(/\D/g, "").slice(0, 16)
+		const filteredValue = value.replace(/\D/g, "").slice(0, 16);
 		setNumber(addSpaces(filteredValue));
 		fetchAndSetCardNetwork(filteredValue).then();
 	};
 
 	const setFormattedExpiry = (value: string) => {
-		let filteredValue = value.replace(/\D/g, "");
+		let filteredValue = value.replace(/\D/g, "").slice(0, 4);
+
+		const FIRST_DIGIT = parseInt(filteredValue[0]);
+
+		if (FIRST_DIGIT > 1) {
+			filteredValue = filteredValue.replace(FIRST_DIGIT.toString(), `0${FIRST_DIGIT}`);
+		}
 
 		if (expiry.endsWith("/") && value.length === 2) {
 			filteredValue = value;
