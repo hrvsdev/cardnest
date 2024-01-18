@@ -23,7 +23,7 @@ export function AddCardEditor() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="New Card" />
+			<SubPageHeader title="New Card" rightButtonLabel="Done" onRightButtonClick={saveCard} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
 				<Button label="Save" onClick={saveCard} />
