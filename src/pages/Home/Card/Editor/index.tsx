@@ -31,7 +31,7 @@ export function UpdateCardEditor() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="Edit Card" />
+			<SubPageHeader title="Edit Card" rightButtonLabel="Done" onRightButtonClick={update} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
 				<Button label="Update" onClick={update} />
