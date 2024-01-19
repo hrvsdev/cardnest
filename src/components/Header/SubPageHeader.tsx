@@ -14,6 +14,7 @@ const inputRange = [HEADER_TOP_OFFSET, HEADER_BOTTOM_OFFSET];
 
 type Props = {
 	title: string;
+	leftIconLabel?: string;
 	rightButtonLabel?: string;
 	rightButtonIcon?: ReactNode;
 	onRightButtonClick?: () => void;
@@ -30,7 +31,7 @@ export function SubPageHeader(props: Props) {
 			<div className="flex items-center justify-center relative w-full h-12">
 				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky">
 					<IconChevronLeft strokeWidth={2.5} size={20} />
-					<span className="text-sm">Back</span>
+					<span className="text-sm">{props.leftIconLabel ?? "Back"}</span>
 				</Link>
 				<div>{props.title}</div>
 				<Show when={props.rightButtonLabel || props.rightButtonIcon}>
