@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Keypad } from "@pages/Pin/Keypad";
-import { PinInput } from "@pages/Pin/PinInput";
+import { Keypad } from "@components/Pin/Keypad";
+import { PinInput } from "@components/Pin/PinInput";
 
 import { UseSetIsAuthenticated } from "@hooks/auth";
 
