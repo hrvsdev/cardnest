@@ -62,10 +62,12 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		}
 	};
 
-	const data = { number, cardholder, expiry, network, theme, focused };
+	const editorState = { number, cardholder, expiry, network, theme, focused };
+	const data = { ...editorState, number: removeSpaces(editorState.number) };
 
 	return {
 		data,
+		editorState,
 		setCardNumber: setFormattedCardNumber,
 		setCardholder: setFormattedCardholder,
 		setExpiry: setFormattedExpiry,

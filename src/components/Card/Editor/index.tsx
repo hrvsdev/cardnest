@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function CardEditor({ state }: Props) {
-	const { data, ...methods } = state;
+	const { editorState, data, ...methods } = state;
 	const { setCardNumber, setExpiry, setCardholder, setCardNetwork, setTheme, setFocused } = methods;
 
 	return (
@@ -26,7 +26,7 @@ export function CardEditor({ state }: Props) {
 					maxLength={19}
 					inputMode="numeric"
 					placeholder="Enter card number"
-					value={data.number}
+					value={editorState.number}
 					onChange={(e) => setCardNumber(e.target.value)}
 					onFocus={() => setFocused("number")}
 					onBlur={() => setFocused(undefined)}
@@ -38,7 +38,7 @@ export function CardEditor({ state }: Props) {
 					maxLength={5}
 					inputMode="numeric"
 					placeholder="Enter card expiry date"
-					value={data.expiry}
+					value={editorState.expiry}
 					onChange={(e) => setExpiry(e.target.value)}
 					onFocus={() => setFocused("expiry")}
 					onBlur={() => setFocused(undefined)}
@@ -49,14 +49,14 @@ export function CardEditor({ state }: Props) {
 					id="cardholder"
 					maxLength={30}
 					placeholder="Enter cardholder name"
-					value={data.cardholder}
+					value={editorState.cardholder}
 					onChange={(e) => setCardholder(e.target.value)}
 					onFocus={() => setFocused("cardholder")}
 					onBlur={() => setFocused(undefined)}
 				/>
 
-				<CardNetworkSelect selected={data.network} setSelected={setCardNetwork} />
-				<CardThemeSelect theme={data.theme} setTheme={setTheme} />
+				<CardNetworkSelect selected={editorState.network} setSelected={setCardNetwork} />
+				<CardThemeSelect theme={editorState.theme} setTheme={setTheme} />
 			</div>
 		</Fragment>
 	);
