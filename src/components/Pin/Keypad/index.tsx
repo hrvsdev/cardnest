@@ -2,27 +2,27 @@ import { ReactNode } from "react";
 
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 
+import { PIN_LENGTH } from "@utils/auth.ts";
 import { c } from "@utils/styles.ts";
 
 const KEYPAD_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const ACTUAL_PIN_LENGTH = 6;
 
 type Props = {
 	pin: number[];
 	setPin: (value: number[]) => void;
-	checkPin: (value: string) => void;
+	onPinChange: (pinValue: string) => void;
 };
 
-export function Keypad({ pin, setPin, checkPin }: Props) {
-	const isDisabled = pin.length === ACTUAL_PIN_LENGTH;
+export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
+	const isDisabled = pin.length === PIN_LENGTH;
 
 	const onPinChange = (num: number) => {
-		if (pin.length === ACTUAL_PIN_LENGTH) return;
+		if (pin.length === PIN_LENGTH) return;
 
 		const newPin = [...pin, num];
 
 		setPin(newPin);
-		checkPin(newPin.join(""));
+		onPinChangeEffect(newPin.join(""));
 	};
 
 	const backspace = () => {
