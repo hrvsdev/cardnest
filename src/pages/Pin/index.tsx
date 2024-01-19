@@ -4,6 +4,7 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 
 import { UseSetIsAuthenticated } from "@hooks/auth";
+import { PIN_LENGTH } from "@utils/auth.ts";
 
 const ACTUAL_PIN = "123456";
 
@@ -15,17 +16,19 @@ export function Pin() {
 
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	const checkPin = (pin: string) => {
-		if (pin.length !== ACTUAL_PIN.length) return;
-		if (pin === ACTUAL_PIN) {
-			setIsAuthenticated(true);
-		} else {
+	const checkPin = (pinValue: string) => {
+		if (pinValue.length !== PIN_LENGTH) return;
+		if (pinValue !== ACTUAL_PIN) {
 			setIsPinIncorrect(true);
 			timeoutRef.current = setTimeout(() => {
 				setPin([]);
 				setIsPinIncorrect(false);
 			}, 1000);
+
+			return;
 		}
+
+		setIsAuthenticated(true);
 	};
 
 	useEffect(() => {
@@ -40,7 +43,7 @@ export function Pin() {
 				<h1 className="text-2xl font-bold">Enter your current PIN</h1>
 				<PinInput pin={pin} isPinIncorrect={isPinIncorrect} />
 			</div>
-			<Keypad pin={pin} setPin={setPin} checkPin={checkPin} />
+			<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
 		</div>
 	);
 }
