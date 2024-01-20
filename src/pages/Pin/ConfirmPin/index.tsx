@@ -19,11 +19,13 @@ export function ConfirmPin() {
 
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+	const enteredPin: string | undefined = location.state?.enteredPin;
+
 	const checkPin = (pinValue: string) => {
 		setIsPinDifferent(false);
 
 		if (pinValue.length !== PIN_LENGTH) return;
-		if (pinValue !== location.state.enteredPin) {
+		if (pinValue !== enteredPin) {
 			setIsPinDifferent(true);
 			setIsPinInvalid(true);
 
@@ -37,14 +39,13 @@ export function ConfirmPin() {
 	};
 
 	useEffect(() => {
-		if (!location.state.enteredPin) navigate("/");
-	}, []);
-
-	useEffect(() => {
+		if (!enteredPin) navigate("/");
 		return () => {
 			if (timeoutRef.current) clearTimeout(timeoutRef.current);
 		};
 	}, []);
+
+	if (!enteredPin) return null;
 
 	return (
 		<Fragment>
