@@ -33,6 +33,9 @@ export default {
 				"th-green": "#ADEFD1",
 				"th-red": "#f31260",
 				"th-white": "#F4F7FB"
+			},
+			scale: {
+				98: ".98"
 			}
 		}
 	},

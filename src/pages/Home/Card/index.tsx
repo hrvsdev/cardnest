@@ -13,6 +13,7 @@ import { Input } from "@components/Input";
 
 import { useCard } from "@hooks/card/data.ts";
 import { addSpaces } from "@utils/card.ts";
+import { Button } from "@components/Button";
 
 export function CardView() {
 	return (
@@ -67,6 +68,7 @@ function CardViewPage() {
 						rightIcon={<CopyButton text={card.data.cardholder} />}
 					/>
 				</div>
+				<Button label="Delete" variant="danger" onClick={() => {}} />
 			</PageContainer>
 		</Fragment>
 	);
