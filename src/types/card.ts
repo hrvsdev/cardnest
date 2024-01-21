@@ -33,9 +33,17 @@ export type DisplayCardDetails = {
 	cardholder: string;
 };
 
+export type CardErrorsState = {
+	number: string;
+	expiry: string;
+	cardholder: string;
+};
+
 export type CardEditorState = {
 	data: CardFullProfile & CardFocusedState;
 	editorState: CardFullProfile & CardFocusedState;
+	errors: CardErrorsState;
+	onSubmit: (cb: (data: CardFullProfile) => void) => () => void;
 	setCardNumber: (cardNumber: string) => void;
 	setExpiry: (expiry: string) => void;
 	setCardholder: (cardholder: string) => void;
