@@ -1,19 +1,21 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 
 import { IconPencil } from "@tabler/icons-react";
 
+import { CardDeleteDialog } from "@pages/Home/Card/CardDeleteDialog";
 import { UpdateCardEditor } from "@pages/Home/Card/Editor";
 
+import { Button } from "@components/Button";
 import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
+import { Show } from "@components/Show";
 
-import { useCard } from "@hooks/card/data.ts";
+import { useCard, useDeleteCard } from "@hooks/card/data.ts";
 import { addSpaces } from "@utils/card.ts";
-import { Button } from "@components/Button";
 
 export function CardView() {
 	return (
@@ -29,14 +31,24 @@ function CardViewPage() {
 	const params = useParams();
 
 	const card = useCard(params.cardId);
+	const deleteCard = useDeleteCard();
 
-	const edit = () => navigate("edit");
+	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
 	useEffect(() => {
 		if (!card) navigate("/");
 	}, [card]);
 
 	if (!card) return null;
+
+	const edit = () => {
+		navigate("edit");
+	};
+
+	const del = () => {
+		deleteCard(card.id);
+		navigate("/");
+	};
 
 	return (
 		<Fragment>
@@ -68,8 +80,11 @@ function CardViewPage() {
 						rightIcon={<CopyButton text={card.data.cardholder} />}
 					/>
 				</div>
-				<Button label="Delete" variant="danger" onClick={() => {}} />
+				<Button label="Delete" theme="danger" onClick={() => setShowDeleteDialog(true)} />
 			</PageContainer>
+			<Show when={showDeleteDialog}>
+				<CardDeleteDialog onConfirm={del} onClose={() => setShowDeleteDialog(false)} />
+			</Show>
 		</Fragment>
 	);
 }
