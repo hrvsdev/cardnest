@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function CardEditor({ state }: Props) {
-	const { editorState, data, ...methods } = state;
+	const { editorState, data, errors, ...methods } = state;
 	const { setCardNumber, setExpiry, setCardholder, setCardNetwork, setTheme, setFocused } = methods;
 
 	return (
@@ -27,6 +27,7 @@ export function CardEditor({ state }: Props) {
 					inputMode="numeric"
 					placeholder="Enter card number"
 					value={editorState.number}
+					error={errors.number}
 					onChange={(e) => setCardNumber(e.target.value)}
 					onFocus={() => setFocused("number")}
 					onBlur={() => setFocused(undefined)}
@@ -39,6 +40,7 @@ export function CardEditor({ state }: Props) {
 					inputMode="numeric"
 					placeholder="Enter card expiry date"
 					value={editorState.expiry}
+					error={errors.expiry}
 					onChange={(e) => setExpiry(e.target.value)}
 					onFocus={() => setFocused("expiry")}
 					onBlur={() => setFocused(undefined)}
@@ -50,6 +52,7 @@ export function CardEditor({ state }: Props) {
 					maxLength={30}
 					placeholder="Enter cardholder name"
 					value={editorState.cardholder}
+					error={errors.cardholder}
 					onChange={(e) => setCardholder(e.target.value)}
 					onFocus={() => setFocused("cardholder")}
 					onBlur={() => setFocused(undefined)}
