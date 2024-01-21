@@ -1,18 +1,26 @@
 import { c } from "@utils/styles.ts";
 
+type ButtonVariant = "primary" | "danger";
+
 type Props = {
 	label: string;
 	type?: "button" | "submit" | "reset";
+	variant?: ButtonVariant;
 	onClick?: () => void;
 	className?: string;
 };
 
-export function Button({ label, type, onClick, className }: Props) {
+const variants: Record<ButtonVariant, string> = {
+	primary: "bg-th-sky shadow-th-sky/20",
+	danger: "bg-th-red shadow-th-red/40",
+};
+
+export function Button({ label, type, onClick, className, variant = "primary" }: Props) {
 	return (
 		<button
 			type={type}
 			onClick={onClick}
-			className={c("bg-th-sky w-full h-12.5 text-md rounded-xl", className)}
+			className={c("w-full h-12 text-md rounded-2xl shadow-lg", variants[variant], className)}
 		>
 			{label}
 		</button>
