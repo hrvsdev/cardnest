@@ -12,7 +12,6 @@ import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
-import { Show } from "@components/Show";
 
 import { useCard, useDeleteCard } from "@hooks/card/data.ts";
 import { addSpaces } from "@utils/card.ts";
@@ -82,9 +81,11 @@ function CardViewPage() {
 				</div>
 				<Button label="Delete" theme="danger" onClick={() => setShowDeleteDialog(true)} />
 			</PageContainer>
-			<Show when={showDeleteDialog}>
-				<CardDeleteDialog onConfirm={del} onClose={() => setShowDeleteDialog(false)} />
-			</Show>
+			<CardDeleteDialog
+				show={showDeleteDialog}
+				onConfirm={del}
+				onClose={() => setShowDeleteDialog(false)}
+			/>
 		</Fragment>
 	);
 }
