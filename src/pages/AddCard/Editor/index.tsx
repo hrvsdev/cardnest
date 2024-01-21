@@ -16,10 +16,10 @@ export function AddCardEditor() {
 
 	const editorState = useCardEditor();
 
-	const saveCard = () => {
-		addCard(editorState.data);
-		navigate("/");
-	};
+	const saveCard = editorState.onSubmit((card) => {
+		addCard(card);
+		navigate("/cards");
+	});
 
 	return (
 		<Fragment>
