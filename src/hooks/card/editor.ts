@@ -1,8 +1,13 @@
 import { useRef, useState } from "react";
 
+
+
 import { addSpaces, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
+
+
 import { CardEditorState, CardField, CardFullProfile, PaymentNetwork } from "@t/card.ts";
+
 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 
@@ -14,10 +19,19 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const [theme, setTheme] = useState(init.theme ?? getRandomCardTheme());
 	const [focused, setFocused] = useState(init.focused);
 
+	const [errors, setErrors] = useState({
+		number: "",
+		expiry: "",
+		cardholder: ""
+	});
+
 	const previousNumber = useRef("");
 
 	const setFormattedCardNumber = (value: string) => {
 		const filteredValue = value.replace(/\D/g, "").slice(0, 16);
+
+		if (filteredValue.length === 16) setErrors({ ...errors, number: "" });
+
 		setNumber(addSpaces(filteredValue));
 		fetchAndSetCardNetwork(filteredValue).then();
 	};
@@ -37,11 +51,16 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 			filteredValue = `${filteredValue.slice(0, 2)}/${filteredValue.slice(2)}`;
 		}
 
+		if (filteredValue.length === 5) setErrors({ ...errors, expiry: "" });
+
 		setExpiry(filteredValue);
 	};
 
 	const setFormattedCardholder = (value: string) => {
 		const filteredValue = value.replace(/[^a-zA-Z\s.'-]/g, "");
+
+		if (filteredValue.length >= 2) setErrors({ ...errors, cardholder: "" });
+
 		setCardholder(filteredValue);
 	};
 
@@ -62,12 +81,38 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		}
 	};
 
+	const onSubmit = (cb: (data: CardFullProfile) => void) => {
+		return () => {
+			const errors = { number: "", expiry: "", cardholder: "" };
+
+			if (editorState.number.length < 19) {
+				errors.number = "Please enter a 16-digit card number";
+			}
+
+			if (editorState.expiry.length < 5) {
+				errors.expiry = "Please enter a valid  expiry date (MM/YY)";
+			}
+
+			if (editorState.cardholder.length < 2) {
+				errors.cardholder = "Please enter a cardholder name (min. 2 chars long)";
+			}
+
+			setErrors(errors);
+
+			if (Object.values(errors).some((v) => v !== "")) return;
+
+			cb(data);
+		};
+	};
+
 	const editorState = { number, cardholder, expiry, network, theme, focused };
 	const data = { ...editorState, number: removeSpaces(editorState.number) };
 
 	return {
 		data,
 		editorState,
+		errors,
+		onSubmit,
 		setCardNumber: setFormattedCardNumber,
 		setCardholder: setFormattedCardholder,
 		setExpiry: setFormattedExpiry,
