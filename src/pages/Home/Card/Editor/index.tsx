@@ -20,10 +20,10 @@ export function UpdateCardEditor() {
 
 	const editorState = useCardEditor(card.data);
 
-	const update = () => {
-		updateCard({ id: card.id, data: editorState.data });
+	const update = editorState.onSubmit((data) => {
+		updateCard({ id: card.id, data });
 		navigate("/");
-	};
+	});
 
 	useEffect(() => {
 		if (!card) navigate("/");
@@ -31,11 +31,7 @@ export function UpdateCardEditor() {
 
 	return (
 		<Fragment>
-			<SubPageHeader
-				title="Edit Card"
-				rightButtonLabel="Done"
-				onRightButtonClick={update}
-			/>
+			<SubPageHeader title="Edit Card" rightButtonLabel="Done" onRightButtonClick={update} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
 				<Button label="Update" onClick={update} />
