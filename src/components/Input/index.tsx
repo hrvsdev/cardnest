@@ -56,14 +56,14 @@ export function Input(props: Props) {
 					placeholder={props.placeholder}
 					className={c(
 						"w-full rounded-2xl pl-4 h-12 tracking-widest placeholder:tracking-normal bg-th-white bg-opacity-5 focus:bg-opacity-10",
-						props.error ? "text-red-400" : "text-th-white ",
+						props.error ? "text-th-red" : "text-th-white ",
 						props.rightIcon ? "pr-12" : "p-4",
 						props.className
 					)}
 				/>
 			</div>
 			<Show when={props.error}>
-				<div className="text-red-400 text-sm pl-2">{props.error}</div>
+				<div className="text-th-red text-sm pl-2">{props.error}</div>
 			</Show>
 		</div>
 	);

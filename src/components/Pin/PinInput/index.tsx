@@ -22,8 +22,8 @@ export function PinInput({ isPinIncorrect, pin }: Props) {
 					key={n}
 					className={c(
 						"w-3 border aspect-square rounded-full transition-colors",
-						pin.length >= n && (isPinIncorrect ? "bg-red-500" : "bg-th-white"),
-						isPinIncorrect ? "border-red-500" : "border-th-white"
+						pin.length >= n && (isPinIncorrect ? "bg-th-red" : "bg-th-white"),
+						isPinIncorrect ? "border-th-red" : "border-th-white"
 					)}
 				/>
 			))}

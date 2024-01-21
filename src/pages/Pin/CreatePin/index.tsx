@@ -55,7 +55,7 @@ export function CreatePin() {
 						Remember it as no way to recover it.
 					</p>
 					<PinInput pin={pin} isPinIncorrect={isPinInvalid} />
-					<p className="mt-6 px-6 text-center text-red-400 text-sm h-5">
+					<p className="mt-6 px-6 text-center text-th-red text-sm h-5">
 						<Show when={isCommonPassword}>Entered PIN is too common to guess</Show>
 					</p>
 				</div>
