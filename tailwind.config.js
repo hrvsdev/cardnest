@@ -36,6 +36,9 @@ export default {
 			},
 			scale: {
 				98: ".98"
+			},
+			backdropBlur: {
+				xs: "2px"
 			}
 		}
 	},
