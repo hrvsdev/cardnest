@@ -22,6 +22,7 @@ type Props = {
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 	className?: string;
 	rightIcon?: ReactNode;
+	error?: string;
 };
 
 export function Input(props: Props) {
@@ -60,6 +61,9 @@ export function Input(props: Props) {
 					)}
 				/>
 			</div>
+			<Show when={props.error}>
+				<div className="text-red-400 text-sm pl-2">{props.error}</div>
+			</Show>
 		</div>
 	);
 }
