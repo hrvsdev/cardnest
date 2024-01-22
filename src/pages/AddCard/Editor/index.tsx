@@ -16,8 +16,8 @@ export function AddCardEditor() {
 
 	const editorState = useCardEditor();
 
-	const saveCard = editorState.onSubmit((card) => {
-		addCard(card);
+	const saveCard = editorState.onSubmit(async (card) => {
+		await addCard(card);
 		navigate("/cards");
 	});
 

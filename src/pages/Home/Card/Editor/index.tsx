@@ -20,8 +20,8 @@ export function UpdateCardEditor() {
 
 	const editorState = useCardEditor(card.data);
 
-	const update = editorState.onSubmit((data) => {
-		updateCard({ id: card.id, data });
+	const update = editorState.onSubmit(async (data) => {
+		await updateCard({ id: card.id, data });
 		navigate("/");
 	});
 
