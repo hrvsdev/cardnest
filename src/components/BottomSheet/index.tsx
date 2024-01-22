@@ -8,6 +8,73 @@ type Props = {
 	onClose: () => void;
 };
 
+type BackdropProps = {
+	children: ReactNode;
+	onClick: () => void;
+};
+
+export function BottomSheet({ onClose, children, show }: Props) {
+	return (
+		<AnimatePresence>
+			{show && (
+				<Backdrop onClick={onClose}>
+					<div className="h-full p-4 pb-12 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl border-t border-th-sky/20 shadow-2xl shadow-th-sky">
+						{children}
+					</div>
+				</Backdrop>
+			)}
+		</AnimatePresence>
+	);
+}
+
+function DialogContainer({ children }: { children: ReactNode }) {
+	useEffect(() => {
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.body.style.overflow = "auto";
+		};
+	}, []);
+
+	return <div className="fixed inset-0 w-screen h-dvh z-20">{children}</div>;
+}
+
+function DialogBackground({ onClick }: { onClick: () => void }) {
+	return (
+		<motion.div
+			className="absolute inset-0 bg-th-black/20 backdrop-blur-xs"
+			onClick={onClick}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1, transition: { duration: 0.2 } }}
+			exit={{ opacity: 0, transition: { duration: 0.2 } }}
+		/>
+	);
+}
+
+function Backdrop({ onClick, children }: BackdropProps) {
+	return (
+		<DialogContainer>
+			<div className="relative h-full">
+				<DialogBackground onClick={onClick} />
+				<SheetContentContainer>{children}</SheetContentContainer>
+			</div>
+		</DialogContainer>
+	);
+}
+
+function SheetContentContainer({ children }: { children: ReactNode }) {
+	return (
+		<motion.div
+			variants={slideUp}
+			initial="hidden"
+			animate="visible"
+			exit="exit"
+			className="absolute bottom-0 w-full"
+		>
+			{children}
+		</motion.div>
+	);
+}
+
 const slideUp: Variants = {
 	hidden: {
 		y: 320
@@ -28,56 +95,3 @@ const slideUp: Variants = {
 		}
 	}
 };
-
-export function BottomSheet({ onClose, children, show }: Props) {
-	return (
-		<AnimatePresence>
-			{show && (
-				<Backdrop onClick={onClose}>
-					<motion.div
-						variants={slideUp}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="bg-gradient-to-tr from-th-darker-blue bg-th-black w-full rounded-t-2xl border-t border-th-sky/20 shadow-2xl shadow-th-sky"
-					>
-						<div className="h-full p-4 pb-12">{children}</div>
-					</motion.div>
-				</Backdrop>
-			)}
-		</AnimatePresence>
-	);
-}
-
-function BottomSheetContainer({ children }: { children: ReactNode }) {
-	useEffect(() => {
-		document.body.style.overflow = "hidden";
-		return () => {
-			document.body.style.overflow = "auto";
-		};
-	}, []);
-
-	return <div className="fixed inset-0 w-screen h-dvh z-20">{children}</div>;
-}
-
-type BackdropProps = {
-	children: ReactNode;
-	onClick: () => void;
-};
-
-function Backdrop({ onClick, children }: BackdropProps) {
-	return (
-		<BottomSheetContainer>
-			<div className="relative w-full h-full">
-				<motion.div
-					className="absolute inset-0 w-screen h-full bg-th-black/20 backdrop-blur-xs"
-					onClick={onClick}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1, transition: { duration: 0.2 } }}
-					exit={{ opacity: 0, transition: { duration: 0.2 } }}
-				/>
-				<div className="absolute bottom-0 w-full">{children}</div>
-			</div>
-		</BottomSheetContainer>
-	);
-}
