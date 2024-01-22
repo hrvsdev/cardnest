@@ -1,13 +1,8 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 
-import { getFromLocalStorage } from "@utils/local-storage";
+export const pinAtom = atom<string | null>(null);
 
-const KEY = "cardnest/key";
+export const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
 
-export const keyAtom = atomWithStorage<string | null>(KEY, getFromLocalStorage(KEY));
-
-export const isAuthenticatedAtom = atom((get) => Boolean(get(keyAtom)));
-
-export const UseSetKey = () => useSetAtom(keyAtom);
+export const UseSetKey = () => useSetAtom(pinAtom);
 export const UseIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);

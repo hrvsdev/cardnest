@@ -1,7 +1,7 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-import { keyAtom } from "@hooks/auth";
+import { pinAtom } from "@hooks/auth";
 import { decrypt, encrypt, generateKey } from "@utils/encryption.ts";
 import { genId } from "@utils/id.ts";
 import { getFromLocalStorage } from "@utils/local-storage.ts";
@@ -19,7 +19,7 @@ const encryptedCardsAtom = atomWithStorage<Record<string, CardEncryptedData>>(
 const cardsAtom = atom(async (get) => {
 	let out: Record<string, CardData> = {};
 
-	const pin = get(keyAtom);
+	const pin = get(pinAtom);
 	if (!pin) return out;
 
 	const encrypted = get(encryptedCardsAtom);
@@ -47,7 +47,7 @@ const getAllCardsAtom = atom(async (get) => {
 });
 
 const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
-	const pin = get(keyAtom);
+	const pin = get(pinAtom);
 	if (!pin) return;
 
 	const id = genId();
@@ -58,7 +58,7 @@ const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
 });
 
 const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
-	const pin = get(keyAtom);
+	const pin = get(pinAtom);
 	if (!pin) return;
 
 	const key = await generateKey(pin, SALT);
