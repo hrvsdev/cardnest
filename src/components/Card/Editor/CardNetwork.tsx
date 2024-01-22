@@ -2,6 +2,7 @@ import { Amex } from "@components/Logos/Amex.tsx";
 import { Diners } from "@components/Logos/Diners.tsx";
 import { Discover } from "@components/Logos/Discover.tsx";
 import { MasterCard } from "@components/Logos/MasterCard.tsx";
+import { Other } from "@components/Logos/Other.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
@@ -20,7 +21,8 @@ const networks: Array<{ network: PaymentNetwork; logo: typeof Amex; width?: stri
 	{ network: "rupay", logo: Rupay, width: "4.5rem" },
 	{ network: "discover", logo: Discover, width: "5rem" },
 	{ network: "diners", logo: Diners, width: "1.75rem" },
-	{ network: "amex", logo: Amex, width: "4rem" }
+	{ network: "amex", logo: Amex, width: "4rem" },
+	{ network: "other", logo: Other, width: "1.875rem" }
 ];
 
 export function CardNetworkSelect({ selected, setSelected }: Props) {
