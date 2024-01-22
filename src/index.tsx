@@ -3,11 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { createRoot } from "react-dom/client";
 
-import App from "./App.tsx";
+import App from "./App";
 
 import "./index.css";
 
-import { getFromLocalStorage } from "@utils/storage.ts";
+import { getFromLocalStorage } from "@utils/local-storage";
 
 const APP_VERSION = "0.1";
 
