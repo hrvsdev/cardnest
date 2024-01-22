@@ -28,22 +28,22 @@ export async function encrypt(data: string, key: CryptoKey) {
 	const encodedData = encoder.encode(data);
 
 	const iv = crypto.getRandomValues(new Uint8Array(12));
+	const ivString = btoa(String.fromCharCode.apply(null, iv));
 
-	return await crypto.subtle
-		.encrypt({ name: "AES-GCM", iv: iv }, key, encodedData)
-		.then((encryptedData) => {
-			return {
-				iv: iv,
-				encryptedData: encryptedData,
-				encryptedDataString: new TextDecoder().decode(encryptedData)
-			};
-		});
+	const encryptedData = await crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, encodedData);
+	const encryptedDataString = btoa(String.fromCharCode.apply(null, new Uint8Array(encryptedData)));
+
+	return {
+		iv: ivString,
+		encryptedData: encryptedDataString,
+	};
 }
 
-export async function decrypt(data: ArrayBuffer, key: CryptoKey, iv: Uint8Array) {
-	return await crypto.subtle
-		.decrypt({ name: "AES-GCM", iv: iv }, key, data)
-		.then((decryptedData) => {
-			return new TextDecoder().decode(decryptedData);
-		});
+export async function decrypt(data: string, key: CryptoKey, iv: string) {
+	const ivArray = new Uint8Array(Array.from(atob(iv), (c) => c.charCodeAt(0)));
+	const dataArray = new Uint8Array(Array.from(atob(data), (c) => c.charCodeAt(0)));
+
+	const decryptedData = await crypto.subtle.decrypt({ name: "AES-GCM", iv: ivArray }, key, dataArray);
+
+	return new TextDecoder().decode(decryptedData);
 }
