@@ -1,31 +1,74 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
+import { keyAtom } from "@hooks/auth";
+import { decrypt, encrypt, generateKey } from "@utils/encryption.ts";
 import { genId } from "@utils/id.ts";
 import { getFromLocalStorage } from "@utils/local-storage.ts";
 
-import { CardData, CardFullProfile } from "@t/card.ts";
+import { CardData, CardEncryptedData, CardFullProfile } from "@t/card.ts";
 
 const KEY = "cardnest/cards";
+const SALT = "SOME R1ND0M SAL7";
 
-const cardsAtom = atomWithStorage<Record<string, CardData>>(KEY, getFromLocalStorage(KEY) ?? {});
+const encryptedCardsAtom = atomWithStorage<Record<string, CardEncryptedData>>(
+	KEY,
+	getFromLocalStorage(KEY) ?? {}
+);
 
-const getAllCardsAtom = atom((get) => {
-	return Object.values(get(cardsAtom));
+const cardsAtom = atom(async (get) => {
+	let out: Record<string, CardData> = {};
+
+	const pin = get(keyAtom);
+	if (!pin) return out;
+
+	const encrypted = get(encryptedCardsAtom);
+	const key = await generateKey(pin, SALT);
+
+	try {
+		await Promise.all(
+			Object.keys(encrypted).map(async (id) => {
+				const card = encrypted[id];
+				const data = await decrypt(card.data.encryptedData, key, card.data.iv);
+				const cardData = JSON.parse(data) as CardFullProfile;
+
+				out[id] = { id, data: cardData };
+			})
+		);
+	} catch (e) {
+		console.error("Failed to decrypt cards");
+	}
+
+	return out;
 });
 
-const addCardAtom = atom(null, (_, set, card: CardFullProfile) => {
+const getAllCardsAtom = atom(async (get) => {
+	return Object.values(await get(cardsAtom));
+});
+
+const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
+	const pin = get(keyAtom);
+	if (!pin) return;
+
 	const id = genId();
-	const newCard = { id, data: card };
-	set(cardsAtom, (cards) => ({ ...cards, [id]: newCard }));
+	const key = await generateKey(pin, SALT);
+	const encrypted = await encrypt(JSON.stringify(card), key);
+
+	set(encryptedCardsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
 });
 
-const updateCardAtom = atom(null, (_, set, cardData: CardData) => {
-	set(cardsAtom, (cards) => ({ ...cards, [cardData.id]: cardData }));
+const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
+	const pin = get(keyAtom);
+	if (!pin) return;
+
+	const key = await generateKey(pin, SALT);
+	const encrypted = await encrypt(JSON.stringify(data), key);
+
+	set(encryptedCardsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
 });
 
 const deleteCardAtom = atom(null, (_, set, id: string) => {
-	set(cardsAtom, (cards) => {
+	set(encryptedCardsAtom, (cards) => {
 		delete cards[id];
 		return { ...cards };
 	});
