@@ -1,6 +1,8 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 import { AnimatePresence, motion, Variants } from "framer-motion";
+
+import { DialogBackground, DialogContainer } from "@components/Dialog";
 
 type Props = {
 	show: boolean;
@@ -8,59 +10,24 @@ type Props = {
 	onClose: () => void;
 };
 
-type BackdropProps = {
-	children: ReactNode;
-	onClick: () => void;
-};
-
 export function BottomSheet({ onClose, children, show }: Props) {
 	return (
 		<AnimatePresence>
 			{show && (
-				<Backdrop onClick={onClose}>
-					<div className="h-full p-4 pb-12 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl border-t border-th-sky/20 shadow-2xl shadow-th-sky">
-						{children}
+				<DialogContainer>
+					<div className="relative h-full">
+						<DialogBackground onClick={onClose} />
+						<SheetContentContainer>
+							<div className="h-full p-4 pb-12 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl border-t border-th-sky/20 shadow-2xl shadow-th-sky">
+								{children}
+							</div>
+						</SheetContentContainer>
 					</div>
-				</Backdrop>
+				</DialogContainer>
 			)}
 		</AnimatePresence>
 	);
 }
-
-function DialogContainer({ children }: { children: ReactNode }) {
-	useEffect(() => {
-		document.body.style.overflow = "hidden";
-		return () => {
-			document.body.style.overflow = "auto";
-		};
-	}, []);
-
-	return <div className="fixed inset-0 w-screen h-dvh z-20">{children}</div>;
-}
-
-function DialogBackground({ onClick }: { onClick: () => void }) {
-	return (
-		<motion.div
-			className="absolute inset-0 bg-th-black/20 backdrop-blur-xs"
-			onClick={onClick}
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1, transition: { duration: 0.2 } }}
-			exit={{ opacity: 0, transition: { duration: 0.2 } }}
-		/>
-	);
-}
-
-function Backdrop({ onClick, children }: BackdropProps) {
-	return (
-		<DialogContainer>
-			<div className="relative h-full">
-				<DialogBackground onClick={onClick} />
-				<SheetContentContainer>{children}</SheetContentContainer>
-			</div>
-		</DialogContainer>
-	);
-}
-
 function SheetContentContainer({ children }: { children: ReactNode }) {
 	return (
 		<motion.div
