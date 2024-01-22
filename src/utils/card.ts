@@ -35,11 +35,10 @@ export const getApproxCardNetwork = async (cardNumber: string) => {
 	const url = `https://data.handyapi.com/bin/${cardNumber.slice(0, 6)}`;
 
 	try {
-		const res: { Scheme: String } = await ky(url).json();
-		const scheme = res.Scheme.toLowerCase();
+		const res: { Scheme?: String } = await ky(url).json();
 
 		for (const [key, value] of Object.entries(cardMap)) {
-			if (value.some((v) => scheme.includes(v))) {
+			if (value.some((v) => res.Scheme?.toLowerCase().includes(v))) {
 				cardNetwork = key as PaymentNetwork;
 				break;
 			}
