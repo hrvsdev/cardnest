@@ -26,7 +26,7 @@ export function CardDeleteDialog({ show, onConfirm, onClose }: Props) {
 	return (
 		<BottomSheet onClose={onClose} show={show}>
 			<h1 className="text-th-white text-center text-xl font-bold">Delete card</h1>
-			<p className="text-th-white text-center font-medium">
+			<p className="text-th-white/85 text-center font-medium">
 				Are you sure you want to delete this card?
 				<br />
 				This action cannot be undone.
