@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AddCard } from "@pages/AddCard";
@@ -12,9 +13,11 @@ import { UseIsAuthenticatedValue } from "@hooks/auth";
 export default function App() {
 	const isAuthenticated = UseIsAuthenticatedValue();
 	return (
-		<main className="flex flex-col min-h-dvh h-full w-full">
-			{isAuthenticated ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
-		</main>
+		<Suspense>
+			<main className="flex flex-col min-h-dvh h-full w-full">
+				{isAuthenticated ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+			</main>
+		</Suspense>
 	);
 }
 
