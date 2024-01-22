@@ -1,13 +1,8 @@
 import { useRef, useState } from "react";
 
-
-
 import { addSpaces, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-
-
 import { CardEditorState, CardField, CardFullProfile, PaymentNetwork } from "@t/card.ts";
-
 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 
@@ -67,7 +62,12 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const fetchAndSetCardNetwork = async (cardNumber: string) => {
 		const firstSixDigits = removeSpaces(cardNumber.slice(0, 6));
 
-		if (firstSixDigits.length < 6 || previousNumber.current === firstSixDigits) setNetwork("other");
+		if (firstSixDigits.length < 6) {
+			setNetwork("other");
+			return;
+		}
+
+		if (previousNumber.current === firstSixDigits) return;
 
 		previousNumber.current = firstSixDigits;
 
