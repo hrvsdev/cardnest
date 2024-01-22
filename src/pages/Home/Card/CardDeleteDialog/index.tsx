@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { BottomSheet } from "@components/BottomSheet";
 import { Button } from "@components/Button";
 
@@ -8,6 +10,19 @@ type Props = {
 };
 
 export function CardDeleteDialog({ show, onConfirm, onClose }: Props) {
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	const onDialogConfirm = () => {
+		onClose();
+		timeoutRef.current = setTimeout(onConfirm, 300);
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
+
 	return (
 		<BottomSheet onClose={onClose} show={show}>
 			<h1 className="text-th-white text-center text-xl font-bold">Delete card</h1>
@@ -18,7 +33,7 @@ export function CardDeleteDialog({ show, onConfirm, onClose }: Props) {
 			</p>
 			<div className="flex flex-col gap-3 mt-10">
 				<Button label="Cancel" variant="flat" onClick={onClose} />
-				<Button label="Confirm" theme="danger" onClick={onConfirm} />
+				<Button label="Confirm" theme="danger" onClick={onDialogConfirm} />
 			</div>
 		</BottomSheet>
 	);
