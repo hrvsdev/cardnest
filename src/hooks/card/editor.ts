@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 
-import { addSpaces, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
+import { addSpaces, getApproxCardNetwork, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardEditorState, CardField, CardFullProfile, PaymentNetwork } from "@t/card.ts";
+import { CardEditorState, CardField, CardFullProfile } from "@t/card.ts";
 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 
@@ -71,14 +71,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 
 		previousNumber.current = firstSixDigits;
 
-		try {
-			const res = await fetch(`https://data.handyapi.com/bin/${firstSixDigits}`);
-
-			const d: { Scheme: string } | undefined = await res.json();
-			setNetwork((d?.Scheme || "other").toLowerCase() as PaymentNetwork);
-		} catch (e) {
-			console.log(e);
-		}
+		setNetwork(await getApproxCardNetwork(cardNumber));
 	};
 
 	const onSubmit = (cb: (data: CardFullProfile) => void) => {
