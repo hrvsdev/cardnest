@@ -14,6 +14,14 @@ export type CardData = {
 	data: CardFullProfile;
 };
 
+export type CardEncryptedData = {
+	id: string;
+	data: {
+		iv: string;
+		encryptedData: string;
+	};
+};
+
 export type CardFullProfile = CardInfo & CardPreferences;
 
 export type CardInfo = {
