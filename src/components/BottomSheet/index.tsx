@@ -44,7 +44,7 @@ function SheetContentContainer({ children }: { children: ReactNode }) {
 
 const slideUp: Variants = {
 	hidden: {
-		y: 320
+		y: 350
 	},
 	visible: {
 		y: 32,
@@ -56,7 +56,7 @@ const slideUp: Variants = {
 		}
 	},
 	exit: {
-		y: 320,
+		y: 350,
 		transition: {
 			duration: 0.2
 		}
