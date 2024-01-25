@@ -11,16 +11,27 @@ import { User } from "@pages/User";
 import { UseIsAuthenticatedValue } from "@hooks/auth";
 
 export default function App() {
+	// @ts-ignore
 	const isAuthenticated = UseIsAuthenticatedValue();
 	return (
 		<Suspense>
 			<main className="flex flex-col min-h-dvh h-full w-full">
-				{isAuthenticated ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+				<Routes>
+					<Route path="home/*" element={<Home />} />
+					<Route path="add/*" element={<AddCard />} />
+					<Route path="user/*" element={<User />} />
+					<Route path="pin/create">
+						<Route index element={<CreatePin />} />
+						<Route path="confirm" element={<ConfirmPin />} />
+					</Route>
+					<Route path="*" element={<Navigate to="home" />} />
+				</Routes>
 			</main>
 		</Suspense>
 	);
 }
 
+// @ts-ignore
 function AuthenticatedRoutes() {
 	return (
 		<Routes>
@@ -32,6 +43,7 @@ function AuthenticatedRoutes() {
 	);
 }
 
+// @ts-ignore
 function UnauthenticatedRoutes() {
 	return (
 		<Routes>
