@@ -7,11 +7,17 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
+import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
+import { UseSetKey } from "@hooks/auth";
 import { PIN_LENGTH } from "@utils/auth.ts";
 
 export function ConfirmPin() {
 	const location = useLocation();
 	const navigate = useNavigate();
+
+	const setAppPin = UseSetKey();
+	const afterPinCreated = useAfterPinCreated();
+	const setAfterPinCreated = useSetAfterPinCreated();
 
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinInvalid, setIsPinInvalid] = useState(false);
@@ -35,6 +41,14 @@ export function ConfirmPin() {
 			}, 1000);
 
 			return;
+		}
+
+		setAppPin(pinValue);
+
+		if (afterPinCreated) {
+			afterPinCreated().then(() => setAfterPinCreated(null));
+		} else {
+			navigate("/user");
 		}
 	};
 

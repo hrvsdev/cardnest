@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
@@ -11,6 +11,7 @@ import { PIN_LENGTH } from "@utils/auth.ts";
 
 export function CreatePin() {
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinInvalid, setIsPinInvalid] = useState(false);
@@ -45,7 +46,7 @@ export function CreatePin() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="" />
+			<SubPageHeader title="" leftLinkPath={location.state?.navigateBackTo} />
 			<PageContainer className="flex flex-col justify-center items-center gap-8">
 				<div className="flex flex-col text-th-white/90 items-center justify-center flex-1">
 					<h1 className="text-2xl font-bold mb-2">Create a PIN</h1>
