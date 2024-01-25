@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { CardEditor } from "components/Card/Editor";
 
@@ -9,23 +9,29 @@ import { Button } from "@components/Button";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useHasCreatedPinValue } from "@hooks/auth";
+import { useSetAfterPinCreated } from "@hooks/actions";
+import { UseIsAuthenticatedValue } from "@hooks/auth";
 import { useAddCard } from "@hooks/card/data.ts";
 import { useCardEditor } from "@hooks/card/editor.ts";
+import { useHasSkippedPinCreation } from "@hooks/preferences/interactions.ts";
 
 import { CardFullProfile } from "@t/card.ts";
 
 export function AddCardEditor() {
 	const navigate = useNavigate();
+	const location = useLocation();
+
 	const addCard = useAddCard();
-	const hasCreatedPin = useHasCreatedPinValue();
+	const hasCreatedPin = UseIsAuthenticatedValue();
+	const setAfterPinCreated = useSetAfterPinCreated();
 
-	const editorState = useCardEditor();
-
+	const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
 	const [showDialog, setShowDialog] = useState(false);
 
+	const editorState = useCardEditor(location.state?.card);
+
 	const onSaveClick = editorState.onSubmit(async (card) => {
-		if (!hasCreatedPin) {
+		if (!hasCreatedPin && !hasSkippedPinCreation) {
 			setShowDialog(true);
 			return;
 		}
@@ -34,16 +40,18 @@ export function AddCardEditor() {
 	});
 
 	const saveCard = async (card: CardFullProfile) => {
-		await addCard(card);
-		navigate("/cards");
+		const id = await addCard(card);
+		if (id) navigate(`/home/cards/${id}`);
 	};
 
 	const onCreatePinSkip = async () => {
+		setHasSkippedPinCreation(true);
 		await saveCard(editorState.data);
 	};
 
 	const onCreatePinConfirm = () => {
-		navigate("/pin/create", { state: { card: editorState.data } });
+		setAfterPinCreated(() => saveCard(editorState.data));
+		navigate("/pin/create", { state: { navigateBackTo: location.pathname } });
 	};
 
 	return (
