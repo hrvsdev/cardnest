@@ -55,6 +55,8 @@ const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
 	const encrypted = await encrypt(JSON.stringify(card), key);
 
 	set(encryptedCardsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
+
+	return id;
 });
 
 const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
