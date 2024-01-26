@@ -8,14 +8,14 @@ import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
 import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
-import { UseSetKey } from "@hooks/auth";
+import { UseSetPin } from "@hooks/auth";
 import { PIN_LENGTH } from "@utils/auth.ts";
 
 export function ConfirmPin() {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const setAppPin = UseSetKey();
+	const setAppPin = UseSetPin();
 	const afterPinCreated = useAfterPinCreated();
 	const setAfterPinCreated = useSetAfterPinCreated();
 
