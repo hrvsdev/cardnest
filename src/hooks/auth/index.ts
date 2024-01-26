@@ -42,7 +42,7 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	return out;
 });
 
-export const UseSetPin = () => useSetAtom(setPinAtom);
-export const UseVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
-export const UseIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
-export const UseHasPinValue = () => useAtomValue(hasPinAtom);
+export const useSetPin = () => useSetAtom(setPinAtom);
+export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
+export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
+export const useHasPinValue = () => useAtomValue(hasPinAtom);

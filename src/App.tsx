@@ -8,11 +8,11 @@ import { ConfirmPin } from "@pages/Pin/ConfirmPin";
 import { CreatePin } from "@pages/Pin/CreatePin";
 import { User } from "@pages/User";
 
-import { UseIsAuthenticatedValue } from "@hooks/auth";
+import { useIsAuthenticatedValue } from "@hooks/auth";
 
 export default function App() {
 	// @ts-ignore
-	const isAuthenticated = UseIsAuthenticatedValue();
+	const isAuthenticated = useIsAuthenticatedValue();
 	return (
 		<Suspense>
 			<main className="flex flex-col min-h-dvh h-full w-full">

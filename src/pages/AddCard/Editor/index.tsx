@@ -10,7 +10,7 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
 import { useSetAfterPinCreated } from "@hooks/actions";
-import { UseIsAuthenticatedValue } from "@hooks/auth";
+import { useIsAuthenticatedValue, useHasPinValue } from "@hooks/auth";
 import { useAddCard } from "@hooks/card/data.ts";
 import { useCardEditor } from "@hooks/card/editor.ts";
 import { useHasSkippedPinCreation } from "@hooks/preferences/interactions.ts";
@@ -22,7 +22,7 @@ export function AddCardEditor() {
 	const location = useLocation();
 
 	const addCard = useAddCard();
-	const hasCreatedPin = UseIsAuthenticatedValue();
+	const hasCreatedPin = useHasPinValue();
 	const setAfterPinCreated = useSetAfterPinCreated();
 
 	const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
