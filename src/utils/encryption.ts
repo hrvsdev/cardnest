@@ -53,3 +53,13 @@ export async function decrypt(data: string, key: CryptoKey, iv: string) {
 
 	return new TextDecoder().decode(decryptedData);
 }
+
+export async function hashPin(pin: string) {
+	const encoder = new TextEncoder();
+	const encodedPin = encoder.encode(pin);
+
+	const hash = await crypto.subtle.digest("SHA-256", encodedPin);
+	const hashArray = Array.from(new Uint8Array(hash));
+
+	return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
