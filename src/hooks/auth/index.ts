@@ -16,7 +16,7 @@ export const pinAtom = atom<string | null>(null);
 const pinDataAtom = atomWithStorage<PinData | null>(KEY, getFromLocalStorage(KEY));
 
 const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
-const hasPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
+const hasCreatedPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
 
 const setPinAtom = atom(null, async (_, set, pin: string) => {
 	const hashed = await hashPin(pin);
@@ -45,4 +45,4 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 export const useSetPin = () => useSetAtom(setPinAtom);
 export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
 export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
-export const useHasPinValue = () => useAtomValue(hasPinAtom);
+export const useHasCreatedPin = () => useAtomValue(hasCreatedPinAtom);
