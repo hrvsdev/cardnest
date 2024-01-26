@@ -27,7 +27,7 @@ export function ConfirmPin() {
 
 	const enteredPin: string | undefined = location.state?.enteredPin;
 
-	const checkPin = (pinValue: string) => {
+	const checkPin = async (pinValue: string) => {
 		setIsPinDifferent(false);
 
 		if (pinValue.length !== PIN_LENGTH) return;
@@ -43,7 +43,7 @@ export function ConfirmPin() {
 			return;
 		}
 
-		setAppPin(pinValue);
+		await setAppPin(pinValue);
 
 		if (afterPinCreated) {
 			afterPinCreated().then(() => setAfterPinCreated(null));

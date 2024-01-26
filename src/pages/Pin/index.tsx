@@ -3,30 +3,29 @@ import { useEffect, useRef, useState } from "react";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 
-import { useSetPin } from "@hooks/auth";
+import { useVerifyAndSetPin } from "@hooks/auth";
 import { PIN_LENGTH } from "@utils/auth.ts";
 
 export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 
-	const setKey = useSetPin();
+	const setAppPin = useVerifyAndSetPin();
 
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	const checkPin = (pinValue: string) => {
+	const checkPin = async (pinValue: string) => {
 		if (pinValue.length !== PIN_LENGTH) return;
-		if (pinValue !== "123456") {
+
+		const isPinCorrect = await setAppPin(pinValue);
+
+		if (!isPinCorrect) {
 			setIsPinIncorrect(true);
 			timeoutRef.current = setTimeout(() => {
 				setPin([]);
 				setIsPinIncorrect(false);
 			}, 1000);
-
-			return;
 		}
-
-		setKey(pinValue);
 	};
 
 	useEffect(() => {
