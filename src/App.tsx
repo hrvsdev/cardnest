@@ -1,5 +1,5 @@
-import { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Fragment, Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
@@ -20,32 +20,22 @@ export default function App() {
 		<Suspense>
 			<main className="flex flex-col min-h-dvh h-full w-full">
 				<Routes>
+					{showApp ? (
+						<Fragment>
+							<Route path="home/*" element={<Home />} />
+							<Route path="add/*" element={<AddCard />} />
+							<Route path="user/*" element={<User />} />
+						</Fragment>
+					) : (
+						<Route index element={<Pin />} />
+					)}
 					<Route path="pin/create">
 						<Route index element={<CreatePin />} />
 						<Route path="confirm" element={<ConfirmPin />} />
 					</Route>
-					{/*<Route path="*" element={<Navigate to={showApp ? "home" : "/"} />} />*/}
+					<Route path="*" element={<Navigate to={showApp ? "home" : "/"} />} />
 				</Routes>
-				{showApp ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
 			</main>
 		</Suspense>
-	);
-}
-
-function AuthenticatedRoutes() {
-	return (
-		<Routes>
-			<Route path="home/*" element={<Home />} />
-			<Route path="add/*" element={<AddCard />} />
-			<Route path="user/*" element={<User />} />
-		</Routes>
-	);
-}
-
-function UnauthenticatedRoutes() {
-	return (
-		<Routes>
-			<Route index element={<Pin />} />
-		</Routes>
 	);
 }
