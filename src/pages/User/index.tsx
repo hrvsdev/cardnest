@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement, ReactNode } from "react";
 
 import {
 	IconChevronRight,
@@ -10,6 +10,7 @@ import {
 
 import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
+import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
 export function User() {
@@ -17,19 +18,27 @@ export function User() {
 		<Fragment>
 			<HeaderTitle title="You" />
 
-			<PageContainer>
-				<div>
-					<p className="pl-2 text-sm mb-2 text-th-white/60">App Settings</p>
-					<div className="space-y-0.5">
-						<SettingsButton Icon={IconPasswordFingerprint} title="Password" />
-						<SettingsButton Icon={IconMoonStars} title="Display & UI" />
-						<SettingsButton Icon={IconDatabase} title="Data" />
-					</div>
-				</div>
+			<PageContainer className="space-y-6">
+				<SettingsGroup title="App settings">
+					<SettingsButton Icon={IconPasswordFingerprint} title="Password" />
+					<SettingsButton Icon={IconMoonStars} title="Display & UI" />
+					<SettingsButton Icon={IconDatabase} title="Data" />
+				</SettingsGroup>
 			</PageContainer>
 
 			<TabBar />
 		</Fragment>
+	);
+}
+
+function SettingsGroup({ title, children }: { title?: string; children: ReactNode }) {
+	return (
+		<div>
+			<Show when={title}>
+				<p className="pl-2 text-sm mb-2 text-th-white/60">{title}</p>
+			</Show>
+			<div className="space-y-0.5">{children}</div>
+		</div>
 	);
 }
 
