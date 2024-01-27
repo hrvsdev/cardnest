@@ -41,7 +41,7 @@ export function AddCardEditor() {
 
 	const saveCard = async (card: CardFullProfile) => {
 		const id = await addCard(card);
-		if (id) navigate(`/home/cards/${id}`);
+		navigate(`/home/cards/${id}`);
 	};
 
 	const onCreatePinSkip = async () => {

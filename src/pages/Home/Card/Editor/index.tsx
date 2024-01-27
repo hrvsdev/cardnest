@@ -22,7 +22,7 @@ export function UpdateCardEditor() {
 
 	const update = editorState.onSubmit(async (data) => {
 		await updateCard({ id: card.id, data });
-		navigate("/");
+		navigate(`/home/cards/${card.id}`);
 	});
 
 	useEffect(() => {
