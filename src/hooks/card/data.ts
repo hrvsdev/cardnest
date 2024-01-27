@@ -1,17 +1,17 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-import { pinAtom } from "@hooks/auth";
+import { hasCreatedPinAtom, pinAtom } from "@hooks/auth";
 import { decrypt, encrypt, generateKey } from "@utils/encryption.ts";
 import { genId } from "@utils/id.ts";
 import { getFromLocalStorage } from "@utils/local-storage.ts";
 
-import { CardData, CardEncryptedData, CardFullProfile } from "@t/card.ts";
+import { CardData, CardRecord, CardFullProfile } from "@t/card.ts";
 
 const KEY = "cardnest/cards";
 const SALT = "SOME R1ND0M SAL7";
 
-const encryptedCardsAtom = atomWithStorage<Record<string, CardEncryptedData>>(
+const cardRecordsAtom = atomWithStorage<Record<string, CardRecord>>(
 	KEY,
 	getFromLocalStorage(KEY) ?? {}
 );
@@ -19,24 +19,40 @@ const encryptedCardsAtom = atomWithStorage<Record<string, CardEncryptedData>>(
 const cardsAtom = atom(async (get) => {
 	let out: Record<string, CardData> = {};
 
+	const hasCreatedPin = get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
-	if (!pin) return out;
 
-	const encrypted = get(encryptedCardsAtom);
-	const key = await generateKey(pin, SALT);
+	const cards = get(cardRecordsAtom);
 
-	try {
-		await Promise.all(
-			Object.keys(encrypted).map(async (id) => {
-				const card = encrypted[id];
-				const data = await decrypt(card.data.encryptedData, key, card.data.iv);
-				const cardData = JSON.parse(data) as CardFullProfile;
+	if (hasCreatedPin) {
+		if (!pin) throw new Error("No pin found");
 
-				out[id] = { id, data: cardData };
-			})
-		);
-	} catch (e) {
-		console.error("Failed to decrypt cards");
+		const key = await generateKey(pin, SALT);
+
+		try {
+			await Promise.all(
+				Object.keys(cards).map(async (id) => {
+					const card = cards[id];
+
+					if (!card.data) throw new Error("Data Error: No encrypted data found");
+
+					const data = await decrypt(card.data.encryptedData, key, card.data.iv);
+					const cardData = JSON.parse(data) as CardFullProfile;
+
+					out[id] = { id, data: cardData };
+				})
+			);
+		} catch (e) {
+			console.error("Encryption Error: Incorrect PIN", e);
+		}
+	} else {
+		Object.keys(cards).map((id) => {
+			const card = cards[id];
+
+			if (!card.unEncryptedData) throw new Error("Data Error: No unencrypted data found");
+
+			out[id] = { id, data: card.unEncryptedData };
+		});
 	}
 
 	return out;
@@ -47,30 +63,43 @@ const getAllCardsAtom = atom(async (get) => {
 });
 
 const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
+	const hasCreatedPin = get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
-	if (!pin) return;
 
 	const id = genId();
-	const key = await generateKey(pin, SALT);
-	const encrypted = await encrypt(JSON.stringify(card), key);
 
-	set(encryptedCardsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
+	if (hasCreatedPin) {
+		if (!pin) throw new Error("Encryption Error: No pin found");
+
+		const key = await generateKey(pin, SALT);
+		const encrypted = await encrypt(JSON.stringify(card), key);
+
+		set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
+	} else {
+		set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, unEncryptedData: card } }));
+	}
 
 	return id;
 });
 
 const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
+	const hasCreatedPin = get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
-	if (!pin) return;
 
-	const key = await generateKey(pin, SALT);
-	const encrypted = await encrypt(JSON.stringify(data), key);
+	if (hasCreatedPin) {
+		if (!pin) throw new Error("Encryption Error: No pin found");
 
-	set(encryptedCardsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
+		const key = await generateKey(pin, SALT);
+		const encrypted = await encrypt(JSON.stringify(data), key);
+
+		set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
+	} else {
+		set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, unEncryptedData: data } }));
+	}
 });
 
 const deleteCardAtom = atom(null, (_, set, id: string) => {
-	set(encryptedCardsAtom, (cards) => {
+	set(cardRecordsAtom, (cards) => {
 		delete cards[id];
 		return { ...cards };
 	});

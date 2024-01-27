@@ -13,10 +13,10 @@ type PinData = {
 const KEY = "cardnest/pin-data";
 
 export const pinAtom = atom<string | null>(null);
-const pinDataAtom = atomWithStorage<PinData | null>(KEY, getFromLocalStorage(KEY));
+export const pinDataAtom = atomWithStorage<PinData | null>(KEY, getFromLocalStorage(KEY));
 
-const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
-const hasCreatedPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
+export const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
+export const hasCreatedPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
 
 const setPinAtom = atom(null, async (_, set, pin: string) => {
 	const hashed = await hashPin(pin);
