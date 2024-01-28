@@ -22,7 +22,7 @@ export function User() {
 					title="Danger zone"
 					description="Deleting data will forever delete all data from all your devices and there is no way to recover it."
 				>
-					<SettingsButton Icon={IconTrash} title="Delete all data" />
+					<SettingsButton Icon={IconTrash} title="Delete all data" isDanger />
 				</SettingsGroup>
 			</PageContainer>
 

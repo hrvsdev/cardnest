@@ -4,6 +4,8 @@ import { IconChevronRight, TablerIconsProps } from "@tabler/icons-react";
 
 import { Show } from "@components/Show";
 
+import { c } from "@utils/styles.ts";
+
 type SettingsGroupProp = {
 	title?: string;
 	description?: string;
@@ -13,6 +15,7 @@ type SettingsGroupProp = {
 type SettingsButtonProps = {
 	Icon: (props: TablerIconsProps) => ReactElement;
 	title: string;
+	isDanger?: boolean;
 };
 
 export function SettingsGroup({ title, description, children }: SettingsGroupProp) {
@@ -29,12 +32,20 @@ export function SettingsGroup({ title, description, children }: SettingsGroupPro
 	);
 }
 
-export function SettingsButton({ Icon, title }: SettingsButtonProps) {
+export function SettingsButton({ Icon, title, isDanger }: SettingsButtonProps) {
 	return (
-		<div className="flex items-center bg-th-white/5 px-3 py-2.5 rounded-sm first:rounded-t-xl last:rounded-b-xl">
+		<div
+			className={c(
+				"flex items-center px-3 py-2.5 rounded-sm first:rounded-t-xl last:rounded-b-xl",
+				isDanger ? "bg-th-red/10 text-th-red" : "bg-th-white/5"
+			)}
+		>
 			<Icon size={20} className="mr-2" />
 			<p>{title}</p>
-			<IconChevronRight size={20} className="text-th-white/40 ml-auto" />
+			<IconChevronRight
+				size={20}
+				className={c("ml-auto", isDanger ? "text-th-red/50" : "text-th-white/40")}
+			/>
 		</div>
 	);
 }
