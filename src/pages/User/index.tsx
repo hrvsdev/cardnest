@@ -2,9 +2,9 @@ import { Fragment, ReactElement, ReactNode } from "react";
 
 import {
 	IconChevronRight,
-	IconDatabase,
 	IconMoonStars,
 	IconPasswordFingerprint,
+	IconTrash,
 	TablerIconsProps
 } from "@tabler/icons-react";
 
@@ -20,9 +20,14 @@ export function User() {
 
 			<PageContainer className="space-y-6">
 				<SettingsGroup title="App settings">
-					<SettingsButton Icon={IconPasswordFingerprint} title="Password" />
-					<SettingsButton Icon={IconMoonStars} title="Display & UI" />
-					<SettingsButton Icon={IconDatabase} title="Data" />
+					<SettingsButton Icon={IconPasswordFingerprint} title="Security" />
+					<SettingsButton Icon={IconMoonStars} title="Appearance" />
+				</SettingsGroup>
+				<SettingsGroup
+					title="Danger zone"
+					description="Deleting data will forever delete all data from all your devices and there is no way to recover it."
+				>
+					<SettingsButton Icon={IconTrash} title="Delete all data" />
 				</SettingsGroup>
 			</PageContainer>
 
@@ -31,13 +36,22 @@ export function User() {
 	);
 }
 
-function SettingsGroup({ title, children }: { title?: string; children: ReactNode }) {
+type SettingsGroupProp = {
+	title?: string;
+	description?: string;
+	children: ReactNode;
+};
+
+function SettingsGroup({ title, description, children }: SettingsGroupProp) {
 	return (
 		<div>
 			<Show when={title}>
-				<p className="pl-2 text-sm mb-2 text-th-white/60">{title}</p>
+				<p className="pl-2 mb-2 text-th-white/60 text-xs uppercase">{title}</p>
 			</Show>
 			<div className="space-y-0.5">{children}</div>
+			<Show when={description}>
+				<p className="pl-2 text-sm mt-2 text-th-white/60">{description}</p>
+			</Show>
 		</div>
 	);
 }
@@ -49,7 +63,7 @@ type SettingsButtonProps = {
 
 function SettingsButton({ Icon, title }: SettingsButtonProps) {
 	return (
-		<div className="flex items-center bg-th-white/5 px-3 py-2.5 rounded-sm first:rounded-t-xl last:rounded-b-xl text-th-white/80">
+		<div className="flex items-center bg-th-white/5 px-3 py-2.5 rounded-sm first:rounded-t-xl last:rounded-b-xl">
 			<Icon size={20} className="mr-2" />
 			<p>{title}</p>
 			<IconChevronRight size={20} className="text-th-white/40 ml-auto" />
