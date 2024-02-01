@@ -4,8 +4,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
 import { Pin } from "@pages/Pin";
-import { ConfirmPin } from "@pages/Pin/ConfirmPin";
-import { CreatePin } from "@pages/Pin/CreatePin";
 import { User } from "@pages/User";
 
 import { useHasCreatedPin, useIsAuthenticatedValue } from "@hooks/auth";
@@ -29,10 +27,6 @@ export default function App() {
 					) : (
 						<Route index element={<Pin />} />
 					)}
-					<Route path="pin/create">
-						<Route index element={<CreatePin />} />
-						<Route path="confirm" element={<ConfirmPin />} />
-					</Route>
 					<Route path="*" element={<Navigate to={showApp ? "home" : "/"} />} />
 				</Routes>
 			</main>
