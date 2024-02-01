@@ -9,6 +9,7 @@ import { Show } from "@components/Show";
 
 import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
 import { useSetPin } from "@hooks/auth";
+import { useChangeOrAddCardsPin } from "@hooks/card/data.ts";
 import { PIN_LENGTH } from "@utils/auth.ts";
 
 export function ConfirmPin() {
@@ -16,6 +17,7 @@ export function ConfirmPin() {
 	const navigate = useNavigate();
 
 	const setAppPin = useSetPin();
+	const changeOrAddCardsPin = useChangeOrAddCardsPin();
 	const afterPinCreated = useAfterPinCreated();
 	const setAfterPinCreated = useSetAfterPinCreated();
 
@@ -43,6 +45,7 @@ export function ConfirmPin() {
 			return;
 		}
 
+		await changeOrAddCardsPin(pinValue);
 		await setAppPin(pinValue);
 
 		if (afterPinCreated) {
