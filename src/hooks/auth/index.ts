@@ -12,6 +12,13 @@ type PinData = {
 
 const KEY = "cardnest/pin-data";
 
+export const useSetPin = () => useSetAtom(setPinAtom);
+export const useRemovePin = () => useSetAtom(removePinAtom);
+export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
+
+export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
+export const useHasCreatedPin = () => useAtomValue(hasCreatedPinAtom);
+
 export const pinAtom = atom<string | null>(null);
 export const pinDataAtom = atomWithStorage<PinData | null>(KEY, getFromLocalStorage(KEY));
 
@@ -42,7 +49,7 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	return out;
 });
 
-export const useSetPin = () => useSetAtom(setPinAtom);
-export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
-export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
-export const useHasCreatedPin = () => useAtomValue(hasCreatedPinAtom);
+const removePinAtom = atom(null, (_, set) => {
+	set(pinDataAtom, null);
+	set(pinAtom, null);
+});

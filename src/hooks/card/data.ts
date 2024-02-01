@@ -24,6 +24,7 @@ export const useUpdateCard = () => useSetAtom(updateCardAtom);
 export const useDeleteCard = () => useSetAtom(deleteCardAtom);
 
 export const useChangeOrAddCardsPin = () => useSetAtom(changeOrAddCardsPinAtom);
+export const useRemoveCardsPin = () => useSetAtom(removeCardsPinAtom);
 
 const cardRecordsAtom = atomWithStorage<Record<string, CardRecord>>(
 	KEY,
@@ -164,6 +165,35 @@ const changeOrAddCardsPinAtom = atom(null, async (get, set, newPin: string) => {
 				newCards[id] = { id, data: encrypted };
 			}
 		}
+	} catch (e) {
+		console.error(e);
+	}
+
+	set(cardRecordsAtom, newCards);
+});
+
+const removeCardsPinAtom = atom(null, async (get, set) => {
+	const pin = get(pinAtom);
+
+	const cards = get(cardRecordsAtom);
+	const newCards: Record<string, CardRecord> = {};
+
+	if (!pin) throw new Error("Encryption Error: No pin found");
+
+	const key = await generateKey(pin, SALT);
+
+	try {
+		await Promise.all(
+			Object.keys(cards).map(async (id) => {
+				const card = cards[id];
+
+				if (!card.data) throw new Error("Data Error: No encrypted data found");
+
+				const data = await decrypt(card.data.encryptedData, key, card.data.iv);
+
+				newCards[id] = { id, unEncryptedData: JSON.parse(data) };
+			})
+		);
 	} catch (e) {
 		console.error(e);
 	}
