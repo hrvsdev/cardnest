@@ -16,7 +16,6 @@ type Props = {
 	title: string;
 
 	leftIconLabel?: string;
-	leftLinkPath?: string;
 
 	rightButtonLabel?: string;
 	rightButtonIcon?: ReactNode;
@@ -32,10 +31,7 @@ export function SubPageHeader(props: Props) {
 	return (
 		<motion.div style={{ background }} className="sticky top-0 z-10 backdrop-blur-md">
 			<div className="flex items-center justify-center relative w-full h-12">
-				<Link
-					to={props.leftLinkPath ?? ".."}
-					className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky"
-				>
+				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky">
 					<IconChevronLeft strokeWidth={2.5} size={20} />
 					<span className="text-sm">{props.leftIconLabel ?? "Back"}</span>
 				</Link>
