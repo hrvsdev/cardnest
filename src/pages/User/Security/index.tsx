@@ -10,8 +10,9 @@ import { SettingsButton, SettingsLink } from "@pages/User/components/Settings/Bu
 
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { Show } from "@components/Show";
 
-import { useRemovePin } from "@hooks/auth";
+import { useHasCreatedPin, useRemovePin } from "@hooks/auth";
 import { useRemoveCardsPin } from "@hooks/card/data.ts";
 
 export function Security() {
@@ -24,6 +25,7 @@ export function Security() {
 }
 
 function SecurityPage() {
+	const hasCreatedPin = useHasCreatedPin();
 	const removeCardsPin = useRemoveCardsPin();
 	const removePin = useRemovePin();
 
@@ -40,14 +42,16 @@ function SecurityPage() {
 				<SettingsGroup title="Password">
 					<SettingsLink to="pin/create" Icon={IconPasswordMobilePhone} title="Change password" />
 				</SettingsGroup>
-				<SettingsGroup title="Danger zone" description={DESC}>
-					<SettingsButton
-						onClick={() => setShowRemovePasswordDialog(true)}
-						Icon={IconLockOpenOff}
-						title="Remove app password"
-						isDanger
-					/>
-				</SettingsGroup>
+				<Show when={hasCreatedPin}>
+					<SettingsGroup title="Danger zone" description={REMOVE_PASSWORD_DESC}>
+						<SettingsButton
+							onClick={() => setShowRemovePasswordDialog(true)}
+							Icon={IconLockOpenOff}
+							title="Remove app password"
+							isDanger
+						/>
+					</SettingsGroup>
+				</Show>
 			</PageContainer>
 
 			<RemovePinDialog
@@ -59,5 +63,8 @@ function SecurityPage() {
 	);
 }
 
-const DESC =
+const CREATE_PASSWORD_DESC =
+	"Creating a password will make your data private and secure. You will need to enter the password every time you open the app.";
+
+const REMOVE_PASSWORD_DESC =
 	"Removing your app password will make all your data accessible to anyone who has access to your device.";
