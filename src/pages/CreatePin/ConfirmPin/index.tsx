@@ -48,7 +48,7 @@ export function ConfirmPin() {
 		if (afterPinCreated) {
 			afterPinCreated().then(() => setAfterPinCreated(null));
 		} else {
-			navigate("/user");
+			navigate("/user/security");
 		}
 	};
 

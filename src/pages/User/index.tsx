@@ -17,8 +17,8 @@ export function User() {
 	return (
 		<Routes>
 			<Route index element={<UserPage />} />
-			<Route path="security" element={<Security />} />
-			<Route path="interface" element={<UserInterface />} />
+			<Route path="security/*" element={<Security />} />
+			<Route path="interface/*" element={<UserInterface />} />
 		</Routes>
 	);
 }
