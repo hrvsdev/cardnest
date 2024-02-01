@@ -13,6 +13,8 @@ import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { TabBar } from "@components/TabBar";
 
+import { useDeleteAllCards } from "@hooks/card/data.ts";
+
 export function User() {
 	return (
 		<Routes>
@@ -24,10 +26,12 @@ export function User() {
 }
 
 function UserPage() {
+	const deleteAllData = useDeleteAllCards();
+
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
 	const deleteData = () => {
-		console.log("Deleting data...");
+		deleteAllData();
 	};
 
 	return (

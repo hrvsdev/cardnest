@@ -12,6 +12,7 @@ const KEY = "cardnest/cards";
 const SALT = "SOME R1ND0M SAL7";
 
 export const useAllCards = () => useAtomValue(getAllCardsAtom);
+export const useDeleteAllCards = () => useSetAtom(deleteAllCardsAtom);
 
 export const useCard = (id: string | undefined) => {
 	if (!id) return null;
@@ -119,6 +120,10 @@ const deleteCardAtom = atom(null, (_, set, id: string) => {
 		delete cards[id];
 		return { ...cards };
 	});
+});
+
+const deleteAllCardsAtom = atom(null, (_, set) => {
+	set(cardRecordsAtom, {});
 });
 
 const changeOrAddCardsPinAtom = atom(null, async (get, set, newPin: string) => {
