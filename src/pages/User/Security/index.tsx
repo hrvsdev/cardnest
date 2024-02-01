@@ -39,8 +39,12 @@ function SecurityPage() {
 		<Fragment>
 			<SubPageHeader title="Security" leftIconLabel="Settings" />
 			<PageContainer className="space-y-6">
-				<SettingsGroup title="Password">
-					<SettingsLink to="pin/create" Icon={IconPasswordMobilePhone} title="Change password" />
+				<SettingsGroup title="Password" description={hasCreatedPin ? "" : CREATE_PASSWORD_DESC}>
+					<SettingsLink
+						to="pin/create"
+						Icon={IconPasswordMobilePhone}
+						title={hasCreatedPin ? "Change password" : "Create password"}
+					/>
 				</SettingsGroup>
 				<Show when={hasCreatedPin}>
 					<SettingsGroup title="Danger zone" description={REMOVE_PASSWORD_DESC}>
