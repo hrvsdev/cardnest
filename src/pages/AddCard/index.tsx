@@ -14,7 +14,7 @@ export function AddCard() {
 	return (
 		<Routes>
 			<Route index element={<AddCardPage />} />
-			<Route path="editor" element={<AddCardEditor />} />
+			<Route path="editor/*" element={<AddCardEditor />} />
 		</Routes>
 	);
 }

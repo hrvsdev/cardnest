@@ -1,9 +1,10 @@
 import { Fragment, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { CardEditor } from "components/Card/Editor";
 
 import { PinCreateDialog } from "@pages/AddCard/PinCreateDialog";
+import { CreatePin } from "@pages/CreatePin";
 
 import { Button } from "@components/Button";
 import { PageContainer } from "@components/Containers";
@@ -15,11 +16,20 @@ import { useAddCard } from "@hooks/card/data.ts";
 import { useCardEditor } from "@hooks/card/editor.ts";
 import { useHasSkippedPinCreation } from "@hooks/preferences/interactions.ts";
 
-import { CardFullProfile } from "@t/card.ts";
+import { CardEditorState, CardFullProfile } from "@t/card.ts";
 
 export function AddCardEditor() {
+	const editorState = useCardEditor();
+	return (
+		<Routes>
+			<Route index element={<AddCardEditorPage editorState={editorState} />} />
+			<Route path="pin/create/*" element={<CreatePin />} />
+		</Routes>
+	);
+}
+
+function AddCardEditorPage({ editorState }: { editorState: CardEditorState }) {
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const addCard = useAddCard();
 	const hasCreatedPin = useHasCreatedPin();
@@ -27,8 +37,6 @@ export function AddCardEditor() {
 
 	const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
 	const [showDialog, setShowDialog] = useState(false);
-
-	const editorState = useCardEditor(location.state?.card);
 
 	const onSaveClick = editorState.onSubmit(async (card) => {
 		if (!hasCreatedPin && !hasSkippedPinCreation) {
@@ -51,7 +59,7 @@ export function AddCardEditor() {
 
 	const onCreatePinConfirm = () => {
 		setAfterPinCreated(() => saveCard(editorState.data));
-		navigate("/pin/create", { state: { navigateBackTo: location.pathname } });
+		navigate("pin/create");
 	};
 
 	return (
