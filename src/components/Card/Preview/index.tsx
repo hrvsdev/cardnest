@@ -8,10 +8,11 @@ type Props = {
 	card: CardFullProfile;
 	usePlaceholders?: boolean;
 	focused?: CardField;
+	maskCardNumber?: boolean;
 };
 
-export function CardPreview({ card, focused, usePlaceholders = false }: Props) {
-	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders });
+export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: Props) {
+	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders, maskCardNumber });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
 	const cl = cardThemeStyles[card.theme];

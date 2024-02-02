@@ -11,6 +11,7 @@ import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
 import { useAllCards } from "@hooks/card/data.ts";
+import { useMaskCardNumberValue } from "@hooks/preferences";
 
 export function Home() {
 	return (
@@ -25,6 +26,7 @@ function HomePage() {
 	const [search, setSearch] = useState("");
 
 	const cards = useAllCards();
+	const maskCardNumber = useMaskCardNumberValue();
 
 	return (
 		<Fragment>
@@ -34,7 +36,7 @@ function HomePage() {
 			<PageContainer className="space-y-4">
 				{cards.map(({ id, data }) => (
 					<Link to={`cards/${id}`} key={id} className="block">
-						<CardPreview card={data} />
+						<CardPreview card={data} maskCardNumber={maskCardNumber} />
 					</Link>
 				))}
 
