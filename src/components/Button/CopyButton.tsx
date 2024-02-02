@@ -30,7 +30,10 @@ export function CopyButton({ text, className = "", iconSize = 22, iconClassName 
 	const Check = <IconCheck size={iconSize} className={iconClassName} />;
 
 	return (
-		<button className={c("flex justify-center items-center size-12", className)} onClick={onClick}>
+		<button
+			className={c("flex justify-center items-center size-12 active:translate-y-0.25", className)}
+			onClick={onClick}
+		>
 			{isCopied ? Check : Copy}
 		</button>
 	);

@@ -7,6 +7,7 @@ export default {
 				xs: "375px"
 			},
 			spacing: {
+				0.25: "0.0625rem",
 				1.25: "0.3125rem",
 				12.5: "3.125rem",
 				13: "3.25rem",
