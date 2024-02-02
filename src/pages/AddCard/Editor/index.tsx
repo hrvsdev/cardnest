@@ -14,7 +14,7 @@ import { useSetAfterPinCreated } from "@hooks/actions";
 import { useHasCreatedPin } from "@hooks/auth";
 import { useAddCard } from "@hooks/card/data.ts";
 import { useCardEditor } from "@hooks/card/editor.ts";
-import { useHasSkippedPinCreation } from "@hooks/preferences/interactions.ts";
+import { useHasSkippedPinCreation } from "@hooks/preferences";
 
 import { CardEditorState, CardFullProfile } from "@t/card.ts";
 
