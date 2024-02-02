@@ -46,7 +46,7 @@ export function SettingsLink({ to, ...props }: SettingsLinkProps) {
 
 function Content({ title, Icon, isDanger }: ContentProps) {
 	return (
-		<div className="flex items-center justify-between px-3 py-2.5">
+		<div className="flex items-center justify-between w-full h-11 px-3">
 			<span className="flex items-center gap-2">
 				<Icon size={20} />
 				<p>{title}</p>
