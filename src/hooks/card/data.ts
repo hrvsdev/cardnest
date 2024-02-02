@@ -11,9 +11,6 @@ import { CardData, CardFullProfile, CardRecord } from "@t/card.ts";
 const KEY = "cardnest/cards";
 const SALT = "SOME R1ND0M SAL7";
 
-export const useAllCards = () => useAtomValue(getAllCardsAtom);
-export const useDeleteAllCards = () => useSetAtom(deleteAllCardsAtom);
-
 export const useCard = (id: string | undefined) => {
 	if (!id) return null;
 	return useAtomValue(cardsAtom)[id];
@@ -22,6 +19,26 @@ export const useCard = (id: string | undefined) => {
 export const useAddCard = () => useSetAtom(addCardAtom);
 export const useUpdateCard = () => useSetAtom(updateCardAtom);
 export const useDeleteCard = () => useSetAtom(deleteCardAtom);
+
+export const useSearchCards = (query: string) => {
+	const cards = useAtomValue(cardsAtom);
+	const lowerQuery = query.trim().toLowerCase();
+
+	if (lowerQuery === "") return Object.values(cards);
+
+	const out: CardData[] = [];
+
+	for (const key in cards) {
+		const card = cards[key];
+		if (card.data.number.includes(lowerQuery) || card.data.network.includes(lowerQuery)) {
+			out.push(card);
+		}
+	}
+
+	return out;
+};
+
+export const useDeleteAllCards = () => useSetAtom(deleteAllCardsAtom);
 
 export const useChangeOrAddCardsPin = () => useSetAtom(changeOrAddCardsPinAtom);
 export const useRemoveCardsPin = () => useSetAtom(removeCardsPinAtom);
@@ -70,10 +87,6 @@ const cardsAtom = atom(async (get) => {
 	}
 
 	return out;
-});
-
-const getAllCardsAtom = atom(async (get) => {
-	return Object.values(await get(cardsAtom));
 });
 
 const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {

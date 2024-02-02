@@ -10,7 +10,7 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
-import { useAllCards } from "@hooks/card/data.ts";
+import { useSearchCards } from "@hooks/card/data.ts";
 import { useMaskCardNumberValue } from "@hooks/preferences";
 
 export function Home() {
@@ -25,7 +25,7 @@ export function Home() {
 function HomePage() {
 	const [search, setSearch] = useState("");
 
-	const cards = useAllCards();
+	const cards = useSearchCards(search);
 	const maskCardNumber = useMaskCardNumberValue();
 
 	return (
