@@ -10,14 +10,14 @@ export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 
-	const setAppPin = useVerifyAndSetPin();
+	const verifyAndSetPin = useVerifyAndSetPin();
 
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const checkPin = async (pinValue: string) => {
 		if (pinValue.length !== PIN_LENGTH) return;
 
-		const isPinCorrect = await setAppPin(pinValue);
+		const isPinCorrect = await verifyAndSetPin(pinValue);
 
 		if (!isPinCorrect) {
 			setIsPinIncorrect(true);
