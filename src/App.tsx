@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
-import { Pin } from "@pages/Pin";
+import { Pin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
 import { useHasCreatedPin, useIsAuthenticatedValue } from "@hooks/auth";
