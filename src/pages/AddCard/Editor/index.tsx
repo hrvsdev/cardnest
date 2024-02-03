@@ -1,12 +1,11 @@
 import { Fragment, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import { CardEditor } from "components/Card/Editor";
-
 import { PinCreateDialog } from "@pages/AddCard/PinCreateDialog";
 import { CreatePin } from "@pages/CreatePin";
 
 import { Button } from "@components/Button";
+import { CardEditor } from "@components/Card/Editor";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
