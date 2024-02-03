@@ -1,4 +1,5 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
+import { focusAtom } from "jotai-optics";
 
 type AsyncAction = () => Promise<void>;
 
@@ -8,12 +9,8 @@ type Actions = {
 
 const actionsAtom = atom<Actions>({ afterPinCreated: null });
 
-const afterPinCreatedAtom = atom(
-	(get) => get(actionsAtom).afterPinCreated,
-	(get, set, action: AsyncAction | null) => {
-		set(actionsAtom, { ...get(actionsAtom), afterPinCreated: action });
-	}
-);
+const afterPinCreatedAtom = focusAtom(actionsAtom, (o) => o.prop("afterPinCreated"));
+const afterPinVerifiedAtom = focusAtom(actionsAtom, (o) => o.prop("afterPinVerified"));
 
 export const useAfterPinCreated = () => useAtomValue(afterPinCreatedAtom);
 export const useSetAfterPinCreated = () => useSetAtom(afterPinCreatedAtom);
