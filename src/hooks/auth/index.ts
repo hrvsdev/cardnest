@@ -14,6 +14,8 @@ const KEY = "cardnest/pin-data";
 
 export const useSetPin = () => useSetAtom(setPinAtom);
 export const useRemovePin = () => useSetAtom(removePinAtom);
+
+export const useVerifyPin = () => useSetAtom(verifyPinAtom);
 export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
 
 export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
@@ -30,6 +32,10 @@ const setPinAtom = atom(null, async (_, set, pin: string) => {
 
 	set(pinAtom, pin);
 	set(pinDataAtom, { data: { pin: hashed } });
+});
+
+const verifyPinAtom = atom(null, async (get, _, pin: string) => {
+	return pin === get(pinAtom);
 });
 
 const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
