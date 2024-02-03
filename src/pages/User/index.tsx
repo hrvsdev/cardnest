@@ -1,10 +1,11 @@
 import { Fragment, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "@tabler/icons-react";
 import { DeleteDataDialog } from "pages/User/components/DeleteDataDialog";
 import { SettingsGroup } from "pages/User/components/Settings";
 
+import { ConfirmPinBeforeAction } from "@pages/Pin/ConfirmPinBeforeAction";
 import { SettingsButton, SettingsLink } from "@pages/User/components/Settings/Button.tsx";
 import { Security } from "@pages/User/Security";
 import { UserInterface } from "@pages/User/UserInterface";
@@ -13,6 +14,8 @@ import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { TabBar } from "@components/TabBar";
 
+import { useSetAfterPinVerified } from "@hooks/actions";
+import { useIsAuthenticatedValue } from "@hooks/auth";
 import { useDeleteAllCards } from "@hooks/card/data.ts";
 
 export function User() {
@@ -21,17 +24,34 @@ export function User() {
 			<Route index element={<UserPage />} />
 			<Route path="security/*" element={<Security />} />
 			<Route path="interface/*" element={<UserInterface />} />
+
+			<Route path="pin/confirm" element={<ConfirmPinBeforeAction />} />
 		</Routes>
 	);
 }
 
 function UserPage() {
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const isAuthenticated = useIsAuthenticatedValue();
 	const deleteAllData = useDeleteAllCards();
+	const setAfterPinVerified = useSetAfterPinVerified();
 
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
 	const deleteData = () => {
 		deleteAllData();
+		navigate(location.pathname);
+	};
+
+	const onDeleteConfirmClick = () => {
+		if (isAuthenticated) {
+			setAfterPinVerified(() => deleteData);
+			navigate("pin/confirm");
+		} else {
+			deleteData();
+		}
 	};
 
 	return (
@@ -56,7 +76,7 @@ function UserPage() {
 
 			<DeleteDataDialog
 				show={showDeleteDialog}
-				onConfirm={deleteData}
+				onConfirm={onDeleteConfirmClick}
 				onClose={() => setShowDeleteDialog(false)}
 			/>
 		</Fragment>
