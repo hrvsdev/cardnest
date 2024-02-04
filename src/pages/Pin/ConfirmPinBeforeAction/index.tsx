@@ -38,7 +38,6 @@ export function ConfirmPinBeforeAction() {
 		if (afterPinVerified) {
 			afterPinVerified();
 			setAfterPinVerified(null);
-			console.log("DONE !!!!!");
 		}
 	};
 
