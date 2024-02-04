@@ -1,17 +1,19 @@
 import { Fragment, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconLockOpenOff, IconPasswordMobilePhone } from "@tabler/icons-react";
 
 import { CreatePin } from "@pages/CreatePin";
+import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
 import { RemovePinDialog } from "@pages/User/components/RemovePinDialog";
 import { SettingsGroup } from "@pages/User/components/Settings";
-import { SettingsButton, SettingsLink } from "@pages/User/components/Settings/Button.tsx";
+import { SettingsButton } from "@pages/User/components/Settings/Button.tsx";
 
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Show } from "@components/Show";
 
+import { useSetAfterPinVerified } from "@hooks/actions";
 import { useHasCreatedPin, useRemovePin } from "@hooks/auth";
 import { useRemoveCardsPin } from "@hooks/card/data.ts";
 
@@ -19,20 +21,46 @@ export function Security() {
 	return (
 		<Routes>
 			<Route index element={<SecurityPage />} />
+			<Route path="pin/verify" element={<VerifyPinBeforeAction />} />
 			<Route path="pin/create/*" element={<CreatePin />} />
 		</Routes>
 	);
 }
 
 function SecurityPage() {
+	const navigate = useNavigate();
+	const location = useLocation();
+
 	const hasCreatedPin = useHasCreatedPin();
 	const removeCardsPin = useRemoveCardsPin();
 	const removePin = useRemovePin();
+	const setAfterPinVerified = useSetAfterPinVerified();
 
 	const [showRemovePasswordDialog, setShowRemovePasswordDialog] = useState(false);
 
-	const removeAppPassword = () => {
-		removeCardsPin().then(removePin);
+	const navigateToCreatePin = () => {
+		navigate(location.pathname + "/pin/create");
+	};
+
+	const removeAppPassword = async () => {
+		await removeCardsPin();
+		await removePin();
+
+		navigate(location.pathname);
+	};
+
+	const onCreatePinClick = () => {
+		if (hasCreatedPin) {
+			setAfterPinVerified(() => navigateToCreatePin);
+			navigate("pin/verify");
+		} else {
+			navigateToCreatePin();
+		}
+	};
+
+	const onRemovePasswordConfirmClick = () => {
+		setAfterPinVerified(() => removeAppPassword);
+		navigate("pin/verify");
 	};
 
 	return (
@@ -40,10 +68,10 @@ function SecurityPage() {
 			<SubPageHeader title="Security" leftIconLabel="Settings" />
 			<PageContainer className="space-y-6">
 				<SettingsGroup title="Password" description={hasCreatedPin ? "" : CREATE_PASSWORD_DESC}>
-					<SettingsLink
-						to="pin/create"
-						Icon={IconPasswordMobilePhone}
+					<SettingsButton
 						title={hasCreatedPin ? "Change password" : "Create password"}
+						onClick={onCreatePinClick}
+						Icon={IconPasswordMobilePhone}
 					/>
 				</SettingsGroup>
 				<Show when={hasCreatedPin}>
@@ -60,7 +88,7 @@ function SecurityPage() {
 
 			<RemovePinDialog
 				show={showRemovePasswordDialog}
-				onConfirm={removeAppPassword}
+				onConfirm={onRemovePasswordConfirmClick}
 				onClose={() => setShowRemovePasswordDialog(false)}
 			/>
 		</Fragment>

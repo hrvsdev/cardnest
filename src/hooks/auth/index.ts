@@ -55,7 +55,7 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	return out;
 });
 
-const removePinAtom = atom(null, (_, set) => {
+const removePinAtom = atom(null, async (_, set) => {
 	set(pinDataAtom, null);
 	set(pinAtom, null);
 });
