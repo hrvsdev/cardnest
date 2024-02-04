@@ -48,10 +48,19 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		return name;
 	}, [card.cardholder]);
 
+	const issuerName = useMemo(() => {
+		let issuer = card.issuer;
+
+		if (!issuer.trim() && options?.usePlaceholders) issuer = "Issuer/bank";
+
+		return issuer;
+	}, [card.issuer]);
+
 	return {
 		number: cardNumber,
 		expiry: cardExpiry,
-		cardholder: cardholderName
+		cardholder: cardholderName,
+		issuer: issuerName,
 	};
 }
 

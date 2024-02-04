@@ -64,6 +64,8 @@ export function CardEditor({ state }: Props) {
 					placeholder="Enter card issuer/bank"
 					value={editorState.issuer}
 					onChange={(e) => methods.setCardIssuer(e.target.value)}
+					onFocus={() => methods.setFocused("issuer")}
+					onBlur={() => methods.setFocused(undefined)}
 				/>
 
 				<CardNetworkSelect selected={editorState.network} setSelected={methods.setCardNetwork} />
