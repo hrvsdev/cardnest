@@ -13,7 +13,6 @@ type Props = {
 
 export function CardEditor({ state }: Props) {
 	const { editorState, data, errors, ...methods } = state;
-	const { setCardNumber, setExpiry, setCardholder, setCardNetwork, setTheme, setFocused } = methods;
 
 	return (
 		<Fragment>
@@ -28,9 +27,9 @@ export function CardEditor({ state }: Props) {
 					placeholder="Enter card number"
 					value={editorState.number}
 					error={errors.number}
-					onChange={(e) => setCardNumber(e.target.value)}
-					onFocus={() => setFocused("number")}
-					onBlur={() => setFocused(undefined)}
+					onChange={(e) => methods.setCardNumber(e.target.value)}
+					onFocus={() => methods.setFocused("number")}
+					onBlur={() => methods.setFocused(undefined)}
 				/>
 				<Input
 					label="Expiry date"
@@ -41,9 +40,9 @@ export function CardEditor({ state }: Props) {
 					placeholder="Enter card expiry date"
 					value={editorState.expiry}
 					error={errors.expiry}
-					onChange={(e) => setExpiry(e.target.value)}
-					onFocus={() => setFocused("expiry")}
-					onBlur={() => setFocused(undefined)}
+					onChange={(e) => methods.setExpiry(e.target.value)}
+					onFocus={() => methods.setFocused("expiry")}
+					onBlur={() => methods.setFocused(undefined)}
 				/>
 				<Input
 					label="Cardholder"
@@ -53,13 +52,22 @@ export function CardEditor({ state }: Props) {
 					placeholder="Enter cardholder name"
 					value={editorState.cardholder}
 					error={errors.cardholder}
-					onChange={(e) => setCardholder(e.target.value)}
-					onFocus={() => setFocused("cardholder")}
-					onBlur={() => setFocused(undefined)}
+					onChange={(e) => methods.setCardholder(e.target.value)}
+					onFocus={() => methods.setFocused("cardholder")}
+					onBlur={() => methods.setFocused(undefined)}
+				/>
+				<Input
+					label="Card issuer/bank"
+					type="text"
+					id="issuer"
+					maxLength={30}
+					placeholder="Enter card issuer/bank"
+					value={editorState.issuer}
+					onChange={(e) => methods.setCardIssuer(e.target.value)}
 				/>
 
-				<CardNetworkSelect selected={editorState.network} setSelected={setCardNetwork} />
-				<CardThemeSelect theme={editorState.theme} setTheme={setTheme} />
+				<CardNetworkSelect selected={editorState.network} setSelected={methods.setCardNetwork} />
+				<CardThemeSelect theme={editorState.theme} setTheme={methods.setTheme} />
 			</div>
 		</Fragment>
 	);

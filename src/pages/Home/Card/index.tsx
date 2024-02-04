@@ -12,6 +12,7 @@ import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
+import { Show } from "@components/Show";
 
 import { useCard, useDeleteCard } from "@hooks/card/data.ts";
 import { addSpaces } from "@utils/card.ts";
@@ -78,6 +79,14 @@ function CardViewPage() {
 						value={card.data.cardholder}
 						rightIcon={<CopyButton text={card.data.cardholder} />}
 					/>
+					<Show when={card.data.issuer.trim().length > 0}>
+						<Input
+							readOnly
+							label="Card issuer/bank"
+							value={card.data.issuer}
+							rightIcon={<CopyButton text={card.data.issuer} />}
+						/>
+					</Show>
 				</div>
 				<Button label="Delete" theme="danger" onClick={() => setShowDeleteDialog(true)} />
 			</PageContainer>

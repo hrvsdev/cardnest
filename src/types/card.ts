@@ -29,6 +29,7 @@ export type CardInfo = {
 	number: string;
 	expiry: string;
 	cardholder: string;
+	issuer: string;
 	network: PaymentNetwork;
 };
 
@@ -57,6 +58,7 @@ export type CardEditorState = {
 	setExpiry: (expiry: string) => void;
 	setCardholder: (cardholder: string) => void;
 	setCardNetwork: (cardNetwork: PaymentNetwork) => void;
+	setCardIssuer: (cardIssuer: string) => void;
 	setFocused: (focused?: CardField) => void;
 	setTheme: (theme: CardTheme) => void;
 };

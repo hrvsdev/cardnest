@@ -10,7 +10,9 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const [number, setNumber] = useState(addSpaces(init.number ?? ""));
 	const [expiry, setExpiry] = useState(init.expiry ?? "");
 	const [cardholder, setCardholder] = useState(init.cardholder ?? "");
+	const [issuer, setIssuer] = useState(init.issuer ?? "");
 	const [network, setNetwork] = useState(init.network ?? "other");
+
 	const [theme, setTheme] = useState(init.theme ?? getRandomCardTheme());
 	const [focused, setFocused] = useState(init.focused);
 
@@ -98,7 +100,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		};
 	};
 
-	const editorState = { number, cardholder, expiry, network, theme, focused };
+	const editorState = { number, cardholder, expiry, issuer, network, theme, focused };
 	const data = { ...editorState, number: removeSpaces(editorState.number) };
 
 	return {
@@ -110,6 +112,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		setCardholder: setFormattedCardholder,
 		setExpiry: setFormattedExpiry,
 		setCardNetwork: setNetwork,
+		setCardIssuer: setIssuer,
 		setTheme,
 		setFocused
 	};
