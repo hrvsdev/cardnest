@@ -1,3 +1,5 @@
+import { Show } from "@components/Show";
+
 import { useCardNetworkLogo, useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
 import { cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
@@ -37,6 +39,14 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 						</p>
 						<p className="tracking-wider text-lg">{formattedCard.cardholder}</p>
 					</div>
+					<Show when={formattedCard.issuer}>
+						<div className={c("text-right", focusedStyle("issuer"))}>
+							<p className="tracking-widest text-2xs font-light text-th-white/80 uppercase">
+								Issuer
+							</p>
+							<p className="tracking-wider text-lg">{formattedCard.issuer}</p>
+						</div>
+					</Show>
 				</div>
 				<div className={c("tracking-widest text-2xl font-bold", focusedStyle("number"))}>
 					{formattedCard.number.split("").map((part, i) => (

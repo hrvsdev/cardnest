@@ -7,7 +7,7 @@ export type PaymentNetwork =
 	| "rupay"
 	| "other";
 
-export type CardField = "number" | "expiry" | "cardholder";
+export type CardField = "number" | "expiry" | "cardholder" | "issuer";
 
 export type CardData = {
 	id: string;
@@ -41,6 +41,7 @@ export type DisplayCardDetails = {
 	number: string;
 	expiry: string;
 	cardholder: string;
+	issuer: string;
 };
 
 export type CardErrorsState = {
