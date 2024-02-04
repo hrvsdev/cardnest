@@ -10,7 +10,7 @@ import { useAfterPinVerified, useSetAfterPinVerified } from "@hooks/actions";
 import { useVerifyPin } from "@hooks/auth";
 import { PIN_LENGTH } from "@utils/auth.ts";
 
-export function ConfirmPinBeforeAction() {
+export function VerifyPinBeforeAction() {
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
 

@@ -2,10 +2,10 @@ import { Fragment, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "@tabler/icons-react";
-import { DeleteDataDialog } from "pages/User/components/DeleteDataDialog";
-import { SettingsGroup } from "pages/User/components/Settings";
 
-import { ConfirmPinBeforeAction } from "@pages/Pin/ConfirmPinBeforeAction";
+import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
+import { DeleteDataDialog } from "@pages/User/components/DeleteDataDialog";
+import { SettingsGroup } from "@pages/User/components/Settings";
 import { SettingsButton, SettingsLink } from "@pages/User/components/Settings/Button.tsx";
 import { Security } from "@pages/User/Security";
 import { UserInterface } from "@pages/User/UserInterface";
@@ -25,7 +25,7 @@ export function User() {
 			<Route path="security/*" element={<Security />} />
 			<Route path="interface/*" element={<UserInterface />} />
 
-			<Route path="pin/confirm" element={<ConfirmPinBeforeAction />} />
+			<Route path="pin/verify" element={<VerifyPinBeforeAction />} />
 		</Routes>
 	);
 }
@@ -48,7 +48,7 @@ function UserPage() {
 	const onDeleteConfirmClick = () => {
 		if (isAuthenticated) {
 			setAfterPinVerified(() => deleteData);
-			navigate("pin/confirm");
+			navigate("pin/verify");
 		} else {
 			deleteData();
 		}
