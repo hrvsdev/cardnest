@@ -30,7 +30,10 @@ export const useSearchCards = (query: string) => {
 
 	for (const key in cards) {
 		const card = cards[key];
-		if (card.data.number.includes(lowerQuery) || card.data.network.includes(lowerQuery)) {
+
+		const toSearch = `${card.data.number} ${card.data.network} ${card.data.issuer}`;
+
+		if (toSearch.toLowerCase().includes(lowerQuery)) {
 			out.push(card);
 		}
 	}
