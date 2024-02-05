@@ -10,20 +10,6 @@ export default function App() {
 	);
 }
 
-/**
- *   "dependencies": {
- * //    "expo": "~50.0.5",
- * //    "expo-status-bar": "~1.11.1",
- * //    "react": "18.2.0",
- * //    "react-native": "0.73.2"
- *   },
- *   "devDependencies": {
- * //    "@babel/core": "^7.20.0",
- * //    "@types/react": "~18.2.45",
- * //    "typescript": "^5.1.3"
- *   },
- */
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
