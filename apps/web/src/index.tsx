@@ -18,7 +18,7 @@ function Root() {
 		<StrictMode>
 			<RouterProvider router={router} />
 		</StrictMode>
-	);
+	);x
 }
 
 function getAppRoot() {
