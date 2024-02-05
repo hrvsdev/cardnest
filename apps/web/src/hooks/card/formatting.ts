@@ -60,7 +60,7 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		number: cardNumber,
 		expiry: cardExpiry,
 		cardholder: cardholderName,
-		issuer: issuerName,
+		issuer: issuerName
 	};
 }
 

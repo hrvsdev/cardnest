@@ -22,7 +22,7 @@
 }
 
 .label:before {
-	content: '';
+	content: "";
 	width: 50px;
 	height: 28px;
 	background: theme("colors.th-white");
@@ -35,7 +35,7 @@
 }
 
 .label:after {
-	content: '';
+	content: "";
 	position: absolute;
 	width: 24px;
 	height: 24px;

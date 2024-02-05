@@ -18,7 +18,7 @@ export function SettingsToggleButton({ Icon, title, checked, onChange }: Props) 
 					<Icon size={20} />
 					<p>{title}</p>
 				</span>
-				<Toggle checked={checked} onChange={onChange}/>
+				<Toggle checked={checked} onChange={onChange} />
 			</div>
 		</div>
 	);

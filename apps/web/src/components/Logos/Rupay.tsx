@@ -1,4 +1,4 @@
-export function Rupay({ width = "5.25rem" }: { width?: number | string}) {
+export function Rupay({ width = "5.25rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 25.81;
 
 	return (

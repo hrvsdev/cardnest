@@ -2,6 +2,9 @@
 	"name": "cardnest",
 	"private": true,
 	"type": "module",
+	"scripts": {
+		"prettify": "prettier --no-error-on-unmatched-pattern --write **/*.{js,jsx,ts,tsx,json,html,css,scss,md}"
+	},
 	"workspaces": [
 		"apps/*"
 	],

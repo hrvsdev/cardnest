@@ -1,4 +1,4 @@
-export function Discover({ width = "5.25rem" }: { width?: number | string}) {
+export function Discover({ width = "5.25rem" }: { width?: number | string }) {
 	const aspectRatio = 100 / 17.42;
 
 	return (

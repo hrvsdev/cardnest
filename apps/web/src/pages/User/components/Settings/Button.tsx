@@ -66,7 +66,9 @@ function Wrapper({ isDanger, children }: WrapperProps) {
 		<div
 			className={c(
 				"flex items-center w-full rounded-sm first:rounded-t-xl last:rounded-b-xl transition-all duration-200 active:scale-98",
-				isDanger ? "bg-th-red/10 text-th-red hover:bg-th-red/15" : "bg-th-white/5 hover:bg-th-white/10"
+				isDanger
+					? "bg-th-red/10 text-th-red hover:bg-th-red/15"
+					: "bg-th-white/5 hover:bg-th-white/10"
 			)}
 		>
 			{children}

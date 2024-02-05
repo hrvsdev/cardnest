@@ -1,4 +1,4 @@
-import { cardThemeStyles, cardThemes } from "@utils/card.ts";
+import { cardThemes, cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
 import { CardTheme } from "@t/card.ts";
@@ -22,9 +22,7 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 							theme === it && "border-th-white/80 border p-2"
 						)}
 					>
-						<div
-							className={c("rounded-lg w-full h-full bg-gradient-to-br", cardThemeStyles[it])}
-						/>
+						<div className={c("rounded-lg w-full h-full bg-gradient-to-br", cardThemeStyles[it])} />
 					</div>
 				))}
 			</div>
