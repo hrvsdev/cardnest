@@ -1,0 +1,9 @@
+{
+	"extends": "../../tsconfig",
+	"compilerOptions": {
+		"baseUrl": "src",
+		"lib": ["DOM", "ESNext"],
+		"jsx": "react-native",
+		"moduleResolution": "node"
+	}
+}
