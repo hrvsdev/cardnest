@@ -3,13 +3,13 @@
 	"bracketSpacing": true,
 	"arrowParens": "always",
 	"trailingComma": "none",
-	"plugins": [
-		"@ianvs/prettier-plugin-sort-imports"
-	],
+	"plugins": ["@ianvs/prettier-plugin-sort-imports"],
 	"importOrder": [
 		"^react$",
 		"^react-dom$",
+		"^react-native$",
 		"^react-router-dom$",
+		"^expo(.*)$",
 		"",
 		"<THIRD_PARTY_MODULES>",
 		"",
@@ -21,6 +21,8 @@
 		"",
 		"^@hooks/(.*)$",
 		"^@utils/(.*)$",
+		"",
+		"^@styles/(.*)$",
 		"",
 		"^@t/(.*)$"
 	]
