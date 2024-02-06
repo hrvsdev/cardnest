@@ -1,5 +1,7 @@
-import { IconForbid2 } from "@tabler/icons-react";
+import { IconForbid2 } from "tabler-icons-react-native";
 
-export function Other({ width = "2rem" }: { width?: number | string }) {
-	return <IconForbid2 width={width} height={width} className="text-th-white/85" />;
+import { themeColors } from "@styles/colors.ts";
+
+export function Other({ width = 32 }: { width?: number }) {
+	return <IconForbid2 width={width} height={width} fill={themeColors.white["85"]} />;
 }
