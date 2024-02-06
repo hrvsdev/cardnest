@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import { themeColors } from "../../styles/colors.ts";
+import { themeColors } from "@styles/colors.ts";
 
 export function HeaderTitle({ title }: { title: string }) {
 	return (

@@ -1,13 +1,13 @@
 import { PropsWithChildren, useState } from "react";
-
+import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { colors, themeColors } from "styles/colors.ts";
 
-import { HeaderSearch } from "./components/Header/HeaderSearch.tsx";
-import { HeaderTitle } from "./components/Header/HeaderTitle.tsx";
-import { MasterCard } from "./components/Logos/MasterCard.tsx";
+import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
+import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
+import { MasterCard } from "@components/Logos/MasterCard.tsx";
+
+import { colors, themeColors } from "@styles/colors.ts";
 
 export default function App() {
 	const [search, setSearch] = useState("");

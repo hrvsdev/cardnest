@@ -1,6 +1,6 @@
 import Svg, { G, Path, Polygon } from "react-native-svg";
 
-import { themeColors } from "../../styles/colors.ts";
+import { themeColors } from "@styles/colors.ts";
 
 export function Rupay({ width = 84 }: { width?: number }) {
 	const aspectRatio = 100 / 25.81;

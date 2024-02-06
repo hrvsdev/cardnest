@@ -1,6 +1,6 @@
 import Svg, { Circle, G } from "react-native-svg";
 
-import { themeColors } from "../../styles/colors.ts";
+import { themeColors } from "@styles/colors.ts";
 
 export function MasterCard({ width = 40 }: { width?: number }) {
 	const aspectRatio = 100 / 62.5;

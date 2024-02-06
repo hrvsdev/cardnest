@@ -1,6 +1,10 @@
 import Svg, { Path, Polygon, Rect } from "react-native-svg";
 
-import { themeColors } from "../../styles/colors.ts";
+import { themeColors } from "@styles/colors.ts";
+
+
+
+
 
 export function Discover({ width = 84 }: { width?: number }) {
 	const aspectRatio = 100 / 17.42;
