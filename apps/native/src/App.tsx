@@ -1,11 +1,29 @@
+import { PropsWithChildren } from "react";
+
+import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
 
+import { colors } from "./styles/colors.ts";
+
 export default function App() {
 	return (
-		<View className="flex-1 items-center justify-center bg-white">
-			<Text className="text-primary">Open up App.tsx to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<AppContainer>
+			<Text className="text-th-red">Open up App.tsx to start working on your app!</Text>
+		</AppContainer>
+	);
+}
+
+function AppContainer({ children }: PropsWithChildren) {
+	const gradientColors = [colors.thBlack, colors.thDarkerBlue];
+
+	const start = { x: 1, y: 0 };
+	const end = { x: 0, y: 1 };
+
+	return (
+		<LinearGradient className="flex-1" colors={gradientColors} start={start} end={end}>
+			<View className="flex-1 pt-5">{children}</View>
+			<StatusBar style="light" />
+		</LinearGradient>
 	);
 }
