@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
 
-import { colors } from "./styles/colors.ts";
+import { themeColors } from "./styles/colors.ts";
 
 export default function App() {
 	return (
@@ -15,7 +15,7 @@ export default function App() {
 }
 
 function AppContainer({ children }: PropsWithChildren) {
-	const gradientColors = [colors.thBlack, colors.thDarkerBlue];
+	const gradientColors = [themeColors.black, themeColors.darkerBlue];
 
 	const start = { x: 1, y: 0 };
 	const end = { x: 0, y: 1 };
