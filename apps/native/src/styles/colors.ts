@@ -6,7 +6,23 @@ export const themeColors = {
 	sky: "#3fa1ff",
 	green: "#ADEFD1",
 	red: "#f31260",
-	white: "#F4F7FB"
+	white: {
+		DEFAULT: "#F4F7FB",
+		5: "#F4F7FB0D",
+		10: "#F4F7FB19",
+		15: "#F4F7FB26",
+		20: "#F4F7FB33",
+		30: "#F4F7FB4D",
+		40: "#F4F7FB66",
+		50: "#F4F7FB7F",
+		60: "#F4F7FB99",
+		65: "#F4F7FBA6",
+		70: "#F4F7FBB2",
+		75: "#F4F7FBBF",
+		80: "#F4F7FBCC",
+		85: "#F4F7FBD9",
+		90: "#F4F7FBE6"
+	}
 };
 
 export const colors = {
