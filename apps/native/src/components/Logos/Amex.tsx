@@ -1,6 +1,6 @@
 import Svg, { G, Path } from "react-native-svg";
 
-import { themeColors } from "../../styles/colors.ts";
+import { themeColors } from "@styles/colors.ts";
 
 export function Amex({ width = 72 }: { width?: number }) {
 	const aspectRatio = 100 / 34.19;
