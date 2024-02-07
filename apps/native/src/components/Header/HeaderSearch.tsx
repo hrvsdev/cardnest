@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 
-import { Show } from "@cardnest/web/src/components/Show";
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
 import { themeColors } from "@styles/colors.ts";
@@ -31,11 +30,11 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 				placeholderTextColor={themeColors.white["60"]}
 				placeholder="Enter card number, bank or network"
 			/>
-			<Show when={showClearIcon}>
+			{showClearIcon && (
 				<Pressable onPress={onClear} style={{ position: "absolute", right: 28 }}>
 					<IconCircleX size={24} color={themeColors.white["60"]} />
 				</Pressable>
-			</Show>
+			)}
 		</View>
 	);
 }
