@@ -146,8 +146,8 @@ function AppContainer({ children }: PropsWithChildren) {
 	const end = { x: 0, y: 1 };
 
 	return (
-		<LinearGradient className="flex-1" colors={gradientColors} start={start} end={end}>
-			<View className="flex-1 pt-5">{children}</View>
+		<LinearGradient style={{ flex: 1 }} colors={gradientColors} start={start} end={end}>
+			<View style={{ flex: 1, paddingTop: 20 }}>{children}</View>
 			<StatusBar style="light" />
 		</LinearGradient>
 	);
