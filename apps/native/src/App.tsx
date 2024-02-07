@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
@@ -23,7 +23,7 @@ export default function App() {
 
 	return (
 		<AppContainer>
-			<HeaderTitle title="Home" />
+			<HeaderTitle title="Homer" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<View style={styles.pageWrapper}>
 				<LinearGradient style={styles.cardWrapper} {...props}>
@@ -147,7 +147,7 @@ function AppContainer({ children }: PropsWithChildren) {
 
 	return (
 		<LinearGradient style={{ flex: 1 }} colors={gradientColors} start={start} end={end}>
-			<View style={{ flex: 1, paddingTop: 20 }}>{children}</View>
+			<SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
 			<StatusBar style="light" />
 		</LinearGradient>
 	);
