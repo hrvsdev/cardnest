@@ -2,6 +2,8 @@ import { Pressable, StyleSheet, TextInput, View } from "react-native";
 
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
+import { Show } from "@libs/components/src/Show";
+
 import { themeColors } from "@styles/colors.ts";
 
 type SearchProps = {
@@ -30,11 +32,11 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 				placeholderTextColor={themeColors.white["60"]}
 				placeholder="Enter card number, bank or network"
 			/>
-			{showClearIcon && (
+			<Show when={showClearIcon}>
 				<Pressable onPress={onClear} style={{ position: "absolute", right: 28 }}>
 					<IconCircleX size={24} color={themeColors.white["60"]} />
 				</Pressable>
-			)}
+			</Show>
 		</View>
 	);
 }

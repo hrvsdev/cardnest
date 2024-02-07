@@ -23,6 +23,9 @@ importers:
 
   apps/native:
     dependencies:
+      '@libs/components':
+        specifier: workspace:^
+        version: link:../../libs/components
       expo:
         specifier: ^50.0.4
         version: 50.0.6(@babel/core@7.23.9)(@react-native/babel-preset@0.73.21)
@@ -121,6 +124,15 @@ importers:
       vite-tsconfig-paths:
         specifier: ^4.2.2
         version: 4.3.1(typescript@5.3.3)(vite@5.0.12)
+
+  libs/components:
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.53
+        version: 18.2.55
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
 
 packages:
 
@@ -5381,7 +5393,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /lru-cache@10.2.0:
     resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
@@ -6562,7 +6573,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
