@@ -1,6 +1,6 @@
 import ky from "ky";
 
-import { CardTheme, PaymentNetwork } from "@t/card";
+import { CardTheme, PaymentNetwork } from "@libs/types/src/card";
 
 export const cardThemeStyles: Record<CardTheme, string> = {
 	sky: "from-sky-500 to-sky-700",

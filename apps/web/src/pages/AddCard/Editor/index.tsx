@@ -15,7 +15,7 @@ import { useAddCard } from "@hooks/card/data.ts";
 import { useCardEditor } from "@hooks/card/editor.ts";
 import { useHasSkippedPinCreation } from "@hooks/preferences";
 
-import { CardEditorState } from "@t/card.ts";
+import { CardEditorState } from "@libs/types/src/card";
 
 export function AddCardEditor() {
 	const editorState = useCardEditor();

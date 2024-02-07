@@ -5,7 +5,7 @@ import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { Input } from "@components/Input";
 
-import { CardEditorState } from "@t/card.ts";
+import { CardEditorState } from "@libs/types/src/card";
 
 type Props = {
 	state: CardEditorState;

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import { addSpaces, getApproxCardNetwork, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
 
-import { CardEditorState, CardField, CardFullProfile } from "@t/card.ts";
+import { CardEditorState, CardField, CardFullProfile } from "@libs/types/src/card";
 
 type CardEditorValue = CardFullProfile & { focused?: CardField };
 

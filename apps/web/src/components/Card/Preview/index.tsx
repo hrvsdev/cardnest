@@ -4,7 +4,7 @@ import { useCardNetworkLogo, useFormattedCardViewDetails } from "@hooks/card/for
 import { cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
-import { CardField, CardFullProfile } from "@t/card.ts";
+import { CardField, CardFullProfile } from "@libs/types/src/card";
 
 type Props = {
 	card: CardFullProfile;

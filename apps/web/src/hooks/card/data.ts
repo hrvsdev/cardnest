@@ -7,7 +7,7 @@ import { decrypt, encrypt, generateKey } from "@utils/encryption.ts";
 import { genId } from "@utils/id.ts";
 import { getFromLocalStorage } from "@utils/local-storage.ts";
 
-import { CardData, CardFullProfile, CardRecord } from "@t/card.ts";
+import { CardData, CardFullProfile, CardRecord } from "@libs/types/src/card";
 
 const KEY = "cardnest/cards";
 const SALT = "SOME R1ND0M SAL7";

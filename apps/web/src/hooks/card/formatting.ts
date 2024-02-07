@@ -9,7 +9,7 @@ import { Visa } from "@components/Logos/Visa.tsx";
 
 import { addSpaces, removeSpaces } from "@utils/card.ts";
 
-import { CardInfo, DisplayCardDetails } from "@t/card.ts";
+import { CardInfo, DisplayCardDetails } from "@libs/types/src/card";
 
 export type Options = {
 	usePlaceholders?: boolean;

@@ -8,7 +8,7 @@ import { Visa } from "@components/Logos/Visa.tsx";
 
 import { c } from "@utils/styles.ts";
 
-import { PaymentNetwork } from "@t/card.ts";
+import { PaymentNetwork } from "@libs/types/src/card";
 
 type Props = {
 	selected: PaymentNetwork;

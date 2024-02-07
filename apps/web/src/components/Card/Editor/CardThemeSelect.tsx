@@ -1,7 +1,7 @@
 import { cardThemes, cardThemeStyles } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
 
-import { CardTheme } from "@t/card.ts";
+import { CardTheme } from "@libs/types/src/card";
 
 type Props = {
 	theme: CardTheme;
