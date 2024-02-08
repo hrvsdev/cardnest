@@ -1,3 +1,7 @@
+export const opacity = (c: string, o: number) => {
+	return c + Math.round(255 * o).toString(16);
+};
+
 export const themeColors = {
 	black: "#00060c",
 	darkerBlue: "#001528",
