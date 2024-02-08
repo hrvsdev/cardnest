@@ -6,8 +6,8 @@ import { CardEditor } from "@components/Card/Editor";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useCard, useUpdateCard } from "@hooks/card/data.ts";
-import { useCardEditor } from "@hooks/card/editor.ts";
+import { useCard, useUpdateCard } from "@libs/hooks/src/card/data.ts";
+import { useCardEditor } from "@libs/hooks/src/card/editor.ts";
 
 export function UpdateCardEditor() {
 	const navigate = useNavigate();

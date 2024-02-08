@@ -1,10 +1,18 @@
-import { Show } from "@components/Show";
-
-import { useCardNetworkLogo, useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
-import { cardThemeStyles } from "@libs/utils/src/card.ts";
-import { c } from "@libs/utils/src/styles.ts";
+import { useMemo } from "react";
 
 import { CardField, CardFullProfile } from "@libs/types/src/card";
+
+import { Amex } from "@components/Logos/Amex.tsx";
+import { Diners } from "@components/Logos/Diners.tsx";
+import { Discover } from "@components/Logos/Discover.tsx";
+import { MasterCard } from "@components/Logos/MasterCard.tsx";
+import { Rupay } from "@components/Logos/Rupay.tsx";
+import { Visa } from "@components/Logos/Visa.tsx";
+import { Show } from "@components/Show";
+
+import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
+import { cardThemeStyles } from "@libs/utils/src/card.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type Props = {
 	card: CardFullProfile;
@@ -75,4 +83,25 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 			</div>
 		</div>
 	);
+}
+
+export function useCardNetworkLogo(network: string) {
+	return useMemo(() => {
+		switch (network) {
+			case "visa":
+				return Visa;
+			case "mastercard":
+				return MasterCard;
+			case "amex":
+				return Amex;
+			case "discover":
+				return Discover;
+			case "diners":
+				return Diners;
+			case "rupay":
+				return Rupay;
+			default:
+				return () => null;
+		}
+	}, [network]);
 }

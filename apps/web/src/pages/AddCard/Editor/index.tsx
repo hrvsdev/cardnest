@@ -9,11 +9,11 @@ import { CardEditor } from "@components/Card/Editor";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useSetAfterPinCreated } from "@hooks/actions";
-import { useHasCreatedPin } from "@hooks/auth";
-import { useAddCard } from "@hooks/card/data.ts";
-import { useCardEditor } from "@hooks/card/editor.ts";
-import { useHasSkippedPinCreation } from "@hooks/preferences";
+import { useSetAfterPinCreated } from "@libs/hooks/src/actions";
+import { useHasCreatedPin } from "@libs/hooks/src/auth";
+import { useAddCard } from "@libs/hooks/src/card/data.ts";
+import { useCardEditor } from "@libs/hooks/src/card/editor.ts";
+import { useHasSkippedPinCreation } from "@libs/hooks/src/preferences";
 
 import { CardEditorState } from "@libs/types/src/card";
 

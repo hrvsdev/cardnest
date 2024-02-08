@@ -13,9 +13,9 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Show } from "@components/Show";
 
-import { useSetAfterPinVerified } from "@hooks/actions";
-import { useHasCreatedPin, useRemovePin } from "@hooks/auth";
-import { useRemoveCardsPin } from "@hooks/card/data.ts";
+import { useSetAfterPinVerified } from "@libs/hooks/src/actions";
+import { useHasCreatedPin, useRemovePin } from "@libs/hooks/src/auth";
+import { useRemoveCardsPin } from "@libs/hooks/src/card/data.ts";
 
 export function Security() {
 	return (

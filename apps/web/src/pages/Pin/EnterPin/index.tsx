@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 
-import { useVerifyAndSetPin } from "@hooks/auth";
+import { useVerifyAndSetPin } from "@libs/hooks/src/auth";
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function Pin() {

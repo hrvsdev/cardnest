@@ -10,8 +10,8 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { Show } from "@components/Show";
 import { TabBar } from "@components/TabBar";
 
-import { useSearchCards } from "@hooks/card/data.ts";
-import { useMaskCardNumberValue } from "@hooks/preferences";
+import { useSearchCards } from "@libs/hooks/src/card/data.ts";
+import { useMaskCardNumberValue } from "@libs/hooks/src/preferences";
 
 export function Home() {
 	return (

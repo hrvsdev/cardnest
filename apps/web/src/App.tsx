@@ -6,7 +6,7 @@ import { Home } from "@pages/Home";
 import { Pin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
-import { useHasCreatedPin, useIsAuthenticatedValue } from "@hooks/auth";
+import { useHasCreatedPin, useIsAuthenticatedValue } from "@libs/hooks/src/auth";
 
 export default function App() {
 	const isAuthenticated = useIsAuthenticatedValue();

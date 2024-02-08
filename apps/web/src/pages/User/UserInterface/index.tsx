@@ -8,7 +8,7 @@ import { SettingsToggleButton } from "@pages/User/components/Settings/ToggleButt
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useMaskCardNumber } from "@hooks/preferences";
+import { useMaskCardNumber } from "@libs/hooks/src/preferences";
 
 export function UserInterface() {
 	const [maskCard, setMaskCard] = useMaskCardNumber();

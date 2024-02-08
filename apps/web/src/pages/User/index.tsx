@@ -14,9 +14,9 @@ import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { TabBar } from "@components/TabBar";
 
-import { useSetAfterPinVerified } from "@hooks/actions";
-import { useIsAuthenticatedValue } from "@hooks/auth";
-import { useDeleteAllCards } from "@hooks/card/data.ts";
+import { useSetAfterPinVerified } from "@libs/hooks/src/actions";
+import { useIsAuthenticatedValue } from "@libs/hooks/src/auth";
+import { useDeleteAllCards } from "@libs/hooks/src/card/data.ts";
 
 export function User() {
 	return (

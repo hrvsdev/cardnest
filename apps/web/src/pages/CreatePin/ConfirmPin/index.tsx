@@ -7,9 +7,9 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
-import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
-import { useSetPin } from "@hooks/auth";
-import { useChangeOrAddCardsPin } from "@hooks/card/data.ts";
+import { useAfterPinCreated, useSetAfterPinCreated } from "@libs/hooks/src/actions";
+import { useSetPin } from "@libs/hooks/src/auth";
+import { useChangeOrAddCardsPin } from "@libs/hooks/src/card/data.ts";
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function ConfirmPin() {
