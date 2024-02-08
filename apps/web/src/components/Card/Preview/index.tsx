@@ -10,7 +10,7 @@ import { Show } from "@components/Show";
 
 import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
 
-import { cardThemeStyles } from "@libs/utils/src/card.ts";
+import { cardThemeTailwindClassNames } from "@utils/card.ts";
 import { c } from "@libs/utils/src/styles.ts";
 
 import { CardField, CardFullProfile } from "@libs/types/src/card";
@@ -26,7 +26,7 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders, maskCardNumber });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
-	const cl = cardThemeStyles[card.theme];
+	const cl = cardThemeTailwindClassNames[card.theme];
 
 	const focusedStyle = (el: CardField) => {
 		if (!usePlaceholders) return "";
