@@ -1,9 +1,0 @@
-{
-	"extends": "../../tsconfig",
-	"compilerOptions": {
-		"baseUrl": "src",
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
-		"jsx": "react-jsx",
-	},
-	"include": ["src"]
-}

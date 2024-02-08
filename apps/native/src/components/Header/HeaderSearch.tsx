@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, TextInput, View } from "react-native";
 
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
-import { Show } from "@libs/components/src/Show";
+import { Show } from "@components/Show";
 
 import { themeColors } from "@styles/colors.ts";
 
