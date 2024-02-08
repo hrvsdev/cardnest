@@ -1,8 +1,8 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-import { hashPin, verifyPin } from "../../utils/encryption.ts";
-import { getFromLocalStorage } from "../../utils/local-storage.ts";
+import { hashPin, verifyPin } from "@libs/utils/src/encryption.ts";
+import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
 
 type PinData = {
 	data: {
