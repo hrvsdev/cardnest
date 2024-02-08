@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
 import { CreditCardIcon, HomeIcon, UserCircleIcon } from "react-native-heroicons/solid";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { CardPreview } from "@components/Card/Preview";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
@@ -23,8 +23,10 @@ const CARD: CardFullProfile = {
 	network: "mastercard"
 };
 
-export default function App() {
+export default function Page() {
 	const [search, setSearch] = useState("");
+
+	const insets = useSafeAreaInsets();
 
 	return (
 		<AppContainer>
@@ -33,7 +35,7 @@ export default function App() {
 			<View style={styles.pageWrapper}>
 				<CardPreview card={CARD} />
 			</View>
-			<View style={styles.tabBar}>
+			<View style={[styles.tabBar, { paddingBottom: insets.bottom + 16 }]}>
 				<View style={styles.tabButtonWrapper}>
 					<HomeIcon color={themeColors.sky} size={24} />
 				</View>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		paddingVertical: 16
+		paddingTop: 16,
 	}
 });
 
