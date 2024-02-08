@@ -1,12 +1,5 @@
 import { useMemo } from "react";
 
-import { Amex } from "@components/Logos/Amex.tsx";
-import { Diners } from "@components/Logos/Diners.tsx";
-import { Discover } from "@components/Logos/Discover.tsx";
-import { MasterCard } from "@components/Logos/MasterCard.tsx";
-import { Rupay } from "@components/Logos/Rupay.tsx";
-import { Visa } from "@components/Logos/Visa.tsx";
-
 import { addSpaces, removeSpaces } from "@libs/utils/src/card.ts";
 
 import { CardInfo, DisplayCardDetails } from "@libs/types/src/card";
@@ -64,23 +57,3 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 	};
 }
 
-export function useCardNetworkLogo(network: string) {
-	return useMemo(() => {
-		switch (network) {
-			case "visa":
-				return Visa;
-			case "mastercard":
-				return MasterCard;
-			case "amex":
-				return Amex;
-			case "discover":
-				return Discover;
-			case "diners":
-				return Diners;
-			case "rupay":
-				return Rupay;
-			default:
-				return () => null;
-		}
-	}, [network]);
-}
