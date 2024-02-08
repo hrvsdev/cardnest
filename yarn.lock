@@ -2539,6 +2539,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@libs/hooks@workspace:libs/hooks":
+  version: 0.0.0-use.local
+  resolution: "@libs/hooks@workspace:libs/hooks"
+  dependencies:
+    "@libs/types": "workspace:^"
+    jotai: "npm:^2.6.4"
+    jotai-optics: "npm:^0.3.2"
+    optics-ts: "npm:^2.4.1"
+  languageName: unknown
+  linkType: soft
+
 "@libs/types@workspace:^, @libs/types@workspace:libs/types":
   version: 0.0.0-use.local
   resolution: "@libs/types@workspace:libs/types"
@@ -6357,7 +6368,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jotai@npm:^2.6.1":
+"jotai@npm:^2.6.1, jotai@npm:^2.6.4":
   version: 2.6.4
   resolution: "jotai@npm:2.6.4"
   peerDependencies:
