@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 		aspectRatio: 1.586,
 		borderRadius: 16,
 		padding: 20,
-		paddingBottom: 12,
+		paddingBottom: 14,
 		display: "flex",
 		justifyContent: "space-between"
 	},
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
 		width: 10
 	},
 	cardNetworkLogoWrapper: {
-		paddingBottom: 8
+		paddingBottom: 6
 	}
 });
