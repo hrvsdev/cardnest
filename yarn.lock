@@ -2544,6 +2544,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@libs/utils@workspace:libs/utils":
+  version: 0.0.0-use.local
+  resolution: "@libs/utils@workspace:libs/utils"
+  dependencies:
+    "@libs/types": "workspace:^"
+  peerDependencies:
+    ky: ^1.2.0
+    nanoid: ^5.0.5
+  languageName: unknown
+  linkType: soft
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
