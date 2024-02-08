@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { backgroundRange, borderOpacityRange } from "@components/Header/shared";
 import { Show } from "@components/Show";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type SearchProps = {
 	value: string;

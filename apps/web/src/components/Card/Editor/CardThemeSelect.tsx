@@ -1,5 +1,5 @@
-import { cardThemes, cardThemeStyles } from "@utils/card.ts";
-import { c } from "@utils/styles.ts";
+import { cardThemes, cardThemeStyles } from "@libs/utils/src/card.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 import { CardTheme } from "@libs/types/src/card";
 

@@ -2,7 +2,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomWithStorage } from "jotai/utils";
 
-import { getFromLocalStorage } from "@utils/local-storage.ts";
+import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
 
 type Preferences = {
 	userInterface: {

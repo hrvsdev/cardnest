@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 
-import { PIN_LENGTH } from "@utils/auth.ts";
-import { c } from "@utils/styles.ts";
+import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 const KEYPAD_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 

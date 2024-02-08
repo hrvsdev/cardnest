@@ -7,7 +7,7 @@ import { MasterCard } from "@components/Logos/MasterCard.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { addSpaces, removeSpaces } from "@utils/card.ts";
+import { addSpaces, removeSpaces } from "@libs/utils/src/card.ts";
 
 import { CardInfo, DisplayCardDetails } from "@libs/types/src/card";
 

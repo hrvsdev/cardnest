@@ -10,6 +10,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@libs/types": "workspace:^",
+    "@libs/utils": "workspace:^",
     "@tabler/icons-react": "^2.44.0",
     "framer-motion": "^10.16.16",
     "jotai": "^2.6.1",

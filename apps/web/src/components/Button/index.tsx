@@ -1,4 +1,4 @@
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type Theme = "primary" | "danger";
 type Variant = "solid" | "flat";

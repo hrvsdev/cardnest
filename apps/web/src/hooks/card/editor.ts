@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { addSpaces, getApproxCardNetwork, getRandomCardTheme, removeSpaces } from "@utils/card.ts";
+import { addSpaces, getApproxCardNetwork, getRandomCardTheme, removeSpaces } from "@libs/utils/src/card.ts";
 
 import { CardEditorState, CardField, CardFullProfile } from "@libs/types/src/card";
 

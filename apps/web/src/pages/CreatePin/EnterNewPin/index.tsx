@@ -7,7 +7,7 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function EnterNewPin() {
 	const navigate = useNavigate();

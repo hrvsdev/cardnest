@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { IconChevronRight, TablerIconsProps } from "@tabler/icons-react";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type ContentProps = {
 	Icon: (props: TablerIconsProps) => ReactElement;

@@ -4,7 +4,7 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 
 import { useVerifyAndSetPin } from "@hooks/auth";
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function Pin() {
 	const [pin, setPin] = useState<number[]>([]);

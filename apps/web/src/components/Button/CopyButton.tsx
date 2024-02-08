@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type Props = {
 	text: string;

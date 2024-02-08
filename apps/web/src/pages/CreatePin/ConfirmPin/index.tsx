@@ -10,7 +10,7 @@ import { Show } from "@components/Show";
 import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
 import { useSetPin } from "@hooks/auth";
 import { useChangeOrAddCardsPin } from "@hooks/card/data.ts";
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function ConfirmPin() {
 	const location = useLocation();

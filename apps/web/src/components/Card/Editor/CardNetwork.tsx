@@ -6,7 +6,7 @@ import { Other } from "@components/Logos/Other.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 import { PaymentNetwork } from "@libs/types/src/card";
 

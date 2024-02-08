@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type Props = {
 	pin: number[];

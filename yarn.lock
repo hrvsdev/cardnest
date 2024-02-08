@@ -1719,6 +1719,7 @@ __metadata:
   dependencies:
     "@heroicons/react": "npm:^2.1.1"
     "@libs/types": "workspace:^"
+    "@libs/utils": "workspace:^"
     "@tabler/icons-react": "npm:^2.44.0"
     "@types/react": "npm:^18.2.53"
     "@types/react-dom": "npm:^18.2.17"
@@ -2544,7 +2545,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@libs/utils@workspace:libs/utils":
+"@libs/utils@workspace:^, @libs/utils@workspace:libs/utils":
   version: 0.0.0-use.local
   resolution: "@libs/utils@workspace:libs/utils"
   dependencies:

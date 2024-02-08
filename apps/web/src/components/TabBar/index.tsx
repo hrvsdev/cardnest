@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import { CreditCardIcon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 const tabs = [
 	{

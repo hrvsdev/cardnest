@@ -1,8 +1,8 @@
 import { Show } from "@components/Show";
 
 import { useCardNetworkLogo, useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
-import { cardThemeStyles } from "@utils/card.ts";
-import { c } from "@utils/styles.ts";
+import { cardThemeStyles } from "@libs/utils/src/card.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 import { CardField, CardFullProfile } from "@libs/types/src/card";
 

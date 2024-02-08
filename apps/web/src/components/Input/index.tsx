@@ -2,7 +2,7 @@ import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute, ReactN
 
 import { Show } from "@components/Show";
 
-import { c } from "@utils/styles.ts";
+import { c } from "@libs/utils/src/styles.ts";
 
 type Props = {
 	value?: string | number;

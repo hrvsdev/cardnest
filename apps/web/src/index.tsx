@@ -7,7 +7,7 @@ import App from "./App";
 
 import "./index.css";
 
-import { getFromLocalStorage } from "@utils/local-storage";
+import { getFromLocalStorage } from "@libs/utils/src/local-storage";
 
 const APP_VERSION = "0.1.1";
 

@@ -8,7 +8,7 @@ import { Show } from "@components/Show";
 
 import { useAfterPinVerified, useSetAfterPinVerified } from "@hooks/actions";
 import { useVerifyPin } from "@hooks/auth";
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 export function VerifyPinBeforeAction() {
 	const [pin, setPin] = useState<number[]>([]);

@@ -3,9 +3,9 @@ import { atomWithStorage } from "jotai/utils";
 
 import { hasCreatedPinAtom, pinAtom } from "../auth";
 
-import { decrypt, encrypt, generateKey } from "@utils/encryption.ts";
-import { genId } from "@utils/id.ts";
-import { getFromLocalStorage } from "@utils/local-storage.ts";
+import { decrypt, encrypt, generateKey } from "@libs/utils/src/encryption.ts";
+import { genId } from "@libs/utils/src/id.ts";
+import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
 
 import { CardData, CardFullProfile, CardRecord } from "@libs/types/src/card";
 
