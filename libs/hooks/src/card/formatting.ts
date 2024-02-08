@@ -56,4 +56,3 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		issuer: issuerName
 	};
 }
-
