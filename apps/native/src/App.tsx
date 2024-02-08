@@ -1,7 +1,9 @@
 import { PropsWithChildren, useState } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { CardPreview } from "@components/Card/Preview";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
@@ -25,7 +27,7 @@ export default function App() {
 
 	return (
 		<AppContainer>
-			<HeaderTitle title="Homer" />
+			<HeaderTitle title="Home" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<View style={styles.pageWrapper}>
 				<CardPreview card={CARD} />
@@ -42,7 +44,7 @@ function AppContainer({ children }: PropsWithChildren) {
 
 	return (
 		<LinearGradient style={{ flex: 1 }} colors={gradientColors} start={start} end={end}>
-			<SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
+			<SafeAreaView style={{ flex: 1, position: "relative" }}>{children}</SafeAreaView>
 			<StatusBar style="light" />
 		</LinearGradient>
 	);
