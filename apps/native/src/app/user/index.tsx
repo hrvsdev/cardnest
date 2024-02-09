@@ -1,9 +1,13 @@
-import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { PageContainer } from "@components/Containers";
+import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 export default function Page() {
 	return (
-		<View>
-			<Text>User</Text>
-		</View>
+		<SafeAreaView>
+			<HeaderTitle title="You" />
+			<PageContainer />
+		</SafeAreaView>
 	);
 }

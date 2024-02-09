@@ -1,9 +1,13 @@
-import { View , Text} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { PageContainer } from "@components/Containers";
+import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 export default function Page() {
 	return (
-		<View>
-			<Text>Card</Text>
-		</View>
-	)
+		<SafeAreaView>
+			<HeaderTitle title="Add Card" />
+			<PageContainer />
+		</SafeAreaView>
+	);
 }
