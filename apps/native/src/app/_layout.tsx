@@ -1,11 +1,96 @@
-import { Slot } from "expo-router";
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Link, Tabs } from "expo-router";
 
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+	BottomTabBarProps,
+	BottomTabNavigationOptions
+} from "@react-navigation/bottom-tabs/src/types.tsx";
+import { CreditCardIcon, HomeIcon, UserCircleIcon } from "react-native-heroicons/solid";
+
+import { opacity, themeColors } from "@styles/colors.ts";
+
+const tabs = [
+	{
+		name: "index/index",
+		href: "/",
+		icon: HomeIcon
+	},
+	{
+		name: "card/index",
+		href: "/card",
+		icon: CreditCardIcon
+	},
+	{
+		name: "user/index",
+		href: "/user",
+		icon: UserCircleIcon
+	}
+];
 
 export default function Layout() {
+	const gradientColors = [themeColors.black, themeColors.darkerBlue];
+
+	const start = { x: 1, y: 0 };
+	const end = { x: 0, y: 1 };
+
+	const screen: BottomTabNavigationOptions = {
+		headerShown: false
+	};
+
+	const scene: StyleProp<ViewStyle> = {
+		backgroundColor: "transparent"
+	};
+
 	return (
-		<SafeAreaProvider>
-			<Slot />
-		</SafeAreaProvider>
+		<LinearGradient style={styles.root} colors={gradientColors} start={start} end={end}>
+			<Tabs screenOptions={screen} sceneContainerStyle={scene} tabBar={BottomTabs}>
+				{tabs.map((tab) => (
+					<Tabs.Screen key={tab.name} name={tab.name} />
+				))}
+			</Tabs>
+		</LinearGradient>
 	);
 }
+
+function BottomTabs({ state, insets }: BottomTabBarProps) {
+	return (
+		<View style={[styles.tabBar, { paddingBottom: insets.bottom + 16 }]}>
+			{tabs.map((tab, ix) => (
+				<Link key={tab.name} href={tab.href} asChild>
+					<Pressable style={styles.tabButtonWrapper}>
+						<tab.icon
+							color={state.index === ix ? themeColors.sky : themeColors.white[70]}
+							size={24}
+						/>
+					</Pressable>
+				</Link>
+			))}
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	root: {
+		flex: 1,
+		position: "relative"
+	},
+	tabBar: {
+		position: "absolute",
+		width: "100%",
+		left: 0,
+		right: 0,
+		bottom: 0,
+		display: "flex",
+		flexDirection: "row",
+		borderTopWidth: 1,
+		borderTopColor: opacity(themeColors.white.DEFAULT, 0.1),
+		backgroundColor: opacity(themeColors.black, 0.8)
+	},
+	tabButtonWrapper: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		paddingTop: 16
+	}
+});
