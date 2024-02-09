@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import { CardPreview } from "@components/Card/Preview";
-import { PageContainer } from "@components/Containers";
+import { PageContainer, PageRoot } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
@@ -23,13 +21,13 @@ export default function Page() {
 	const [search, setSearch] = useState("");
 
 	return (
-		<SafeAreaView>
+		<PageRoot>
 			<HeaderTitle title="Home" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<PageContainer style={styles.pageWrapper}>
 				<CardPreview card={CARD} />
 			</PageContainer>
-		</SafeAreaView>
+		</PageRoot>
 	);
 }
 
@@ -37,6 +35,6 @@ const styles = StyleSheet.create({
 	pageWrapper: {
 		flex: 1,
 		flexDirection: "column",
-		rowGap: 16,
+		rowGap: 16
 	}
 });
