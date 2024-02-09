@@ -18,8 +18,8 @@ const tabs = [
 		icon: HomeIcon
 	},
 	{
-		name: "card/index",
-		href: "/card",
+		name: "add/index",
+		href: "/add",
 		icon: CreditCardIcon
 	},
 	{
