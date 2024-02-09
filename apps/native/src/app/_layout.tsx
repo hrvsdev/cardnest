@@ -1,4 +1,5 @@
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, Tabs } from "expo-router";
 
@@ -55,18 +56,21 @@ export default function Layout() {
 
 function BottomTabs({ state, insets }: BottomTabBarProps) {
 	return (
-		<View style={[styles.tabBar, { paddingBottom: insets.bottom + 16 }]}>
+		// @ts-ignore
+		<BlurView style={[styles.tabBar]}>
 			{tabs.map((tab, ix) => (
 				<Link key={tab.name} href={tab.href} asChild>
 					<Pressable style={styles.tabButtonWrapper}>
-						<tab.icon
-							color={state.index === ix ? themeColors.sky : themeColors.white[70]}
-							size={24}
-						/>
+						<View style={{ paddingTop: 16, paddingBottom: insets.bottom + 16 }}>
+							<tab.icon
+								color={state.index === ix ? themeColors.sky : themeColors.white[70]}
+								size={24}
+							/>
+						</View>
 					</Pressable>
 				</Link>
 			))}
-		</View>
+		</BlurView>
 	);
 }
 
@@ -84,13 +88,12 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		borderTopWidth: 1,
-		borderTopColor: opacity(themeColors.white.DEFAULT, 0.1),
-		backgroundColor: opacity(themeColors.black, 0.8)
+		borderTopColor: opacity(themeColors.white.DEFAULT, 0.1)
 	},
 	tabButtonWrapper: {
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		paddingTop: 16
+		backgroundColor: opacity(themeColors.black, 0.8)
 	}
 });
