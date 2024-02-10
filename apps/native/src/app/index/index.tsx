@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
+import { Link } from "expo-router";
 
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer, PageRoot } from "@components/Containers";
@@ -25,7 +26,11 @@ export default function Page() {
 			<HeaderTitle title="Home" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<PageContainer style={styles.pageWrapper}>
-				<CardPreview card={CARD} />
+				<Link href="/cards" asChild>
+					<Pressable>
+						<CardPreview card={CARD} />
+					</Pressable>
+				</Link>
 			</PageContainer>
 		</PageRoot>
 	);
