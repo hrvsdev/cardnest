@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import { themeColors } from "@styles/colors.ts";
 
 export function HeaderTitle({ title }: { title: string }) {
+	const insets = useSafeAreaInsets();
+
 	return (
-		<View style={styles.headingWrapper}>
+		<View style={[styles.headingWrapper, { paddingTop: insets.top + 32 }]}>
 			<Text style={styles.heading}>{title}</Text>
 		</View>
 	);
@@ -12,7 +16,6 @@ export function HeaderTitle({ title }: { title: string }) {
 
 const styles = StyleSheet.create({
 	headingWrapper: {
-		paddingTop: 32,
 		paddingLeft: 2,
 		marginHorizontal: 16
 	},
