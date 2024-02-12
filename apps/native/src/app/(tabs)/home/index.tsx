@@ -26,7 +26,7 @@ export default function Page() {
 			<HeaderTitle title="Home" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<PageContainer style={styles.pageWrapper}>
-				<Link href="/cards" asChild>
+				<Link href="/home/card" asChild>
 					<Pressable>
 						<CardPreview card={CARD} />
 					</Pressable>
