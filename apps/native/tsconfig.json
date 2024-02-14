@@ -4,6 +4,6 @@
 		"baseUrl": "src",
 		"lib": ["DOM", "ESNext"],
 		"jsx": "react-native",
-		"moduleResolution": "node"
+		"moduleResolution": "Node"
 	}
 }
