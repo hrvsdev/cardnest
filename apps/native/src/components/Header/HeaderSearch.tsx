@@ -1,7 +1,8 @@
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
+import { UnStyledInput } from "@components/Input";
 import { Show } from "@components/Show";
 
 import { themeColors } from "@styles/colors.ts";
@@ -25,11 +26,12 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 				color={themeColors.white["60"]}
 				style={{ position: "absolute", left: 28 }}
 			/>
-			<TextInput
-				style={[styles.input, showClearIcon ? styles.inputNotEmpty : styles.inputEmpty]}
+			<UnStyledInput
 				value={value}
 				onChangeText={onChange}
+				focusedStyle={styles.focused}
 				placeholderTextColor={themeColors.white["60"]}
+				style={[styles.input, showClearIcon ? styles.inputNotEmpty : styles.inputEmpty]}
 				placeholder="Enter card number, bank or network"
 			/>
 			<Show when={showClearIcon}>
@@ -57,6 +59,9 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		paddingHorizontal: 48,
 		height: 48
+	},
+	focused: {
+		backgroundColor: themeColors.white["15"]
 	},
 	inputEmpty: {
 		paddingRight: 16
