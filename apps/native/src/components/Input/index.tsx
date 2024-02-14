@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
 	NativeSyntheticEvent,
 	StyleSheet,
@@ -20,6 +20,8 @@ type UnStyledInputProps = TextInputProps & {
 
 type InputProps = UnStyledInputProps & {
 	label?: string;
+	rightIcon?: ReactNode;
+	error?: string;
 };
 
 export function UnStyledInput(props: UnStyledInputProps) {
@@ -46,36 +48,64 @@ export function UnStyledInput(props: UnStyledInputProps) {
 }
 
 export function Input(props: InputProps) {
+	const conditionalStyles = {
+		color: props.error ? themeColors.red : themeColors.white.DEFAULT,
+		paddingRight: props.rightIcon ? 48 : 16
+	};
+
 	return (
-		<View>
+		<View style={{ flex: 1, rowGap: 8 }}>
 			<Show when={props.label}>
 				<View>
 					<Text style={styles.label}>{props.label}</Text>
 				</View>
 			</Show>
-			<UnStyledInput {...props} style={styles.input} focusedStyle={styles.focused} />
+			<View style={{ position: "relative" }}>
+				<UnStyledInput
+					{...props}
+					focusedStyle={styles.focused}
+					style={[styles.input, conditionalStyles]}
+				/>
+				<Show when={props.rightIcon}>
+					<View style={styles.rightIconWrapper}>{props.rightIcon}</View>
+				</Show>
+			</View>
+			<Show when={props.error}>
+				<View>
+					<Text style={styles.error}>{props.error}</Text>
+				</View>
+			</Show>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	label: {
-		color: themeColors.white["80"],
-		marginBottom: 8,
-		paddingLeft: 8,
-		fontSize: 16
-	},
 	input: {
 		width: "100%",
 		backgroundColor: themeColors.white["10"],
 		borderRadius: 14,
-		color: themeColors.white.DEFAULT,
 		fontSize: 16,
-		paddingHorizontal: 16,
+		paddingLeft: 16,
 		letterSpacing: 16 / 10,
 		height: 48
 	},
 	focused: {
 		backgroundColor: themeColors.white["15"]
+	},
+	label: {
+		color: themeColors.white["80"],
+		paddingLeft: 8,
+		fontSize: 16
+	},
+	error: {
+		color: themeColors.red,
+		paddingLeft: 8,
+		fontSize: 14
+	},
+	rightIconWrapper: {
+		position: "absolute",
+		right: 0,
+		height: 48,
+		width: 48,
 	}
 });
