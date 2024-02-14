@@ -16,6 +16,6 @@ export function PageRoot({ children, style }: Props) {
 }
 
 export function PageContainer({ children, style }: Props) {
-	const styles = StyleSheet.compose({ padding: 16 }, style);
+	const styles = StyleSheet.compose({ padding: 16,  paddingBottom: 72 }, style);
 	return <View style={styles}>{children}</View>;
 }
