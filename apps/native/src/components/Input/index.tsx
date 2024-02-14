@@ -1,19 +1,36 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, TextInputProps, TextStyle } from "react-native";
+import {
+	NativeSyntheticEvent,
+	StyleSheet,
+	TextInput,
+	TextInputFocusEventData,
+	TextInputProps,
+	TextStyle
+} from "react-native";
 
 type InputProps = TextInputProps & {
 	focusedStyle?: TextStyle;
 };
 
-export function UnStyledInput({ style, focusedStyle, ...props }: InputProps) {
+export function UnStyledInput(props: InputProps) {
 	const [isFocused, setIsFocused] = useState(false);
+
+	const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+		setIsFocused(true);
+		if (props.onFocus) props.onFocus(e);
+	};
+
+	const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+		setIsFocused(false);
+		if (props.onBlur) props.onBlur(e);
+	};
 
 	return (
 		<TextInput
 			{...props}
-			style={StyleSheet.compose(style, isFocused ? focusedStyle : {})}
-			onFocus={() => setIsFocused(true)}
-			onBlur={() => setIsFocused(false)}
+			style={StyleSheet.compose(props.style, isFocused ? props.focusedStyle : {})}
+			onFocus={onFocus}
+			onBlur={onBlur}
 		/>
 	);
 }
