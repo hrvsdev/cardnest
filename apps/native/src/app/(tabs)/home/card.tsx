@@ -1,6 +1,9 @@
+import { View } from "react-native";
+
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer, PageRoot } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { Input } from "@components/Input";
 
 import { CardFullProfile } from "@libs/types/src/card.ts";
 
@@ -19,6 +22,12 @@ export default function Page() {
 			<SubPageHeader title="Card Details" />
 			<PageContainer>
 				<CardPreview card={CARD} />
+				<View style={{ flex: 1, gap: 24, marginTop: 24 }}>
+					<Input label="Card number" value={CARD.number} readOnly />
+					<Input label="Expriy date" value={CARD.expiry} readOnly />
+					<Input label="Cardholder" value={CARD.cardholder} readOnly />
+					<Input label="Card issuer/bank" value={CARD.issuer} readOnly />
+				</View>
 			</PageContainer>
 		</PageRoot>
 	);
