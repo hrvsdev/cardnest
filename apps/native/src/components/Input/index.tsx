@@ -8,6 +8,8 @@ import {
 	TextStyle
 } from "react-native";
 
+import { themeColors } from "@styles/colors.ts";
+
 type InputProps = TextInputProps & {
 	focusedStyle?: TextStyle;
 };
@@ -34,3 +36,22 @@ export function UnStyledInput(props: InputProps) {
 		/>
 	);
 }
+
+export function Input(props: InputProps) {
+	return <UnStyledInput {...props} style={styles.input} focusedStyle={styles.focused} />;
+}
+
+const styles = StyleSheet.create({
+	input: {
+		width: "100%",
+		backgroundColor: themeColors.white["10"],
+		borderRadius: 14,
+		color: themeColors.white.DEFAULT,
+		fontSize: 16,
+		paddingHorizontal: 48,
+		height: 48
+	},
+	focused: {
+		backgroundColor: themeColors.white["15"]
+	}
+});
