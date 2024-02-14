@@ -1,9 +1,12 @@
 import { View } from "react-native";
 
+import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer, PageRoot } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";
+
+import { removeSpaces } from "@libs/utils/src/card.ts";
 
 import { CardFullProfile } from "@libs/types/src/card.ts";
 
@@ -23,10 +26,30 @@ export default function Page() {
 			<PageContainer>
 				<CardPreview card={CARD} />
 				<View style={{ flex: 1, gap: 24, marginTop: 24 }}>
-					<Input label="Card number" value={CARD.number} readOnly />
-					<Input label="Expriy date" value={CARD.expiry} readOnly />
-					<Input label="Cardholder" value={CARD.cardholder} readOnly />
-					<Input label="Card issuer/bank" value={CARD.issuer} readOnly />
+					<Input
+						readOnly
+						label="Card number"
+						value={CARD.number}
+						rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
+					/>
+					<Input
+						readOnly
+						label="Expriy date"
+						value={CARD.expiry}
+						rightIcon={<CopyButton text={CARD.expiry} />}
+					/>
+					<Input
+						readOnly
+						label="Cardholder"
+						value={CARD.cardholder}
+						rightIcon={<CopyButton text={CARD.cardholder} />}
+					/>
+					<Input
+						readOnly
+						label="Card issuer/bank"
+						value={CARD.issuer}
+						rightIcon={<CopyButton text={CARD.issuer} />}
+					/>
 				</View>
 			</PageContainer>
 		</PageRoot>
