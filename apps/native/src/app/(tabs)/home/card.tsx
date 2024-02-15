@@ -1,5 +1,7 @@
 import { View } from "react-native";
 
+import { IconPencil } from "tabler-icons-react-native";
+
 import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer, PageRoot } from "@components/Containers";
@@ -20,9 +22,19 @@ const CARD: CardFullProfile = {
 };
 
 export default function Page() {
+	const edit = () => {
+		// navigate("edit");
+		console.log("Edit");
+	};
+
 	return (
 		<PageRoot>
-			<SubPageHeader title="Card Details" />
+			<SubPageHeader
+				title="Card"
+				rightButtonLabel="Edit"
+				onRightButtonPress={edit}
+				rightButtonIcon={IconPencil}
+			/>
 			<PageContainer>
 				<CardPreview card={CARD} />
 				<View style={{ flex: 1, gap: 24, marginTop: 24 }}>
