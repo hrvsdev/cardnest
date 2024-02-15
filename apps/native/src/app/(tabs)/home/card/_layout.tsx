@@ -1,14 +1,7 @@
 import { Stack } from "expo-router";
 
-import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-
-import { SCREEN_STYLE } from "@styles/common.ts";
+import { DEFAULT_STACK_OPTIONS } from "@utils/stack.ts";
 
 export default function CardDetailsLayout() {
-	const screenOptions: NativeStackNavigationOptions = {
-		headerShown: false,
-		contentStyle: SCREEN_STYLE
-	};
-
-	return <Stack screenOptions={screenOptions} />;
+	return <Stack screenOptions={DEFAULT_STACK_OPTIONS} />;
 }
