@@ -38,9 +38,9 @@ export default function Page() {
 				onRightButtonPress={edit}
 				rightButtonIcon={IconPencil}
 			/>
-			<PageContainer>
+			<PageContainer style={{ flex: 1, gap: 32 }}>
 				<CardPreview card={CARD} />
-				<View style={{ flex: 1, gap: 24, marginTop: 24 }}>
+				<View style={{ flex: 1, gap: 24 }}>
 					<Input
 						readOnly
 						label="Card number"
@@ -65,9 +65,9 @@ export default function Page() {
 						value={CARD.issuer}
 						rightIcon={<CopyButton text={CARD.issuer} />}
 					/>
-
-					<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
 				</View>
+
+				<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
 			</PageContainer>
 		</PageRoot>
 	);
