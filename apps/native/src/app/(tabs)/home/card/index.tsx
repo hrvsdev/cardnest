@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 
 import { IconPencil } from "tabler-icons-react-native";
 
+import { Button } from "@components/Button";
 import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { PageContainer, PageRoot } from "@components/Containers";
@@ -64,6 +65,8 @@ export default function Page() {
 						value={CARD.issuer}
 						rightIcon={<CopyButton text={CARD.issuer} />}
 					/>
+
+					<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
 				</View>
 			</PageContainer>
 		</PageRoot>
