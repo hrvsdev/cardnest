@@ -1,11 +1,11 @@
-import { View } from "react-native";
-
-import { CardPreview } from "@components/Card/Preview";
+import { CardEditor } from "@components/Card/Editor";
 import { PageContainer, PageRoot } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
-import { Input } from "@components/Input";
+
+import { useCardEditor } from "@libs/hooks/src/card/editor.ts";
 
 import { CardFullProfile } from "@libs/types/src/card.ts";
+
 
 const CARD: CardFullProfile = {
 	number: "8263 9039 2737 3837",
@@ -22,17 +22,13 @@ export default function Page() {
 		console.log("Save");
 	};
 
+	const editorState = useCardEditor(CARD);
+
 	return (
 		<PageRoot>
 			<SubPageHeader title="Edit Card" rightButtonLabel="Done" onRightButtonPress={save} />
-			<PageContainer>
-				<CardPreview card={CARD} />
-				<View style={{ flex: 1, gap: 24, marginTop: 24 }}>
-					<Input label="Card number" value={CARD.number} />
-					<Input label="Expriy date" value={CARD.expiry} />
-					<Input label="Cardholder" value={CARD.cardholder} />
-					<Input label="Card issuer/bank" value={CARD.issuer} />
-				</View>
+			<PageContainer style={{ flex: 1, gap: 32 }}>
+				<CardEditor state={editorState} />
 			</PageContainer>
 		</PageRoot>
 	);
