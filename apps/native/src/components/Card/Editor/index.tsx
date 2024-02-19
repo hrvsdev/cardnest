@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { View } from "react-native";
 
 import { CardNetworkSelect } from "@components/Card/Editor/CardNetwork.tsx";
+import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { Input } from "@components/Input";
 
@@ -61,7 +62,7 @@ export function CardEditor({ state }: Props) {
 				/>
 
 				<CardNetworkSelect selected={editorState.network} setSelected={methods.setCardNetwork} />
-				{/*<CardThemeSelect theme={editorState.theme} setTheme={methods.setTheme} />*/}
+				<CardThemeSelect theme={editorState.theme} setTheme={methods.setTheme} />
 			</View>
 		</Fragment>
 	);
