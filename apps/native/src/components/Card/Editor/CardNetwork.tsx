@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { Amex } from "@components/Logos/Amex.tsx";
 import { Diners } from "@components/Logos/Diners.tsx";
@@ -12,24 +12,19 @@ import { themeColors } from "@styles/colors.ts";
 
 import { PaymentNetwork } from "@libs/types/src/card";
 
-
 type Props = {
 	selected: PaymentNetwork;
 	setSelected: (value: PaymentNetwork) => void;
 };
 
 const networks = [
-	[
-		{ network: "visa", logo: Visa, width: 48 },
-		{ network: "mastercard", logo: MasterCard, width: 36 },
-		{ network: "rupay", logo: Rupay, width: 72 }
-	],
-	[
-		{ network: "discover", logo: Discover, width: 80 },
-		{ network: "diners", logo: Diners, width: 28 },
-		{ network: "amex", logo: Amex, width: 64 }
-	],
-	[{ network: "other", logo: Other, width: 30 }]
+	{ network: "visa", logo: Visa, width: 48 },
+	{ network: "mastercard", logo: MasterCard, width: 36 },
+	{ network: "rupay", logo: Rupay, width: 72 },
+	{ network: "discover", logo: Discover, width: 80 },
+	{ network: "diners", logo: Diners, width: 28 },
+	{ network: "amex", logo: Amex, width: 64 },
+	{ network: "other", logo: Other, width: 30 }
 ] as const;
 
 export function CardNetworkSelect({ selected, setSelected }: Props) {
@@ -37,24 +32,27 @@ export function CardNetworkSelect({ selected, setSelected }: Props) {
 		<View style={{ flex: 1, rowGap: 8 }}>
 			<Text style={styles.label}>Card network</Text>
 
-			<View style={{ flex: 1, gap: 8 }}>
-				{networks.map((row, i) => (
-					<View key={i} style={styles.row}>
-						{row.map((N) => (
-							<Pressable
-								key={N.network}
-								onPress={() => setSelected(N.network)}
-								style={[styles.item, selected === N.network ? styles.selected : styles.notSelected]}
-							>
-								<N.logo width={N.width} />
-							</Pressable>
-						))}
-					</View>
+			<View style={styles.grid}>
+				{networks.map((N) => (
+					<Pressable
+						key={N.network}
+						onPress={() => setSelected(N.network)}
+						style={[styles.item, selected === N.network ? styles.selected : styles.notSelected]}
+					>
+						<N.logo width={N.width} />
+					</Pressable>
 				))}
 			</View>
 		</View>
 	);
 }
+
+const PAGE_PADDING = 16;
+const ITEM_GAP = 8;
+const NO_OF_ITEMS = 3;
+
+const pageContentWidth = Dimensions.get("window").width - PAGE_PADDING * 2;
+const gridItemWidth = (pageContentWidth - ITEM_GAP * (NO_OF_ITEMS - 1)) / NO_OF_ITEMS;
 
 const styles = StyleSheet.create({
 	label: {
@@ -62,13 +60,14 @@ const styles = StyleSheet.create({
 		paddingLeft: 8,
 		fontSize: 16
 	},
-	row: {
+	grid: {
 		flex: 1,
+		flexWrap: "wrap",
 		flexDirection: "row",
 		gap: 8
 	},
 	item: {
-		flex: 1,
+		width: gridItemWidth,
 		justifyContent: "center",
 		alignItems: "center",
 		height: 48,
