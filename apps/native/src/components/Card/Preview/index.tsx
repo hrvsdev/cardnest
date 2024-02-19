@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Amex } from "@components/Logos/Amex.tsx";
@@ -22,7 +22,7 @@ type Props = {
 	maskCardNumber?: boolean;
 };
 
-export function CardPreview({ card, usePlaceholders, maskCardNumber }: Props) {
+export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: Props) {
 	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders, maskCardNumber });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
@@ -32,19 +32,24 @@ export function CardPreview({ card, usePlaceholders, maskCardNumber }: Props) {
 
 	const props = { colors: cardGradientColors, start, end };
 
+	const focusedStyle = (el: CardField): ViewStyle => {
+		if (!usePlaceholders) return {};
+		return { opacity: focused === el ? 1 : 0.55 };
+	};
+
 	return (
 		<LinearGradient style={styles.cardWrapper} {...props}>
 			<View style={styles.cardTop}>
-				<View>
+				<View style={focusedStyle("cardholder")}>
 					<Text style={styles.cardSubText}>Cardholder</Text>
 					<Text style={styles.cardFieldText}>Harsh Vyas</Text>
 				</View>
-				<View>
+				<View style={focusedStyle("issuer")}>
 					<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
 					<Text style={styles.cardFieldText}>HDFC Bank</Text>
 				</View>
 			</View>
-			<View style={styles.cardMiddle}>
+			<View style={[styles.cardMiddle, focusedStyle("number")]}>
 				{formattedCard.number.split("").map((char, index) => (
 					<View key={index}>
 						<Text style={char.trim() ? styles.cardNumberText : styles.cardNumberSpace}>{char}</Text>
@@ -52,7 +57,7 @@ export function CardPreview({ card, usePlaceholders, maskCardNumber }: Props) {
 				))}
 			</View>
 			<View style={styles.cardBottom}>
-				<View>
+				<View style={focusedStyle("expiry")}>
 					<Text style={styles.cardSubText}>Valid Thru</Text>
 					<Text style={styles.cardExpiryWrapper}>
 						{formattedCard.expiry.split("").map((char, index) => (
