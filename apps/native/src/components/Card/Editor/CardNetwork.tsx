@@ -1,4 +1,5 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import * as Haptics from "expo-haptics";
 
 import { Amex } from "@components/Logos/Amex.tsx";
 import { Diners } from "@components/Logos/Diners.tsx";
@@ -28,6 +29,11 @@ const networks = [
 ] as const;
 
 export function CardNetworkSelect({ selected, setSelected }: Props) {
+	const onPress = async (network: PaymentNetwork) => {
+		await Haptics.selectionAsync();
+		setSelected(network);
+	};
+
 	return (
 		<View style={{ flex: 1, rowGap: 8 }}>
 			<Text style={styles.label}>Card network</Text>
@@ -36,7 +42,7 @@ export function CardNetworkSelect({ selected, setSelected }: Props) {
 				{networks.map((N) => (
 					<Pressable
 						key={N.network}
-						onPress={() => setSelected(N.network)}
+						onPress={() => onPress(N.network)}
 						style={[styles.item, selected === N.network ? styles.selected : styles.notSelected]}
 					>
 						<N.logo width={N.width} />
