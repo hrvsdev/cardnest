@@ -1,5 +1,5 @@
 export const opacity = (c: string, o: number) => {
-	return c + Math.round(255 * o).toString(16);
+	return c + Math.round(255 * o).toString(16).padStart(2, "0");
 };
 
 export const themeColors = {
