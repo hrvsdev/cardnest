@@ -2,15 +2,15 @@ import { Fragment, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconLockOpenOff, IconPasswordMobilePhone } from "@tabler/icons-react";
+import { SettingsGroup } from "components/Settings";
 
 import { CreatePin } from "@pages/CreatePin";
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
 import { RemovePinDialog } from "@pages/User/components/RemovePinDialog";
-import { SettingsGroup } from "@pages/User/components/Settings";
-import { SettingsButton } from "@pages/User/components/Settings/Button.tsx";
 
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { SettingsButton } from "@components/Settings/Button.tsx";
 import { Show } from "@components/Show";
 
 import { useSetAfterPinVerified } from "@libs/hooks/src/actions";

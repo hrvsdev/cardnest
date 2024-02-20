@@ -2,16 +2,16 @@ import { Fragment, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "@tabler/icons-react";
+import { SettingsGroup } from "components/Settings";
 
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
 import { DeleteDataDialog } from "@pages/User/components/DeleteDataDialog";
-import { SettingsGroup } from "@pages/User/components/Settings";
-import { SettingsButton, SettingsLink } from "@pages/User/components/Settings/Button.tsx";
 import { Security } from "@pages/User/Security";
 import { UserInterface } from "@pages/User/UserInterface";
 
 import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
+import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
 import { TabBar } from "@components/TabBar";
 
 import { useSetAfterPinVerified } from "@libs/hooks/src/actions";

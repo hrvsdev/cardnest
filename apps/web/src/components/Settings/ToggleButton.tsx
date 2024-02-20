@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 import { TablerIconsProps } from "@tabler/icons-react";
-import { Toggle } from "components/Toggle";
+import { Toggle } from "@components/Toggle";
 
 type Props = {
 	Icon: (props: TablerIconsProps) => ReactElement;

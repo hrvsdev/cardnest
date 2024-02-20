@@ -1,12 +1,11 @@
 import { Fragment } from "react";
 
 import { IconPassword } from "@tabler/icons-react";
-
-import { SettingsGroup } from "@pages/User/components/Settings";
-import { SettingsToggleButton } from "@pages/User/components/Settings/ToggleButton.tsx";
+import { SettingsGroup } from "components/Settings";
 
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { SettingsToggleButton } from "@components/Settings/ToggleButton.tsx";
 
 import { useMaskCardNumber } from "@libs/hooks/src/preferences";
 
