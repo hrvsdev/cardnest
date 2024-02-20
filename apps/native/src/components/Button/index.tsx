@@ -34,7 +34,6 @@ export function Button(props: Props) {
 
 const baseStyles = StyleSheet.create({
 	wrapper: {
-		flex: 1,
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
