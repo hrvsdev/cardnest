@@ -42,11 +42,11 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 			<View style={styles.cardTop}>
 				<View style={focusedStyle("cardholder")}>
 					<Text style={styles.cardSubText}>Cardholder</Text>
-					<Text style={styles.cardFieldText}>Harsh Vyas</Text>
+					<Text style={styles.cardFieldText}>{formattedCard.cardholder}</Text>
 				</View>
 				<View style={focusedStyle("issuer")}>
 					<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
-					<Text style={styles.cardFieldText}>HDFC Bank</Text>
+					<Text style={styles.cardFieldText}>{formattedCard.issuer}</Text>
 				</View>
 			</View>
 			<View style={[styles.cardMiddle, focusedStyle("number")]}>
