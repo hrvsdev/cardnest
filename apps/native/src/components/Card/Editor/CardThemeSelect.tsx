@@ -15,8 +15,8 @@ type Props = {
 
 export function CardThemeSelect({ theme, setTheme }: Props) {
 	const onPress = async (theme: CardTheme) => {
-		await Haptics.selectionAsync();
 		setTheme(theme);
+		await Haptics.selectionAsync();
 	};
 
 	return (

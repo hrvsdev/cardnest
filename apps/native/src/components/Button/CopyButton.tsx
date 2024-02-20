@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Pressable } from "react-native";
 import * as Clipboard from "expo-clipboard";
+import * as Haptic from "expo-haptics";
 
 import { IconCheck, IconCopy } from "tabler-icons-react-native";
 
@@ -18,6 +19,7 @@ export function CopyButton({ text }: Props) {
 	const onClick = async () => {
 		await Clipboard.setStringAsync(text);
 		setIsCopied(true);
+		await Haptic.notificationAsync();
 		timeoutRef.current = setTimeout(() => setIsCopied(false), 2000);
 	};
 

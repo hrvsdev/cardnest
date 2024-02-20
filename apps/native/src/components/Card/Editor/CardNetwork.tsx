@@ -30,8 +30,8 @@ const networks = [
 
 export function CardNetworkSelect({ selected, setSelected }: Props) {
 	const onPress = async (network: PaymentNetwork) => {
-		await Haptics.selectionAsync();
 		setSelected(network);
+		await Haptics.selectionAsync();
 	};
 
 	return (

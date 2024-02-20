@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, View } from "react-native";
+import * as Haptic from "expo-haptics";
 
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
@@ -15,8 +16,9 @@ type SearchProps = {
 export function HeaderSearch({ value, onChange }: SearchProps) {
 	const showClearIcon = value.trim().length > 0;
 
-	const onClear = () => {
+	const onClear = async () => {
 		onChange("");
+		await Haptic.selectionAsync();
 	};
 
 	return (
