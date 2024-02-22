@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { useRef } from "react";
+import { Animated, Pressable, StyleSheet, Text } from "react-native";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -18,16 +19,31 @@ type Props = {
 export function Button(props: Props) {
 	const { title, onPress, theme = "primary", variant = "solid" } = props;
 
-	const wrapperStyles = ({ pressed }: { pressed: boolean }) => {
-		return StyleSheet.compose(
-			[baseStyles.wrapper, styles[variant][theme].wrapper],
-			pressed && baseStyles.pressed
-		);
+	const scale = useRef(new Animated.Value(1)).current;
+
+	const onPressIn = () => {
+		Animated.parallel([
+			Animated.timing(scale, { toValue: 0.98, duration: 200, useNativeDriver: true })
+		]).start();
 	};
 
+	const onPressOut = () => {
+		Animated.parallel([
+			Animated.timing(scale, { toValue: 1, duration: 200, useNativeDriver: true })
+		]).start();
+	};
+
+	const wrapperStyles = [
+		baseStyles.wrapper,
+		styles[variant][theme].wrapper,
+		{ transform: [{ scale }] }
+	];
+
 	return (
-		<Pressable onPress={onPress} style={wrapperStyles}>
-			<Text style={[baseStyles.text, styles[variant][theme].text]}>{title}</Text>
+		<Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
+			<Animated.View style={wrapperStyles}>
+				<Text style={[baseStyles.text, styles[variant][theme].text]}>{title}</Text>
+			</Animated.View>
 		</Pressable>
 	);
 }
@@ -39,9 +55,6 @@ const baseStyles = StyleSheet.create({
 		alignItems: "center",
 		height: 48,
 		borderRadius: 14
-	},
-	pressed: {
-		transform: [{ scale: 0.98 }],
 	},
 	text: {
 		fontSize: 17,
