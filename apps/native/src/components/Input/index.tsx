@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import {
 	NativeSyntheticEvent,
 	StyleSheet,
@@ -6,51 +6,50 @@ import {
 	TextInput,
 	TextInputFocusEventData,
 	TextInputProps,
-	TextStyle,
 	View
 } from "react-native";
+
+import Animated, {
+	interpolateColor,
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming
+} from "react-native-reanimated";
 
 import { Show } from "@components/Show";
 
 import { themeColors } from "@styles/colors.ts";
 
-type UnStyledInputProps = TextInputProps & {
-	focusedStyle?: TextStyle;
-};
-
-type InputProps = UnStyledInputProps & {
+type InputProps = TextInputProps & {
 	label?: string;
 	rightIcon?: ReactNode;
 	error?: string;
 };
 
-export function UnStyledInput(props: UnStyledInputProps) {
-	const [isFocused, setIsFocused] = useState(false);
+export function Input(props: InputProps) {
+	const focusProgress = useSharedValue(0);
+
+	const focusedStyle = useAnimatedStyle(() => ({
+		backgroundColor: interpolateColor(
+			focusProgress.value,
+			[0, 1],
+			[themeColors.white["10"], themeColors.white["15"]]
+		)
+	}));
+
+	const conditionalStyles = {
+		color: props.error ? themeColors.red : themeColors.white.DEFAULT,
+		paddingRight: props.rightIcon ? 48 : 16
+	};
 
 	const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-		setIsFocused(true);
+		focusProgress.value = withTiming(1, { duration: 200 });
 		if (props.onFocus) props.onFocus(e);
 	};
 
 	const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-		setIsFocused(false);
+		focusProgress.value = withTiming(0, { duration: 200 });
 		if (props.onBlur) props.onBlur(e);
-	};
-
-	return (
-		<TextInput
-			{...props}
-			style={StyleSheet.compose(props.style, isFocused ? props.focusedStyle : {})}
-			onFocus={onFocus}
-			onBlur={onBlur}
-		/>
-	);
-}
-
-export function Input(props: InputProps) {
-	const conditionalStyles = {
-		color: props.error ? themeColors.red : themeColors.white.DEFAULT,
-		paddingRight: props.rightIcon ? 48 : 16
 	};
 
 	return (
@@ -60,16 +59,17 @@ export function Input(props: InputProps) {
 					<Text style={styles.label}>{props.label}</Text>
 				</View>
 			</Show>
-			<View style={{ position: "relative" }}>
-				<UnStyledInput
+			<Animated.View style={[styles.inputWrapper, focusedStyle]}>
+				<TextInput
 					{...props}
-					focusedStyle={styles.focused}
+					onFocus={onFocus}
+					onBlur={onBlur}
 					style={[styles.input, conditionalStyles]}
 				/>
 				<Show when={props.rightIcon}>
 					<View style={styles.rightIconWrapper}>{props.rightIcon}</View>
 				</Show>
-			</View>
+			</Animated.View>
 			<Show when={props.error}>
 				<View>
 					<Text style={styles.error}>{props.error}</Text>
@@ -80,17 +80,16 @@ export function Input(props: InputProps) {
 }
 
 const styles = StyleSheet.create({
+	inputWrapper: {
+		borderRadius: 14,
+		position: "relative"
+	},
 	input: {
 		width: "100%",
-		backgroundColor: themeColors.white["10"],
-		borderRadius: 14,
 		fontSize: 16,
 		paddingLeft: 16,
 		letterSpacing: 16 / 10,
 		height: 48
-	},
-	focused: {
-		backgroundColor: themeColors.white["15"]
 	},
 	label: {
 		color: themeColors.white["80"],
@@ -106,6 +105,6 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		right: 0,
 		height: 48,
-		width: 48,
+		width: 48
 	}
 });
