@@ -1,5 +1,6 @@
-import { useRef } from "react";
-import { Animated, Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
+
+import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -19,19 +20,10 @@ type Props = {
 export function Button(props: Props) {
 	const { title, onPress, theme = "primary", variant = "solid" } = props;
 
-	const scale = useRef(new Animated.Value(1)).current;
+	const scale = useSharedValue(1);
 
-	const onPressIn = () => {
-		Animated.parallel([
-			Animated.timing(scale, { toValue: 0.98, duration: 200, useNativeDriver: true })
-		]).start();
-	};
-
-	const onPressOut = () => {
-		Animated.parallel([
-			Animated.timing(scale, { toValue: 1, duration: 200, useNativeDriver: true })
-		]).start();
-	};
+	const onPressIn = () => (scale.value = withTiming(0.98, { duration: 200 }));
+	const onPressOut = () => (scale.value = withTiming(1, { duration: 200 }));
 
 	const wrapperStyles = [
 		baseStyles.wrapper,
