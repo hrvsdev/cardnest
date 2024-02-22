@@ -5,7 +5,7 @@ import { IconPencil } from "tabler-icons-react-native";
 
 import { Button } from "@components/Button";
 import { CopyButton } from "@components/Button/CopyButton.tsx";
-import { CardPreview } from "@components/Card/Preview";
+import { CardPreview } from "@components/Card/Preview/Preview.tsx";
 import { PageContainer, PageRoot } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Input } from "@components/Input";

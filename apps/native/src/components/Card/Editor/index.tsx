@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { CardNetworkSelect } from "@components/Card/Editor/CardNetwork.tsx";
 import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
-import { CardPreview } from "@components/Card/Preview";
+import { CardEditorPreview } from "@components/Card/Preview/EditorPreview.tsx";
 import { Input } from "@components/Input";
 
 import { CardEditorState } from "@libs/types/src/card";
@@ -17,7 +17,7 @@ export function CardEditor({ state }: Props) {
 
 	return (
 		<Fragment>
-			<CardPreview card={data} usePlaceholders focused={data.focused} />
+			<CardEditorPreview card={data} focused={data.focused} />
 			<View style={{ flex: 1, gap: 24 }}>
 				<Input
 					label="Card number"
