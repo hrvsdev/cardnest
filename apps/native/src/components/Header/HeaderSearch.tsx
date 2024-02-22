@@ -1,9 +1,16 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import * as Haptic from "expo-haptics";
+import { usePathname } from "expo-router";
 
+import Animated, {
+	interpolateColor,
+	useAnimatedStyle,
+	useSharedValue,
+	withTiming
+} from "react-native-reanimated";
 import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
-import { UnStyledInput } from "@components/Input";
 import { Show } from "@components/Show";
 
 import { themeColors } from "@styles/colors.ts";
@@ -14,28 +21,52 @@ type SearchProps = {
 };
 
 export function HeaderSearch({ value, onChange }: SearchProps) {
+	const path = usePathname();
+	const inputRef = useRef<TextInput>(null);
+
 	const showClearIcon = value.trim().length > 0;
+
+	const focusProgress = useSharedValue(0);
+
+	const focusedStyle = useAnimatedStyle(() => ({
+		backgroundColor: interpolateColor(
+			focusProgress.value,
+			[0, 1],
+			[themeColors.white["10"], themeColors.white["15"]]
+		)
+	}));
 
 	const onClear = async () => {
 		onChange("");
 		await Haptic.selectionAsync();
 	};
 
+	const onFocus = () => (focusProgress.value = withTiming(1, { duration: 200 }));
+	const onBlur = () => (focusProgress.value = withTiming(0, { duration: 200 }));
+
+	useEffect(() => {
+		inputRef.current?.blur();
+	}, [path]);
+
 	return (
-		<View style={styles.inputWrapper}>
+		<View style={styles.wrapper}>
 			<IconSearch
 				size={24}
 				color={themeColors.white["60"]}
 				style={{ position: "absolute", left: 28 }}
 			/>
-			<UnStyledInput
-				value={value}
-				onChangeText={onChange}
-				focusedStyle={styles.focused}
-				placeholderTextColor={themeColors.white["60"]}
-				style={[styles.input, showClearIcon ? styles.inputNotEmpty : styles.inputEmpty]}
-				placeholder="Enter card number, bank or network"
-			/>
+			<Animated.View style={[{ borderRadius: 14, width: "100%" }, focusedStyle]}>
+				<TextInput
+					ref={inputRef}
+					value={value}
+					onChangeText={onChange}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					placeholderTextColor={themeColors.white["60"]}
+					style={[styles.input, showClearIcon ? styles.inputNotEmpty : styles.inputEmpty]}
+					placeholder="Enter card number, bank or network"
+				/>
+			</Animated.View>
 			<Show when={showClearIcon}>
 				<Pressable onPress={onClear} style={{ position: "absolute", right: 28 }}>
 					<IconCircleX size={24} color={themeColors.white["60"]} />
@@ -46,24 +77,20 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 }
 
 const styles = StyleSheet.create({
-	inputWrapper: {
+	wrapper: {
 		padding: 16,
 		position: "relative",
 		display: "flex",
 		flexDirection: "row",
-		alignItems: "center"
+		alignItems: "center",
+		borderRadius: 14
 	},
 	input: {
 		width: "100%",
-		backgroundColor: themeColors.white["10"],
-		borderRadius: 14,
 		color: themeColors.white.DEFAULT,
 		fontSize: 16,
 		paddingHorizontal: 48,
 		height: 48
-	},
-	focused: {
-		backgroundColor: themeColors.white["15"]
 	},
 	inputEmpty: {
 		paddingRight: 16
