@@ -11,11 +11,13 @@ export default function Page() {
 			<HeaderTitle title="You" />
 			<PageContainer style={{ gap: 24 }}>
 				<SettingsGroup title="App settings">
-					<SettingsLink Icon={IconPasswordFingerprint} title="Security" href="security" />
-					<SettingsLink Icon={IconMoonStars} title="User Interface" href="interface" />
+					<SettingsLink isFirst Icon={IconPasswordFingerprint} title="Security" href="security" />
+					<SettingsLink isLast Icon={IconMoonStars} title="User Interface" href="interface" />
 				</SettingsGroup>
 				<SettingsGroup title="Danger zone" description={DELETE_DESCRIPTION}>
 					<SettingsButton
+						isFirst
+						isLast
 						isDanger
 						Icon={IconTrash}
 						title="Delete all data"

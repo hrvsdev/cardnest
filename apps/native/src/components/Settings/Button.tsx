@@ -6,13 +6,18 @@ import { IconChevronRight, TablerIconsProps } from "tabler-icons-react-native";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
-type ContentProps = {
+type PositionProps = {
+	isFirst?: boolean;
+	isLast?: boolean;
+};
+
+type ContentProps = PositionProps & {
 	Icon: (props: TablerIconsProps) => ReactElement;
 	title: string;
 	isDanger?: boolean;
 };
 
-type WrapperProps = {
+type WrapperProps = PositionProps & {
 	isDanger?: boolean;
 	children: ReactNode;
 };
@@ -27,7 +32,7 @@ type SettingsLinkProps = ContentProps & {
 
 export function SettingsButton({ onPress, ...props }: SettingsButtonProps) {
 	return (
-		<Wrapper isDanger={props.isDanger}>
+		<Wrapper isDanger={props.isDanger} isFirst={props.isFirst} isLast={props.isLast}>
 			<Pressable onPress={onPress}>
 				<Content {...props} />
 			</Pressable>
@@ -39,7 +44,7 @@ export function SettingsLink({ href, ...props }: SettingsLinkProps) {
 	const router = useRouter();
 
 	return (
-		<Wrapper isDanger={props.isDanger}>
+		<Wrapper isDanger={props.isDanger} isFirst={props.isFirst} isLast={props.isLast}>
 			<Pressable onPress={() => router.navigate(href)}>
 				<Content {...props} />
 			</Pressable>
@@ -66,18 +71,28 @@ function Content({ title, Icon, isDanger }: ContentProps) {
 	);
 }
 
-function Wrapper({ isDanger, children }: WrapperProps) {
-	return <View style={isDanger ? styles.dangerContainer : styles.container}>{children}</View>;
+function Wrapper({ isDanger, children, isFirst, isLast }: WrapperProps) {
+	const borderRadiusStyle = {
+		borderTopLeftRadius: isFirst ? 12 : 2,
+		borderTopRightRadius: isFirst ? 12 : 2,
+		borderBottomLeftRadius: isLast ? 12 : 2,
+		borderBottomRightRadius: isLast ? 12 : 2
+	};
+
+	const style = StyleSheet.compose(
+		isDanger ? styles.dangerContainer : styles.container,
+		borderRadiusStyle
+	);
+
+	return <View style={style}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 12,
-		backgroundColor: opacity(themeColors.white.DEFAULT, 0.1)
+		backgroundColor: opacity(themeColors.white.DEFAULT, 0.075)
 	},
 	dangerContainer: {
-		borderRadius: 12,
-		backgroundColor: opacity(themeColors.red, 0.15)
+		backgroundColor: opacity(themeColors.red, 0.125)
 	},
 	contentContainer: {
 		flexDirection: "row",
