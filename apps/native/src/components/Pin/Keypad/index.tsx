@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import * as Haptics from "expo-haptics";
 
 import { BackspaceIcon } from "react-native-heroicons/outline";
+import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
@@ -46,7 +48,7 @@ export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
 							<KeypadButton
 								key={n}
 								label={n}
-								onClick={() => onPinChange(n)}
+								onPress={() => onPinChange(n)}
 								disabled={isDisabled}
 							/>
 						))}
@@ -54,8 +56,12 @@ export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
 				))}
 				<View style={{ flexDirection: "row" }}>
 					<View style={{ width: 72 + 20, height: 72 + 20 }} />
-					<KeypadButton label={0} onClick={() => onPinChange(0)} disabled={isDisabled} />
-					<KeypadButton label={<BackspaceIcon />} onClick={backspace} disabled={isDisabled} />
+					<KeypadButton label={0} onPress={() => onPinChange(0)} disabled={isDisabled} />
+					<KeypadButton
+						onPress={backspace}
+						disabled={isDisabled}
+						label={<BackspaceIcon size={32} color={themeColors.white.DEFAULT} />}
+					/>
 				</View>
 			</View>
 		</View>
@@ -64,19 +70,34 @@ export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
 
 type KeypadButtonProps = {
 	label: ReactNode;
-	onClick: () => void;
+	onPress: () => void;
 	disabled?: boolean;
 };
 
-function KeypadButton({ label, onClick, disabled }: KeypadButtonProps) {
+function KeypadButton({ label, onPress, disabled }: KeypadButtonProps) {
+	const scale = useSharedValue(1);
+
+	const onPressIn = () => (scale.value = withTiming(0.95, { duration: 50 }));
+	const onPressOut = () => (scale.value = withTiming(1, { duration: 50 }));
+
+	const onKeyPress = async () => {
+		await Haptics.selectionAsync();
+		onPress();
+	};
+
+	const style = [styles.keypadButton, { transform: [{ scale }], opacity: disabled ? 0.5 : 1 }];
+
 	return (
 		<View style={{ padding: 10 }}>
 			<Pressable
 				disabled={disabled}
-				onPress={disabled ? undefined : onClick}
-				style={[styles.keypadButton, disabled && { opacity: 0.5 }]}
+				onPress={onKeyPress}
+				onPressIn={onPressIn}
+				onPressOut={onPressOut}
 			>
-				<Text style={styles.keypadButtonText}>{label}</Text>
+				<Animated.View style={style}>
+					{typeof label === "number" ? <Text style={styles.keypadButtonText}>{label}</Text> : label}
+				</Animated.View>
 			</Pressable>
 		</View>
 	);
