@@ -10,7 +10,7 @@ export function PageRoot({ children, style }: Props) {
 		<BgGradient>
 			<ScrollView
 				keyboardShouldPersistTaps="handled"
-				keyboardDismissMode="interactive"
+				keyboardDismissMode="on-drag"
 				contentContainerStyle={style}
 			>
 				{children}
