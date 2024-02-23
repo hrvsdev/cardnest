@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "expo-router";
 
 import { SettingsGroup } from "components/Settings";
 import { IconLockOpenOff, IconPasswordMobilePhone } from "tabler-icons-react-native";
@@ -10,6 +11,7 @@ import { Show } from "@components/Show";
 
 export default function Page() {
 	const hasCreatedPin = false;
+	const router = useRouter();
 
 	// @ts-ignore
 	const [showRemovePasswordDialog, setShowRemovePasswordDialog] = useState(false);
@@ -20,7 +22,9 @@ export default function Page() {
 	// @ts-ignore
 	const removeAppPassword = async () => {};
 
-	const onCreatePinClick = () => {};
+	const onCreatePinClick = () => {
+		router.navigate("/pin/create");
+	};
 
 	// @ts-ignore
 	const onRemovePasswordConfirmClick = () => {};
