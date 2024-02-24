@@ -14,7 +14,7 @@ export default function Page() {
 		<BgGradient>
 			<View style={[styles.container, { paddingTop: insets.top }]}>
 				<View style={styles.pinInputContainer}>
-					<Text style={styles.text}>Enter your current PIN</Text>
+					<Text style={styles.text}>Create PIN</Text>
 					<PinInput pin={[7, 3, 5, 1]} isPinIncorrect={false} />
 				</View>
 				<Keypad pin={[7, 3, 5, 1]} setPin={() => {}} onPinChange={() => {}} />
@@ -41,9 +41,3 @@ const styles = StyleSheet.create({
 		fontWeight: "bold"
 	}
 });
-
-/*
-<div className="flex flex-col justify-center items-center grow">
-			<div className="flex flex-col text-th-white/90 items-center justify-center gap-8 flex-1">
-				<h1 className="text-2xl font-bold">Enter your current PIN</h1>
- */
