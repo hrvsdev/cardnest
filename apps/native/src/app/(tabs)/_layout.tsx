@@ -30,11 +30,16 @@ const tabs = [
 
 export default function TabsLayout() {
 	const screen: BottomTabNavigationOptions = {
-		headerShown: false
+		headerShown: false,
+		lazy: false
+	};
+
+	const scene = {
+		backgroundColor: themeColors.black
 	};
 
 	return (
-		<Tabs screenOptions={screen} tabBar={BottomTabs}>
+		<Tabs screenOptions={screen} tabBar={BottomTabs} sceneContainerStyle={scene}>
 			{tabs.map((tab) => (
 				<Tabs.Screen key={tab.name} name={tab.name} />
 			))}
