@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { TablerIconsProps } from "tabler-icons-react-native";
 
+import { Toggle } from "@components/Toggle";
+
 import { opacity, themeColors } from "@styles/colors.ts";
 
 type Props = {
@@ -34,7 +36,9 @@ export function SettingsToggleButton(props: Props) {
 					<Icon size={20} color={themeColors.white.DEFAULT} />
 					<Text style={{ fontSize: 16, color: themeColors.white.DEFAULT }}>{title}</Text>
 				</View>
-				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }} />
+				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+					<Toggle checked={checked} onChange={onChange} />
+				</View>
 			</View>
 		</View>
 	);
