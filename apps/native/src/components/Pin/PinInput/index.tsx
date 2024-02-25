@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, {
+	useSharedValue,
+	withRepeat,
+	withSequence,
+	withSpring,
+	withTiming
+} from "react-native-reanimated";
 
 import { themeColors } from "@styles/colors.ts";
 
@@ -22,6 +28,8 @@ const PIN_LENGTH_ARR = [1, 2, 3, 4, 5, 6];
 export function PinInput({ isPinIncorrect, pin, isLoading }: Props) {
 	const [activeAnimation, setActiveAnimation] = useState(0);
 
+	const x = useSharedValue(0);
+
 	useEffect(() => {
 		if (!isLoading) {
 			setActiveAnimation(0);
@@ -35,9 +43,22 @@ export function PinInput({ isPinIncorrect, pin, isLoading }: Props) {
 		return () => clearInterval(intervalId);
 	}, [isLoading]);
 
+	useEffect(() => {
+		const OFFSET = 8;
+		const DURATION = 115;
+
+		if (isPinIncorrect) {
+			x.value = withSequence(
+				withTiming(-OFFSET, { duration: DURATION / 2 }),
+				withRepeat(withTiming(OFFSET, { duration: DURATION }), 5, true),
+				withTiming(0, { duration: DURATION / 2 })
+			);
+		}
+	}, [isPinIncorrect]);
+
 	return (
 		<View>
-			<View style={styles.container}>
+			<Animated.View style={[styles.container, { transform: [{ translateX: x }] }]}>
 				{PIN_LENGTH_ARR.map((n) => (
 					<Dot
 						key={n}
@@ -46,7 +67,7 @@ export function PinInput({ isPinIncorrect, pin, isLoading }: Props) {
 						isFilled={pin.length >= n}
 					/>
 				))}
-			</View>
+			</Animated.View>
 		</View>
 	);
 }
