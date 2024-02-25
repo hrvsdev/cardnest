@@ -73,7 +73,7 @@ export default function Page() {
 					/>
 
 					<Text style={styles.errorText}>
-						<Show when={isPinDifferent}>Entered PIN is too common to guess</Show>
+						<Show when={isPinDifferent}>Both PIN don't match</Show>
 					</Text>
 				</View>
 				<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
