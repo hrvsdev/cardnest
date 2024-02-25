@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import * as Haptics from "expo-haptics";
 
 import Animated, {
 	useSharedValue,
@@ -45,12 +46,13 @@ export function PinInput({ isPinIncorrect, pin, isLoading }: Props) {
 
 	useEffect(() => {
 		const OFFSET = 8;
-		const DURATION = 115;
+		const DURATION = 100;
 
 		if (isPinIncorrect) {
+			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).then();
 			x.value = withSequence(
 				withTiming(-OFFSET, { duration: DURATION / 2 }),
-				withRepeat(withTiming(OFFSET, { duration: DURATION }), 5, true),
+				withRepeat(withTiming(OFFSET, { duration: DURATION }), 6, true),
 				withTiming(0, { duration: DURATION / 2 })
 			);
 		}
