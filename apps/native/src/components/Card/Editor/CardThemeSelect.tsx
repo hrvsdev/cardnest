@@ -33,6 +33,19 @@ const DURATION = 200;
 const INIT_BORDER_COLOR = opacity(themeColors.white.DEFAULT, 0);
 const SELECTED_BORDER_COLOR = opacity(themeColors.white.DEFAULT, 0.8);
 
+const PAGE_PADDING = 16;
+const ITEM_GAP = 8;
+const NO_OF_ITEMS = 3;
+
+const pageContentWidth = Dimensions.get("window").width - PAGE_PADDING * 2;
+const gridItemWidth = (pageContentWidth - ITEM_GAP * (NO_OF_ITEMS - 1)) / NO_OF_ITEMS;
+const gridItemHeight = 48;
+
+const SCALE_OFFSET = 8;
+
+const SELECTED_SCALE_X = (gridItemWidth - SCALE_OFFSET * 2) / gridItemWidth;
+const SELECTED_SCALE_Y = (gridItemHeight - SCALE_OFFSET * 2) / gridItemHeight;
+
 export function CardThemeSelect({ theme, setTheme }: Props) {
 	const onPress = async (theme: CardTheme) => {
 		setTheme(theme);
@@ -52,14 +65,16 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 }
 
 function Item({ theme, selected, onPress }: ItemProps) {
-	const borderColorProgress = useSharedValue(0);
-	const padding = useSharedValue(0);
-	const borderRadius = useSharedValue(10);
+	const borderColorProgress = useSharedValue(selected ? 1 : 0);
+	const scaleX = useSharedValue(selected ? SELECTED_SCALE_X : 1);
+	const scaleY = useSharedValue(selected ? SELECTED_SCALE_Y : 1);
+	const borderRadius = useSharedValue(selected ? 8 : 10);
 
 	useEffect(() => {
 		borderColorProgress.value = withTiming(selected ? 1 : 0, { duration: DURATION });
-		padding.value = withTiming(selected ? 8 : 0, { duration: DURATION });
-		borderRadius.value = withTiming(selected ? 6 : 8, { duration: DURATION });
+		scaleX.value = withTiming(selected ? SELECTED_SCALE_X : 1, { duration: DURATION });
+		scaleY.value = withTiming(selected ? SELECTED_SCALE_Y : 1, { duration: DURATION });
+		borderRadius.value = withTiming(selected ? 8 : 10, { duration: DURATION });
 	}, [selected]);
 
 	const itemAnimatedStyle = useAnimatedStyle(() => {
@@ -72,26 +87,26 @@ function Item({ theme, selected, onPress }: ItemProps) {
 		};
 	});
 
+	const gradientAnimatedStyle = useAnimatedStyle(() => {
+		return {
+			borderRadius: borderRadius.value,
+			transform: [{ scaleX: scaleX.value }, { scaleY: scaleY.value }]
+		};
+	});
+
 	return (
 		<Pressable onPress={() => onPress(theme)}>
-			<Animated.View style={[styles.item, itemAnimatedStyle, { padding }]}>
+			<Animated.View style={[styles.item, itemAnimatedStyle]}>
 				<AnimatedLinearGradient
 					colors={[colors[theme]["500"], colors[theme]["700"]]}
 					start={{ x: 0, y: 0 }}
 					end={{ x: 1, y: 1 }}
-					style={{ flex: 1, borderRadius }}
+					style={[{ flex: 1 }, gradientAnimatedStyle]}
 				/>
 			</Animated.View>
 		</Pressable>
 	);
 }
-
-const PAGE_PADDING = 16;
-const ITEM_GAP = 8;
-const NO_OF_ITEMS = 3;
-
-const pageContentWidth = Dimensions.get("window").width - PAGE_PADDING * 2;
-const gridItemWidth = (pageContentWidth - ITEM_GAP * (NO_OF_ITEMS - 1)) / NO_OF_ITEMS;
 
 const styles = StyleSheet.create({
 	label: {
@@ -107,8 +122,8 @@ const styles = StyleSheet.create({
 	},
 	item: {
 		width: gridItemWidth,
-		height: 48,
+		height: gridItemHeight,
 		borderRadius: 10,
-		borderWidth: 1,
-	},
+		borderWidth: 1
+	}
 });
