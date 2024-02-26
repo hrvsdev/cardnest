@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { PlusCircleIcon } from "react-native-heroicons/outline";
 
 import { Button } from "@components/Button";
-import { PageContainer, PageRoot } from "@components/Containers";
+import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 import { colors, opacity, themeColors } from "@styles/colors.ts";
@@ -12,7 +12,7 @@ import { colors, opacity, themeColors } from "@styles/colors.ts";
 export default function Page() {
 	const router = useRouter();
 	return (
-		<PageRoot style={{ flexGrow: 1 }}>
+		<TabPageRoot style={{ flexGrow: 1 }}>
 			<HeaderTitle title="Add Card" />
 			<PageContainer style={{ flexGrow: 1 }}>
 				<View style={styles.container}>
@@ -24,7 +24,7 @@ export default function Page() {
 				</View>
 				<Button title="Add Card" onPress={() => router.navigate("/add/editor")} />
 			</PageContainer>
-		</PageRoot>
+		</TabPageRoot>
 	);
 }
 

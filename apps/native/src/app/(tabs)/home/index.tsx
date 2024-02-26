@@ -3,7 +3,7 @@ import { Pressable, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
 import { CardPreview } from "@components/Card/Preview/Preview.tsx";
-import { PageContainer, PageRoot } from "@components/Containers";
+import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
@@ -22,7 +22,7 @@ export default function Page() {
 	const [search, setSearch] = useState("");
 
 	return (
-		<PageRoot>
+		<TabPageRoot>
 			<HeaderTitle title="Home" />
 			<HeaderSearch value={search} onChange={setSearch} />
 			<PageContainer style={styles.pageWrapper}>
@@ -32,7 +32,7 @@ export default function Page() {
 					</Pressable>
 				</Link>
 			</PageContainer>
-		</PageRoot>
+		</TabPageRoot>
 	);
 }
 

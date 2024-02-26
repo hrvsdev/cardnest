@@ -6,8 +6,7 @@ import { IconPencil } from "tabler-icons-react-native";
 import { Button } from "@components/Button";
 import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview/Preview.tsx";
-import { PageContainer, PageRoot } from "@components/Containers";
-import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { SubPageRoot } from "@components/Containers";
 import { Input } from "@components/Input";
 
 import { removeSpaces } from "@libs/utils/src/card.ts";
@@ -31,44 +30,42 @@ export default function Page() {
 	};
 
 	return (
-		<PageRoot>
-			<SubPageHeader
-				title="Card"
-				rightButtonLabel="Edit"
-				onRightButtonPress={edit}
-				rightButtonIcon={IconPencil}
-			/>
-			<PageContainer style={{ flex: 1, gap: 32 }}>
-				<CardPreview card={CARD} />
-				<View style={{ flex: 1, gap: 24 }}>
-					<Input
-						readOnly
-						label="Card number"
-						value={CARD.number}
-						rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
-					/>
-					<Input
-						readOnly
-						label="Expriy date"
-						value={CARD.expiry}
-						rightIcon={<CopyButton text={CARD.expiry} />}
-					/>
-					<Input
-						readOnly
-						label="Cardholder"
-						value={CARD.cardholder}
-						rightIcon={<CopyButton text={CARD.cardholder} />}
-					/>
-					<Input
-						readOnly
-						label="Card issuer/bank"
-						value={CARD.issuer}
-						rightIcon={<CopyButton text={CARD.issuer} />}
-					/>
-				</View>
+		<SubPageRoot
+			title="Card"
+			rightButtonLabel="Edit"
+			onRightButtonPress={edit}
+			rightButtonIcon={IconPencil}
+			gap={32}
+		>
+			<CardPreview card={CARD} />
+			<View style={{ flex: 1, gap: 24 }}>
+				<Input
+					readOnly
+					label="Card number"
+					value={CARD.number}
+					rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
+				/>
+				<Input
+					readOnly
+					label="Expriy date"
+					value={CARD.expiry}
+					rightIcon={<CopyButton text={CARD.expiry} />}
+				/>
+				<Input
+					readOnly
+					label="Cardholder"
+					value={CARD.cardholder}
+					rightIcon={<CopyButton text={CARD.cardholder} />}
+				/>
+				<Input
+					readOnly
+					label="Card issuer/bank"
+					value={CARD.issuer}
+					rightIcon={<CopyButton text={CARD.issuer} />}
+				/>
+			</View>
 
-				<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
-			</PageContainer>
-		</PageRoot>
+			<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
+		</SubPageRoot>
 	);
 }
