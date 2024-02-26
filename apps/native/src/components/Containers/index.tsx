@@ -1,15 +1,29 @@
 import { PropsWithChildren } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import Animated, { useAnimatedRef, useScrollViewOffset } from "react-native-reanimated";
 
 import { BgGradient } from "@components/Gradient";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-type Props = PropsWithChildren<{ style?: StyleProp<ViewStyle> }>;
+type Props = PropsWithChildren<{ gap?: number; style?: StyleProp<ViewStyle> }>;
 type SubPageHeaderProps = Omit<Parameters<typeof SubPageHeader>[0], "scrollOffset">;
 
-export function PageRoot({ children, style, ...headerProps }: Props & SubPageHeaderProps) {
+export function TabPageRoot({ children, style }: Props) {
+	return (
+		<BgGradient>
+			<ScrollView
+				keyboardShouldPersistTaps="handled"
+				keyboardDismissMode="on-drag"
+				contentContainerStyle={style}
+			>
+				{children}
+			</ScrollView>
+		</BgGradient>
+	);
+}
+
+export function SubPageRoot({ children, style, gap, ...headerProps }: Props & SubPageHeaderProps) {
 	const animatedRef = useAnimatedRef();
 	const scrollOffset = useScrollViewOffset(animatedRef);
 
@@ -22,13 +36,15 @@ export function PageRoot({ children, style, ...headerProps }: Props & SubPageHea
 				stickyHeaderIndices={[0]}
 			>
 				<SubPageHeader {...headerProps} scrollOffset={scrollOffset} />
-				<PageContainer style={style}>{children}</PageContainer>
+				<PageContainer style={style} gap={gap}>
+					{children}
+				</PageContainer>
 			</Animated.ScrollView>
 		</BgGradient>
 	);
 }
 
-export function PageContainer({ children, style }: Props) {
-	const styles = StyleSheet.compose({ padding: 16, paddingBottom: 72 }, style);
+export function PageContainer({ children, style, gap }: Props) {
+	const styles = StyleSheet.compose({ padding: 16, paddingBottom: 72, gap }, style);
 	return <View style={styles}>{children}</View>;
 }
