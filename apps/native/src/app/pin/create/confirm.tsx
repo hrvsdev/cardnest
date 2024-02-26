@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
+import { useSharedValue } from "react-native-reanimated";
+
 import { BgGradient } from "@components/Gradient";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Keypad } from "@components/Pin/Keypad";
@@ -15,6 +17,7 @@ import { themeColors } from "@styles/colors.ts";
 export default function Page() {
 	const params = useLocalSearchParams();
 	const router = useRouter();
+	const fakeScrollOffset = useSharedValue(0);
 
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinInvalid, setIsPinInvalid] = useState(false);
@@ -56,7 +59,7 @@ export default function Page() {
 
 	return (
 		<BgGradient>
-			<SubPageHeader title="" />
+			<SubPageHeader title="" scrollOffset={fakeScrollOffset} />
 			<View style={styles.container}>
 				<View style={styles.pinInputContainer}>
 					<Text style={styles.heading}>Confirm the PIN</Text>
