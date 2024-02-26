@@ -6,7 +6,7 @@ import { IconPassword } from "tabler-icons-react-native";
 import { SubPageRoot } from "@components/Containers";
 import { SettingsToggleButton } from "@components/Settings/ToggleButton.tsx";
 
-export default function Page() {
+export default function UserInterfacePage() {
 	const [maskCard, setMaskCard] = useState(false);
 
 	return (

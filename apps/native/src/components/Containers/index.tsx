@@ -16,6 +16,7 @@ export function TabPageRoot({ children, style }: Props) {
 				keyboardShouldPersistTaps="handled"
 				keyboardDismissMode="on-drag"
 				contentContainerStyle={style}
+				stickyHeaderIndices={[1]}
 			>
 				{children}
 			</ScrollView>

@@ -8,7 +8,7 @@ import { PinInput } from "@components/Pin/PinInput";
 
 import { themeColors } from "@styles/colors.ts";
 
-export default function Page() {
+export default function EnterPinPage() {
 	const insets = useSafeAreaInsets();
 	return (
 		<BgGradient>

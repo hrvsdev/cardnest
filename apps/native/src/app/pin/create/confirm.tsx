@@ -14,7 +14,7 @@ import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 import { themeColors } from "@styles/colors.ts";
 
-export default function Page() {
+export default function ConfirmPinPage() {
 	const params = useLocalSearchParams();
 	const router = useRouter();
 	const fakeScrollOffset = useSharedValue(0);

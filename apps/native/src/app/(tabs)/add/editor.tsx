@@ -6,7 +6,7 @@ import { SubPageRoot } from "@components/Containers";
 
 import { useCardEditor } from "@libs/hooks/src/card/editor.ts";
 
-export default function Page() {
+export default function AddCardEditorPage() {
 	const router = useRouter();
 
 	const save = () => {

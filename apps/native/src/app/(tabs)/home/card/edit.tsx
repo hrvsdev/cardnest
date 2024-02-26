@@ -17,7 +17,7 @@ const CARD: CardFullProfile = {
 	network: "mastercard"
 };
 
-export default function Page() {
+export default function UpdateCardEditorPage() {
 	const router = useRouter();
 
 	const save = () => {

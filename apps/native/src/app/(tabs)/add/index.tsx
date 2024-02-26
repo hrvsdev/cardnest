@@ -9,7 +9,7 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 
 import { colors, opacity, themeColors } from "@styles/colors.ts";
 
-export default function Page() {
+export default function AddCardPage() {
 	const router = useRouter();
 	return (
 		<TabPageRoot style={{ flexGrow: 1 }}>

@@ -5,7 +5,7 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { SettingsGroup } from "@components/Settings";
 import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
 
-export default function Page() {
+export default function UserPage() {
 	return (
 		<TabPageRoot>
 			<HeaderTitle title="You" />

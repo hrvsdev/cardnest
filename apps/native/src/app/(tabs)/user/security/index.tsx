@@ -8,7 +8,7 @@ import { SubPageRoot } from "@components/Containers";
 import { SettingsButton } from "@components/Settings/Button.tsx";
 import { Show } from "@components/Show";
 
-export default function Page() {
+export default function SecurityPage() {
 	const hasCreatedPin = false;
 	const router = useRouter();
 

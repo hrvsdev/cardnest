@@ -18,7 +18,7 @@ const CARD: CardFullProfile = {
 	network: "mastercard"
 };
 
-export default function Page() {
+export default function HomePage() {
 	const [search, setSearch] = useState("");
 
 	return (
