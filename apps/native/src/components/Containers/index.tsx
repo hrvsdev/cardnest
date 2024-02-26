@@ -1,20 +1,32 @@
 import { PropsWithChildren } from "react";
-import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+
+import Animated, { useAnimatedRef, useScrollViewOffset } from "react-native-reanimated";
 
 import { BgGradient } from "@components/Gradient";
+import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
 type Props = PropsWithChildren<{ style?: StyleProp<ViewStyle> }>;
 
-export function PageRoot({ children, style }: Props) {
+type SubPageHeaderProps = Omit<Parameters<typeof SubPageHeader>[0], "scrollOffset">;
+
+export function PageRoot({ children, style, ...headerProps }: Props & SubPageHeaderProps) {
+	const animatedRef = useAnimatedRef();
+	const scrollOffset = useScrollViewOffset(animatedRef);
+
 	return (
 		<BgGradient>
-			<ScrollView
+			<Animated.ScrollView
+				ref={animatedRef}
 				keyboardShouldPersistTaps="handled"
 				keyboardDismissMode="on-drag"
 				contentContainerStyle={style}
+				stickyHeaderIndices={[0]}
 			>
+				<SubPageHeader {...headerProps} scrollOffset={scrollOffset} />
+
 				{children}
-			</ScrollView>
+			</Animated.ScrollView>
 		</BgGradient>
 	);
 }
