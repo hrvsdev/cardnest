@@ -29,6 +29,10 @@ export default function CardViewPage() {
 		router.navigate("/home/card/edit");
 	};
 
+	const del = () => {
+		router.navigate("/home/card/delete");
+	};
+
 	return (
 		<SubPageRoot
 			title="Card"
@@ -65,7 +69,7 @@ export default function CardViewPage() {
 				/>
 			</View>
 
-			<Button title="Delete" theme="danger" onPress={() => console.log("Delete")} />
+			<Button title="Delete" theme="danger" onPress={del} />
 		</SubPageRoot>
 	);
 }
