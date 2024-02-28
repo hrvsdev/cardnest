@@ -14,19 +14,17 @@ cd cardnest
 npm/yarn/pnpm/bun install
 ```
 
-Cd to `web` or `native`
+Run `native` app locally
 
 ```bash
 cd native
+npm/yarn/pnpm/bun run start
 ```
-or 
+
+Run or build `web` app locally
+
 ```bash
 cd web
-```
-
-Run dev server or build the app
-
-```bash
 npm/yarn/pnpm/bun run dev
 npm/yarn/pnpm/bun run build
 ```
