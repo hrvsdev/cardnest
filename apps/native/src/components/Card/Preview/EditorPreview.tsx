@@ -35,7 +35,6 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 
 	return (
 		<CardBackground theme={card.theme}>
-
 			<View style={styles.cardTop}>
 				<Animated.View style={focusedStyles("cardholder")}>
 					<Text style={styles.cardSubText}>Cardholder</Text>

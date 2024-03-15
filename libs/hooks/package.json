@@ -3,8 +3,17 @@
 	"version": "1.0.0",
 	"type": "module",
 	"dependencies": {
+		"@libs/utils": "workspace:^",
 		"jotai": "^2.6.4",
 		"jotai-optics": "^0.3.2",
 		"optics-ts": "^2.4.1"
+	},
+	"devDependencies": {
+		"@libs/types": "workspace:^",
+		"@types/react": "^18.2.53",
+		"react": "^18.2.0"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
 	}
 }
