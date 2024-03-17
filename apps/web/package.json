@@ -13,11 +13,6 @@
 		"@libs/utils": "workspace:^",
 		"@tabler/icons-react": "^2.44.0",
 		"framer-motion": "^10.16.16",
-		"jotai": "^2.6.1",
-		"jotai-optics": "^0.3.2",
-		"ky": "^1.2.0",
-		"nanoid": "^5.0.4",
-		"optics-ts": "^2.4.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.21.1"
