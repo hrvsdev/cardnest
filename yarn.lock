@@ -55,7 +55,7 @@ __metadata:
     expo-router: "npm:~3.4.7"
     expo-status-bar: "npm:~1.11.1"
     expo-updates: "npm:~0.24.11"
-    react: "npm:^18.2.0"
+    react: "link:../../node_modules/react"
     react-dom: "npm:^18.2.0"
     react-native: "npm:0.73.5"
     react-native-heroicons: "npm:^4.0.0"
@@ -9211,6 +9211,12 @@ __metadata:
   checksum: 10c0/c194d741792e86043a4ae272f7353c1cb9412bc649945c4220c6a101a6ea5410cceb3d65d5a4d750f11a24f7426e8eec7977e8a4e3ad5d3ee235ca2b18166fa8
   languageName: node
   linkType: hard
+
+"react@link:../../node_modules/react::locator=%40apps%2Fnative%40workspace%3Aapps%2Fnative":
+  version: 0.0.0-use.local
+  resolution: "react@link:../../node_modules/react::locator=%40apps%2Fnative%40workspace%3Aapps%2Fnative"
+  languageName: node
+  linkType: soft
 
 "react@npm:^18.2.0":
   version: 18.2.0
