@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { router } from "expo-router";
 
@@ -33,7 +33,7 @@ const HEADER_TOP_OFFSET = 0;
 const HEADER_BOTTOM_OFFSET = 16;
 
 const BACKGROUND_INITIAL_COLOR = opacity(themeColors.black, 0);
-const BACKGROUND_FINAL_COLOR = opacity(themeColors.black, 0.8);
+const BACKGROUND_FINAL_COLOR = opacity(themeColors.black, Platform.OS === "android" ? 1 : 0.8);
 
 const BORDER_INITIAL_COLOR = opacity(themeColors.white.DEFAULT, 0);
 const BORDER_FINAL_COLOR = opacity(themeColors.white.DEFAULT, 0.1);
@@ -53,8 +53,14 @@ export function SubPageHeader(props: Props) {
 	const RightIcon = props.rightButtonIcon ?? (() => null);
 
 	const blurProps = useAnimatedProps(() => {
+		const intensity = interpolate(
+			props.scrollOffset.value,
+			inputRange,
+			[0, 50],
+			Extrapolation.CLAMP
+		);
 		return {
-			intensity: interpolate(props.scrollOffset.value, inputRange, [0, 50], Extrapolation.CLAMP)
+			intensity: Platform.OS === "android" ? 0 : intensity
 		};
 	});
 
