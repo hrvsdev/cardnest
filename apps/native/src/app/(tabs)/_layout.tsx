@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { Link, Tabs } from "expo-router";
 
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: opacity(themeColors.black, 0.8)
+		backgroundColor: opacity(themeColors.black, Platform.OS === "android" ? 1 : 0.8)
 	}
 });
