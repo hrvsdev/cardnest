@@ -10,6 +10,8 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
+import { useSetPin } from "@libs/hooks/src/auth";
+
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
 import { themeColors } from "@styles/colors.ts";
@@ -18,6 +20,8 @@ export default function ConfirmPinPage() {
 	const params = useLocalSearchParams();
 	const router = useRouter();
 	const fakeScrollOffset = useSharedValue(0);
+
+	const setAppPin = useSetPin();
 
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinInvalid, setIsPinInvalid] = useState(false);
@@ -43,6 +47,8 @@ export default function ConfirmPinPage() {
 
 			return;
 		}
+
+		await setAppPin(pinValue);
 
 		redirectTimeoutRef.current = setTimeout(async () => {
 			router.navigate("/user/security");
