@@ -1,7 +1,7 @@
 export function isNative() {
-	return typeof window === "undefined";
+	return !window.document
 }
 
 export function isWeb() {
-	return typeof window !== "undefined";
+	return !!window.document
 }
