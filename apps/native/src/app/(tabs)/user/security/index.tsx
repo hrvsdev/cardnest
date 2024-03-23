@@ -7,9 +7,10 @@ import { IconLockOpenOff, IconPasswordMobilePhone } from "tabler-icons-react-nat
 import { SubPageRoot } from "@components/Containers";
 import { SettingsButton } from "@components/Settings/Button.tsx";
 import { Show } from "@components/Show";
+import { useHasCreatedPin } from "@libs/hooks/src/auth";
 
 export default function SecurityPage() {
-	const hasCreatedPin = false;
+	const hasCreatedPin = useHasCreatedPin();
 	const router = useRouter();
 
 	// @ts-ignore
