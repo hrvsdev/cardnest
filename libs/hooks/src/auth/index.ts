@@ -1,8 +1,8 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+
+import { atomWithStorageAuto } from "../utils.ts";
 
 import { hashPin, verifyPin } from "@libs/utils/src/encryption.ts";
-import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
 
 type PinData = {
 	data: {
@@ -12,6 +12,7 @@ type PinData = {
 
 const KEY = "cardnest/pin-data";
 
+// HOOKS
 export const useSetPin = () => useSetAtom(setPinAtom);
 export const useRemovePin = () => useSetAtom(removePinAtom);
 
@@ -21,17 +22,19 @@ export const useVerifyAndSetPin = () => useSetAtom(verifyAndSetPinAtom);
 export const useIsAuthenticatedValue = () => useAtomValue(isAuthenticatedAtom);
 export const useHasCreatedPin = () => useAtomValue(hasCreatedPinAtom);
 
+// BASE ATOMS
 export const pinAtom = atom<string | null>(null);
-export const pinDataAtom = atomWithStorage<PinData | null>(KEY, getFromLocalStorage(KEY));
+export const pinDataAtom = atomWithStorageAuto<PinData | null>(KEY, null);
 
+// DERIVED ATOMS
 export const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
-export const hasCreatedPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
+export const hasCreatedPinAtom = atom(async (get) => Boolean((await get(pinDataAtom))?.data.pin));
 
 const setPinAtom = atom(null, async (_, set, pin: string) => {
 	const hashed = await hashPin(pin);
 
 	set(pinAtom, pin);
-	set(pinDataAtom, { data: { pin: hashed } });
+	await set(pinDataAtom, { data: { pin: hashed } });
 });
 
 const verifyPinAtom = atom(null, async (get, _, pin: string) => {
@@ -41,7 +44,7 @@ const verifyPinAtom = atom(null, async (get, _, pin: string) => {
 const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	const out = false;
 
-	const pinData = get(pinDataAtom);
+	const pinData = await get(pinDataAtom);
 
 	if (!pinData?.data.pin) throw new Error("No pin data found");
 
@@ -56,6 +59,6 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 });
 
 const removePinAtom = atom(null, async (_, set) => {
-	set(pinDataAtom, null);
+	await set(pinDataAtom, null);
 	set(pinAtom, null);
 });

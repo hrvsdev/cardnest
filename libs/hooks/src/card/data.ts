@@ -1,17 +1,17 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 
 import { hasCreatedPinAtom, pinAtom } from "../auth";
+import { atomWithStorageAuto } from "../utils.ts";
 
 import { decrypt, encrypt, generateKey } from "@libs/utils/src/encryption.ts";
 import { genId } from "@libs/utils/src/id.ts";
-import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
 
 import { CardData, CardFullProfile, CardRecord } from "@libs/types/src/card";
 
 const KEY = "cardnest/cards";
 const SALT = "SOME R1ND0M SAL7";
 
+// HOOKS
 export const useCard = (id: string | undefined) => {
 	if (!id) return null;
 	return useAtomValue(cardsAtom)[id];
@@ -47,16 +47,15 @@ export const useDeleteAllCards = () => useSetAtom(deleteAllCardsAtom);
 export const useChangeOrAddCardsPin = () => useSetAtom(changeOrAddCardsPinAtom);
 export const useRemoveCardsPin = () => useSetAtom(removeCardsPinAtom);
 
-const cardRecordsAtom = atomWithStorage<Record<string, CardRecord>>(
-	KEY,
-	getFromLocalStorage(KEY) ?? {}
-);
+// BASE ATOMS
+const cardRecordsAtom = atomWithStorageAuto<Record<string, CardRecord>>(KEY, {});
 
+// DERIVED ATOMS
 const cardsAtom = atom(async (get) => {
-	const hasCreatedPin = get(hasCreatedPinAtom);
+	const hasCreatedPin = await get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
 
-	const cards = get(cardRecordsAtom);
+	const cards = await get(cardRecordsAtom);
 	const out: Record<string, CardData> = {};
 
 	if (hasCreatedPin) {
@@ -94,7 +93,7 @@ const cardsAtom = atom(async (get) => {
 });
 
 const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
-	const hasCreatedPin = get(hasCreatedPinAtom);
+	const hasCreatedPin = await get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
 
 	const id = genId();
@@ -105,16 +104,16 @@ const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
 		const key = await generateKey(pin, SALT);
 		const encrypted = await encrypt(JSON.stringify(card), key);
 
-		set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
+		await set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
 	} else {
-		set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, unEncryptedData: card } }));
+		await set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, unEncryptedData: card } }));
 	}
 
 	return id;
 });
 
 const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
-	const hasCreatedPin = get(hasCreatedPinAtom);
+	const hasCreatedPin = await get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
 
 	if (hasCreatedPin) {
@@ -124,31 +123,32 @@ const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
 			const key = await generateKey(pin, SALT);
 			const encrypted = await encrypt(JSON.stringify(data), key);
 
-			set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
+			await set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
 		} catch (e) {
 			console.error(e);
 		}
 	} else {
-		set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, unEncryptedData: data } }));
+		await set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, unEncryptedData: data } }));
 	}
 });
 
-const deleteCardAtom = atom(null, (_, set, id: string) => {
-	set(cardRecordsAtom, (cards) => {
+const deleteCardAtom = atom(null, async (_, set, id: string) => {
+	await set(cardRecordsAtom, async (c) => {
+		const cards = await c;
 		delete cards[id];
 		return { ...cards };
 	});
 });
 
-const deleteAllCardsAtom = atom(null, (_, set) => {
-	set(cardRecordsAtom, {});
+const deleteAllCardsAtom = atom(null, async (_, set) => {
+	await set(cardRecordsAtom, {});
 });
 
 const changeOrAddCardsPinAtom = atom(null, async (get, set, newPin: string) => {
-	const hasCreatedPin = get(hasCreatedPinAtom);
+	const hasCreatedPin = await get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
 
-	const cards = get(cardRecordsAtom);
+	const cards = await get(cardRecordsAtom);
 	const newCards: Record<string, CardRecord> = {};
 
 	const newKey = await generateKey(newPin, SALT);
@@ -186,13 +186,13 @@ const changeOrAddCardsPinAtom = atom(null, async (get, set, newPin: string) => {
 		console.error(e);
 	}
 
-	set(cardRecordsAtom, newCards);
+	await set(cardRecordsAtom, newCards);
 });
 
 const removeCardsPinAtom = atom(null, async (get, set) => {
 	const pin = get(pinAtom);
 
-	const cards = get(cardRecordsAtom);
+	const cards = await get(cardRecordsAtom);
 	const newCards: Record<string, CardRecord> = {};
 
 	if (!pin) throw new Error("Encryption Error: No pin found");
@@ -215,5 +215,5 @@ const removeCardsPinAtom = atom(null, async (get, set) => {
 		console.error(e);
 	}
 
-	set(cardRecordsAtom, newCards);
+	await set(cardRecordsAtom, newCards);
 });
