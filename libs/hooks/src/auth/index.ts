@@ -42,7 +42,7 @@ const verifyPinAtom = atom(null, async (get, _, pin: string) => {
 });
 
 const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
-	const out = false;
+	let out = false;
 
 	const pinData = await get(pinDataAtom);
 
@@ -50,7 +50,10 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 
 	try {
 		const isCorrect = await verifyPin(pin, pinData.data.pin);
-		if (isCorrect) set(pinAtom, pin);
+		if (isCorrect) {
+			set(pinAtom, pin);
+			out = true;
+		}
 	} catch (e) {
 		console.error(e);
 	}
