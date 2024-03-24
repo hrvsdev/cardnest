@@ -8,7 +8,5 @@ export default function RootPage() {
 
 	const showApp = hasCreatedPin ? isAuthenticated : true;
 
-	console.log({ isAuthenticated, hasCreatedPin, showApp });
-
 	return <Redirect href={showApp ? "/home" : "/pin/enter"} />;
 }
