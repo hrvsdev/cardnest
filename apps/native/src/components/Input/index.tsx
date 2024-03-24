@@ -64,6 +64,7 @@ export function Input(props: InputProps) {
 					{...props}
 					onFocus={onFocus}
 					onBlur={onBlur}
+					placeholderTextColor={themeColors.white["60"]}
 					style={[styles.input, conditionalStyles]}
 				/>
 				<Show when={props.rightIcon}>
