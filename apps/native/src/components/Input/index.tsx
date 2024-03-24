@@ -39,6 +39,7 @@ export function Input(props: InputProps) {
 
 	const conditionalStyles = {
 		color: props.error ? themeColors.red : themeColors.white.DEFAULT,
+		letterSpacing: props.value ? 16 / 10 : undefined,
 		paddingRight: props.rightIcon ? 48 : 16
 	};
 
@@ -89,7 +90,6 @@ const styles = StyleSheet.create({
 		width: "100%",
 		fontSize: 16,
 		paddingLeft: 16,
-		letterSpacing: 16 / 10,
 		height: 48
 	},
 	label: {
