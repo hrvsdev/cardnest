@@ -4,7 +4,7 @@
 
 ## Run Locally
 
-It's is a monorepo with two apps: `web` and `native`
+It is a monorepo with two apps: `web` and `native`
 To run locally, clone the repo and install dependencies
 
 ```bash
