@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, Modal, StyleSheet, View } from "react-native";
 
-import { DialogBackground, DialogContainer } from "@components/Dialog";
+import { DialogBackground } from "@components/Dialog";
 import { BgGradient } from "@components/Gradient";
 
 import { opacity, themeColors } from "@styles/colors.ts";
@@ -9,20 +9,19 @@ import { opacity, themeColors } from "@styles/colors.ts";
 type Props = {
 	show: boolean;
 	children: ReactNode;
-	onPress: () => void;
+	onClose: () => void;
 };
 
-export function BottomSheet({ show, onPress, children }: Props) {
-	if (!show) return null;
+export function BottomSheet({ show, onClose, children }: Props) {
 	return (
-		<DialogContainer>
-			<DialogBackground onPress={onPress} />
+		<Modal transparent={true} visible={show} onRequestClose={onClose}>
+			<DialogBackground onPress={onClose} />
 			<View style={styles.wrapper}>
 				<BgGradient style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, padding: 16 }}>
 					{children}
 				</BgGradient>
 			</View>
-		</DialogContainer>
+		</Modal>
 	);
 }
 
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: 0,
 		alignSelf: "center",
-		zIndex: 100,
 		width: Dimensions.get("window").width + 2,
 		borderTopLeftRadius: 16,
 		borderTopRightRadius: 16,
