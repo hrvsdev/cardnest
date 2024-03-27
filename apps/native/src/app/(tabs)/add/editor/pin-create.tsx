@@ -6,7 +6,7 @@ import { DialogButtons, DialogDescription, DialogHeading } from "@components/Dia
 
 export default function PinCreateDialog() {
 	return (
-		<BottomSheet show={true} onPress={() => router.back()}>
+		<BottomSheet show={true} onClose={() => router.back()}>
 			<DialogHeading>Create a PIN</DialogHeading>
 
 			<DialogDescription>

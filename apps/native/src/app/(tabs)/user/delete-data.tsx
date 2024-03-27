@@ -6,11 +6,11 @@ import { DialogButtons, DialogDescription, DialogHeading } from "@components/Dia
 
 export default function PinCreateDialog() {
 	return (
-		<BottomSheet show={true} onPress={() => router.back()}>
+		<BottomSheet show={false} onClose={() => router.back()}>
 			<DialogHeading>Delete all data</DialogHeading>
 
 			<DialogDescription>
-				Are you sure you want to delete all your data from all your devices?
+				Are you sure you wan9t to delete all your data from all your devices?
 			</DialogDescription>
 			<DialogDescription> This action cannot be undone.</DialogDescription>
 
