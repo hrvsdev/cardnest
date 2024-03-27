@@ -3,7 +3,7 @@ import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "tabler-icons-
 import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { SettingsGroup } from "@components/Settings";
-import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
+import { SettingsLink } from "@components/Settings/Button.tsx";
 
 export default function UserPage() {
 	return (
@@ -25,13 +25,13 @@ export default function UserPage() {
 					/>
 				</SettingsGroup>
 				<SettingsGroup title="Danger zone" description={DELETE_DESCRIPTION}>
-					<SettingsButton
+					<SettingsLink
 						isFirst
 						isLast
 						isDanger
 						Icon={IconTrash}
 						title="Delete all data"
-						onPress={() => console.log("Delete all data")}
+						href="/user/delete-data"
 					/>
 				</SettingsGroup>
 			</PageContainer>
