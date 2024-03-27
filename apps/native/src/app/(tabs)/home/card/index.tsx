@@ -1,7 +1,10 @@
+import { Fragment, useState } from "react";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
 
 import { IconPencil } from "tabler-icons-react-native";
+
+import CardDeleteDialog from "./delete.tsx";
 
 import { Button } from "@components/Button";
 import { CopyButton } from "@components/Button/CopyButton.tsx";
@@ -25,6 +28,8 @@ const CARD: CardFullProfile = {
 export default function CardViewPage() {
 	const router = useRouter();
 
+	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
 	const edit = () => {
 		router.navigate("/home/card/edit");
 	};
@@ -34,42 +39,50 @@ export default function CardViewPage() {
 	};
 
 	return (
-		<SubPageRoot
-			title="Card"
-			rightButtonLabel="Edit"
-			onRightButtonPress={edit}
-			rightButtonIcon={IconPencil}
-			gap={32}
-		>
-			<CardPreview card={CARD} />
-			<View style={{ flex: 1, gap: 24 }}>
-				<Input
-					readOnly
-					label="Card number"
-					value={CARD.number}
-					rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
-				/>
-				<Input
-					readOnly
-					label="Expriy date"
-					value={CARD.expiry}
-					rightIcon={<CopyButton text={CARD.expiry} />}
-				/>
-				<Input
-					readOnly
-					label="Cardholder"
-					value={CARD.cardholder}
-					rightIcon={<CopyButton text={CARD.cardholder} />}
-				/>
-				<Input
-					readOnly
-					label="Card issuer/bank"
-					value={CARD.issuer}
-					rightIcon={<CopyButton text={CARD.issuer} />}
-				/>
-			</View>
+		<Fragment>
+			<SubPageRoot
+				title="Card"
+				rightButtonLabel="Edit"
+				onRightButtonPress={edit}
+				rightButtonIcon={IconPencil}
+				gap={32}
+			>
+				<CardPreview card={CARD} />
+				<View style={{ flex: 1, gap: 24 }}>
+					<Input
+						readOnly
+						label="Card number"
+						value={CARD.number}
+						rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
+					/>
+					<Input
+						readOnly
+						label="Expriy date"
+						value={CARD.expiry}
+						rightIcon={<CopyButton text={CARD.expiry} />}
+					/>
+					<Input
+						readOnly
+						label="Cardholder"
+						value={CARD.cardholder}
+						rightIcon={<CopyButton text={CARD.cardholder} />}
+					/>
+					<Input
+						readOnly
+						label="Card issuer/bank"
+						value={CARD.issuer}
+						rightIcon={<CopyButton text={CARD.issuer} />}
+					/>
+				</View>
 
-			<Button title="Delete" theme="danger" onPress={del} />
-		</SubPageRoot>
+				<Button title="Delete" theme="danger" onPress={() => setShowDeleteDialog(true)} />
+			</SubPageRoot>
+
+			<CardDeleteDialog
+				show={showDeleteDialog}
+				onConfirm={del}
+				onClose={() => setShowDeleteDialog(false)}
+			/>
+		</Fragment>
 	);
 }
