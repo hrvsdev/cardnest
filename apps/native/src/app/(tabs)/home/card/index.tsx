@@ -35,7 +35,7 @@ export default function CardViewPage() {
 	};
 
 	const del = () => {
-		router.navigate("/home/card/delete");
+		// router.navigate("/home/card/delete");
 	};
 
 	return (
