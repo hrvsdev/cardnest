@@ -1,12 +1,17 @@
-import { router } from "expo-router";
-
 import { BottomSheet } from "@components/BottomSheet";
 import { Button } from "@components/Button";
 import { DialogButtons, DialogDescription, DialogHeading } from "@components/Dialog";
 
-export default function PinCreateDialog() {
+type Props = {
+	show: boolean;
+	onConfirm: () => void;
+	onClose: () => void;
+	onSkip: () => void;
+};
+
+export default function PinCreateDialog({ show, onConfirm, onClose, onSkip }: Props) {
 	return (
-		<BottomSheet show={true} onClose={() => router.back()}>
+		<BottomSheet show={show} onClose={onClose}>
 			<DialogHeading>Create a PIN</DialogHeading>
 
 			<DialogDescription>
@@ -16,8 +21,8 @@ export default function PinCreateDialog() {
 			<DialogDescription>You can also skip this and create later.</DialogDescription>
 
 			<DialogButtons>
-				<Button title="Skip" variant="flat" onPress={() => {}} />
-				<Button title="Create PIN" theme="danger" onPress={() => {}} />
+				<Button title="Skip" variant="flat" onPress={onSkip} />
+				<Button title="Create PIN" theme="danger" onPress={onConfirm} />
 			</DialogButtons>
 		</BottomSheet>
 	);
