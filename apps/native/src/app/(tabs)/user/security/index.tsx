@@ -4,9 +4,12 @@ import { useRouter } from "expo-router";
 import { SettingsGroup } from "components/Settings";
 import { IconLockOpenOff, IconPasswordMobilePhone } from "tabler-icons-react-native";
 
+import RemovePinDialog from "./remove-pin.tsx";
+
 import { SubPageRoot } from "@components/Containers";
 import { SettingsButton } from "@components/Settings/Button.tsx";
 import { Show } from "@components/Show";
+
 import { useHasCreatedPin } from "@libs/hooks/src/auth";
 
 export default function SecurityPage() {
@@ -52,6 +55,12 @@ export default function SecurityPage() {
 					/>
 				</SettingsGroup>
 			</Show>
+
+			<RemovePinDialog
+				show={showRemovePasswordDialog}
+				onConfirm={onRemovePasswordConfirmClick}
+				onClose={() => setShowRemovePasswordDialog(false)}
+			/>
 		</SubPageRoot>
 	);
 }
