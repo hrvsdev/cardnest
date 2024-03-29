@@ -1,11 +1,17 @@
+import { useState } from "react";
+
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "tabler-icons-react-native";
+
+import DeleteDataDialog from "./delete-data.tsx";
 
 import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { SettingsGroup } from "@components/Settings";
-import { SettingsLink } from "@components/Settings/Button.tsx";
+import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
 
 export default function UserPage() {
+	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
 	return (
 		<TabPageRoot>
 			<HeaderTitle title="You" />
@@ -25,16 +31,22 @@ export default function UserPage() {
 					/>
 				</SettingsGroup>
 				<SettingsGroup title="Danger zone" description={DELETE_DESCRIPTION}>
-					<SettingsLink
+					<SettingsButton
 						isFirst
 						isLast
 						isDanger
 						Icon={IconTrash}
 						title="Delete all data"
-						href="/user/delete-data"
+						onPress={() => setShowDeleteDialog(true)}
 					/>
 				</SettingsGroup>
 			</PageContainer>
+
+			<DeleteDataDialog
+				show={showDeleteDialog}
+				onClose={() => setShowDeleteDialog(false)}
+				onConfirm={() => setShowDeleteDialog(false)}
+			/>
 		</TabPageRoot>
 	);
 }
