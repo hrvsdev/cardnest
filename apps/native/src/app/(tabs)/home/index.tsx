@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 	noCardsText: {
 		textAlign: "center",
 		marginTop: 32,
+		fontSize: 16,
 		color: opacity(themeColors.white.DEFAULT, 0.6)
 	}
 });
