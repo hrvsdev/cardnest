@@ -98,16 +98,18 @@ const addCardAtom = atom(null, async (get, set, card: CardFullProfile) => {
 
 	const id = genId();
 
+	const cardToAdd: CardRecord = { id };
+
 	if (hasCreatedPin) {
 		if (!pin) throw new Error("Encryption Error: No pin found");
 
 		const key = await generateKey(pin, SALT);
-		const encrypted = await encrypt(JSON.stringify(card), key);
-
-		await set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, data: encrypted } }));
+		cardToAdd.data = await encrypt(JSON.stringify(card), key);
 	} else {
-		await set(cardRecordsAtom, (d) => ({ ...d, [id]: { id, unEncryptedData: card } }));
+		cardToAdd.unEncryptedData = card;
 	}
+
+	await set(cardRecordsAtom, async (d) => ({ ...(await d), [id]: cardToAdd }));
 
 	return id;
 });
@@ -116,20 +118,18 @@ const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
 	const hasCreatedPin = await get(hasCreatedPinAtom);
 	const pin = get(pinAtom);
 
+	const cardToUpdate: CardRecord = { id };
+
 	if (hasCreatedPin) {
-		try {
-			if (!pin) throw new Error("Encryption Error: No pin found");
+		if (!pin) throw new Error("Encryption Error: No pin found");
 
-			const key = await generateKey(pin, SALT);
-			const encrypted = await encrypt(JSON.stringify(data), key);
-
-			await set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, data: encrypted } }));
-		} catch (e) {
-			console.error(e);
-		}
+		const key = await generateKey(pin, SALT);
+		cardToUpdate.data = await encrypt(JSON.stringify(data), key);
 	} else {
-		await set(cardRecordsAtom, (cards) => ({ ...cards, [id]: { id, unEncryptedData: data } }));
+		cardToUpdate.unEncryptedData = data;
 	}
+
+	await set(cardRecordsAtom, async (c) => ({ ...c, [id]: cardToUpdate }));
 });
 
 const deleteCardAtom = atom(null, async (_, set, id: string) => {
@@ -153,37 +153,33 @@ const changeOrAddCardsPinAtom = atom(null, async (get, set, newPin: string) => {
 
 	const newKey = await generateKey(newPin, SALT);
 
-	try {
-		if (hasCreatedPin) {
-			if (!pin) throw new Error("Encryption Error: No pin found");
+	if (hasCreatedPin) {
+		if (!pin) throw new Error("Encryption Error: No pin found");
 
-			const key = await generateKey(pin, SALT);
+		const key = await generateKey(pin, SALT);
 
-			await Promise.all(
-				Object.keys(cards).map(async (id) => {
-					const card = cards[id];
-
-					if (!card.data) throw new Error("Data Error: No encrypted data found");
-
-					const data = await decrypt(card.data.encryptedData, key, card.data.iv);
-					const encrypted = await encrypt(data, newKey);
-
-					newCards[id] = { id, data: encrypted };
-				})
-			);
-		} else {
-			for (const id in cards) {
+		await Promise.all(
+			Object.keys(cards).map(async (id) => {
 				const card = cards[id];
 
-				if (!card.unEncryptedData) throw new Error("Data Error: No unencrypted data found");
+				if (!card.data) throw new Error("Data Error: No encrypted data found");
 
-				const encrypted = await encrypt(JSON.stringify(card.unEncryptedData), newKey);
+				const data = await decrypt(card.data.encryptedData, key, card.data.iv);
+				const encrypted = await encrypt(data, newKey);
 
 				newCards[id] = { id, data: encrypted };
-			}
+			})
+		);
+	} else {
+		for (const id in cards) {
+			const card = cards[id];
+
+			if (!card.unEncryptedData) throw new Error("Data Error: No unencrypted data found");
+
+			const encrypted = await encrypt(JSON.stringify(card.unEncryptedData), newKey);
+
+			newCards[id] = { id, data: encrypted };
 		}
-	} catch (e) {
-		console.error(e);
 	}
 
 	await set(cardRecordsAtom, newCards);
