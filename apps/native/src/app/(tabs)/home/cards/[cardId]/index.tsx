@@ -26,7 +26,7 @@ export default function CardViewPage() {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
 	useEffect(() => {
-		if (!card) router.replace("/home");
+		if (!card) router.navigate("/home");
 	}, [card]);
 
 	if (!card) return null;
@@ -37,7 +37,7 @@ export default function CardViewPage() {
 
 	const del = async () => {
 		await deleteCard(card.id);
-		router.replace("/home");
+		router.navigate("/home");
 	};
 
 	return (
