@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { View } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { IconPencil } from "tabler-icons-react-native";
 
@@ -12,30 +12,32 @@ import { CardPreview } from "@components/Card/Preview/Preview.tsx";
 import { SubPageRoot } from "@components/Containers";
 import { Input } from "@components/Input";
 
-import { removeSpaces } from "@libs/utils/src/card.ts";
+import { useCard, useDeleteCard } from "@libs/hooks/src/card/data.ts";
 
-import { CardFullProfile } from "@libs/types/src/card.ts";
-
-const CARD: CardFullProfile = {
-	number: "8263 9039 2737 3837",
-	cardholder: "Harsh Vyas",
-	issuer: "HDFC Bank",
-	expiry: "12/30",
-	theme: "pink",
-	network: "mastercard"
-};
+import { addSpaces } from "@libs/utils/src/card.ts";
 
 export default function CardViewPage() {
 	const router = useRouter();
+	const params = useLocalSearchParams<{ cardId: string }>();
+
+	const card = useCard(params.cardId);
+	const deleteCard = useDeleteCard();
 
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
+	useEffect(() => {
+		if (!card) router.replace("/home");
+	}, [card]);
+
+	if (!card) return null;
+
 	const edit = () => {
-		router.navigate("/home/card/edit");
+		router.navigate(`/home/cards/${card.id}/edit`);
 	};
 
-	const del = () => {
-		// router.navigate("/home/card/delete");
+	const del = async () => {
+		await deleteCard(card.id);
+		router.replace("/home");
 	};
 
 	return (
@@ -47,31 +49,31 @@ export default function CardViewPage() {
 				rightButtonIcon={IconPencil}
 				gap={32}
 			>
-				<CardPreview card={CARD} />
+				<CardPreview card={card.data} />
 				<View style={{ flex: 1, gap: 24 }}>
 					<Input
 						readOnly
 						label="Card number"
-						value={CARD.number}
-						rightIcon={<CopyButton text={removeSpaces(CARD.number)} />}
+						value={addSpaces(card.data.number)}
+						rightIcon={<CopyButton text={card.data.number} />}
 					/>
 					<Input
 						readOnly
 						label="Expriy date"
-						value={CARD.expiry}
-						rightIcon={<CopyButton text={CARD.expiry} />}
+						value={card.data.expiry}
+						rightIcon={<CopyButton text={card.data.expiry} />}
 					/>
 					<Input
 						readOnly
 						label="Cardholder"
-						value={CARD.cardholder}
-						rightIcon={<CopyButton text={CARD.cardholder} />}
+						value={card.data.cardholder}
+						rightIcon={<CopyButton text={card.data.cardholder} />}
 					/>
 					<Input
 						readOnly
 						label="Card issuer/bank"
-						value={CARD.issuer}
-						rightIcon={<CopyButton text={CARD.issuer} />}
+						value={card.data.issuer}
+						rightIcon={<CopyButton text={card.data.issuer} />}
 					/>
 				</View>
 
