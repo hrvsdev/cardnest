@@ -29,7 +29,7 @@ export async function encrypt(data: string, key: CryptoKey) {
 	if (!crypto) {
 		return {
 			iv: "IV123456",
-			encryptedData: JSON.stringify(data)
+			dataString: JSON.stringify(data)
 		};
 	}
 
@@ -46,7 +46,7 @@ export async function encrypt(data: string, key: CryptoKey) {
 
 	return {
 		iv: ivString,
-		encryptedData: encryptedDataString
+		dataString: encryptedDataString
 	};
 }
 

@@ -16,11 +16,11 @@ export type CardData = {
 
 export type CardRecord = {
 	id: string;
-	data?: {
+	encryptedData?: {
 		iv: string;
-		encryptedData: string;
+		dataString: string;
 	};
-	unEncryptedData?: CardFullProfile;
+	plainData?: CardFullProfile;
 };
 
 export type CardFullProfile = CardInfo & CardPreferences;
