@@ -35,6 +35,7 @@ export default function AddCardEditorPage() {
 	});
 
 	const saveCard = async () => {
+		setShowDialog(false);
 		const id = await addCard(editorState.data);
 		router.navigate(`/home/cards/${id}`);
 	};
