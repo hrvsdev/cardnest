@@ -129,7 +129,7 @@ const updateCardAtom = atom(null, async (get, set, { id, data }: CardData) => {
 		cardToUpdate.plainData = data;
 	}
 
-	await set(cardRecordsAtom, async (c) => ({ ...c, [id]: cardToUpdate }));
+	await set(cardRecordsAtom, async (d) => ({ ...(await d), [id]: cardToUpdate }));
 });
 
 const deleteCardAtom = atom(null, async (_, set, id: string) => {

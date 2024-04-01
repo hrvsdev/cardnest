@@ -19,7 +19,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 	const [network, setNetwork] = useState(init.network ?? "other");
 
 	const [theme, setTheme] = useState(init.theme ?? getRandomCardTheme());
-	const [focused, setFocused] = useState(init.focused);
+	const [focused, setFocused] = useState<CardField | undefined>();
 
 	const [errors, setErrors] = useState({
 		number: "",
@@ -35,7 +35,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		if (filteredValue.length === 16) setErrors({ ...errors, number: "" });
 
 		setNumber(addSpaces(filteredValue));
-		fetchAndSetCardNetwork(filteredValue).then();
+		fetchAndSetCardNetwork(filteredValue);
 	};
 
 	const setFormattedExpiry = (value: string) => {
@@ -66,7 +66,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 		setCardholder(filteredValue);
 	};
 
-	const fetchAndSetCardNetwork = async (cardNumber: string) => {
+	const fetchAndSetCardNetwork = (cardNumber: string) => {
 		const firstSixDigits = removeSpaces(cardNumber.slice(0, 6));
 
 		if (firstSixDigits.length < 6) {
@@ -78,7 +78,7 @@ export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorSt
 
 		previousNumber.current = firstSixDigits;
 
-		setNetwork(await getApproxCardNetwork(cardNumber));
+		getApproxCardNetwork(cardNumber).then(setNetwork);
 	};
 
 	const onSubmit = (cb: (data: CardFullProfile) => void) => {

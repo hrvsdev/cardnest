@@ -33,26 +33,10 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		return `${month}/${year}`;
 	}, [card.expiry]);
 
-	const cardholderName = useMemo(() => {
-		let name = card.cardholder;
-
-		if (!name.trim() && options?.usePlaceholders) name = "Your Name";
-
-		return name;
-	}, [card.cardholder]);
-
-	const issuerName = useMemo(() => {
-		let issuer = card.issuer;
-
-		if (!issuer.trim() && options?.usePlaceholders) issuer = "Issuer/bank";
-
-		return issuer;
-	}, [card.issuer]);
-
 	return {
 		number: cardNumber,
 		expiry: cardExpiry,
-		cardholder: cardholderName,
-		issuer: issuerName
+		cardholder: card.cardholder.trim() || (options?.usePlaceholders ? "Your Name" : ""),
+		issuer: card.issuer.trim() || (options?.usePlaceholders ? "Issuer/bank" : "")
 	};
 }
