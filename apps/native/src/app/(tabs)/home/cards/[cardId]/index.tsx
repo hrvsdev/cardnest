@@ -11,6 +11,7 @@ import { CopyButton } from "@components/Button/CopyButton.tsx";
 import { CardPreview } from "@components/Card/Preview/Preview.tsx";
 import { SubPageRoot } from "@components/Containers";
 import { Input } from "@components/Input";
+import { Show } from "@components/Show";
 
 import { useCard, useDeleteCard } from "@libs/hooks/src/card/data.ts";
 
@@ -36,6 +37,7 @@ export default function CardViewPage() {
 	};
 
 	const del = async () => {
+		setShowDeleteDialog(false);
 		await deleteCard(card.id);
 		router.navigate("/home");
 	};
@@ -69,12 +71,14 @@ export default function CardViewPage() {
 						value={card.data.cardholder}
 						rightIcon={<CopyButton text={card.data.cardholder} />}
 					/>
-					<Input
-						readOnly
-						label="Card issuer/bank"
-						value={card.data.issuer}
-						rightIcon={<CopyButton text={card.data.issuer} />}
-					/>
+					<Show when={card.data.issuer.trim().length > 0}>
+						<Input
+							readOnly
+							label="Card issuer/bank"
+							value={card.data.issuer}
+							rightIcon={<CopyButton text={card.data.issuer} />}
+						/>
+					</Show>
 				</View>
 
 				<Button title="Delete" theme="danger" onPress={() => setShowDeleteDialog(true)} />
