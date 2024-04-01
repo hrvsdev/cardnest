@@ -5,6 +5,7 @@ import {
 	cardPreviewStyles as styles,
 	useCardNetworkLogo
 } from "@components/Card/Preview/Shared.tsx";
+import { Show } from "@components/Show";
 
 import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
 
@@ -26,10 +27,14 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 					<Text style={styles.cardSubText}>Cardholder</Text>
 					<Text style={styles.cardFieldText}>{formattedCard.cardholder}</Text>
 				</View>
-				<View>
-					<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
-					<Text style={styles.cardFieldText}>{formattedCard.issuer}</Text>
-				</View>
+				<Show when={formattedCard.issuer}>
+					<View>
+						<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
+						<Text style={[styles.cardFieldText, { textAlign: "right" }]}>
+							{formattedCard.issuer}
+						</Text>
+					</View>
+				</Show>
 			</View>
 			<View style={styles.cardMiddle}>
 				{formattedCard.number.split("").map((char, index) => (

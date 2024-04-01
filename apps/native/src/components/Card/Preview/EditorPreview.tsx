@@ -42,7 +42,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 				</Animated.View>
 				<Animated.View style={focusedStyles("issuer")}>
 					<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
-					<Text style={styles.cardFieldText}>{formattedCard.issuer}</Text>
+					<Text style={[styles.cardFieldText, { textAlign: "right" }]}>{formattedCard.issuer}</Text>
 				</Animated.View>
 			</View>
 
