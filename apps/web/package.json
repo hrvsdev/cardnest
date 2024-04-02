@@ -9,8 +9,6 @@
 	},
 	"dependencies": {
 		"@heroicons/react": "^2.1.1",
-		"@libs/hooks": "workspace:^",
-		"@libs/utils": "workspace:^",
 		"@tabler/icons-react": "^2.44.0",
 		"framer-motion": "^10.16.16",
 		"react": "^18.2.0",
@@ -18,7 +16,6 @@
 		"react-router-dom": "^6.21.1"
 	},
 	"devDependencies": {
-		"@libs/types": "workspace:^",
 		"@types/react": "^18.2.53",
 		"@types/react-dom": "~18.0.10",
 		"@vitejs/plugin-react": "^4.2.1",
