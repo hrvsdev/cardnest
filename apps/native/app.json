@@ -1,40 +1,45 @@
 {
-	"expo": {
-		"name": "CardNest",
-		"slug": "cardnest",
-		"scheme": "cardnest",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "dark",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			},
-			"package": "com.hrvs.cardnest"
-		},
-		"web": {
-			"favicon": "./assets/favicon.png",
-			"bundler": "metro"
-		},
-		"plugins": ["expo-router"],
-		"extra": {
-			"router": {
-				"origin": false
-			},
-			"eas": {
-				"projectId": "94bf1237-3f46-48b9-af36-075bb06998cb"
-			}
-		}
-	}
+  "expo": {
+    "name": "CardNest",
+    "slug": "cardnest",
+    "scheme": "cardnest",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hrvs.cardnest"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.hrvs.cardnest"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "94bf1237-3f46-48b9-af36-075bb06998cb"
+      }
+    }
+  }
 }
