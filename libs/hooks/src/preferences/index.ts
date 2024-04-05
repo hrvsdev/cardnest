@@ -1,8 +1,6 @@
-import { useAtom, useAtomValue } from "jotai";
-import { focusAtom } from "jotai-optics";
-import { atomWithStorage } from "jotai/utils";
+import { atom, useAtom, useAtomValue } from "jotai";
 
-import { getFromLocalStorage } from "@libs/utils/src/local-storage.ts";
+import { atomWithStorageAuto } from "../utils.ts";
 
 type Preferences = {
 	userInterface: {
@@ -24,15 +22,29 @@ const defaultValue: Preferences = {
 
 const KEY = "cardnest/preferences";
 
-const preferencesAtom = atomWithStorage<Preferences>(KEY, getFromLocalStorage(KEY) ?? defaultValue);
+const preferencesAtom = atomWithStorageAuto<Preferences>(KEY, defaultValue);
 
-const hasSkippedPinCreationAtom = focusAtom(preferencesAtom, (s) => {
-	return s.prop("interactions").prop("hasSkippedPinCreation");
-});
+const hasSkippedPinCreationAtom = atom(
+	async (get) => {
+		return (await get(preferencesAtom)).interactions.hasSkippedPinCreation;
+	},
+	async (get, set, value: boolean) => {
+		const preferences = await get(preferencesAtom);
+		preferences.interactions.hasSkippedPinCreation = value;
+		await set(preferencesAtom, { ...preferences });
+	}
+);
 
-const maskCardNumberAtom = focusAtom(preferencesAtom, (s) => {
-	return s.prop("userInterface").prop("maskCardNumber");
-});
+const maskCardNumberAtom = atom(
+	async (get) => {
+		return (await get(preferencesAtom)).userInterface.maskCardNumber;
+	},
+	async (get, set, value: boolean) => {
+		const preferences = await get(preferencesAtom);
+		preferences.userInterface.maskCardNumber = value;
+		await set(preferencesAtom, { ...preferences });
+	}
+);
 
 export const useHasSkippedPinCreation = () => useAtom(hasSkippedPinCreationAtom);
 
