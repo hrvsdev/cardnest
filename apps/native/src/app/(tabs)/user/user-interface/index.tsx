@@ -1,13 +1,13 @@
-import { useState } from "react";
-
 import { SettingsGroup } from "components/Settings";
 import { IconPassword } from "tabler-icons-react-native";
 
 import { SubPageRoot } from "@components/Containers";
 import { SettingsToggleButton } from "@components/Settings/ToggleButton.tsx";
 
+import { useMaskCardNumber } from "@libs/hooks/src/preferences";
+
 export default function UserInterfacePage() {
-	const [maskCard, setMaskCard] = useState(false);
+	const [maskCard, setMaskCard] = useMaskCardNumber();
 
 	return (
 		<SubPageRoot gap={24} title="User Interface" leftIconLabel="Settings">

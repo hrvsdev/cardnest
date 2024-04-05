@@ -9,6 +9,7 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { Show } from "@components/Show";
 
 import { useSearchCards } from "@libs/hooks/src/card/data.ts";
+import { useMaskCardNumberValue } from "@libs/hooks/src/preferences";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -16,6 +17,7 @@ export default function HomePage() {
 	const [search, setSearch] = useState("");
 
 	const cards = useSearchCards(search);
+	const maskCardNumber = useMaskCardNumberValue();
 
 	return (
 		<TabPageRoot>
@@ -25,7 +27,7 @@ export default function HomePage() {
 				{cards.map(({ id, data }) => (
 					<Link key={id} href={`/home/cards/${id}`} asChild>
 						<Pressable>
-							<CardPreview card={data} />
+							<CardPreview card={data} maskCardNumber={maskCardNumber} />
 						</Pressable>
 					</Link>
 				))}
