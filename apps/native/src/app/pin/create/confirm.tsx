@@ -10,7 +10,9 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 
+import { useAfterPinCreated, useSetAfterPinCreated } from "@libs/hooks/src/actions";
 import { useSetPin } from "@libs/hooks/src/auth";
+import { useChangeOrAddCardsPin } from "@libs/hooks/src/card/data.ts";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
@@ -22,6 +24,9 @@ export default function ConfirmPinPage() {
 	const fakeScrollOffset = useSharedValue(0);
 
 	const setAppPin = useSetPin();
+	const changeOrAddCardsPin = useChangeOrAddCardsPin();
+	const afterPinCreated = useAfterPinCreated();
+	const setAfterPinCreated = useSetAfterPinCreated();
 
 	const [pin, setPin] = useState<number[]>([]);
 	const [isPinInvalid, setIsPinInvalid] = useState(false);
@@ -48,10 +53,15 @@ export default function ConfirmPinPage() {
 			return;
 		}
 
+		await changeOrAddCardsPin(pinValue);
 		await setAppPin(pinValue);
 
 		redirectTimeoutRef.current = setTimeout(async () => {
-			router.navigate("/user/security");
+			if (afterPinCreated) {
+				afterPinCreated().then(() => setAfterPinCreated(null));
+			} else {
+				router.navigate("/user/security");
+			}
 		}, 500);
 	};
 

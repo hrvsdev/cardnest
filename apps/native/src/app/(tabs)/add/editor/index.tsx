@@ -11,6 +11,7 @@ import { useSetAfterPinCreated } from "@libs/hooks/src/actions";
 import { useHasCreatedPin } from "@libs/hooks/src/auth";
 import { useAddCard } from "@libs/hooks/src/card/data.ts";
 import { useCardEditor } from "@libs/hooks/src/card/editor.ts";
+import { useHasSkippedPinCreation } from "@libs/hooks/src/preferences";
 
 export default function AddCardEditorPage() {
 	const router = useRouter();
@@ -21,11 +22,10 @@ export default function AddCardEditorPage() {
 
 	const editorState = useCardEditor();
 
-	// const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
+	const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
 	const [showDialog, setShowDialog] = useState(false);
 
 	const onSaveClick = editorState.onSubmit(async () => {
-		const hasSkippedPinCreation = false; // Temporary
 		if (!hasCreatedPin && !hasSkippedPinCreation) {
 			setShowDialog(true);
 			return;
@@ -37,17 +37,18 @@ export default function AddCardEditorPage() {
 	const saveCard = async () => {
 		setShowDialog(false);
 		const id = await addCard(editorState.data);
-		router.navigate(`/home/cards/${id}`);
+		router.push(`/home/cards/${id}`);
 	};
 
 	const onCreatePinSkip = async () => {
-		// setHasSkippedPinCreation(true);
+		await setHasSkippedPinCreation(true);
 		await saveCard();
 	};
 
 	const onCreatePinConfirm = () => {
+		setShowDialog(false);
 		setAfterPinCreated(() => saveCard);
-		router.navigate("pin/create");
+		router.navigate("/pin/create");
 	};
 
 	return (
