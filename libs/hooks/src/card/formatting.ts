@@ -20,7 +20,7 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		}
 
 		return addSpaces(number);
-	}, [card.number]);
+	}, [card.number, options?.maskCardNumber]);
 
 	const cardExpiry = useMemo(() => {
 		let [month, year] = card.expiry.includes("/") ? card.expiry.split("/") : [card.expiry, ""];
@@ -31,7 +31,7 @@ export function useFormattedCardViewDetails(card: CardInfo, options?: Options): 
 		}
 
 		return `${month}/${year}`;
-	}, [card.expiry]);
+	}, [card.expiry, options?.usePlaceholders]);
 
 	return {
 		number: cardNumber,
