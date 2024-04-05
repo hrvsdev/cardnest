@@ -45,6 +45,6 @@ export function SubPageRoot({ children, style, gap, ...headerProps }: Props & Su
 }
 
 export function PageContainer({ children, style, gap }: Props) {
-	const styles = StyleSheet.compose({ padding: 16, paddingBottom: 72, gap }, style);
+	const styles = StyleSheet.compose({ padding: 16, gap }, style);
 	return <View style={styles}>{children}</View>;
 }

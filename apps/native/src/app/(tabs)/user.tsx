@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "tabler-icons-react-native";
 
-import DeleteDataDialog from "./delete-data.tsx";
+import DeleteDataDialog from "../user/delete-data.tsx";
 
 import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";

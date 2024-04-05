@@ -12,7 +12,7 @@ import { colors, opacity, themeColors } from "@styles/colors.ts";
 export default function AddCardPage() {
 	const router = useRouter();
 	return (
-		<TabPageRoot style={{ flexGrow: 1 }}>
+		<TabPageRoot style={{ flexGrow: 1, paddingBottom: 56 }}>
 			<HeaderTitle title="Add Card" />
 			<PageContainer style={{ flexGrow: 1 }}>
 				<View style={styles.container}>

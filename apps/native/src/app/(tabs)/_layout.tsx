@@ -5,7 +5,6 @@ import { Link, Tabs } from "expo-router";
 import {
 	BottomTabBarProps,
 	BottomTabNavigationOptions
-	// @ts-ignore
 } from "@react-navigation/bottom-tabs/src/types.tsx";
 import { CreditCardIcon, HomeIcon, UserCircleIcon } from "react-native-heroicons/solid";
 
