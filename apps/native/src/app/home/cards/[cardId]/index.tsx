@@ -38,8 +38,8 @@ export default function CardViewPage() {
 
 	const del = async () => {
 		setShowDeleteDialog(false);
-		await deleteCard(card.id);
 		router.navigate("/home");
+		await deleteCard(card.id);
 	};
 
 	return (

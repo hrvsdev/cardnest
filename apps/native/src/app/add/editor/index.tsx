@@ -37,7 +37,8 @@ export default function AddCardEditorPage() {
 	const saveCard = async () => {
 		setShowDialog(false);
 		const id = await addCard(editorState.data);
-		router.push(`/home/cards/${id}`);
+		router.navigate("/home");
+		router.navigate(`/home/cards/${id}`);
 	};
 
 	const onCreatePinSkip = async () => {
