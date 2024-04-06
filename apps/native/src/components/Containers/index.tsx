@@ -15,7 +15,7 @@ export function TabPageRoot({ children, style }: Props) {
 			<ScrollView
 				keyboardShouldPersistTaps="handled"
 				keyboardDismissMode="on-drag"
-				contentContainerStyle={style}
+				contentContainerStyle={[{ paddingBottom: 56 }, style]}
 			>
 				{children}
 			</ScrollView>
