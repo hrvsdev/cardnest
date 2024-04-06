@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { Link, Tabs } from "expo-router";
@@ -49,8 +50,7 @@ export default function TabsLayout() {
 
 function BottomTabs({ state, insets }: BottomTabBarProps) {
 	return (
-		// @ts-ignore
-		<BlurView style={[styles.tabBar]}>
+		<BottomTabsContainer>
 			{tabs.map((tab, ix) => (
 				<Link key={tab.name} href={tab.href} asChild>
 					<Pressable style={styles.tabButtonWrapper}>
@@ -63,8 +63,16 @@ function BottomTabs({ state, insets }: BottomTabBarProps) {
 					</Pressable>
 				</Link>
 			))}
-		</BlurView>
+		</BottomTabsContainer>
 	);
+}
+
+function BottomTabsContainer({ children }: PropsWithChildren) {
+	if (Platform.OS === "android") {
+		return <View style={[styles.tabBar]}>{children}</View>;
+	}
+	// @ts-ignore
+	return <BlurView style={[styles.tabBar]}>{children}</BlurView>;
 }
 
 const styles = StyleSheet.create({

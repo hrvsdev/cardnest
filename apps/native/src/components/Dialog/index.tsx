@@ -11,8 +11,10 @@ export function DialogContainer({ children }: PropsWithChildren) {
 export function DialogBackground({ onPress }: { onPress: () => void }) {
 	return (
 		<Pressable style={styles.backdrop} onPress={onPress}>
-			{/*@ts-ignore*/}
-			<BlurView style={{ width: "100%", height: "100%" }} intensity={10} />
+			{Platform.OS !== "android" && (
+				// @ts-ignore
+				<BlurView style={{ width: "100%", height: "100%" }} intensity={10} />
+			)}
 		</Pressable>
 	);
 }
