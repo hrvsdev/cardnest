@@ -33,10 +33,10 @@ export function SubPageHeader(props: Props) {
 			<div className="flex items-center justify-center relative w-full h-12">
 				<Link to=".." className="flex items-center gap-1 absolute left-0 h-full px-4 text-th-sky">
 					<IconChevronLeft strokeWidth={2.5} size={20} />
-					<span className="text-sm">{props.leftIconLabel ?? "Back"}</span>
+					<span>{props.leftIconLabel ?? "Back"}</span>
 				</Link>
 
-				<div>{props.title}</div>
+				<div className="font-medium">{props.title}</div>
 
 				<Show when={props.rightButtonLabel || props.rightButtonIcon}>
 					<button
@@ -44,7 +44,7 @@ export function SubPageHeader(props: Props) {
 						onClick={props.onRightButtonClick}
 					>
 						{props.rightButtonIcon}
-						<span className="text-sm">{props.rightButtonLabel}</span>
+						<span>{props.rightButtonLabel}</span>
 					</button>
 				</Show>
 			</div>
