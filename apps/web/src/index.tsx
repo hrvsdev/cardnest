@@ -9,7 +9,7 @@ import "./index.css";
 
 import { getFromLocalStorage } from "@libs/utils/src/local-storage";
 
-const APP_VERSION = "0.1.1";
+const APP_VERSION = "0.1.2";
 
 const router = createBrowserRouter([{ path: "/*", element: <App /> }]);
 
