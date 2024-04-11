@@ -30,7 +30,7 @@ export function Button(props: Props) {
 			type={type}
 			onClick={onClick}
 			className={c(
-				"w-full h-12 text-md rounded-2xl transition-all duration-200 hover:brightness-110 active:scale-98",
+				"w-full h-12 text-md rounded-1.5xl transition-all duration-200 hover:brightness-110 active:scale-98",
 				styles[variant][theme],
 				className
 			)}

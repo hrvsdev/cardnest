@@ -17,6 +17,9 @@ export default {
 			fontFamily: {
 				card: ["Manrope", "sans-serif"]
 			},
+			borderRadius: {
+				"1.5xl": "0.875rem"
+			},
 			fontSize: {
 				heading: ["1.75rem", "2.125rem"],
 				md: ["1.0625rem", "1.375rem"],
