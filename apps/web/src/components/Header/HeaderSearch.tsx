@@ -51,7 +51,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 					onChange={(e) => onChange(e.target.value)}
 					placeholder="Enter card number, bank or network"
 					className={c(
-						"w-full rounded-2xl pl-12 py-3 text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10 peer-active:bg-opacity-10",
+						"w-full rounded-1.5xl pl-12 py-3 text-th-white bg-th-white bg-opacity-5 focus:bg-opacity-10 peer-active:bg-opacity-10",
 						showClearIcon ? "pr-12" : "pr-4"
 					)}
 				/>

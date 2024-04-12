@@ -55,7 +55,7 @@ export function Input(props: Props) {
 					onBlur={props.onBlur}
 					placeholder={props.placeholder}
 					className={c(
-						"w-full rounded-2xl pl-4 h-12 tracking-widest placeholder:tracking-normal bg-th-white bg-opacity-5 focus:bg-opacity-10",
+						"w-full rounded-1.5xl pl-4 h-12 tracking-widest placeholder:tracking-normal bg-th-white bg-opacity-5 focus:bg-opacity-10",
 						props.error ? "text-th-red" : "text-th-white ",
 						props.rightIcon ? "pr-12" : "p-4",
 						props.className
