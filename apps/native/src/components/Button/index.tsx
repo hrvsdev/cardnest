@@ -1,6 +1,8 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
+
+import { AppText } from "@components/AppText";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -34,7 +36,9 @@ export function Button(props: Props) {
 	return (
 		<Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
 			<Animated.View style={wrapperStyles}>
-				<Text style={[baseStyles.text, styles[variant][theme].text]}>{title}</Text>
+				<AppText fontSize="md" fontWeight="500" color={styles[variant][theme].text.color}>
+					{title}
+				</AppText>
 			</Animated.View>
 		</Pressable>
 	);
@@ -47,10 +51,6 @@ const baseStyles = StyleSheet.create({
 		alignItems: "center",
 		height: 48,
 		borderRadius: 14
-	},
-	text: {
-		fontSize: 17,
-		fontWeight: "500"
 	}
 });
 
