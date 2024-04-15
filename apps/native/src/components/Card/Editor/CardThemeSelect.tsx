@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -9,6 +9,8 @@ import Animated, {
 	useSharedValue,
 	withTiming
 } from "react-native-reanimated";
+
+import { AppText } from "@components/AppText";
 
 import { cardThemes } from "@libs/utils/src/card.ts";
 
@@ -54,7 +56,9 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 
 	return (
 		<View style={{ flex: 1, rowGap: 8 }}>
-			<Text style={styles.label}>Card theme</Text>
+			<View style={{ paddingLeft: 8 }}>
+				<AppText>Card theme</AppText>
+			</View>
 			<View style={styles.grid}>
 				{cardThemes.map((t) => (
 					<Item key={t} theme={t} selected={t === theme} onPress={onPress} />
@@ -109,11 +113,6 @@ function Item({ theme, selected, onPress }: ItemProps) {
 }
 
 const styles = StyleSheet.create({
-	label: {
-		color: themeColors.white["80"],
-		paddingLeft: 8,
-		fontSize: 16
-	},
 	grid: {
 		flex: 1,
 		flexWrap: "wrap",

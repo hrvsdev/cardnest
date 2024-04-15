@@ -1,6 +1,7 @@
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import * as Haptics from "expo-haptics";
 
+import { AppText } from "@components/AppText";
 import { Amex } from "@components/Logos/Amex.tsx";
 import { Diners } from "@components/Logos/Diners.tsx";
 import { Discover } from "@components/Logos/Discover.tsx";
@@ -36,7 +37,9 @@ export function CardNetworkSelect({ selected, setSelected }: Props) {
 
 	return (
 		<View style={{ flex: 1, rowGap: 8 }}>
-			<Text style={styles.label}>Card network</Text>
+			<View style={{ paddingLeft: 8 }}>
+				<AppText>Card network</AppText>
+			</View>
 
 			<View style={styles.grid}>
 				{networks.map((N) => (
@@ -61,11 +64,6 @@ const pageContentWidth = Dimensions.get("window").width - PAGE_PADDING * 2;
 const gridItemWidth = (pageContentWidth - ITEM_GAP * (NO_OF_ITEMS - 1)) / NO_OF_ITEMS;
 
 const styles = StyleSheet.create({
-	label: {
-		color: themeColors.white["80"],
-		paddingLeft: 8,
-		fontSize: 16
-	},
 	grid: {
 		flex: 1,
 		flexWrap: "wrap",
