@@ -14,6 +14,7 @@ type AppTextProps = {
 	letterSpacing?: number;
 	value?: string;
 	children?: string;
+	style?: TextStyle;
 };
 
 const sizeVariants: Record<SizeVariant, { fontSize: number; lineHeight: number }> = {
@@ -39,5 +40,5 @@ export function AppText(props: AppTextProps) {
 		letterSpacing: props.letterSpacing
 	};
 
-	return <Text style={style}>{props.children ?? props.value ?? ""}</Text>;
+	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
 }
