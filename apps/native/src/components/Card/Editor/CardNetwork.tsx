@@ -37,9 +37,7 @@ export function CardNetworkSelect({ selected, setSelected }: Props) {
 
 	return (
 		<View style={{ flex: 1, rowGap: 8 }}>
-			<View style={{ paddingLeft: 8 }}>
-				<AppText>Card network</AppText>
-			</View>
+			<AppText style={{ paddingLeft: 8 }}>Card network</AppText>
 
 			<View style={styles.grid}>
 				{networks.map((N) => (
