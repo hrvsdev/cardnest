@@ -12,6 +12,8 @@ type AppTextProps = {
 	color?: ColorValue;
 	fontWeight?: TextStyle["fontWeight"];
 	letterSpacing?: number;
+	textAlign?: TextStyle["textAlign"];
+
 	value?: string;
 	children?: string;
 	style?: TextStyle;
@@ -37,7 +39,8 @@ export function AppText(props: AppTextProps) {
 
 		color: props.color ?? opacity(themeColors.white.DEFAULT, 0.8),
 		fontWeight: props.fontWeight ?? "400",
-		letterSpacing: props.letterSpacing
+		letterSpacing: props.letterSpacing,
+		textAlign: props.textAlign
 	};
 
 	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
