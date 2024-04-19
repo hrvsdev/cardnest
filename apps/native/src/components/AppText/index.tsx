@@ -9,6 +9,7 @@ type SizeVariant = DefaultSizeVariant | CustomSizeVariant;
 
 type AppTextProps = {
 	fontSize?: SizeVariant;
+	lineHeight?: number;
 	color?: ColorValue;
 	fontWeight?: TextStyle["fontWeight"];
 	letterSpacing?: number;
@@ -35,7 +36,7 @@ const sizeVariants: Record<SizeVariant, { fontSize: number; lineHeight: number }
 export function AppText(props: AppTextProps) {
 	const style: TextStyle = {
 		fontSize: sizeVariants[props.fontSize ?? "base"].fontSize,
-		lineHeight: sizeVariants[props.fontSize ?? "base"].lineHeight,
+		lineHeight: props.lineHeight ?? sizeVariants[props.fontSize ?? "base"].lineHeight,
 
 		color: props.color ?? opacity(themeColors.white.DEFAULT, 0.8),
 		fontWeight: props.fontWeight ?? "400",
