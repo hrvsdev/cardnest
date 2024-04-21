@@ -1,5 +1,6 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import { AppText } from "@components/AppText";
 import {
 	CardBackground,
 	cardPreviewStyles as styles,
@@ -8,6 +9,8 @@ import {
 import { Show } from "@components/Show";
 
 import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
+
+import { themeColors } from "@styles/colors.ts";
 
 import { CardFullProfile } from "@libs/types/src/card";
 
@@ -24,35 +27,61 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 		<CardBackground theme={card.theme}>
 			<View style={styles.cardTop}>
 				<View>
-					<Text style={styles.cardSubText}>Cardholder</Text>
-					<Text style={styles.cardFieldText}>{formattedCard.cardholder}</Text>
+					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+						CARDHOLDER
+					</AppText>
+					<AppText fontSize="lg" letterSpacing={18 / 20} color={themeColors.white.DEFAULT}>
+						{formattedCard.cardholder}
+					</AppText>
 				</View>
 				<Show when={formattedCard.issuer}>
 					<View>
-						<Text style={[styles.cardSubText, { textAlign: "right" }]}>Issuer</Text>
-						<Text style={[styles.cardFieldText, { textAlign: "right" }]}>
-							{formattedCard.issuer}
-						</Text>
+						<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10} textAlign="right">
+							ISSUER
+						</AppText>
+						<AppText
+							fontSize="lg"
+							letterSpacing={18 / 20}
+							color={themeColors.white.DEFAULT}
+							textAlign="right"
+							value={formattedCard.issuer}
+						/>
 					</View>
 				</Show>
 			</View>
 			<View style={styles.cardMiddle}>
 				{formattedCard.number.split("").map((char, index) => (
 					<View key={index}>
-						<Text style={char.trim() ? styles.cardNumberText : styles.cardNumberSpace}>{char}</Text>
+						<AppText
+							fontSize="2xl"
+							fontWeight="700"
+							textAlign="center"
+							color={themeColors.white.DEFAULT}
+							style={{ width: char.trim() ? 16 : 8 }}
+							value={char}
+						/>
 					</View>
 				))}
 			</View>
 			<View style={styles.cardBottom}>
 				<View>
-					<Text style={styles.cardSubText}>Valid Thru</Text>
-					<Text style={styles.cardExpiryWrapper}>
+					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+						VALID THRU
+					</AppText>
+					<View style={styles.cardExpiryWrapper}>
 						{formattedCard.expiry.split("").map((char, index) => (
 							<View key={index}>
-								<Text style={styles.cardExpiryText}>{char}</Text>
+								<AppText
+									lineHeight={28}
+									fontWeight="500"
+									textAlign="center"
+									color={themeColors.white.DEFAULT}
+									style={{ width: 10 }}
+									value={char}
+								/>
 							</View>
 						))}
-					</Text>
+					</View>
 				</View>
 				<View style={styles.cardNetworkLogoWrapper}>
 					<CardNetwork />

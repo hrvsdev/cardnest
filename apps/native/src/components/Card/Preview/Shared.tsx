@@ -9,7 +9,7 @@ import { MasterCard } from "@components/Logos/MasterCard.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { colors, themeColors } from "@styles/colors.ts";
+import { colors } from "@styles/colors.ts";
 
 import { CardTheme } from "@libs/types/src/card.ts";
 
@@ -72,42 +72,9 @@ export const cardPreviewStyles = StyleSheet.create({
 		justifyContent: "space-between",
 		alignItems: "flex-end"
 	},
-	cardSubText: {
-		fontSize: 10,
-		lineHeight: 12,
-		fontWeight: "300",
-		color: themeColors.white["80"],
-		textTransform: "uppercase",
-		letterSpacing: 10 / 10
-	},
-	cardFieldText: {
-		fontSize: 18,
-		lineHeight: 28,
-		color: themeColors.white.DEFAULT,
-		letterSpacing: 18 / 20
-	},
-	cardNumberText: {
-		fontSize: 24,
-		lineHeight: 32,
-		fontWeight: "700",
-		width: 16,
-		textAlign: "center",
-		color: themeColors.white.DEFAULT
-	},
-	cardNumberSpace: {
-		width: 8
-	},
 	cardExpiryWrapper: {
 		display: "flex",
 		flexDirection: "row"
-	},
-	cardExpiryText: {
-		fontSize: 16,
-		lineHeight: 28,
-		fontWeight: "500",
-		color: themeColors.white.DEFAULT,
-		textAlign: "center",
-		width: 10
 	},
 	cardNetworkLogoWrapper: {
 		paddingBottom: 6
