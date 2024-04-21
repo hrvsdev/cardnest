@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { ColorValue, Text, TextStyle } from "react-native";
 
 import { opacity, themeColors } from "@styles/colors.ts";
@@ -16,7 +17,7 @@ type AppTextProps = {
 	textAlign?: TextStyle["textAlign"];
 
 	value?: string;
-	children?: string;
+	children?: ReactNode;
 	style?: TextStyle;
 };
 
