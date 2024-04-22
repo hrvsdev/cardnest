@@ -1,6 +1,8 @@
 import { Fragment, PropsWithChildren } from "react";
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { BlurView } from "expo-blur";
+
+import { AppText } from "@components/AppText";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -20,11 +22,15 @@ export function DialogBackground({ onPress }: { onPress: () => void }) {
 }
 
 export function DialogHeading({ children }: PropsWithChildren) {
-	return <Text style={styles.heading}>{children}</Text>;
+	return (
+		<AppText fontSize="xl" fontWeight="700" textAlign="center" color={themeColors.white.DEFAULT}>
+			{children}
+		</AppText>
+	);
 }
 
 export function DialogDescription({ children }: PropsWithChildren) {
-	return <Text style={styles.descText}>{children}</Text>;
+	return <AppText textAlign="center">{children}</AppText>;
 }
 
 export function DialogButtons({ children }: PropsWithChildren) {
@@ -39,18 +45,5 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		backgroundColor: opacity(themeColors.black, Platform.OS === "android" ? 0.4 : 0.2)
-	},
-	heading: {
-		color: themeColors.white.DEFAULT,
-		textAlign: "center",
-		fontSize: 20,
-		lineHeight: 20 * 1.5,
-		fontWeight: "700"
-	},
-	descText: {
-		color: opacity(themeColors.white.DEFAULT, 0.8),
-		textAlign: "center",
-		fontSize: 16,
-		lineHeight: 16 * 1.5
 	}
 });
