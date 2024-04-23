@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { BlurView } from "expo-blur";
 import { router } from "expo-router";
 
@@ -13,6 +13,7 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IconChevronLeft, TablerIcon } from "tabler-icons-react-native";
 
+import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
 import { opacity, themeColors } from "@styles/colors.ts";
@@ -78,10 +79,12 @@ export function SubPageHeader(props: Props) {
 				<View style={styles.wrapper}>
 					<Pressable style={[styles.sideButtonWrapper, { left: 0 }]} onPress={onBackPress}>
 						<IconChevronLeft strokeWidth={2.5} size={20} color={themeColors.sky} />
-						<Text style={styles.sideButtonLabel}>{props.leftIconLabel ?? "Back"}</Text>
+						<AppText color={themeColors.sky}>{props.leftIconLabel ?? "Back"}</AppText>
 					</Pressable>
 
-					<Text style={styles.title}>{props.title}</Text>
+					<AppText fontWeight="500" color={themeColors.white.DEFAULT}>
+						{props.title}
+					</AppText>
 
 					<Pressable
 						style={[styles.sideButtonWrapper, { right: 0 }]}
@@ -89,7 +92,7 @@ export function SubPageHeader(props: Props) {
 					>
 						<RightIcon size={20} color={themeColors.sky} />
 						<Show when={props.rightButtonLabel}>
-							<Text style={styles.sideButtonLabel}>{props.rightButtonLabel}</Text>
+							<AppText color={themeColors.sky}>{props.rightButtonLabel}</AppText>
 						</Show>
 					</Pressable>
 				</View>
@@ -107,11 +110,6 @@ const styles = StyleSheet.create({
 		height: 48,
 		position: "relative"
 	},
-	title: {
-		fontSize: 16,
-		fontWeight: "500",
-		color: themeColors.white.DEFAULT
-	},
 	sideButtonWrapper: {
 		display: "flex",
 		flexDirection: "row",
@@ -121,9 +119,5 @@ const styles = StyleSheet.create({
 		paddingLeft: 16,
 		paddingRight: 20,
 		columnGap: 4
-	},
-	sideButtonLabel: {
-		fontSize: 16,
-		color: themeColors.sky
 	}
 });
