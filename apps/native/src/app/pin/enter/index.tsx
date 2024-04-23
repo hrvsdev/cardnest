@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { AppText } from "@components/AppText";
 import { BgGradient } from "@components/Gradient";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
@@ -56,7 +57,13 @@ export default function EnterPinPage() {
 		<BgGradient>
 			<View style={[styles.container, { paddingTop: insets.top }]}>
 				<View style={styles.pinInputContainer}>
-					<Text style={styles.text}>Enter your current PIN</Text>
+					<AppText
+						fontSize="xl"
+						textAlign="center"
+						color={themeColors.white[90]}
+						fontWeight="700"
+						value="Enter your current PIN"
+					/>
 					<PinInput
 						pin={pin}
 						isPinIncorrect={isPinIncorrect}
@@ -80,10 +87,5 @@ const styles = StyleSheet.create({
 		gap: 32,
 		justifyContent: "center",
 		alignItems: "center"
-	},
-	text: {
-		color: themeColors.white[90],
-		fontSize: 20,
-		fontWeight: "bold"
 	}
 });

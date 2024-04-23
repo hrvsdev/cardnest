@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { useSharedValue } from "react-native-reanimated";
 
+import { AppText } from "@components/AppText";
 import { BgGradient } from "@components/Gradient";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
-import { Show } from "@components/Show";
 
 import { useAfterPinCreated, useSetAfterPinCreated } from "@libs/hooks/src/actions";
 import { useSetPin } from "@libs/hooks/src/auth";
@@ -78,11 +78,18 @@ export default function ConfirmPinPage() {
 			<SubPageHeader title="" scrollOffset={fakeScrollOffset} />
 			<View style={styles.container}>
 				<View style={styles.pinInputContainer}>
-					<Text style={styles.heading}>Confirm the PIN</Text>
+					<AppText
+						fontSize="xl"
+						textAlign="center"
+						color={themeColors.white[90]}
+						fontWeight="700"
+						style={{ marginBottom: 8 }}
+						value="Confirm the PIN"
+					/>
 
 					<View style={{ marginBottom: 32 }}>
-						<Text style={styles.descText}>Please confirm the PIN you entered.</Text>
-						<Text style={styles.descText}>Remember it as no way to recover it.</Text>
+						<AppText textAlign="center">Please confirm the PIN you entered.</AppText>
+						<AppText textAlign="center">Remember it as no way to recover it.</AppText>
 					</View>
 
 					<PinInput
@@ -91,9 +98,13 @@ export default function ConfirmPinPage() {
 						isLoading={isPinInvalid ? false : pin.length === PIN_LENGTH}
 					/>
 
-					<Text style={styles.errorText}>
-						<Show when={isPinDifferent}>Both PIN don't match</Show>
-					</Text>
+					<AppText
+						fontSize="sm"
+						color={themeColors.red}
+						textAlign="center"
+						style={{ marginTop: 24, height: 20 }}
+						value={isPinDifferent ? "Both PIN don't match" : ""}
+					/>
 				</View>
 				<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
 			</View>
@@ -111,23 +122,5 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		justifyContent: "center",
 		alignItems: "center"
-	},
-	heading: {
-		color: themeColors.white[90],
-		fontSize: 20,
-		fontWeight: "bold",
-		marginBottom: 8
-	},
-	descText: {
-		color: themeColors.white[80],
-		fontSize: 16,
-		textAlign: "center"
-	},
-	errorText: {
-		color: themeColors.red,
-		fontSize: 14,
-		height: 20,
-		textAlign: "center",
-		marginTop: 24
 	}
 });

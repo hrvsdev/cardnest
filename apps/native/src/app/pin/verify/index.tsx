@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { useSharedValue } from "react-native-reanimated";
 
+import { AppText } from "@components/AppText";
 import { BgGradient } from "@components/Gradient";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
-import { Show } from "@components/Show";
 
 import { useAfterPinVerified, useSetAfterPinVerified } from "@libs/hooks/src/actions";
 import { useVerifyPin } from "@libs/hooks/src/auth";
@@ -64,10 +64,17 @@ export default function VerifyPinBeforeActionPage() {
 			<SubPageHeader title="" scrollOffset={fakeScrollOffset} />
 			<View style={styles.container}>
 				<View style={styles.pinInputContainer}>
-					<Text style={styles.heading}>Confirm your PIN</Text>
+					<AppText
+						fontSize="xl"
+						textAlign="center"
+						color={themeColors.white[90]}
+						fontWeight="700"
+						style={{ marginBottom: 8 }}
+						value="Confirm your PIN"
+					/>
 
 					<View style={{ marginBottom: 32 }}>
-						<Text style={styles.descText}>Please enter your pin to proceed.</Text>
+						<AppText textAlign="center">Please enter your pin to proceed.</AppText>
 					</View>
 
 					<PinInput
@@ -76,9 +83,13 @@ export default function VerifyPinBeforeActionPage() {
 						isLoading={isPinIncorrect ? false : pin.length === PIN_LENGTH}
 					/>
 
-					<Text style={styles.errorText}>
-						<Show when={isPinIncorrect}>Entered PIN is incorrect</Show>
-					</Text>
+					<AppText
+						fontSize="sm"
+						color={themeColors.red}
+						textAlign="center"
+						style={{ marginTop: 24, height: 20 }}
+						value={isPinIncorrect ? "Entered PIN is incorrect" : ""}
+					/>
 				</View>
 				<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
 			</View>
@@ -96,23 +107,5 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		justifyContent: "center",
 		alignItems: "center"
-	},
-	heading: {
-		color: themeColors.white[90],
-		fontSize: 20,
-		fontWeight: "bold",
-		marginBottom: 8
-	},
-	descText: {
-		color: themeColors.white[80],
-		fontSize: 16,
-		textAlign: "center"
-	},
-	errorText: {
-		color: themeColors.red,
-		fontSize: 14,
-		height: 20,
-		textAlign: "center",
-		marginTop: 24
 	}
 });
