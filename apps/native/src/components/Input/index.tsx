@@ -16,6 +16,7 @@ import Animated, {
 	withTiming
 } from "react-native-reanimated";
 
+import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
 import { themeColors } from "@styles/colors.ts";
@@ -57,7 +58,7 @@ export function Input(props: InputProps) {
 		<View style={{ flex: 1, rowGap: 8 }}>
 			<Show when={props.label}>
 				<View>
-					<Text style={styles.label}>{props.label}</Text>
+					<AppText style={{ paddingLeft: 8 }}>{props.label}</AppText>
 				</View>
 			</Show>
 			<Animated.View style={[styles.inputWrapper, focusedStyle]}>
@@ -91,11 +92,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		paddingLeft: 16,
 		height: 48
-	},
-	label: {
-		color: themeColors.white["80"],
-		paddingLeft: 8,
-		fontSize: 16
 	},
 	error: {
 		color: themeColors.red,
