@@ -1,8 +1,10 @@
 import { ReactElement, ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import { IconChevronRight, TablerIconsProps } from "tabler-icons-react-native";
+
+import { AppText } from "@components/AppText";
 
 import { opacity, themeColors } from "@styles/colors.ts";
 
@@ -59,7 +61,7 @@ function Content({ title, Icon, isDanger }: ContentProps) {
 		<View style={styles.contentContainer}>
 			<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 				<Icon size={20} color={color} />
-				<Text style={{ fontSize: 16, color: color }}>{title}</Text>
+				<AppText color={color}>{title}</AppText>
 			</View>
 			<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 				<IconChevronRight

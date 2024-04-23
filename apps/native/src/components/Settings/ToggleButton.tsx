@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { TablerIconsProps } from "tabler-icons-react-native";
 
+import { AppText } from "@components/AppText";
 import { Toggle } from "@components/Toggle";
 
 import { opacity, themeColors } from "@styles/colors.ts";
@@ -17,7 +18,6 @@ type Props = {
 };
 
 export function SettingsToggleButton(props: Props) {
-	// @ts-ignore
 	const { Icon, title, checked, onChange, isFirst, isLast } = props;
 
 	const borderRadiusStyle = {
@@ -34,7 +34,7 @@ export function SettingsToggleButton(props: Props) {
 			<View style={styles.contentContainer}>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 					<Icon size={20} color={themeColors.white.DEFAULT} />
-					<Text style={{ fontSize: 16, color: themeColors.white.DEFAULT }}>{title}</Text>
+					<AppText color={themeColors.white.DEFAULT}>{title}</AppText>
 				</View>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 					<Toggle checked={checked} onChange={onChange} />

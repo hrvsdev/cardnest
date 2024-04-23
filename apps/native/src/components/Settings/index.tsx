@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
 import { opacity, themeColors } from "@styles/colors.ts";
@@ -15,11 +16,18 @@ export function SettingsGroup({ title, description, children }: SettingsGroupPro
 	return (
 		<View>
 			<Show when={title}>
-				<Text style={styles.title}>{title}</Text>
+				<AppText fontSize="xs" color={opacity(themeColors.white.DEFAULT, 0.6)} style={styles.title}>
+					{title}
+				</AppText>
 			</Show>
 			<View style={styles.list}>{children}</View>
 			<Show when={description}>
-				<Text style={styles.description}>{description}</Text>
+				<AppText
+					fontSize="sm"
+					color={opacity(themeColors.white.DEFAULT, 0.6)}
+					style={styles.description}
+					value={description}
+				/>
 			</Show>
 		</View>
 	);
@@ -29,15 +37,11 @@ const styles = StyleSheet.create({
 	title: {
 		paddingLeft: 8,
 		marginBottom: 8,
-		color: opacity(themeColors.white.DEFAULT, 0.6),
-		fontSize: 12,
 		textTransform: "uppercase"
 	},
 	description: {
 		paddingLeft: 8,
-		marginTop: 8,
-		color: opacity(themeColors.white.DEFAULT, 0.6),
-		fontSize: 14
+		marginTop: 8
 	},
 	list: {
 		gap: 2
