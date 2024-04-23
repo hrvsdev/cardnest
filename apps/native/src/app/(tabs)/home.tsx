@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable } from "react-native";
 import { Link } from "expo-router";
 
+import { AppText } from "@components/AppText";
 import { CardPreview } from "@components/Card/Preview/Preview.tsx";
 import { PageContainer, TabPageRoot } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
@@ -33,18 +34,14 @@ export default function HomePage() {
 				))}
 
 				<Show when={cards.length === 0}>
-					<Text style={styles.noCardsText}>No cards found</Text>
+					<AppText
+						textAlign="center"
+						color={opacity(themeColors.white.DEFAULT, 0.6)}
+						style={{ marginTop: 32 }}
+						value="No cards found"
+					/>
 				</Show>
 			</PageContainer>
 		</TabPageRoot>
 	);
 }
-
-const styles = StyleSheet.create({
-	noCardsText: {
-		textAlign: "center",
-		marginTop: 32,
-		fontSize: 16,
-		color: opacity(themeColors.white.DEFAULT, 0.6)
-	}
-});
