@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import {
 	NativeSyntheticEvent,
 	StyleSheet,
-	Text,
 	TextInput,
 	TextInputFocusEventData,
 	TextInputProps,
@@ -75,7 +74,9 @@ export function Input(props: InputProps) {
 			</Animated.View>
 			<Show when={props.error}>
 				<View>
-					<Text style={styles.error}>{props.error}</Text>
+					<AppText fontSize="sm" color={themeColors.red} style={{ paddingLeft: 8 }}>
+						{props.error}
+					</AppText>
 				</View>
 			</Show>
 		</View>
