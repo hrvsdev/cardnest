@@ -12,7 +12,7 @@ import { Show } from "@components/Show";
 import { useSearchCards } from "@libs/hooks/src/card/data.ts";
 import { useMaskCardNumberValue } from "@libs/hooks/src/preferences";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_WHITE_60 } from "@styles/colors.ts";
 
 export default function HomePage() {
 	const [search, setSearch] = useState("");
@@ -36,7 +36,7 @@ export default function HomePage() {
 				<Show when={cards.length === 0}>
 					<AppText
 						textAlign="center"
-						color={opacity(themeColors.white.DEFAULT, 0.6)}
+						color={TH_WHITE_60}
 						style={{ marginTop: 32 }}
 						value="No cards found"
 					/>
