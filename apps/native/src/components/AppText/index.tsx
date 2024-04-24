@@ -3,8 +3,13 @@ import { ColorValue, Text, TextStyle } from "react-native";
 
 import { TH_WHITE_80 } from "@styles/colors.ts";
 
+type FontWeight = "300" | "400" | "500" | "700";
+type Align = "left" | "center" | "right";
+
 type DefaultSizeVariant = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
 type CustomSizeVariant = "2xs" | "md" | "heading";
+
+type FontFamily = "lato" | "manrope";
 
 type SizeVariant = DefaultSizeVariant | CustomSizeVariant;
 
@@ -12,9 +17,11 @@ type AppTextProps = {
 	fontSize?: SizeVariant;
 	lineHeight?: number;
 	color?: ColorValue;
-	fontWeight?: TextStyle["fontWeight"];
+	fontWeight?: FontWeight;
+	textAlign?: Align;
 	letterSpacing?: number;
-	textAlign?: TextStyle["textAlign"];
+
+	manrope?: boolean;
 
 	value?: string;
 	children?: ReactNode;
@@ -34,18 +41,36 @@ const sizeVariants: Record<SizeVariant, { fontSize: number; lineHeight: number }
 	heading: { fontSize: 28, lineHeight: 34 }
 };
 
+const fontWeightFamily: Record<FontFamily, Record<FontWeight, string>> = {
+	manrope: {
+		"300": "Manrope_300Light",
+		"400": "Manrope_400Regular",
+		"500": "Manrope_500Medium",
+		"700": "Manrope_700Bold"
+	},
+	lato: {
+		"300": "Lato_300Light",
+		"400": "Lato_400Regular",
+		"500": "Lato_700Bold",
+		"700": "Lato_700Bold"
+	}
+};
+
 export function AppText(props: AppTextProps) {
 	const style: TextStyle = {
 		fontSize: sizeVariants[props.fontSize ?? "base"].fontSize,
 		lineHeight: props.lineHeight ?? sizeVariants[props.fontSize ?? "base"].lineHeight,
 
 		color: props.color ?? TH_WHITE_80,
-		fontWeight: props.fontWeight ?? "400",
 		letterSpacing: props.letterSpacing,
 		textAlign: props.textAlign,
 
-		fontFamily: "Lato_400Regular"
+		fontFamily: fontWeightFamily[props.manrope ? "manrope" : "lato"][props.fontWeight ?? "400"]
 	};
 
 	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
+}
+
+export function ManropeText(props: Omit<AppTextProps, "manrope">) {
+	return <AppText {...props} manrope />;
 }
