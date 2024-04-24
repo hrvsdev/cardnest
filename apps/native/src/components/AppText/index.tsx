@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { ColorValue, Text, TextStyle } from "react-native";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_WHITE_80 } from "@styles/colors.ts";
 
 type DefaultSizeVariant = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
 type CustomSizeVariant = "2xs" | "md" | "heading";
@@ -39,7 +39,7 @@ export function AppText(props: AppTextProps) {
 		fontSize: sizeVariants[props.fontSize ?? "base"].fontSize,
 		lineHeight: props.lineHeight ?? sizeVariants[props.fontSize ?? "base"].lineHeight,
 
-		color: props.color ?? opacity(themeColors.white.DEFAULT, 0.8),
+		color: props.color ?? TH_WHITE_80,
 		fontWeight: props.fontWeight ?? "400",
 		letterSpacing: props.letterSpacing,
 		textAlign: props.textAlign
