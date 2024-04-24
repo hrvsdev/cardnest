@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
 		color: TH_WHITE,
 		fontSize: 16,
 		paddingHorizontal: 48,
-		height: 48
+		height: 48,
+		fontFamily: "Lato_400Regular",
 	},
 	inputEmpty: {
 		paddingRight: 16
