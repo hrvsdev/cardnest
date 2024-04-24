@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { BackspaceIcon } from "react-native-heroicons/outline";
 import Animated, {
@@ -8,6 +8,8 @@ import Animated, {
 	useSharedValue,
 	withTiming
 } from "react-native-reanimated";
+
+import { AppText } from "@components/AppText";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
@@ -111,7 +113,13 @@ function KeypadButton({ label, onPress, disabled }: KeypadButtonProps) {
 				onPressOut={onPressOut}
 			>
 				<Animated.View style={[styles.keypadButton, animatedStyle, disabled && { opacity: 0.5 }]}>
-					{typeof label === "number" ? <Text style={styles.keypadButtonText}>{label}</Text> : label}
+					{typeof label === "number" ? (
+						<AppText manrope size="3xl" lineHeight={70} color={TH_WHITE}>
+							{label}
+						</AppText>
+					) : (
+						label
+					)}
 				</Animated.View>
 			</Pressable>
 		</View>
@@ -136,9 +144,5 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: TH_WHITE_20,
 		backgroundColor: TH_WHITE_05
-	},
-	keypadButtonText: {
-		fontSize: 30,
-		color: TH_WHITE
 	}
 });
