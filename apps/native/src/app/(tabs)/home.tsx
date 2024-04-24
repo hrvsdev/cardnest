@@ -35,7 +35,7 @@ export default function HomePage() {
 
 				<Show when={cards.length === 0}>
 					<AppText
-						textAlign="center"
+						align="center"
 						color={TH_WHITE_60}
 						style={{ marginTop: 32 }}
 						value="No cards found"

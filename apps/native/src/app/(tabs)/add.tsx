@@ -19,8 +19,8 @@ export default function AddCardPage() {
 				<View style={styles.container}>
 					<PlusCircleIcon size={112} strokeWidth={1} color={TH_WHITE_70} />
 					<View>
-						<AppText textAlign="center">Add a new card to add to your collection.</AppText>
-						<AppText textAlign="center">
+						<AppText align="center">Add a new card to add to your collection.</AppText>
+						<AppText align="center">
 							You can't scan cards yet but you can add them manually.
 						</AppText>
 					</View>

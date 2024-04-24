@@ -23,14 +23,14 @@ export function DialogBackground({ onPress }: { onPress: () => void }) {
 
 export function DialogHeading({ children }: PropsWithChildren) {
 	return (
-		<AppText fontSize="xl" fontWeight="700" textAlign="center" color={TH_WHITE}>
+		<AppText size="xl" weight="bold" align="center" color={TH_WHITE}>
 			{children}
 		</AppText>
 	);
 }
 
 export function DialogDescription({ children }: PropsWithChildren) {
-	return <AppText textAlign="center">{children}</AppText>;
+	return <AppText align="center">{children}</AppText>;
 }
 
 export function DialogButtons({ children }: PropsWithChildren) {

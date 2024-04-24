@@ -65,16 +65,16 @@ export default function VerifyPinBeforeActionPage() {
 			<View style={styles.container}>
 				<View style={styles.pinInputContainer}>
 					<AppText
-						fontSize="xl"
-						textAlign="center"
+						size="xl"
+						align="center"
 						color={TH_WHITE_90}
-						fontWeight="700"
+						weight="bold"
 						style={{ marginBottom: 8 }}
 						value="Confirm your PIN"
 					/>
 
 					<View style={{ marginBottom: 32 }}>
-						<AppText textAlign="center">Please enter your pin to proceed.</AppText>
+						<AppText align="center">Please enter your pin to proceed.</AppText>
 					</View>
 
 					<PinInput
@@ -84,9 +84,9 @@ export default function VerifyPinBeforeActionPage() {
 					/>
 
 					<AppText
-						fontSize="sm"
+						size="sm"
 						color={TH_RED}
-						textAlign="center"
+						align="center"
 						style={{ marginTop: 24, height: 20 }}
 						value={isPinIncorrect ? "Entered PIN is incorrect" : ""}
 					/>

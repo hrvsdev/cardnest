@@ -70,7 +70,7 @@ export function Input(props: InputProps) {
 			</Animated.View>
 			<Show when={props.error}>
 				<View>
-					<AppText fontSize="sm" color={TH_RED} style={{ paddingLeft: 8 }}>
+					<AppText size="sm" color={TH_RED} style={{ paddingLeft: 8 }}>
 						{props.error}
 					</AppText>
 				</View>

@@ -79,17 +79,17 @@ export default function ConfirmPinPage() {
 			<View style={styles.container}>
 				<View style={styles.pinInputContainer}>
 					<AppText
-						fontSize="xl"
-						textAlign="center"
+						size="xl"
+						align="center"
 						color={TH_WHITE_90}
-						fontWeight="700"
+						weight="bold"
 						style={{ marginBottom: 8 }}
 						value="Confirm the PIN"
 					/>
 
 					<View style={{ marginBottom: 32 }}>
-						<AppText textAlign="center">Please confirm the PIN you entered.</AppText>
-						<AppText textAlign="center">Remember it as no way to recover it.</AppText>
+						<AppText align="center">Please confirm the PIN you entered.</AppText>
+						<AppText align="center">Remember it as no way to recover it.</AppText>
 					</View>
 
 					<PinInput
@@ -99,9 +99,9 @@ export default function ConfirmPinPage() {
 					/>
 
 					<AppText
-						fontSize="sm"
+						size="sm"
 						color={TH_RED}
-						textAlign="center"
+						align="center"
 						style={{ marginTop: 24, height: 20 }}
 						value={isPinDifferent ? "Both PIN don't match" : ""}
 					/>

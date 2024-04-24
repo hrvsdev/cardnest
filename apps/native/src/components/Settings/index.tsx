@@ -16,13 +16,13 @@ export function SettingsGroup({ title, description, children }: SettingsGroupPro
 	return (
 		<View>
 			<Show when={title}>
-				<AppText fontSize="xs" color={TH_WHITE_60} style={styles.title}>
+				<AppText size="xs" color={TH_WHITE_60} style={styles.title}>
 					{title}
 				</AppText>
 			</Show>
 			<View style={styles.list}>{children}</View>
 			<Show when={description}>
-				<AppText fontSize="sm" color={TH_WHITE_60} style={styles.description} value={description} />
+				<AppText size="sm" color={TH_WHITE_60} style={styles.description} value={description} />
 			</Show>
 		</View>
 	);

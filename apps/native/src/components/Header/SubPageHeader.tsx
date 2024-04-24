@@ -90,7 +90,7 @@ export function SubPageHeader(props: Props) {
 						<AppText color={TH_SKY}>{props.leftIconLabel ?? "Back"}</AppText>
 					</Pressable>
 
-					<AppText fontWeight="700" color={TH_WHITE}>
+					<AppText weight="bold" color={TH_WHITE}>
 						{props.title}
 					</AppText>
 

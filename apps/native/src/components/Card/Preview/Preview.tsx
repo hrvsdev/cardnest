@@ -27,23 +27,23 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 		<CardBackground theme={card.theme}>
 			<View style={styles.cardTop}>
 				<View>
-					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
 						CARDHOLDER
 					</AppText>
-					<AppText fontSize="lg" letterSpacing={18 / 20} color={TH_WHITE}>
+					<AppText size="lg" letterSpacing={18 / 20} color={TH_WHITE}>
 						{formattedCard.cardholder}
 					</AppText>
 				</View>
 				<Show when={formattedCard.issuer}>
 					<View>
-						<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10} textAlign="right">
+						<AppText size="2xs" weight="light" letterSpacing={10 / 10} align="right">
 							ISSUER
 						</AppText>
 						<AppText
-							fontSize="lg"
+							size="lg"
 							letterSpacing={18 / 20}
 							color={TH_WHITE}
-							textAlign="right"
+							align="right"
 							value={formattedCard.issuer}
 						/>
 					</View>
@@ -53,9 +53,9 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 				{formattedCard.number.split("").map((char, index) => (
 					<View key={index}>
 						<AppText
-							fontSize="2xl"
-							fontWeight="700"
-							textAlign="center"
+							size="2xl"
+							weight="bold"
+							align="center"
 							color={TH_WHITE}
 							style={{ width: char.trim() ? 16 : 8 }}
 							value={char}
@@ -65,7 +65,7 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 			</View>
 			<View style={styles.cardBottom}>
 				<View>
-					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
 						VALID THRU
 					</AppText>
 					<View style={styles.cardExpiryWrapper}>
@@ -73,8 +73,8 @@ export function CardPreview({ card, maskCardNumber }: CardPreviewProps) {
 							<View key={index}>
 								<AppText
 									lineHeight={28}
-									fontWeight="500"
-									textAlign="center"
+									weight="medium"
+									align="center"
 									color={TH_WHITE}
 									style={{ width: 10 }}
 									value={char}

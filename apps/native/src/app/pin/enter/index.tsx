@@ -58,10 +58,10 @@ export default function EnterPinPage() {
 			<View style={[styles.container, { paddingTop: insets.top }]}>
 				<View style={styles.pinInputContainer}>
 					<AppText
-						fontSize="xl"
-						textAlign="center"
+						size="xl"
+						align="center"
 						color={TH_WHITE_90}
-						fontWeight="700"
+						weight="bold"
 						value="Enter your current PIN"
 					/>
 					<PinInput

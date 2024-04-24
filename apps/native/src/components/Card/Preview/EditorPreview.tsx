@@ -40,22 +40,22 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 		<CardBackground theme={card.theme}>
 			<View style={styles.cardTop}>
 				<Animated.View style={focusedStyles("cardholder")}>
-					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
 						CARDHOLDER
 					</AppText>
-					<AppText fontSize="lg" letterSpacing={18 / 20} color={TH_WHITE}>
+					<AppText size="lg" letterSpacing={18 / 20} color={TH_WHITE}>
 						{formattedCard.cardholder}
 					</AppText>
 				</Animated.View>
 				<Animated.View style={focusedStyles("issuer")}>
-					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10} textAlign="right">
+					<AppText size="2xs" weight="light" letterSpacing={10 / 10} align="right">
 						ISSUER
 					</AppText>
 					<AppText
-						fontSize="lg"
+						size="lg"
 						letterSpacing={18 / 20}
 						color={TH_WHITE}
-						textAlign="right"
+						align="right"
 						value={formattedCard.issuer}
 					/>
 				</Animated.View>
@@ -65,9 +65,9 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 				{formattedCard.number.split("").map((char, index) => (
 					<View key={index}>
 						<AppText
-							fontSize="2xl"
-							fontWeight="700"
-							textAlign="center"
+							size="2xl"
+							weight="bold"
+							align="center"
 							color={TH_WHITE}
 							style={{ width: char.trim() ? 16 : 8 }}
 							value={char}
@@ -78,7 +78,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 
 			<View style={styles.cardBottom}>
 				<Animated.View style={focusedStyles("expiry")}>
-					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
+					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
 						VALID THRU
 					</AppText>
 					<View style={styles.cardExpiryWrapper}>
@@ -86,8 +86,8 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 							<View key={index}>
 								<AppText
 									lineHeight={28}
-									fontWeight="500"
-									textAlign="center"
+									weight="medium"
+									align="center"
 									color={TH_WHITE}
 									style={{ width: 10 }}
 									value={char}
