@@ -16,7 +16,7 @@ import { useChangeOrAddCardsPin } from "@libs/hooks/src/card/data.ts";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE_90 } from "@styles/colors.ts";
 
 export default function ConfirmPinPage() {
 	const params = useLocalSearchParams();
@@ -81,7 +81,7 @@ export default function ConfirmPinPage() {
 					<AppText
 						fontSize="xl"
 						textAlign="center"
-						color={themeColors.white[90]}
+						color={TH_WHITE_90}
 						fontWeight="700"
 						style={{ marginBottom: 8 }}
 						value="Confirm the PIN"
@@ -100,7 +100,7 @@ export default function ConfirmPinPage() {
 
 					<AppText
 						fontSize="sm"
-						color={themeColors.red}
+						color={TH_RED}
 						textAlign="center"
 						style={{ marginTop: 24, height: 20 }}
 						value={isPinDifferent ? "Both PIN don't match" : ""}

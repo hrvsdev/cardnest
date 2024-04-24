@@ -12,7 +12,7 @@ import { PinInput } from "@components/Pin/PinInput";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE_90 } from "@styles/colors.ts";
 
 export default function CreatePinPage() {
 	const router = useRouter();
@@ -64,7 +64,7 @@ export default function CreatePinPage() {
 					<AppText
 						fontSize="xl"
 						textAlign="center"
-						color={themeColors.white[90]}
+						color={TH_WHITE_90}
 						fontWeight="700"
 						style={{ marginBottom: 8 }}
 						value="Create a PIN"
@@ -83,7 +83,7 @@ export default function CreatePinPage() {
 
 					<AppText
 						fontSize="sm"
-						color={themeColors.red}
+						color={TH_RED}
 						textAlign="center"
 						style={{ marginTop: 24, height: 20 }}
 						value={isCommonPassword ? "Entered PIN is too common to guess" : ""}

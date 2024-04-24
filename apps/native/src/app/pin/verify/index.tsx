@@ -14,7 +14,7 @@ import { useVerifyPin } from "@libs/hooks/src/auth";
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE_90 } from "@styles/colors.ts";
 
 export default function VerifyPinBeforeActionPage() {
 	const [pin, setPin] = useState<number[]>([]);
@@ -67,7 +67,7 @@ export default function VerifyPinBeforeActionPage() {
 					<AppText
 						fontSize="xl"
 						textAlign="center"
-						color={themeColors.white[90]}
+						color={TH_WHITE_90}
 						fontWeight="700"
 						style={{ marginBottom: 8 }}
 						value="Confirm your PIN"
@@ -85,7 +85,7 @@ export default function VerifyPinBeforeActionPage() {
 
 					<AppText
 						fontSize="sm"
-						color={themeColors.red}
+						color={TH_RED}
 						textAlign="center"
 						style={{ marginTop: 24, height: 20 }}
 						value={isPinIncorrect ? "Entered PIN is incorrect" : ""}
