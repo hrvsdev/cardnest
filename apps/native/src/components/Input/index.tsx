@@ -18,7 +18,7 @@ import Animated, {
 import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE, TH_WHITE_10, TH_WHITE_15, TH_WHITE_60 } from "@styles/colors.ts";
 
 type InputProps = TextInputProps & {
 	label?: string;
@@ -30,15 +30,11 @@ export function Input(props: InputProps) {
 	const focusProgress = useSharedValue(0);
 
 	const focusedStyle = useAnimatedStyle(() => ({
-		backgroundColor: interpolateColor(
-			focusProgress.value,
-			[0, 1],
-			[themeColors.white["10"], themeColors.white["15"]]
-		)
+		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_10, TH_WHITE_15])
 	}));
 
 	const conditionalStyles = {
-		color: props.error ? themeColors.red : themeColors.white.DEFAULT,
+		color: props.error ? TH_RED : TH_WHITE,
 		letterSpacing: props.value ? 16 / 10 : undefined,
 		paddingRight: props.rightIcon ? 48 : 16
 	};
@@ -65,7 +61,7 @@ export function Input(props: InputProps) {
 					{...props}
 					onFocus={onFocus}
 					onBlur={onBlur}
-					placeholderTextColor={themeColors.white["60"]}
+					placeholderTextColor={TH_WHITE_60}
 					style={[styles.input, conditionalStyles]}
 				/>
 				<Show when={props.rightIcon}>
@@ -74,7 +70,7 @@ export function Input(props: InputProps) {
 			</Animated.View>
 			<Show when={props.error}>
 				<View>
-					<AppText fontSize="sm" color={themeColors.red} style={{ paddingLeft: 8 }}>
+					<AppText fontSize="sm" color={TH_RED} style={{ paddingLeft: 8 }}>
 						{props.error}
 					</AppText>
 				</View>
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
 		height: 48
 	},
 	error: {
-		color: themeColors.red,
+		color: TH_RED,
 		paddingLeft: 8,
 		fontSize: 14
 	},
