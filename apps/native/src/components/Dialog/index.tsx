@@ -4,7 +4,7 @@ import { BlurView } from "expo-blur";
 
 import { AppText } from "@components/AppText";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_BLACK_20, TH_BLACK_40, TH_WHITE } from "@styles/colors.ts";
 
 export function DialogContainer({ children }: PropsWithChildren) {
 	return <Fragment>{children}</Fragment>;
@@ -23,7 +23,7 @@ export function DialogBackground({ onPress }: { onPress: () => void }) {
 
 export function DialogHeading({ children }: PropsWithChildren) {
 	return (
-		<AppText fontSize="xl" fontWeight="700" textAlign="center" color={themeColors.white.DEFAULT}>
+		<AppText fontSize="xl" fontWeight="700" textAlign="center" color={TH_WHITE}>
 			{children}
 		</AppText>
 	);
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
 		left: 0,
 		width: "100%",
 		height: "100%",
-		backgroundColor: opacity(themeColors.black, Platform.OS === "android" ? 0.4 : 0.2)
+		backgroundColor: Platform.OS === "android" ? TH_BLACK_40 : TH_BLACK_20
 	}
 });
