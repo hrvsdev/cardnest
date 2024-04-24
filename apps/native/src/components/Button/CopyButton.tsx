@@ -5,7 +5,7 @@ import * as Haptic from "expo-haptics";
 
 import { IconCheck, IconCopy } from "tabler-icons-react-native";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_WHITE } from "@styles/colors.ts";
 
 type Props = {
 	text: string;
@@ -27,8 +27,8 @@ export function CopyButton({ text }: Props) {
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
 	}, []);
 
-	const Copy = <IconCopy size={22} stroke={1.5} color={themeColors.white.DEFAULT} />;
-	const Check = <IconCheck size={22} color={themeColors.white.DEFAULT} />;
+	const Copy = <IconCopy size={22} stroke={1.5} color={TH_WHITE} />;
+	const Check = <IconCheck size={22} color={TH_WHITE} />;
 
 	return (
 		<Pressable

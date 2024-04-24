@@ -4,7 +4,7 @@ import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
 import { AppText } from "@components/AppText";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_RED_10, TH_SKY, TH_SKY_10, TH_WHITE } from "@styles/colors.ts";
 
 type Theme = "primary" | "danger";
 type Variant = "solid" | "flat";
@@ -57,22 +57,22 @@ const baseStyles = StyleSheet.create({
 const styles = {
 	solid: {
 		primary: StyleSheet.create({
-			wrapper: { backgroundColor: themeColors.sky },
-			text: { color: themeColors.white.DEFAULT }
+			wrapper: { backgroundColor: TH_SKY },
+			text: { color: TH_WHITE }
 		}),
 		danger: StyleSheet.create({
-			wrapper: { backgroundColor: themeColors.red },
-			text: { color: themeColors.white.DEFAULT }
+			wrapper: { backgroundColor: TH_RED },
+			text: { color: TH_WHITE }
 		})
 	},
 	flat: {
 		primary: StyleSheet.create({
-			wrapper: { backgroundColor: opacity(themeColors.sky, 0.1) },
-			text: { color: themeColors.sky }
+			wrapper: { backgroundColor: TH_SKY_10 },
+			text: { color: TH_SKY }
 		}),
 		danger: StyleSheet.create({
-			wrapper: { backgroundColor: opacity(themeColors.red, 0.1) },
-			text: { color: themeColors.red }
+			wrapper: { backgroundColor: TH_RED_10 },
+			text: { color: TH_RED }
 		})
 	}
 } satisfies Styles;
