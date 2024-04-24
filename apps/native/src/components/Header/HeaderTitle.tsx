@@ -11,7 +11,7 @@ export function HeaderTitle({ title }: { title: string }) {
 
 	return (
 		<View style={[styles.headingWrapper, { paddingTop: insets.top + 32 }]}>
-			<AppText fontSize="heading" fontWeight="600" color={TH_WHITE}>
+			<AppText fontSize="heading" fontWeight="700" color={TH_WHITE}>
 				{title}
 			</AppText>
 		</View>

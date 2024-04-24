@@ -36,7 +36,7 @@ export function Button(props: Props) {
 	return (
 		<Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
 			<Animated.View style={wrapperStyles}>
-				<AppText fontSize="md" fontWeight="500" color={styles[variant][theme].text.color}>
+				<AppText fontSize="md" fontWeight="700" color={styles[variant][theme].text.color}>
 					{title}
 				</AppText>
 			</Animated.View>
