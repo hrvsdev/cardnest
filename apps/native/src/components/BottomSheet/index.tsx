@@ -4,7 +4,7 @@ import { Dimensions, Modal, StyleSheet, View } from "react-native";
 import { DialogBackground } from "@components/Dialog";
 import { BgGradient } from "@components/Gradient";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_SKY, TH_SKY_20 } from "@styles/colors.ts";
 
 type Props = {
 	show: boolean;
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 16,
 		borderWidth: 1,
 		borderBottomWidth: 0,
-		borderColor: opacity(themeColors.sky, 0.2),
-		shadowColor: themeColors.sky,
+		borderColor: TH_SKY_20,
+		shadowColor: TH_SKY,
 		shadowOpacity: 0.1,
 		shadowOffset: {
 			width: 0,
