@@ -9,10 +9,10 @@ import Animated, {
 	withTiming
 } from "react-native-reanimated";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_SKY, TH_WHITE, TH_WHITE_10 } from "@styles/colors.ts";
 
-const uncheckedBgColor = opacity(themeColors.white.DEFAULT, 0.1);
-const checkedBgColor = themeColors.sky;
+const uncheckedBgColor = TH_WHITE_10;
+const checkedBgColor = TH_SKY;
 
 type Props = {
 	checked: boolean;
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
 		width: 24,
 		height: 24,
 		borderRadius: 12,
-		backgroundColor: themeColors.white.DEFAULT
+		backgroundColor: TH_WHITE
 	}
 });
