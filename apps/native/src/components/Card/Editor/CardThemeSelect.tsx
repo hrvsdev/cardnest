@@ -14,7 +14,7 @@ import { AppText } from "@components/AppText";
 
 import { cardThemes } from "@libs/utils/src/card.ts";
 
-import { colors, opacity, themeColors } from "@styles/colors.ts";
+import { colors, TH_WHITE_00, TH_WHITE_80 } from "@styles/colors.ts";
 
 import { CardTheme } from "@libs/types/src/card";
 
@@ -32,8 +32,8 @@ type ItemProps = {
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const DURATION = 200;
-const INIT_BORDER_COLOR = opacity(themeColors.white.DEFAULT, 0);
-const SELECTED_BORDER_COLOR = opacity(themeColors.white.DEFAULT, 0.8);
+const INIT_BORDER_COLOR = TH_WHITE_00;
+const SELECTED_BORDER_COLOR = TH_WHITE_80;
 
 const PAGE_PADDING = 16;
 const ITEM_GAP = 8;

@@ -12,7 +12,7 @@ import {
 
 import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_WHITE } from "@styles/colors.ts";
 
 import { CardField, CardFullProfile } from "@libs/types/src/card.ts";
 
@@ -43,7 +43,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 					<AppText fontSize="2xs" fontWeight="300" letterSpacing={10 / 10}>
 						CARDHOLDER
 					</AppText>
-					<AppText fontSize="lg" letterSpacing={18 / 20} color={themeColors.white.DEFAULT}>
+					<AppText fontSize="lg" letterSpacing={18 / 20} color={TH_WHITE}>
 						{formattedCard.cardholder}
 					</AppText>
 				</Animated.View>
@@ -54,7 +54,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 					<AppText
 						fontSize="lg"
 						letterSpacing={18 / 20}
-						color={themeColors.white.DEFAULT}
+						color={TH_WHITE}
 						textAlign="right"
 						value={formattedCard.issuer}
 					/>
@@ -68,7 +68,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 							fontSize="2xl"
 							fontWeight="700"
 							textAlign="center"
-							color={themeColors.white.DEFAULT}
+							color={TH_WHITE}
 							style={{ width: char.trim() ? 16 : 8 }}
 							value={char}
 						/>
@@ -88,7 +88,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 									lineHeight={28}
 									fontWeight="500"
 									textAlign="center"
-									color={themeColors.white.DEFAULT}
+									color={TH_WHITE}
 									style={{ width: 10 }}
 									value={char}
 								/>

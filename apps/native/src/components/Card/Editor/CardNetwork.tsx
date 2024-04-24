@@ -10,7 +10,7 @@ import { Other } from "@components/Logos/Other.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_SKY, TH_WHITE_10 } from "@styles/colors.ts";
 
 import { PaymentNetwork } from "@libs/types/src/card";
 
@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		height: 48,
 		borderRadius: 10,
-		backgroundColor: themeColors.white["10"],
+		backgroundColor: TH_WHITE_10,
 		borderWidth: 1
 	},
 	selected: {
-		borderColor: themeColors.sky
+		borderColor: TH_SKY
 	},
 	notSelected: {
-		borderColor: themeColors.white["10"]
+		borderColor: TH_WHITE_10
 	}
 });
