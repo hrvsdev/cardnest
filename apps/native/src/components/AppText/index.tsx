@@ -42,7 +42,9 @@ export function AppText(props: AppTextProps) {
 		color: props.color ?? TH_WHITE_80,
 		fontWeight: props.fontWeight ?? "400",
 		letterSpacing: props.letterSpacing,
-		textAlign: props.textAlign
+		textAlign: props.textAlign,
+
+		fontFamily: "Lato_400Regular"
 	};
 
 	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
