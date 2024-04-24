@@ -1,7 +1,14 @@
 import { useEffect } from "react";
+import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 
-import { Lato_300Light, Lato_400Regular, Lato_700Bold, useFonts } from "@expo-google-fonts/lato";
+import { Lato_300Light, Lato_400Regular, Lato_700Bold } from "@expo-google-fonts/lato";
+import {
+	Manrope_300Light,
+	Manrope_400Regular,
+	Manrope_500Medium,
+	Manrope_700Bold
+} from "@expo-google-fonts/manrope";
 
 import { DEFAULT_STACK_OPTIONS } from "@utils/stack.ts";
 
@@ -11,7 +18,11 @@ export default function RootLayout() {
 	const [fontsLoaded, fontError] = useFonts({
 		Lato_300Light,
 		Lato_400Regular,
-		Lato_700Bold
+		Lato_700Bold,
+		Manrope_300Light,
+		Manrope_400Regular,
+		Manrope_500Medium,
+		Manrope_700Bold
 	});
 
 	useEffect(() => {
