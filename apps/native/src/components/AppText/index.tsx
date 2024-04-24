@@ -51,7 +51,7 @@ const fontWeightFamily: Record<FontFamily, Record<FontWeight, string>> = {
 	lato: {
 		light: "Lato_300Light",
 		normal: "Lato_400Regular",
-		medium: "Lato_700Medium",
+		medium: "Lato_700Bold",
 		bold: "Lato_700Bold"
 	}
 };
@@ -69,8 +69,4 @@ export function AppText(props: AppTextProps) {
 	};
 
 	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
-}
-
-export function ManropeText(props: Omit<AppTextProps, "manrope">) {
-	return <AppText {...props} manrope />;
 }

@@ -12,7 +12,7 @@ import {
 
 import { useFormattedCardViewDetails } from "@libs/hooks/src/card/formatting.ts";
 
-import { TH_WHITE } from "@styles/colors.ts";
+import { TH_WHITE, TH_WHITE_70 } from "@styles/colors.ts";
 
 import { CardField, CardFullProfile } from "@libs/types/src/card.ts";
 
@@ -40,19 +40,21 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 		<CardBackground theme={card.theme}>
 			<View style={styles.cardTop}>
 				<Animated.View style={focusedStyles("cardholder")}>
-					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
+					<AppText manrope size="2xs" weight="light" letterSpacing={10 / 10} color={TH_WHITE_70}>
 						CARDHOLDER
 					</AppText>
-					<AppText size="lg" letterSpacing={18 / 20} color={TH_WHITE}>
+					<AppText manrope size="lg" weight="medium" letterSpacing={18 / 20} color={TH_WHITE}>
 						{formattedCard.cardholder}
 					</AppText>
 				</Animated.View>
 				<Animated.View style={focusedStyles("issuer")}>
-					<AppText size="2xs" weight="light" letterSpacing={10 / 10} align="right">
+					<AppText manrope size="2xs" letterSpacing={10 / 10} color={TH_WHITE_70} align="right">
 						ISSUER
 					</AppText>
 					<AppText
+						manrope
 						size="lg"
+						weight="medium"
 						letterSpacing={18 / 20}
 						color={TH_WHITE}
 						align="right"
@@ -65,6 +67,7 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 				{formattedCard.number.split("").map((char, index) => (
 					<View key={index}>
 						<AppText
+							manrope
 							size="2xl"
 							weight="bold"
 							align="center"
@@ -78,15 +81,16 @@ export function CardEditorPreview({ card, focused }: CardEditorPreviewProps) {
 
 			<View style={styles.cardBottom}>
 				<Animated.View style={focusedStyles("expiry")}>
-					<AppText size="2xs" weight="light" letterSpacing={10 / 10}>
+					<AppText manrope size="2xs" letterSpacing={10 / 10} color={TH_WHITE_70}>
 						VALID THRU
 					</AppText>
 					<View style={styles.cardExpiryWrapper}>
 						{formattedCard.expiry.split("").map((char, index) => (
 							<View key={index}>
 								<AppText
+									manrope
 									lineHeight={28}
-									weight="medium"
+									weight="bold"
 									align="center"
 									color={TH_WHITE}
 									style={{ width: 10 }}
