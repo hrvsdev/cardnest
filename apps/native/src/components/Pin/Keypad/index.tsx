@@ -11,7 +11,7 @@ import Animated, {
 
 import { PIN_LENGTH } from "@libs/utils/src/auth.ts";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_WHITE, TH_WHITE_05, TH_WHITE_20, TH_WHITE_50 } from "@styles/colors.ts";
 
 const SPLITTED_KEYPAD_NUMBERS = [
 	[1, 2, 3],
@@ -64,7 +64,7 @@ export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
 					<KeypadButton
 						onPress={backspace}
 						disabled={isDisabled}
-						label={<BackspaceIcon size={32} color={themeColors.white.DEFAULT} />}
+						label={<BackspaceIcon size={32} color={TH_WHITE} />}
 					/>
 				</View>
 			</View>
@@ -78,8 +78,8 @@ type KeypadButtonProps = {
 	disabled?: boolean;
 };
 
-const INIT_BG = opacity(themeColors.white.DEFAULT, 0.05);
-const PRESSED_BG = opacity(themeColors.white.DEFAULT, 0.5);
+const INIT_BG = TH_WHITE_05;
+const PRESSED_BG = TH_WHITE_50;
 
 function KeypadButton({ label, onPress, disabled }: KeypadButtonProps) {
 	const scale = useSharedValue(1);
@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
 		height: 72,
 		borderRadius: 36,
 		borderWidth: 1,
-		borderColor: themeColors.white[20],
-		backgroundColor: themeColors.white[5]
+		borderColor: TH_WHITE_20,
+		backgroundColor: TH_WHITE_05
 	},
 	keypadButtonText: {
 		fontSize: 30,
-		color: themeColors.white.DEFAULT
+		color: TH_WHITE
 	}
 });

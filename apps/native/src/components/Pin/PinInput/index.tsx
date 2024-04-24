@@ -10,7 +10,7 @@ import Animated, {
 	withTiming
 } from "react-native-reanimated";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE } from "@styles/colors.ts";
 
 type Props = {
 	pin: number[];
@@ -79,13 +79,13 @@ function Dot({ isFilled, hasError, isAnimationActive }: DotProps) {
 
 	const getStyle = () => {
 		let backgroundColor = "transparent";
-		let borderColor = themeColors.white.DEFAULT;
+		let borderColor = TH_WHITE;
 
 		if (hasError) {
-			backgroundColor = themeColors.red;
-			borderColor = themeColors.red;
+			backgroundColor = TH_RED;
+			borderColor = TH_RED;
 		} else if (isFilled) {
-			backgroundColor = themeColors.white.DEFAULT;
+			backgroundColor = TH_WHITE;
 		}
 
 		return { backgroundColor, borderColor, transform: [{ scale }] };
