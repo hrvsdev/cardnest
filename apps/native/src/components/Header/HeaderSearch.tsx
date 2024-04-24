@@ -13,7 +13,7 @@ import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
 import { Show } from "@components/Show";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_WHITE, TH_WHITE_10, TH_WHITE_15, TH_WHITE_60 } from "@styles/colors.ts";
 
 type SearchProps = {
 	value: string;
@@ -29,11 +29,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 	const focusProgress = useSharedValue(0);
 
 	const focusedStyle = useAnimatedStyle(() => ({
-		backgroundColor: interpolateColor(
-			focusProgress.value,
-			[0, 1],
-			[themeColors.white["10"], themeColors.white["15"]]
-		)
+		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_10, TH_WHITE_15])
 	}));
 
 	const onClear = async () => {
@@ -50,11 +46,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 
 	return (
 		<View style={styles.wrapper}>
-			<IconSearch
-				size={24}
-				color={themeColors.white["60"]}
-				style={{ position: "absolute", left: 28 }}
-			/>
+			<IconSearch size={24} color={TH_WHITE_60} style={{ position: "absolute", left: 28 }} />
 			<Animated.View style={[{ borderRadius: 14, width: "100%" }, focusedStyle]}>
 				<TextInput
 					ref={inputRef}
@@ -62,14 +54,14 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 					onChangeText={onChange}
 					onFocus={onFocus}
 					onBlur={onBlur}
-					placeholderTextColor={themeColors.white["60"]}
+					placeholderTextColor={TH_WHITE_60}
 					style={[styles.input, showClearIcon ? styles.inputNotEmpty : styles.inputEmpty]}
 					placeholder="Enter card number, bank or network"
 				/>
 			</Animated.View>
 			<Show when={showClearIcon}>
 				<Pressable onPress={onClear} style={{ position: "absolute", right: 28 }}>
-					<IconCircleX size={24} color={themeColors.white["60"]} />
+					<IconCircleX size={24} color={TH_WHITE_60} />
 				</Pressable>
 			</Show>
 		</View>
@@ -87,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		width: "100%",
-		color: themeColors.white.DEFAULT,
+		color: TH_WHITE,
 		fontSize: 16,
 		paddingHorizontal: 48,
 		height: 48

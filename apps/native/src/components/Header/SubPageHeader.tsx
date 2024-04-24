@@ -16,7 +16,15 @@ import { IconChevronLeft, TablerIcon } from "tabler-icons-react-native";
 import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import {
+	TH_BLACK,
+	TH_BLACK_00,
+	TH_BLACK_80,
+	TH_SKY,
+	TH_WHITE,
+	TH_WHITE_00,
+	TH_WHITE_10
+} from "@styles/colors.ts";
 
 type Props = {
 	title: string;
@@ -33,11 +41,11 @@ type Props = {
 const HEADER_TOP_OFFSET = 0;
 const HEADER_BOTTOM_OFFSET = 16;
 
-const BACKGROUND_INITIAL_COLOR = opacity(themeColors.black, 0);
-const BACKGROUND_FINAL_COLOR = opacity(themeColors.black, Platform.OS === "android" ? 1 : 0.8);
+const BACKGROUND_INITIAL_COLOR = TH_BLACK_00;
+const BACKGROUND_FINAL_COLOR = Platform.OS === "android" ? TH_BLACK : TH_BLACK_80;
 
-const BORDER_INITIAL_COLOR = opacity(themeColors.white.DEFAULT, 0);
-const BORDER_FINAL_COLOR = opacity(themeColors.white.DEFAULT, 0.1);
+const BORDER_INITIAL_COLOR = TH_WHITE_00;
+const BORDER_FINAL_COLOR = TH_WHITE_10;
 
 const inputRange = [HEADER_TOP_OFFSET, HEADER_BOTTOM_OFFSET];
 const backgroundRange = [BACKGROUND_INITIAL_COLOR, BACKGROUND_FINAL_COLOR];
@@ -78,11 +86,11 @@ export function SubPageHeader(props: Props) {
 			<Animated.View style={[{ paddingTop: insets.top, borderBottomWidth: 1 }, animatedStyle]}>
 				<View style={styles.wrapper}>
 					<Pressable style={[styles.sideButtonWrapper, { left: 0 }]} onPress={onBackPress}>
-						<IconChevronLeft strokeWidth={2.5} size={20} color={themeColors.sky} />
-						<AppText color={themeColors.sky}>{props.leftIconLabel ?? "Back"}</AppText>
+						<IconChevronLeft strokeWidth={2.5} size={20} color={TH_SKY} />
+						<AppText color={TH_SKY}>{props.leftIconLabel ?? "Back"}</AppText>
 					</Pressable>
 
-					<AppText fontWeight="500" color={themeColors.white.DEFAULT}>
+					<AppText fontWeight="500" color={TH_WHITE}>
 						{props.title}
 					</AppText>
 
@@ -90,9 +98,9 @@ export function SubPageHeader(props: Props) {
 						style={[styles.sideButtonWrapper, { right: 0 }]}
 						onPress={props.onRightButtonPress}
 					>
-						<RightIcon size={20} color={themeColors.sky} />
+						<RightIcon size={20} color={TH_SKY} />
 						<Show when={props.rightButtonLabel}>
-							<AppText color={themeColors.sky}>{props.rightButtonLabel}</AppText>
+							<AppText color={TH_SKY}>{props.rightButtonLabel}</AppText>
 						</Show>
 					</Pressable>
 				</View>

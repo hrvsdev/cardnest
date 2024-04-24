@@ -4,14 +4,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AppText } from "@components/AppText";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_WHITE } from "@styles/colors.ts";
 
 export function HeaderTitle({ title }: { title: string }) {
 	const insets = useSafeAreaInsets();
 
 	return (
 		<View style={[styles.headingWrapper, { paddingTop: insets.top + 32 }]}>
-			<AppText fontSize="heading" fontWeight="600" color={themeColors.white.DEFAULT}>
+			<AppText fontSize="heading" fontWeight="600" color={TH_WHITE}>
 				{title}
 			</AppText>
 		</View>
