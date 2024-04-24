@@ -2,10 +2,10 @@ import { PropsWithChildren } from "react";
 import { ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { themeColors } from "@styles/colors.ts";
+import { TH_BLACK, TH_DARKER_BLUE } from "@styles/colors.ts";
 
 export function BgGradient({ children, style }: PropsWithChildren<{ style?: ViewStyle }>) {
-	const gradientColors = [themeColors.black, themeColors.darkerBlue];
+	const gradientColors = [TH_BLACK, TH_DARKER_BLUE];
 
 	const start = { x: 1, y: 0 };
 	const end = { x: 0, y: 1 };
