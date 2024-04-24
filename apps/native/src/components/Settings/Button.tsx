@@ -6,7 +6,7 @@ import { IconChevronRight, TablerIconsProps } from "tabler-icons-react-native";
 
 import { AppText } from "@components/AppText";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { opacity, TH_RED, TH_RED_60, TH_WHITE, TH_WHITE_50 } from "@styles/colors.ts";
 
 type PositionProps = {
 	isFirst?: boolean;
@@ -55,7 +55,7 @@ export function SettingsLink({ href, ...props }: SettingsLinkProps) {
 }
 
 function Content({ title, Icon, isDanger }: ContentProps) {
-	const color = isDanger ? themeColors.red : themeColors.white.DEFAULT;
+	const color = isDanger ? TH_RED : TH_WHITE;
 
 	return (
 		<View style={styles.contentContainer}>
@@ -64,10 +64,7 @@ function Content({ title, Icon, isDanger }: ContentProps) {
 				<AppText color={color}>{title}</AppText>
 			</View>
 			<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-				<IconChevronRight
-					size={20}
-					color={isDanger ? opacity(themeColors.red, 0.6) : opacity(themeColors.white.DEFAULT, 0.5)}
-				/>
+				<IconChevronRight size={20} color={isDanger ? TH_RED_60 : TH_WHITE_50} />
 			</View>
 		</View>
 	);
@@ -91,10 +88,10 @@ function Wrapper({ isDanger, children, isFirst, isLast }: WrapperProps) {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: opacity(themeColors.white.DEFAULT, 0.075)
+		backgroundColor: opacity(TH_WHITE, 0.075)
 	},
 	dangerContainer: {
-		backgroundColor: opacity(themeColors.red, 0.125)
+		backgroundColor: opacity(TH_RED, 0.125)
 	},
 	contentContainer: {
 		flexDirection: "row",

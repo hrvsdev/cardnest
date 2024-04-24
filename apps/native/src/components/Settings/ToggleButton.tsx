@@ -6,7 +6,7 @@ import { TablerIconsProps } from "tabler-icons-react-native";
 import { AppText } from "@components/AppText";
 import { Toggle } from "@components/Toggle";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { opacity, TH_WHITE } from "@styles/colors.ts";
 
 type Props = {
 	Icon: (props: TablerIconsProps) => ReactElement;
@@ -33,8 +33,8 @@ export function SettingsToggleButton(props: Props) {
 		<View style={style}>
 			<View style={styles.contentContainer}>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-					<Icon size={20} color={themeColors.white.DEFAULT} />
-					<AppText color={themeColors.white.DEFAULT}>{title}</AppText>
+					<Icon size={20} color={TH_WHITE} />
+					<AppText color={TH_WHITE}>{title}</AppText>
 				</View>
 				<View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
 					<Toggle checked={checked} onChange={onChange} />
@@ -46,7 +46,7 @@ export function SettingsToggleButton(props: Props) {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: opacity(themeColors.white.DEFAULT, 0.075)
+		backgroundColor: opacity(TH_WHITE, 0.075)
 	},
 	contentContainer: {
 		flexDirection: "row",

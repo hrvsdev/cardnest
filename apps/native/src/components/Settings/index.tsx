@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
-import { opacity, themeColors } from "@styles/colors.ts";
+import { TH_WHITE_60 } from "@styles/colors.ts";
 
 type SettingsGroupProp = {
 	title?: string;
@@ -16,18 +16,13 @@ export function SettingsGroup({ title, description, children }: SettingsGroupPro
 	return (
 		<View>
 			<Show when={title}>
-				<AppText fontSize="xs" color={opacity(themeColors.white.DEFAULT, 0.6)} style={styles.title}>
+				<AppText fontSize="xs" color={TH_WHITE_60} style={styles.title}>
 					{title}
 				</AppText>
 			</Show>
 			<View style={styles.list}>{children}</View>
 			<Show when={description}>
-				<AppText
-					fontSize="sm"
-					color={opacity(themeColors.white.DEFAULT, 0.6)}
-					style={styles.description}
-					value={description}
-				/>
+				<AppText fontSize="sm" color={TH_WHITE_60} style={styles.description} value={description} />
 			</Show>
 		</View>
 	);
