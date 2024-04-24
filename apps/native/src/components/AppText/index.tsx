@@ -3,7 +3,7 @@ import { ColorValue, Text, TextStyle } from "react-native";
 
 import { TH_WHITE_80 } from "@styles/colors.ts";
 
-type FontWeight = "300" | "400" | "500" | "700";
+type FontWeight = "light" | "normal" | "medium" | "bold";
 type Align = "left" | "center" | "right";
 
 type DefaultSizeVariant = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
@@ -14,11 +14,11 @@ type FontFamily = "lato" | "manrope";
 type SizeVariant = DefaultSizeVariant | CustomSizeVariant;
 
 type AppTextProps = {
-	fontSize?: SizeVariant;
+	size?: SizeVariant;
 	lineHeight?: number;
 	color?: ColorValue;
-	fontWeight?: FontWeight;
-	textAlign?: Align;
+	weight?: FontWeight;
+	align?: Align;
 	letterSpacing?: number;
 
 	manrope?: boolean;
@@ -43,29 +43,29 @@ const sizeVariants: Record<SizeVariant, { fontSize: number; lineHeight: number }
 
 const fontWeightFamily: Record<FontFamily, Record<FontWeight, string>> = {
 	manrope: {
-		"300": "Manrope_300Light",
-		"400": "Manrope_400Regular",
-		"500": "Manrope_500Medium",
-		"700": "Manrope_700Bold"
+		light: "Manrope_300Light",
+		normal: "Manrope_400Regular",
+		medium: "Manrope_500Medium",
+		bold: "Manrope_700Bold"
 	},
 	lato: {
-		"300": "Lato_300Light",
-		"400": "Lato_400Regular",
-		"500": "Lato_700Bold",
-		"700": "Lato_700Bold"
+		light: "Lato_300Light",
+		normal: "Lato_400Regular",
+		medium: "Lato_700Medium",
+		bold: "Lato_700Bold"
 	}
 };
 
 export function AppText(props: AppTextProps) {
 	const style: TextStyle = {
-		fontSize: sizeVariants[props.fontSize ?? "base"].fontSize,
-		lineHeight: props.lineHeight ?? sizeVariants[props.fontSize ?? "base"].lineHeight,
+		fontSize: sizeVariants[props.size ?? "base"].fontSize,
+		lineHeight: props.lineHeight ?? sizeVariants[props.size ?? "base"].lineHeight,
 
 		color: props.color ?? TH_WHITE_80,
 		letterSpacing: props.letterSpacing,
-		textAlign: props.textAlign,
+		textAlign: props.align,
 
-		fontFamily: fontWeightFamily[props.manrope ? "manrope" : "lato"][props.fontWeight ?? "400"]
+		fontFamily: fontWeightFamily[props.manrope ? "manrope" : "lato"][props.weight ?? "normal"]
 	};
 
 	return <Text style={[props.style, style]}>{props.children ?? props.value ?? ""}</Text>;
