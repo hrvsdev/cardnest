@@ -28,23 +28,23 @@ export const pinDataAtom = atomWithStorageAuto<PinData | null>(KEY, null);
 
 // DERIVED ATOMS
 export const isAuthenticatedAtom = atom((get) => Boolean(get(pinAtom)));
-export const hasCreatedPinAtom = atom(async (get) => Boolean((await get(pinDataAtom))?.data.pin));
+export const hasCreatedPinAtom = atom((get) => Boolean(get(pinDataAtom)?.data.pin));
 
-const setPinAtom = atom(null, async (_, set, pin: string) => {
-	const hashed = await hashPin(pin);
-
-	set(pinAtom, pin);
-	await set(pinDataAtom, { data: { pin: hashed } });
+const setPinAtom = atom(null, (_, set, pin: string) => {
+	hashPin(pin).then((hashed) => {
+		set(pinAtom, pin);
+		set(pinDataAtom, { data: { pin: hashed } });
+	});
 });
 
-const verifyPinAtom = atom(null, async (get, _, pin: string) => {
+const verifyPinAtom = atom(null, (get, _, pin: string) => {
 	return pin === get(pinAtom);
 });
 
 const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	let out = false;
 
-	const pinData = await get(pinDataAtom);
+	const pinData = get(pinDataAtom);
 
 	if (!pinData?.data.pin) throw new Error("No pin data found");
 
@@ -61,7 +61,7 @@ const verifyAndSetPinAtom = atom(null, async (get, set, pin: string) => {
 	return out;
 });
 
-const removePinAtom = atom(null, async (_, set) => {
-	await set(pinDataAtom, null);
+const removePinAtom = atom(null, (_, set) => {
+	set(pinDataAtom, null);
 	set(pinAtom, null);
 });
