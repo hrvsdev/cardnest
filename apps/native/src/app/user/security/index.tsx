@@ -30,7 +30,7 @@ export default function SecurityPage() {
 
 	const removeAppPassword = async () => {
 		await removeCardsPin();
-		await removePin();
+		removePin();
 
 		router.navigate("/user/security");
 	};

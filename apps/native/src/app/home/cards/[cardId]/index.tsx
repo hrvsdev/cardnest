@@ -36,10 +36,10 @@ export default function CardViewPage() {
 		router.navigate(`/home/cards/${card.id}/edit`);
 	};
 
-	const del = async () => {
+	const del = () => {
 		setShowDeleteDialog(false);
 		router.navigate("/home");
-		await deleteCard(card.id);
+		deleteCard(card.id);
 	};
 
 	return (

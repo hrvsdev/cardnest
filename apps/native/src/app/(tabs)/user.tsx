@@ -24,7 +24,8 @@ export default function UserPage() {
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
 	const deleteData = () => {
-		deleteAllData().then(() => router.navigate("/user"));
+		router.navigate("/user");
+		deleteAllData();
 	};
 
 	const onDeleteConfirmClick = async () => {

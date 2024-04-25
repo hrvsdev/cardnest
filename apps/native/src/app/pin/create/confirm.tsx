@@ -54,7 +54,7 @@ export default function ConfirmPinPage() {
 		}
 
 		await changeOrAddCardsPin(pinValue);
-		await setAppPin(pinValue);
+		setAppPin(pinValue);
 
 		redirectTimeoutRef.current = setTimeout(async () => {
 			if (afterPinCreated) {

@@ -42,7 +42,7 @@ export default function AddCardEditorPage() {
 	};
 
 	const onCreatePinSkip = async () => {
-		await setHasSkippedPinCreation(true);
+		setHasSkippedPinCreation(true);
 		await saveCard();
 	};
 

@@ -29,10 +29,10 @@ export default function VerifyPinBeforeActionPage() {
 	const afterPinVerified = useAfterPinVerified();
 	const setAfterPinVerified = useSetAfterPinVerified();
 
-	const checkPin = async (pinValue: string) => {
+	const checkPin = (pinValue: string) => {
 		if (pinValue.length !== PIN_LENGTH) return;
 
-		const isPinCorrect = await verifyPin(pinValue);
+		const isPinCorrect = verifyPin(pinValue);
 
 		if (!isPinCorrect) {
 			setIsPinIncorrect(true);
