@@ -56,7 +56,7 @@ export function CardThemeSelect({ theme, setTheme }: Props) {
 
 	return (
 		<View style={{ flex: 1, rowGap: 8 }}>
-			<AppText style={{ paddingLeft: 8 }}>Card network</AppText>
+			<AppText style={{ paddingLeft: 8 }}>Card theme</AppText>
 			<View style={styles.grid}>
 				{cardThemes.map((t) => (
 					<Item key={t} theme={t} selected={t === theme} onPress={onPress} />

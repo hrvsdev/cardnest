@@ -61,7 +61,7 @@ export default function CardViewPage() {
 					/>
 					<Input
 						readOnly
-						label="Expriy date"
+						label="Expiry date"
 						value={card.data.expiry}
 						rightIcon={<CopyButton text={card.data.expiry} />}
 					/>

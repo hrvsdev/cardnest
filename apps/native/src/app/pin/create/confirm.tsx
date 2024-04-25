@@ -89,7 +89,7 @@ export default function ConfirmPinPage() {
 
 					<View style={{ marginBottom: 32 }}>
 						<AppText align="center">Please confirm the PIN you entered.</AppText>
-						<AppText align="center">Remember it as no way to recover it.</AppText>
+						<AppText align="center">Remember it as there is no way to recover it.</AppText>
 					</View>
 
 					<PinInput

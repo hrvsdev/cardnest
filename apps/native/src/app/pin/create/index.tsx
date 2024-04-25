@@ -72,7 +72,7 @@ export default function CreatePinPage() {
 
 					<View style={{ marginBottom: 32 }}>
 						<AppText align="center">Please enter a secure 6-digit PIN.</AppText>
-						<AppText align="center">Remember it as no way to recover it.</AppText>
+						<AppText align="center">Remember it as there is no way to recover it.</AppText>
 					</View>
 
 					<PinInput
