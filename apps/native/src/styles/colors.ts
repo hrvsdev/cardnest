@@ -1,10 +1,5 @@
 import { CardTheme } from "@libs/types/src/card.ts";
 
-export const opacity = (c: string, o: number) => {
-	const opacityHex = Math.round(255 * o).toString(16);
-	return c + opacityHex.padStart(2, "0");
-};
-
 export const TH_BLACK = "#00060c";
 export const TH_BLACK_00 = "#00060c00";
 export const TH_BLACK_20 = "#00060c33";
@@ -24,6 +19,7 @@ export const TH_RED_60 = "#f3126099";
 export const TH_WHITE = "#f4f7fb";
 export const TH_WHITE_00 = "#f4f7fb00";
 export const TH_WHITE_05 = "#f4f7fb0d";
+export const TH_WHITE_07 = "#f4f7fb12";
 export const TH_WHITE_10 = "#f4f7fb19";
 export const TH_WHITE_15 = "#f4f7fb26";
 export const TH_WHITE_20 = "#f4f7fb33";
