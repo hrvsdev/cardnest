@@ -13,7 +13,7 @@ import { IconCircleX, IconSearch } from "tabler-icons-react-native";
 
 import { Show } from "@components/Show";
 
-import { TH_WHITE, TH_WHITE_10, TH_WHITE_15, TH_WHITE_60 } from "@styles/colors.ts";
+import { TH_WHITE, TH_WHITE_07, TH_WHITE_10, TH_WHITE_60 } from "@styles/colors.ts";
 
 type SearchProps = {
 	value: string;
@@ -29,7 +29,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 	const focusProgress = useSharedValue(0);
 
 	const focusedStyle = useAnimatedStyle(() => ({
-		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_10, TH_WHITE_15])
+		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_07, TH_WHITE_10])
 	}));
 
 	const onClear = async () => {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		paddingHorizontal: 48,
 		height: 48,
-		fontFamily: "Lato_400Regular",
+		fontFamily: "Lato_400Regular"
 	},
 	inputEmpty: {
 		paddingRight: 16

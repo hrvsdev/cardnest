@@ -18,7 +18,7 @@ import Animated, {
 import { AppText } from "@components/AppText";
 import { Show } from "@components/Show";
 
-import { TH_RED, TH_WHITE, TH_WHITE_10, TH_WHITE_15, TH_WHITE_60 } from "@styles/colors.ts";
+import { TH_RED, TH_WHITE, TH_WHITE_07, TH_WHITE_10, TH_WHITE_60 } from "@styles/colors.ts";
 
 type InputProps = TextInputProps & {
 	label?: string;
@@ -30,7 +30,7 @@ export function Input(props: InputProps) {
 	const focusProgress = useSharedValue(0);
 
 	const focusedStyle = useAnimatedStyle(() => ({
-		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_10, TH_WHITE_15])
+		backgroundColor: interpolateColor(focusProgress.value, [0, 1], [TH_WHITE_07, TH_WHITE_10])
 	}));
 
 	const conditionalStyles = {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		paddingLeft: 16,
 		height: 48,
-		fontFamily: "Lato_400Regular",
+		fontFamily: "Lato_400Regular"
 	},
 	error: {
 		color: TH_RED,
