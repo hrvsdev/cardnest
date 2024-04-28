@@ -14,6 +14,8 @@ export const TH_SKY_20 = "#3fa1ff33";
 
 export const TH_RED = "#f31260";
 export const TH_RED_10 = "#f3126019";
+export const TH_RED_12 = "#f312601f";
+export const TH_RED_15 = "#f3126026";
 export const TH_RED_60 = "#f3126099";
 
 export const TH_WHITE = "#f4f7fb";
@@ -21,7 +23,6 @@ export const TH_WHITE_00 = "#f4f7fb00";
 export const TH_WHITE_05 = "#f4f7fb0d";
 export const TH_WHITE_07 = "#f4f7fb12";
 export const TH_WHITE_10 = "#f4f7fb19";
-export const TH_WHITE_15 = "#f4f7fb26";
 export const TH_WHITE_20 = "#f4f7fb33";
 export const TH_WHITE_50 = "#f4f7fb7f";
 export const TH_WHITE_60 = "#f4f7fb99";
