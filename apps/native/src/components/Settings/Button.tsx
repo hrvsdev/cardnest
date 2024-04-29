@@ -6,7 +6,14 @@ import { IconChevronRight, TablerIconsProps } from "tabler-icons-react-native";
 
 import { AppText } from "@components/AppText";
 
-import { opacity, TH_RED, TH_RED_60, TH_WHITE, TH_WHITE_50 } from "@styles/colors.ts";
+import {
+	TH_RED,
+	TH_RED_12,
+	TH_RED_60,
+	TH_WHITE,
+	TH_WHITE_07,
+	TH_WHITE_50
+} from "@styles/colors.ts";
 
 type PositionProps = {
 	isFirst?: boolean;
@@ -88,10 +95,10 @@ function Wrapper({ isDanger, children, isFirst, isLast }: WrapperProps) {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: opacity(TH_WHITE, 0.075)
+		backgroundColor: TH_WHITE_07
 	},
 	dangerContainer: {
-		backgroundColor: opacity(TH_RED, 0.125)
+		backgroundColor: TH_RED_12
 	},
 	contentContainer: {
 		flexDirection: "row",
