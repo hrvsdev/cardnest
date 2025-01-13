@@ -30,3 +30,9 @@
 		@apply outline-none;
 	}
 }
+
+@layer components {
+	.center {
+		@apply flex items-center justify-center;
+	}
+}
