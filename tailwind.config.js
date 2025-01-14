@@ -14,6 +14,9 @@ export default {
 				18: "4.5rem",
 				"app-container": "27rem"
 			},
+			opacity: {
+				"07": "0.07"
+			},
 			fontFamily: {
 				card: ["Manrope", "sans-serif"]
 			},
