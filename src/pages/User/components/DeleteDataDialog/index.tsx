@@ -32,8 +32,8 @@ export function DeleteDataDialog({ show, onConfirm, onClose }: Props) {
 				This action cannot be undone.
 			</p>
 			<div className="flex flex-col gap-3 mt-10">
-				<Button label="Cancel" variant="flat" onClick={onClose} />
-				<Button label="Confirm" theme="danger" onClick={onDialogConfirm} />
+				<Button title="Cancel" variant="flat" onClick={onClose} />
+				<Button title="Confirm" theme="danger" onClick={onDialogConfirm} />
 			</div>
 		</BottomSheet>
 	);

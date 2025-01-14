@@ -66,7 +66,7 @@ function AddCardEditorPage({ editorState }: { editorState: CardEditorState }) {
 			<SubPageHeader title="New Card" rightButtonLabel="Done" onRightButtonClick={onSaveClick} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
-				<Button label="Save" onClick={onSaveClick} />
+				<Button title="Save" onClick={onSaveClick} />
 			</PageContainer>
 			<PinCreateDialog
 				show={showDialog}

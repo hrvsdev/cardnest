@@ -36,8 +36,8 @@ export function PinCreateDialog({ show, onConfirm, onClose, onSkip }: Props) {
 				You can also skip this and create later.
 			</p>
 			<div className="flex flex-col gap-3 mt-10">
-				<Button label="Skip" variant="flat" onClick={delayOnClick(onSkip)} />
-				<Button label="Create PIN" theme="danger" onClick={delayOnClick(onConfirm)} />
+				<Button title="Skip" variant="flat" onClick={delayOnClick(onSkip)} />
+				<Button title="Create PIN" theme="danger" onClick={delayOnClick(onConfirm)} />
 			</div>
 		</BottomSheet>
 	);

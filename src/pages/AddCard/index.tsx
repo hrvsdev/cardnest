@@ -32,7 +32,7 @@ export function AddCardPage() {
 					</p>
 				</div>
 				<Link to="editor" className="w-full">
-					<Button label="Add Card" />
+					<Button title="Add Card" />
 				</Link>
 			</PageContainer>
 			<TabBar />

@@ -89,7 +89,7 @@ function CardViewPage() {
 						/>
 					</Show>
 				</div>
-				<Button label="Delete" theme="danger" onClick={() => setShowDeleteDialog(true)} />
+				<Button title="Delete" theme="danger" onClick={() => setShowDeleteDialog(true)} />
 			</PageContainer>
 			<CardDeleteDialog
 				show={showDeleteDialog}
