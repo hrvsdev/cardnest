@@ -25,22 +25,21 @@ const networks: Array<{ network: PaymentNetwork; logo: typeof Amex; width?: stri
 	{ network: "other", logo: Other, width: "1.875rem" }
 ];
 
-export function CardNetworkSelect({ selected, setSelected }: Props) {
+export function CardNetworkSelector({ selected, setSelected }: Props) {
 	return (
-		<div className="space-y-2">
-			<p className="text-th-white/80 pl-2">Card network</p>
+		<div>
+			<p className="text-th-white/80 pb-2 pl-2">Card network</p>
 			<div className="grid grid-cols-3 gap-2">
 				{networks.map((N) => (
 					<div
 						key={N.network}
 						onClick={() => setSelected(N.network)}
+						children={<N.logo width={N.width} />}
 						className={c(
-							"flex items-center cursor-pointer justify-center h-12 rounded-xl bg-th-white/5 transition-all hover:bg-th-white/10 border",
-							selected === N.network ? "border-th-sky" : "border-th-white/5"
+							"h-12 center bg-th-white hover:bg-opacity-10 rounded-1.5lg border border-th-white cursor-pointer transition-all",
+							selected === N.network ? "bg-opacity-10" : "bg-opacity-07 border-opacity-07"
 						)}
-					>
-						<N.logo width={N.width} />
-					</div>
+					/>
 				))}
 			</div>
 		</div>

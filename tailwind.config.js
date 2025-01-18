@@ -21,6 +21,7 @@ export default {
 				card: ["Manrope", "sans-serif"]
 			},
 			borderRadius: {
+				"1.5lg": "0.625rem",
 				"1.5xl": "0.875rem"
 			},
 			fontSize: {

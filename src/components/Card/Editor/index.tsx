@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-import { CardNetworkSelect } from "@components/Card/Editor/CardNetwork.tsx";
+import { CardNetworkSelector } from "@components/Card/Editor/CardNetworkSelector.tsx";
 import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { Input } from "@components/Input";
@@ -68,7 +68,7 @@ export function CardEditor({ state }: Props) {
 					onBlur={() => methods.setFocused(undefined)}
 				/>
 
-				<CardNetworkSelect selected={editorState.network} setSelected={methods.setCardNetwork} />
+				<CardNetworkSelector selected={editorState.network} setSelected={methods.setCardNetwork} />
 				<CardThemeSelect theme={editorState.theme} setTheme={methods.setTheme} />
 			</div>
 		</Fragment>
