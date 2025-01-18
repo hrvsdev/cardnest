@@ -6,64 +6,58 @@ import { c } from "@utils/styles.ts";
 
 type Props = {
 	value?: string | number;
-	defaultValue?: string | number;
-	name?: string;
 	type?: HTMLInputTypeAttribute;
 	id?: string;
 	label?: string;
-	disabled?: boolean;
 	readOnly?: boolean;
 	placeholder?: string;
 	maxLength?: number;
-	minLength?: number;
 	inputMode?: HTMLAttributes<HTMLInputElement>["inputMode"];
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 	onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
-	className?: string;
+	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
 	error?: string;
 };
 
 export function Input(props: Props) {
 	return (
-		<div className="space-y-2">
+		<div>
 			<Show when={props.label}>
-				<label className="text-th-white/80 pl-2" htmlFor={props.id}>
+				<label className="inline-block pb-2 pl-2" htmlFor={props.id}>
 					{props.label}
 				</label>
 			</Show>
-			<div className="flex items-center w-full relative">
+			<div className="w-full relative">
+				<Show when={props.leftIcon}>
+					<div className="center absolute left-0">{props.leftIcon}</div>
+				</Show>
 				<Show when={props.rightIcon}>
-					<div className="absolute right-0 size-12 flex justify-center items-center">
-						{props.rightIcon}
-					</div>
+					<div className="center absolute right-0">{props.rightIcon}</div>
 				</Show>
 				<input
 					type={props.type}
-					name={props.name}
 					id={props.id}
-					disabled={props.disabled}
 					readOnly={props.readOnly}
-					minLength={props.minLength}
 					maxLength={props.maxLength}
 					inputMode={props.inputMode}
 					value={props.value}
-					defaultValue={props.defaultValue}
 					onChange={props.onChange}
 					onFocus={props.onFocus}
 					onBlur={props.onBlur}
 					placeholder={props.placeholder}
 					className={c(
-						"w-full rounded-1.5xl pl-4 h-12 tracking-widest placeholder:tracking-normal bg-th-white bg-opacity-5 focus:bg-opacity-10",
-						props.error ? "text-th-red" : "text-th-white ",
-						props.rightIcon ? "pr-12" : "p-4",
-						props.className
+						"w-full h-12 rounded-1.5xl bg-th-white bg-opacity-07 focus:bg-opacity-10 caret-th-sky",
+						props.error ? "text-th-red" : "text-th-white",
+						props.leftIcon == null && "pl-4",
+						props.rightIcon == null && "pr-4"
 					)}
 				/>
 			</div>
-			<Show when={props.error}>
-				<div className="text-th-red text-sm pl-2">{props.error}</div>
+
+			<Show when={props.error != null && props.error.length > 0}>
+				<p className="text-th-red text-sm pt-2 pl-2">{props.error}</p>
 			</Show>
 		</div>
 	);
