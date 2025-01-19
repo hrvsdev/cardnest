@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import { CardNetworkSelector } from "@components/Card/Editor/CardNetworkSelector.tsx";
-import { CardThemeSelect } from "@components/Card/Editor/CardThemeSelect.tsx";
+import { CardThemeSelector } from "@components/Card/Editor/CardThemeSelector.tsx";
 import { CardPreview } from "@components/Card/Preview";
 import { Input } from "@components/Input";
 
@@ -69,7 +69,7 @@ export function CardEditor({ state }: Props) {
 				/>
 
 				<CardNetworkSelector selected={editorState.network} setSelected={methods.setCardNetwork} />
-				<CardThemeSelect theme={editorState.theme} setTheme={methods.setTheme} />
+				<CardThemeSelector theme={editorState.theme} setTheme={methods.setTheme} />
 			</div>
 		</Fragment>
 	);
