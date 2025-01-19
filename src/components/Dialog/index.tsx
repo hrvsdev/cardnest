@@ -16,11 +16,12 @@ export function DialogContainer({ children }: { children: ReactNode }) {
 export function DialogBackground({ onClick }: { onClick: () => void }) {
 	return (
 		<motion.div
-			className="absolute inset-0 bg-th-black/20 backdrop-blur-xs"
+			className="absolute inset-0 bg-th-black/60 backdrop-blur-xs"
 			onClick={onClick}
 			initial={{ opacity: 0 }}
-			animate={{ opacity: 1, transition: { duration: 0.2 } }}
-			exit={{ opacity: 0, transition: { duration: 0.2 } }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ type: "spring", bounce: 0, duration: 0.2 }}
 		/>
 	);
 }

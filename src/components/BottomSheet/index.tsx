@@ -18,8 +18,8 @@ export function BottomSheet({ onClose, children, show }: Props) {
 					<div className="relative h-full">
 						<DialogBackground onClick={onClose} />
 						<SheetContentContainer>
-							<div className="h-full p-4 pb-12 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl border-t border-th-sky/20 shadow-2xl shadow-th-sky">
-								{children}
+							<div className="bg-th-sky/20 rounded-t-2xl shadow-2xl shadow-th-sky pt-0.25">
+								<div className="p-4 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl">{children}</div>
 							</div>
 						</SheetContentContainer>
 					</div>
@@ -28,6 +28,7 @@ export function BottomSheet({ onClose, children, show }: Props) {
 		</AnimatePresence>
 	);
 }
+
 function SheetContentContainer({ children }: { children: ReactNode }) {
 	return (
 		<motion.div
@@ -35,30 +36,24 @@ function SheetContentContainer({ children }: { children: ReactNode }) {
 			initial="hidden"
 			animate="visible"
 			exit="exit"
+			transition={{ type: "spring", bounce: 0, duration: 0.2 }}
 			className="absolute bottom-0 w-full"
-		>
-			{children}
-		</motion.div>
+			children={children}
+		/>
 	);
 }
 
 const slideUp: Variants = {
 	hidden: {
-		y: 350
+		y: "100%",
+		opacity: 0
 	},
 	visible: {
-		y: 32,
-		transition: {
-			duration: 0.1,
-			type: "spring",
-			damping: 25,
-			stiffness: 300
-		}
+		y: 0,
+		opacity: 1
 	},
 	exit: {
-		y: 350,
-		transition: {
-			duration: 0.2
-		}
+		y: "100%",
+		opacity: 0
 	}
 };
