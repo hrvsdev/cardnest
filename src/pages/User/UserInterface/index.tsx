@@ -14,7 +14,7 @@ export function UserInterface() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="User Interface" leftIconLabel="Settings" />
+			<SubPageHeader title="User Interface" backLabel="Settings" />
 			<PageContainer className="space-y-6">
 				<SettingsGroup title="Card" description={MASK_CARD_DESC}>
 					<SettingsToggleButton

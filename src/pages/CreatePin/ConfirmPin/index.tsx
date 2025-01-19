@@ -67,7 +67,7 @@ export function ConfirmPin() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="" leftIconLabel="Create PIN" />
+			<SubPageHeader title="" backLabel="Create PIN" />
 			<PageContainer className="flex flex-col justify-center items-center gap-8">
 				<div className="flex flex-col text-th-white/90 items-center justify-center flex-1">
 					<h1 className="text-2xl font-bold mb-2">Confirm the PIN</h1>

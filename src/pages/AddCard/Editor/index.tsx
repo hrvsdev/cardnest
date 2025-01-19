@@ -63,7 +63,7 @@ function AddCardEditorPage({ editorState }: { editorState: CardEditorState }) {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="New Card" rightButtonLabel="Done" onRightButtonClick={onSaveClick} />
+			<SubPageHeader title="New Card" actionLabel="Done" onAction={onSaveClick} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
 				<Button title="Save" onClick={onSaveClick} />

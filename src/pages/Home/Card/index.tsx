@@ -55,9 +55,9 @@ function CardViewPage() {
 		<Fragment>
 			<SubPageHeader
 				title="Card"
-				onRightButtonClick={edit}
-				rightButtonLabel="Edit"
-				rightButtonIcon={<IconPencil size={18} />}
+				onAction={edit}
+				actionLabel="Edit"
+				actionIcon={<IconPencil size={18} />}
 			/>
 			<PageContainer className="relative space-y-8">
 				<CardPreview card={card.data} />

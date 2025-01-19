@@ -65,7 +65,7 @@ function SecurityPage() {
 
 	return (
 		<Fragment>
-			<SubPageHeader title="Security" leftIconLabel="Settings" />
+			<SubPageHeader title="Security" backLabel="Settings" />
 			<PageContainer className="space-y-6">
 				<SettingsGroup title="Password" description={hasCreatedPin ? "" : CREATE_PASSWORD_DESC}>
 					<SettingsButton
