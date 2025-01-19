@@ -1,12 +1,12 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-import { IconChevronRight, TablerIconsProps } from "@tabler/icons-react";
+import { IconChevronRight, IconProps } from "@tabler/icons-react";
 
 import { c } from "@utils/styles.ts";
 
 type ContentProps = {
-	Icon: (props: TablerIconsProps) => ReactElement;
+	Icon: (props: IconProps) => ReactNode;
 	title: string;
 	isDanger?: boolean;
 };

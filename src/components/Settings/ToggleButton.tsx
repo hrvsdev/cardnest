@@ -1,11 +1,11 @@
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
-import { TablerIconsProps } from "@tabler/icons-react";
+import { IconProps } from "@tabler/icons-react";
 
 import { Toggle } from "@components/Toggle";
 
 type Props = {
-	Icon: (props: TablerIconsProps) => ReactElement;
+	Icon: (props: IconProps) => ReactNode;
 	title: string;
 	checked: boolean;
 	onChange: (checked: boolean) => void;
