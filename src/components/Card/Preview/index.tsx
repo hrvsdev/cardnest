@@ -10,8 +10,9 @@ import { Show } from "@components/Show";
 
 import { useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
 
-import { cardThemeTailwindClassNames } from "@utils/card.ts";
 import { c } from "@utils/styles.ts";
+
+import { getCardTheme } from "@theme/index.ts";
 
 import { CardField, CardFullProfile } from "@t/card";
 
@@ -26,8 +27,6 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders, maskCardNumber });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
-	const cl = cardThemeTailwindClassNames[card.theme];
-
 	const focusedStyle = (el: CardField) => {
 		if (!usePlaceholders) return "";
 
@@ -38,8 +37,11 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 		return `${defaultStyle} ${focused === el ? inFocusStyle : outOfFocusStyle}`;
 	};
 
+	const colors = getCardTheme(card.theme);
+	const background = `linear-gradient(to bottom right, ${colors.from}, ${colors.to})`;
+
 	return (
-		<div className={c("w-full aspect-payment-card bg-gradient-to-br rounded-2xl font-card", cl)}>
+		<div style={{ background }} className={c("w-full aspect-payment-card bg-gradient-to-br rounded-2xl font-card")}>
 			<div className="flex flex-col justify-between w-full h-full p-[1.125rem] pb-[0.875rem]">
 				<div className="flex justify-between">
 					<div className={focusedStyle("cardholder")}>
