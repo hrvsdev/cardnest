@@ -2,25 +2,20 @@ import { ReactNode } from "react";
 
 import { IconProps } from "@tabler/icons-react";
 
+import { SettingsItemContent, SettingsItemWrapper } from "@components/Settings/Button.tsx";
 import { Toggle } from "@components/Toggle";
 
 type Props = {
-	Icon: (props: IconProps) => ReactNode;
 	title: string;
+	Icon: (props: IconProps) => ReactNode;
 	checked: boolean;
 	onChange: (checked: boolean) => void;
 };
 
 export function SettingsToggleButton({ Icon, title, checked, onChange }: Props) {
 	return (
-		<div className="flex items-center w-full rounded-sm first:rounded-t-xl last:rounded-b-xl bg-th-white/5">
-			<div className="flex items-center justify-between w-full h-11 px-3">
-				<span className="flex items-center gap-2">
-					<Icon size={20} />
-					<p>{title}</p>
-				</span>
-				<Toggle checked={checked} onChange={onChange} />
-			</div>
-		</div>
+		<SettingsItemWrapper>
+			<SettingsItemContent title={title} Icon={Icon} rightContent={<Toggle checked={checked} onChange={onChange} />} />
+		</SettingsItemWrapper>
 	);
 }
