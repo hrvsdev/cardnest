@@ -1,77 +1,117 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-import { IconChevronRight, IconProps } from "@tabler/icons-react";
+import { IconArrowUpRight, IconChevronRight, IconLoader2, IconProps } from "@tabler/icons-react";
 
 import { c } from "@utils/styles.ts";
 
-type ContentProps = {
-	Icon: (props: IconProps) => ReactNode;
-	title: string;
+type SettingsItemWrapperProps = {
 	isDanger?: boolean;
-};
-
-type WrapperProps = {
-	isDanger?: boolean;
+	isDisabled?: boolean;
+	isInteractive?: boolean;
 	children: ReactNode;
 };
 
-type SettingsButtonProps = ContentProps & {
+type SettingsItemContentProps = {
+	title: string;
+	Icon: (props: IconProps) => ReactNode;
+	rightContent?: ReactNode;
+};
+
+type SettingsButtonProps = {
+	title: string;
+	Icon: (props: IconProps) => ReactNode;
+	isDanger?: boolean;
+	isLoading?: boolean;
 	onClick: () => void;
 };
 
-type SettingsLinkProps = ContentProps & {
+type SettingsLinkProps = {
+	title: string;
+	Icon: (props: IconProps) => ReactNode;
 	to: string;
+	isDanger?: boolean;
+	isExternalLink?: boolean;
 };
 
-export function SettingsButton({ onClick, ...props }: SettingsButtonProps) {
+export function SettingsButton(props: SettingsButtonProps) {
+	let iconColorClassName = "";
+
+	if (props.isDanger) {
+		iconColorClassName = props.isLoading ? "text-th-red/50" : "text-th-red/60";
+	} else {
+		iconColorClassName = props.isLoading ? "text-th-white/50" : "text-th-white/60";
+	}
+
+	const RightIcon = () => {
+		if (props.isLoading) {
+			return <IconLoader2 size={20} className={c("animate-spin", iconColorClassName)} />;
+		} else {
+			return <IconChevronRight size={20} className={iconColorClassName} />;
+		}
+	};
+
 	return (
-		<Wrapper isDanger={props.isDanger}>
-			<button className="w-full" onClick={onClick}>
-				<Content {...props} />
+		<SettingsItemWrapper isDanger={props.isDanger} isDisabled={props.isLoading} isInteractive>
+			<button onClick={props.onClick} disabled={props.isLoading} className="w-full">
+				<SettingsItemContent title={props.title} Icon={props.Icon} rightContent={<RightIcon />} />
 			</button>
-		</Wrapper>
+		</SettingsItemWrapper>
 	);
 }
 
-export function SettingsLink({ to, ...props }: SettingsLinkProps) {
+export function SettingsLink(props: SettingsLinkProps) {
+	const iconColorClassName = props.isDanger ? "text-th-red/60" : "text-th-white/60";
+
+	const RightIcon = () => {
+		if (props.isExternalLink) {
+			return <IconArrowUpRight size={20} className={iconColorClassName} />;
+		} else {
+			return <IconChevronRight size={20} className={iconColorClassName} />;
+		}
+	};
+
 	return (
-		<Wrapper isDanger={props.isDanger}>
-			<Link to={to} className="w-full">
-				<Content {...props} />
+		<SettingsItemWrapper isDanger={props.isDanger} isInteractive>
+			<Link to={props.to} target={props.isExternalLink ? "_blank" : undefined} className="w-full">
+				<SettingsItemContent title={props.title} Icon={props.Icon} rightContent={<RightIcon />} />
 			</Link>
-		</Wrapper>
+		</SettingsItemWrapper>
 	);
 }
 
-function Content({ title, Icon, isDanger }: ContentProps) {
-	return (
-		<div className="flex items-center justify-between w-full h-11 px-3">
-			<span className="flex items-center gap-2">
-				<Icon size={20} />
-				<p>{title}</p>
-			</span>
-			<span className="flex items-center gap-2">
-				<IconChevronRight
-					size={20}
-					className={c("ml-auto", isDanger ? "text-th-red/50" : "text-th-white/40")}
-				/>
-			</span>
-		</div>
-	);
-}
+export function SettingsItemWrapper(props: SettingsItemWrapperProps) {
+	let colorClassName: string;
+	let bgColorClassName: string;
 
-function Wrapper({ isDanger, children }: WrapperProps) {
+	if (props.isDanger) {
+		colorClassName = props.isDisabled ? "text-th-red/70" : "text-th-red";
+		bgColorClassName = props.isDisabled ? "bg-th-red/07" : "bg-th-red/10 hover:bg-th-red/15";
+	} else {
+		colorClassName = props.isDisabled ? "text-th-white/60" : "text-th-white";
+		bgColorClassName = props.isDisabled ? "bg-th-white/5" : "bg-th-white/07 hover:bg-th-white/10";
+	}
+
 	return (
 		<div
+			children={props.children}
 			className={c(
-				"flex items-center w-full rounded-sm first:rounded-t-xl last:rounded-b-xl transition-all duration-200 active:scale-98",
-				isDanger
-					? "bg-th-red/10 text-th-red hover:bg-th-red/15"
-					: "bg-th-white/5 hover:bg-th-white/10"
+				"rounded-sm first:rounded-t-xl last:rounded-b-xl",
+				props.isDisabled ? "cursor-not-allowed" : props.isInteractive && "hover:brightness-110 active:scale-98",
+				colorClassName,
+				bgColorClassName
 			)}
-		>
-			{children}
+		/>
+	);
+}
+
+export function SettingsItemContent(props: SettingsItemContentProps) {
+	return (
+		<div className="flex items-center gap-2 w-full h-11 px-3">
+			<props.Icon size={20} />
+			<p className="mr-auto">{props.title}</p>
+
+			{props.rightContent}
 		</div>
 	);
 }
