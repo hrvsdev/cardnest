@@ -20,6 +20,8 @@
 		"^@components/(.*)$",
 		"^@libs/components/(.*)$",
 		"",
+		"^@data/(.*)$",
+		"",
 		"^@hooks/(.*)$",
 		"^@libs/hooks/(.*)$",
 		"",
