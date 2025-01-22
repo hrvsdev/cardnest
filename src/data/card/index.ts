@@ -1,32 +1,34 @@
-import { Observable, observable } from "@legendapp/state";
-import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/local-storage";
-import { synced } from "@legendapp/state/sync";
+import { observable } from "@legendapp/state";
+import { useObserve } from "@legendapp/state/react";
 
-import { CardData, CardEncrypted, CardRecords, CardUnencrypted, CardUnencryptedRecords } from "./types.ts";
+import { addOrUpdateCard, cardRecordsState } from "@data/card/core.ts";
+import { CardData, CardUnencrypted } from "@data/card/types.ts";
 
-export const cardRecordsState = observable<CardRecords>(
-	synced({
-		initial: CardUnencryptedRecords(),
-		persist: { name: "cardnest/cards", plugin: ObservablePersistLocalStorage }
-	})
-);
+export const cardsState = observable(new Map<string, CardUnencrypted>());
 
-export function setCards(cards: CardRecords) {
-	cardRecordsState.set(cards);
+export function useDecryptAndCollectCards() {
+	useObserve(cardRecordsState, (it) => {
+		const cardRecords = it.value;
+
+		if (cardRecords == null) return;
+		if (cardRecords.type === "UNENCRYPTED") {
+			cardRecords.cards.forEach((it) => cardsState[it.id].set(it));
+		} else {
+			cardRecords.cards.forEach(() => {
+				// TODO: Decrypt and add to updatedCards
+			});
+		}
+	});
 }
 
-export function addOrUpdateCard(card: CardData) {
-	const cardRecords = cardRecordsState.get();
+export function encryptAndAddOrUpdateCard(cardUnencrypted: CardUnencrypted) {
+	// @ts-ignore
+	const hasEnabledAuth = false; // TODO: Check if encryption is enabled
 
-	if (cardRecords.type === "ENCRYPTED") {
-		if (card.type === "ENCRYPTED") (cardRecordsState.cards[card.data.id] as Observable<CardEncrypted>).set(card.data);
-		else throw new Error("Unencrypted card can't be saved in encrypted data");
-	} else {
-		if (card.type === "UNENCRYPTED") (cardRecordsState.cards[card.data.id] as Observable<CardUnencrypted>).set(card.data);
-		else throw new Error("Encrypted card can't be saved in unencrypted data");
-	}
-}
+	const cardData: CardData = {
+		type: "UNENCRYPTED", // TODO: Add type according to encryption
+		data: cardUnencrypted // TODO: Encrypt card data if encryption is enabled
+	};
 
-export function deleteCard(id: string) {
-	cardRecordsState.cards[id].delete();
+	addOrUpdateCard(cardData);
 }

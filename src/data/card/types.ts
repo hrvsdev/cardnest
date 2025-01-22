@@ -4,8 +4,8 @@ export type Card = {
 	number: string;
 	expiry: string;
 	cardholder: string;
-	issuer?: string;
-	cvv?: string;
+	issuer: string;
+	cvv: string;
 	network: PaymentNetwork;
 	theme: CardTheme;
 };
