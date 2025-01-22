@@ -11,7 +11,7 @@ export function ShowAnimated({ when, children }: PropsWithChildren<{ when: boole
 	const animate = { height: "auto", opacity: 1 };
 
 	return (
-		<AnimatePresence>
+		<AnimatePresence initial={false}>
 			{when && (
 				<div className="overflow-hidden">
 					<motion.div initial={initial} animate={animate} exit={initial}>
