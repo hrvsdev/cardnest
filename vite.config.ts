@@ -6,5 +6,10 @@ export default defineConfig({
 	plugins: [react(), viteTsconfigPaths()],
 	server: {
 		port: 4000
-	}
+	},
+	resolve: {
+		alias: {
+			'@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
+		},
+	},
 });
