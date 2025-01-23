@@ -1,32 +1,52 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
+import { closeBottomSheet, useBottomSheetState } from "@components/BottomSheet/state.ts";
+import { Button } from "@components/Button";
 import { DialogBackground, DialogContainer } from "@components/Dialog";
 
-type Props = {
-	show: boolean;
-	children: ReactNode;
-	onClose: () => void;
-};
+export function BottomSheetProvider() {
+	const bottomSheetState = useBottomSheetState();
+	return <AnimatePresence>{bottomSheetState.isOpen && bottomSheetState.component}</AnimatePresence>;
+}
 
-export function BottomSheet({ onClose, children, show }: Props) {
+export function BottomSheet({ children }: PropsWithChildren) {
 	return (
-		<AnimatePresence>
-			{show && (
-				<DialogContainer>
-					<div className="relative h-full">
-						<DialogBackground onClick={onClose} />
-						<SheetContentContainer>
-							<div className="bg-th-sky/20 rounded-t-2xl shadow-2xl shadow-th-sky pt-0.25">
-								<div className="p-4 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl">{children}</div>
-							</div>
-						</SheetContentContainer>
+		<DialogContainer>
+			<div className="relative h-full">
+				<DialogBackground onClick={closeBottomSheet} />
+				<SheetContentContainer>
+					<div className="bg-th-sky/20 rounded-t-2xl shadow-2xl shadow-th-sky pt-0.25">
+						<div className="p-4 bg-gradient-to-tr from-th-darker-blue to-th-black w-full rounded-t-2xl">{children}</div>
 					</div>
-				</DialogContainer>
-			)}
-		</AnimatePresence>
+				</SheetContentContainer>
+			</div>
+		</DialogContainer>
 	);
+}
+
+export function BottomSheetHeading({ children }: PropsWithChildren) {
+	return <h1 className="text-xl text-th-white font-bold text-center">{children}</h1>;
+}
+
+export function BottomSheetDescription({ children }: PropsWithChildren) {
+	return <p className="text-center">{children}</p>;
+}
+
+export function BottomSheetButtons({ children }: PropsWithChildren) {
+	return <div className="mt-10 space-y-3">{children}</div>;
+}
+
+export function BottomSheetPrimaryButton({ title = "Confirm", theme = "primary" }: { title?: string; theme?: "primary" | "danger" }) {
+	const bottomSheetState = useBottomSheetState();
+	const onClick = bottomSheetState.onConfirm;
+
+	return <Button title={title} theme={theme} onClick={onClick} />;
+}
+
+export function BottomSheetCancelButton({ title = "Cancel" }: { title?: string }) {
+	return <Button title={title} variant="flat" onClick={closeBottomSheet} />;
 }
 
 function SheetContentContainer({ children }: { children: ReactNode }) {

@@ -6,6 +6,8 @@ import { Home } from "@pages/Home";
 import { Pin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
+import { BottomSheetProvider } from "@components/BottomSheet";
+
 import { useDecryptAndCollectCards } from "@data/card";
 
 import { useHasCreatedPin, useIsAuthenticatedValue } from "@hooks/auth";
@@ -19,6 +21,7 @@ export default function App() {
 	return (
 		<Suspense>
 			<main className="flex flex-col min-h-dvh h-full w-full">{showApp ? <UnlockedRoutes /> : <LockedRoutes />}</main>
+			<BottomSheetProvider />
 		</Suspense>
 	);
 }
