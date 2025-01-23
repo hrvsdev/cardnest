@@ -4,7 +4,7 @@ import { useObserve } from "@legendapp/state/react";
 import { addOrUpdateCard, cardRecordsState } from "@data/card/core.ts";
 import { CardData, CardUnencrypted } from "@data/card/types.ts";
 
-export const cardsState = observable(new Map<string, CardUnencrypted>());
+export const cardsState = observable<Record<string, CardUnencrypted>>({});
 
 export function useDecryptAndCollectCards() {
 	useObserve(cardRecordsState, (it) => {
@@ -12,9 +12,9 @@ export function useDecryptAndCollectCards() {
 
 		if (cardRecords == null) return;
 		if (cardRecords.type === "UNENCRYPTED") {
-			cardRecords.cards.forEach((it) => cardsState[it.id].set(it));
+			Object.values(cardRecords.cards).forEach((it) => cardsState[it.id].set(it));
 		} else {
-			cardRecords.cards.forEach(() => {
+			Object.values(cardRecords.cards).forEach(() => {
 				// TODO: Decrypt and add to updatedCards
 			});
 		}

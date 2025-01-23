@@ -32,7 +32,7 @@ const queryState = observable("");
 
 const useCardRecordList = () => {
 	const cards = useSelector(cardsState);
-	return Array.from(cards.values());
+	return Object.values(cards);
 };
 
 const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {

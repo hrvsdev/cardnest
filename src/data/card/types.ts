@@ -14,12 +14,12 @@ export type CardRecords = CardEncryptedRecords | CardUnencryptedRecords;
 
 export type CardEncryptedRecords = {
 	type: "ENCRYPTED";
-	cards: Map<string, CardEncrypted>;
+	cards: Record<string, CardEncrypted>;
 };
 
 export type CardUnencryptedRecords = {
 	type: "UNENCRYPTED";
-	cards: Map<string, CardUnencrypted>;
+	cards: Record<string, CardUnencrypted>;
 };
 
 export type CardData = CardEncryptedData | CardUnencryptedData;
@@ -46,14 +46,14 @@ export type CardUnencrypted = {
 	modifiedAt: number;
 };
 
-export function CardEncryptedRecords(cards: Map<string, CardEncrypted> = new Map()): CardEncryptedRecords {
+export function CardEncryptedRecords(cards: Record<string, CardEncrypted> = {}): CardEncryptedRecords {
 	return {
 		type: "ENCRYPTED",
 		cards: cards
 	};
 }
 
-export function CardUnencryptedRecords(cards: Map<string, CardUnencrypted> = new Map()): CardUnencryptedRecords {
+export function CardUnencryptedRecords(cards: Record<string, CardUnencrypted> = {}): CardUnencryptedRecords {
 	return {
 		type: "UNENCRYPTED",
 		cards: cards
