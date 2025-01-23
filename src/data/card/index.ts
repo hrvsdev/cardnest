@@ -7,17 +7,19 @@ import { CardData, CardUnencrypted } from "@data/card/types.ts";
 export const cardsState = observable<Record<string, CardUnencrypted>>({});
 
 export function useDecryptAndCollectCards() {
-	useObserve(cardRecordsState, (it) => {
-		const cardRecords = it.value;
+	useObserve(cardRecordsState, ({ value: cardRecords }) => {
+		const updatedCards: Record<string, CardUnencrypted> = {};
 
 		if (cardRecords == null) return;
 		if (cardRecords.type === "UNENCRYPTED") {
-			Object.values(cardRecords.cards).forEach((it) => cardsState[it.id].set(it));
+			Object.values(cardRecords.cards).forEach((it) => (updatedCards[it.id] = it));
 		} else {
 			Object.values(cardRecords.cards).forEach(() => {
 				// TODO: Decrypt and add to updatedCards
 			});
 		}
+
+		cardsState.set(updatedCards);
 	});
 }
 
