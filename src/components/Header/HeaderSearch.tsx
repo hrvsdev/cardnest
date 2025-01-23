@@ -10,6 +10,8 @@ import { c } from "@utils/styles.ts";
 type SearchProps = {
 	value: string;
 	onChange: (value: string) => void;
+	noOfResults: number;
+	totalResults: number;
 };
 
 type SearchResultStatusProps = {
@@ -18,7 +20,7 @@ type SearchResultStatusProps = {
 	clear: () => void;
 };
 
-export function HeaderSearch({ value, onChange }: SearchProps) {
+export function HeaderSearch({ value, onChange, noOfResults, totalResults }: SearchProps) {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const isNotBlank = value.trim().length > 0;
@@ -49,7 +51,7 @@ export function HeaderSearch({ value, onChange }: SearchProps) {
 			<Spacer size={8} />
 
 			<ShowAnimated when={isNotBlank}>
-				<SearchResultStatus noOfResults={2} totalResults={14} clear={onClear} />
+				<SearchResultStatus noOfResults={noOfResults} totalResults={totalResults} clear={onClear} />
 			</ShowAnimated>
 
 			<Spacer size={8} />
