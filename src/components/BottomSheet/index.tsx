@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
@@ -40,7 +40,18 @@ export function BottomSheetButtons({ children }: PropsWithChildren) {
 
 export function BottomSheetPrimaryButton({ title = "Confirm", theme = "primary" }: { title?: string; theme?: "primary" | "danger" }) {
 	const bottomSheetState = useBottomSheetState();
-	const onClick = bottomSheetState.onConfirm;
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	const onClick = () => {
+		closeBottomSheet();
+		timeoutRef.current = setTimeout(bottomSheetState.onConfirm, 200);
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
 
 	return <Button title={title} theme={theme} onClick={onClick} />;
 }
