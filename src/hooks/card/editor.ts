@@ -1,124 +1,133 @@
-import { useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
-import {
-	addSpaces,
-	getApproxCardNetwork,
-	getRandomCardTheme,
-	removeSpaces
-} from "@utils/card.ts";
+import { InputError } from "@components/Input";
 
-import { CardEditorState, CardField, CardFullProfile } from "@t/card";
+import { Card } from "@data/card/types.ts";
 
-type CardEditorValue = CardFullProfile & { focused?: CardField };
+import { addSpaces, defaultCard, removeSpaces } from "@utils/card.ts";
 
-export const useCardEditor = (init: Partial<CardEditorValue> = {}): CardEditorState => {
-	const [number, setNumber] = useState(addSpaces(init.number ?? ""));
-	const [expiry, setExpiry] = useState(init.expiry ?? "");
-	const [cardholder, setCardholder] = useState(init.cardholder ?? "");
-	const [issuer, setIssuer] = useState(init.issuer ?? "");
-	const [network, setNetwork] = useState(init.network ?? "other");
+import { CardTheme, PaymentNetwork } from "@t/card";
 
-	const [theme, setTheme] = useState(init.theme ?? getRandomCardTheme());
-	const [focused, setFocused] = useState<CardField | undefined>();
+export type CardFocusableField = "number" | "expiry" | "cardholder" | "issuer" | "network";
 
-	const [errors, setErrors] = useState({
-		number: "",
-		expiry: "",
-		cardholder: ""
-	});
+export type CardErrorsState = {
+	number: InputError;
+	expiry: InputError;
+	cardholder: InputError;
+	cvv: InputError;
+};
 
-	const previousNumber = useRef("");
+export type CardEditorState = Card & {
+	card: Card;
+	focused: CardFocusableField | undefined;
+	errors: Partial<CardErrorsState>;
+	setCardNumber: (cardNumber: string) => void;
+	setExpiry: (expiry: string) => void;
+	setCardholder: (cardholder: string) => void;
+	setCvv: (cvv: string) => void;
+	setCardIssuer: (issuer: string) => void;
+	setCardNetwork: (network: PaymentNetwork) => void;
+	setTheme: (theme: CardTheme) => void;
+	setFocused: (focused?: CardFocusableField) => void;
+	onSubmit: (cb: (data: Card) => void) => void;
+};
 
-	const setFormattedCardNumber = (value: string) => {
+export function useCardEditor(init: Card = defaultCard()): CardEditorState {
+	const [number, setNumber] = useState(addSpaces(init.number));
+	const [expiry, setExpiry] = useState(init.expiry);
+	const [cardholder, setCardholder] = useState(init.cardholder);
+	const [cvv, setCvv] = useState(init.cvv);
+	const [issuer, setIssuer] = useState(init.issuer);
+
+	const [network, setNetwork] = useState(init.network);
+	const [theme, setTheme] = useState(init.theme);
+
+	const [focused, setFocused] = useState<CardFocusableField | undefined>();
+
+	const [hasSubmitted, setHasSubmitted] = useState(false);
+
+	const errors = useMemo<Partial<CardErrorsState>>(() => {
+		if (!hasSubmitted) return {};
+		else return getCardErrors(number, expiry, cardholder, cvv);
+	}, [hasSubmitted, number, expiry, cardholder, cvv]);
+
+	const card: Card = { number: removeSpaces(number), expiry, cardholder, cvv, issuer, network, theme };
+
+	const formatAndSetCardNumber = (value: string) => {
 		const filteredValue = value.replace(/\D/g, "").slice(0, 16);
+		const formattedValue = addSpaces(filteredValue);
 
-		if (filteredValue.length === 16) setErrors({ ...errors, number: "" });
-
-		setNumber(addSpaces(filteredValue));
-		fetchAndSetCardNetwork(filteredValue);
+		setNumber(formattedValue);
 	};
 
-	const setFormattedExpiry = (value: string) => {
+	const formatAndSetExpiry = (value: string) => {
 		let filteredValue = value.replace(/\D/g, "").slice(0, 4);
 
-		const FIRST_DIGIT = parseInt(filteredValue[0]);
-
-		if (FIRST_DIGIT > 1) {
-			filteredValue = filteredValue.replace(FIRST_DIGIT.toString(), `0${FIRST_DIGIT}`);
+		if (filteredValue.length > 0 && parseInt(filteredValue[0]) > 1) {
+			filteredValue = `0${filteredValue}`;
 		}
 
-		if (expiry.endsWith("/") && value.length === 2) {
+		if (expiry.endsWith("/") && filteredValue.length === 2) {
 			filteredValue = value;
 		} else if (filteredValue.length >= 2) {
-			filteredValue = `${filteredValue.slice(0, 2)}/${filteredValue.slice(2)}`;
+			filteredValue = filteredValue.slice(0, 2) + "/" + filteredValue.slice(2);
 		}
-
-		if (filteredValue.length === 5) setErrors({ ...errors, expiry: "" });
 
 		setExpiry(filteredValue);
 	};
 
-	const setFormattedCardholder = (value: string) => {
-		const filteredValue = value.replace(/[^a-zA-Z\s.'-]/g, "");
-
-		if (filteredValue.length >= 2) setErrors({ ...errors, cardholder: "" });
-
-		setCardholder(filteredValue);
+	const formatAndSetCardholder = (value: string) => {
+		setCardholder(value);
 	};
 
-	const fetchAndSetCardNetwork = (cardNumber: string) => {
-		const firstSixDigits = removeSpaces(cardNumber.slice(0, 6));
+	const formatAndSetCvv = (value: string) => {
+		const filteredValue = value.replace(/\D/g, "").slice(0, 3);
 
-		if (firstSixDigits.length < 6) {
-			setNetwork("other");
-			return;
-		}
-
-		if (previousNumber.current === firstSixDigits) return;
-
-		previousNumber.current = firstSixDigits;
-
-		getApproxCardNetwork(cardNumber).then(setNetwork);
+		setCvv(filteredValue);
 	};
 
-	const onSubmit = (cb: (data: CardFullProfile) => void) => {
-		return () => {
-			const errors = { number: "", expiry: "", cardholder: "" };
+	const onSubmit = (next: (data: Card) => void) => {
+		setHasSubmitted(true);
 
-			if (editorState.number.length < 19) {
-				errors.number = "Please enter a 16-digit card number";
-			}
+		const errors = getCardErrors(number, expiry, cardholder, cvv);
+		if (errors.number.hasError || errors.expiry.hasError || errors.cardholder.hasError || errors.cvv.hasError) return;
 
-			if (editorState.expiry.length < 5) {
-				errors.expiry = "Please enter a valid  expiry date (MM/YY)";
-			}
-
-			if (editorState.cardholder.length < 2) {
-				errors.cardholder = "Please enter a cardholder name (min. 2 chars long)";
-			}
-
-			setErrors(errors);
-
-			if (Object.values(errors).some((v) => v !== "")) return;
-
-			cb(data);
-		};
+		next(card);
 	};
-
-	const editorState = { number, cardholder, expiry, issuer, network, theme, focused };
-	const data = { ...editorState, number: removeSpaces(editorState.number) };
 
 	return {
-		data,
-		editorState,
+		card,
+		number,
+		expiry,
+		cardholder,
+		cvv,
+		issuer,
+		network,
+		theme,
+		focused,
 		errors,
-		onSubmit,
-		setCardNumber: setFormattedCardNumber,
-		setCardholder: setFormattedCardholder,
-		setExpiry: setFormattedExpiry,
-		setCardNetwork: setNetwork,
+		setCardNumber: formatAndSetCardNumber,
+		setExpiry: formatAndSetExpiry,
+		setCardholder: formatAndSetCardholder,
+		setCvv: formatAndSetCvv,
 		setCardIssuer: setIssuer,
+		setCardNetwork: setNetwork,
 		setTheme,
-		setFocused
+		setFocused,
+		onSubmit
 	};
-};
+}
+
+const CardNumberError = (hasError: boolean) => ({ hasError, message: "Card number must be exact 16 digits long" });
+const ExpiryError = (hasError: boolean) => ({ hasError, message: "Expiry date must be a valid date in MM/YY format" });
+const CardholderError = (hasError: boolean) => ({ hasError, message: "Cardholder name must be at least 2 characters long" });
+const CvvError = (hasError: boolean) => ({ hasError, message: "CVV must be exact 3 digits long or can be empty" });
+
+function getCardErrors(number: string, expiry: string, cardholder: string, cvv: string): CardErrorsState {
+	return {
+		number: CardNumberError(number.length !== 19),
+		expiry: ExpiryError(expiry.length !== 5),
+		cardholder: CardholderError(cardholder.length < 2),
+		cvv: CvvError(cvv.length === 0 ? false : cvv.length !== 3)
+	};
+}

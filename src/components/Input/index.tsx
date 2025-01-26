@@ -18,10 +18,17 @@ type Props = {
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
-	error?: string;
+	error?: InputError;
+};
+
+export type InputError = {
+	hasError: boolean;
+	message: string;
 };
 
 export function Input(props: Props) {
+	const error = props.error ?? { message: "Please enter a valid value", hasError: false };
+
 	return (
 		<div>
 			<Show when={props.label}>
@@ -49,15 +56,15 @@ export function Input(props: Props) {
 					placeholder={props.placeholder}
 					className={c(
 						"w-full h-12 rounded-1.5xl bg-th-white bg-opacity-07 focus:bg-opacity-10 caret-th-sky",
-						props.error ? "text-th-red" : "text-th-white",
+						props.error?.hasError ? "text-th-red" : "text-th-white",
 						props.leftIcon == null && "pl-4",
 						props.rightIcon == null && "pr-4"
 					)}
 				/>
 			</div>
 
-			<Show when={props.error != null && props.error.length > 0}>
-				<p className="text-th-red text-sm pt-2 pl-2">{props.error}</p>
+			<Show when={error.hasError}>
+				<p className="text-th-red text-sm pt-2 pl-2">{error.message}</p>
 			</Show>
 		</div>
 	);

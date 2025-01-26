@@ -8,18 +8,19 @@ import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 import { Show } from "@components/Show";
 
+import { CardFocusableField } from "@hooks/card/editor.ts";
 import { useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
 
 import { c } from "@utils/styles.ts";
 
 import { getCardTheme } from "@theme/index.ts";
 
-import { CardField, CardFullProfile } from "@t/card";
+import { CardFullProfile } from "@t/card";
 
 type Props = {
 	card: CardFullProfile;
 	usePlaceholders?: boolean;
-	focused?: CardField;
+	focused?: CardFocusableField;
 	maskCardNumber?: boolean;
 };
 
@@ -27,7 +28,7 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 	const formattedCard = useFormattedCardViewDetails(card, { usePlaceholders, maskCardNumber });
 	const CardNetwork = useCardNetworkLogo(card.network);
 
-	const focusedStyle = (el: CardField) => {
+	const focusedStyle = (el: CardFocusableField) => {
 		if (!usePlaceholders) return "";
 
 		const defaultStyle = "transition-opacity duration-300 ease-in-out";
@@ -77,7 +78,7 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 						</p>
 					</div>
 
-					<div className="pb-1.5">
+					<div className={c(focusedStyle("network"), "pb-1.5")}>
 						<CardNetwork />
 					</div>
 				</div>
