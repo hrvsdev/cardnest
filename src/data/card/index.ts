@@ -1,8 +1,8 @@
 import { observable } from "@legendapp/state";
 import { useObserve } from "@legendapp/state/react";
 
-import { addOrUpdateCard, cardRecordsState } from "@data/card/core.ts";
-import { CardData, CardUnencrypted } from "@data/card/types.ts";
+import { addOrUpdateCard, cardRecordsState, setCards } from "@data/card/core.ts";
+import { CardData, CardEncryptedRecords, CardUnencrypted, CardUnencryptedRecords } from "@data/card/types.ts";
 
 export const cardsState = observable<Record<string, CardUnencrypted>>({});
 
@@ -33,4 +33,10 @@ export function encryptAndAddOrUpdateCard(cardUnencrypted: CardUnencrypted) {
 	};
 
 	addOrUpdateCard(cardData);
+}
+
+export function deleteAllCards() {
+	// @ts-ignore
+	const hasEnabledAuth = false; // TODO: Check if encryption is enabled
+	setCards(hasEnabledAuth ? CardEncryptedRecords() : CardUnencryptedRecords());
 }
