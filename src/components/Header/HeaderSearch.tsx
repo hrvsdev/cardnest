@@ -23,7 +23,7 @@ type SearchResultStatusProps = {
 export function HeaderSearch({ value, onChange, noOfResults, totalResults }: SearchProps) {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
-	const isNotBlank = value.trim().length > 0;
+	const isNotEmpty = value.length > 0;
 
 	const onClear = () => {
 		onChange("");
@@ -33,7 +33,7 @@ export function HeaderSearch({ value, onChange, noOfResults, totalResults }: Sea
 	return (
 		<div className="w-full relative pt-4 px-4">
 			<SearchIcon />
-			<ClearButton show={isNotBlank} onClick={onClear} />
+			<ClearButton show={isNotEmpty} onClick={onClear} />
 
 			<input
 				id="search"
@@ -44,13 +44,13 @@ export function HeaderSearch({ value, onChange, noOfResults, totalResults }: Sea
 				placeholder="Enter card number, bank or network"
 				className={c(
 					"w-full h-12 rounded-1.5xl pl-12 text-th-white bg-th-white bg-opacity-07 focus:bg-opacity-10",
-					isNotBlank ? "pr-12" : "pr-4"
+					isNotEmpty ? "pr-12" : "pr-4"
 				)}
 			/>
 
 			<Spacer size={8} />
 
-			<ShowAnimated when={isNotBlank}>
+			<ShowAnimated when={isNotEmpty}>
 				<SearchResultStatus noOfResults={noOfResults} totalResults={totalResults} clear={onClear} />
 			</ShowAnimated>
 
