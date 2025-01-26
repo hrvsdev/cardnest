@@ -36,11 +36,11 @@ const useCardRecordList = () => {
 };
 
 const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {
-	if (query === "") return cards.map((it) => it.id);
+	if (query.trim() === "") return cards.map((it) => it.id);
 
 	const filteredCards = cards.filter((it) => {
 		const fields = [it.data.issuer, it.data.cardholder, it.data.number, it.data.network !== "other" ? it.data.network : ""];
-		return fields.some((it) => it.toLowerCase().includes(query.toLowerCase()));
+		return fields.some((it) => it.toLowerCase().includes(query.trim().toLowerCase()));
 	});
 
 	return filteredCards.map((it) => it.id);
