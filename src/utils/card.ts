@@ -1,5 +1,7 @@
 import ky from "ky";
 
+import { Card } from "@data/card/types.ts";
+
 import { cardThemes } from "@theme/index.ts";
 
 import { CardTheme, PaymentNetwork } from "@t/card.ts";
@@ -40,3 +42,15 @@ export const cardMap: Partial<Record<PaymentNetwork, Array<string>>> = {
 	mastercard: ["master", "maestro"],
 	rupay: ["rupay"]
 };
+
+export function defaultCard(): Card {
+	return {
+		number: "",
+		expiry: "",
+		cardholder: "",
+		issuer: "",
+		cvv: "",
+		network: "other",
+		theme: cardThemes[Math.floor(Math.random() * cardThemes.length)]
+	};
+}
