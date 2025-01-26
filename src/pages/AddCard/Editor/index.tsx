@@ -1,7 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import { PinCreateDialog } from "@pages/AddCard/PinCreateDialog";
 import { CreatePin } from "@pages/CreatePin";
 
 import { Button } from "@components/Button";
@@ -9,13 +8,12 @@ import { CardEditor } from "@components/Card/Editor";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useSetAfterPinCreated } from "@hooks/actions";
-import { useHasCreatedPin } from "@hooks/auth";
-import { useAddCard } from "@hooks/card/data.ts";
-import { useCardEditor } from "@hooks/card/editor.ts";
-import { useHasSkippedPinCreation } from "@hooks/preferences";
+import { encryptAndAddOrUpdateCard } from "@data/card";
+import { CardUnencrypted } from "@data/card/types.ts";
 
-import { CardEditorState } from "@t/card";
+import { CardEditorState, useCardEditor } from "@hooks/card/editor.ts";
+
+import { genId } from "@utils/id";
 
 export function AddCardEditor() {
 	const editorState = useCardEditor();
@@ -30,50 +28,23 @@ export function AddCardEditor() {
 function AddCardEditorPage({ editorState }: { editorState: CardEditorState }) {
 	const navigate = useNavigate();
 
-	const addCard = useAddCard();
-	const hasCreatedPin = useHasCreatedPin();
-	const setAfterPinCreated = useSetAfterPinCreated();
+	const onAddCard = () => {
+		editorState.onSubmit((data) => {
+			const id = genId();
+			const cardWithMeta: CardUnencrypted = { id, data, modifiedAt: Date.now() };
 
-	const [hasSkippedPinCreation, setHasSkippedPinCreation] = useHasSkippedPinCreation();
-	const [showDialog, setShowDialog] = useState(false);
-
-	const onSaveClick = editorState.onSubmit(async () => {
-		if (!hasCreatedPin && !hasSkippedPinCreation) {
-			setShowDialog(true);
-			return;
-		}
-
-		await saveCard();
-	});
-
-	const saveCard = async () => {
-		const id = await addCard(editorState.data);
-		navigate(`/home/cards/${id}`);
-	};
-
-	const onCreatePinSkip = async () => {
-		setHasSkippedPinCreation(true);
-		await saveCard();
-	};
-
-	const onCreatePinConfirm = () => {
-		setAfterPinCreated(() => saveCard);
-		navigate("pin/create");
+			encryptAndAddOrUpdateCard(cardWithMeta);
+			navigate(`/home/cards/${id}`);
+		});
 	};
 
 	return (
 		<Fragment>
-			<SubPageHeader title="New Card" actionLabel="Done" onAction={onSaveClick} />
+			<SubPageHeader title="New Card" actionLabel="Done" onAction={onAddCard} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
-				<Button title="Save" onClick={onSaveClick} />
+				<Button title="Save" onClick={onAddCard} />
 			</PageContainer>
-			<PinCreateDialog
-				show={showDialog}
-				onConfirm={onCreatePinConfirm}
-				onSkip={onCreatePinSkip}
-				onClose={() => setShowDialog(false)}
-			/>
 		</Fragment>
 	);
 }

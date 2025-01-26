@@ -1,40 +1,52 @@
 import { Fragment, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useSelector } from "@legendapp/state/react";
+
 import { Button } from "@components/Button";
 import { CardEditor } from "@components/Card/Editor";
 import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 
-import { useCard, useUpdateCard } from "@hooks/card/data.ts";
+import { cardsState, encryptAndAddOrUpdateCard } from "@data/card";
+import { CardUnencrypted } from "@data/card/types.ts";
+
 import { useCardEditor } from "@hooks/card/editor.ts";
+
+function useCard(id: string | undefined) {
+	if (!id) return null;
+	return useSelector(cardsState[id]);
+}
 
 export function UpdateCardEditor() {
 	const navigate = useNavigate();
 	const params = useParams();
 
-	const card = useCard(params.cardId);
-	const updateCard = useUpdateCard();
-
-	if (!card) return null;
-
-	const editorState = useCardEditor(card.data);
-
-	const update = editorState.onSubmit(async (data) => {
-		await updateCard({ id: card.id, data });
-		navigate(`/home/cards/${card.id}`);
-	});
+	const cardWithMeta = useCard(params.cardId);
 
 	useEffect(() => {
-		if (!card) navigate("/");
-	}, [card]);
+		if (!cardWithMeta) navigate("/");
+	}, [cardWithMeta]);
+
+	if (!cardWithMeta) return null;
+
+	const editorState = useCardEditor(cardWithMeta.data);
+
+	const onUpdate = () => {
+		editorState.onSubmit((data) => {
+			const updatedCardWithMeta: CardUnencrypted = { id: cardWithMeta.id, data, modifiedAt: Date.now() };
+
+			encryptAndAddOrUpdateCard(updatedCardWithMeta);
+			navigate(-1);
+		});
+	};
 
 	return (
 		<Fragment>
-			<SubPageHeader title="Edit Card" actionLabel="Done" onAction={update} />
+			<SubPageHeader title="Edit Card" actionLabel="Done" onAction={onUpdate} />
 			<PageContainer className="relative space-y-8">
 				<CardEditor state={editorState} />
-				<Button title="Update" onClick={update} />
+				<Button title="Update" onClick={onUpdate} />
 			</PageContainer>
 		</Fragment>
 	);
