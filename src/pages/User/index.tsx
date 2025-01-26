@@ -1,22 +1,24 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "@tabler/icons-react";
 import { SettingsGroup } from "components/Settings";
+import { DeleteDataBottomSheet } from "pages/User/components/DeleteDataDialog";
 
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
-import { DeleteDataDialog } from "@pages/User/components/DeleteDataDialog";
 import { Security } from "@pages/User/Security";
 import { UserInterface } from "@pages/User/UserInterface";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { PageContainer } from "@components/Containers";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
 import { TabBar } from "@components/TabBar";
 
+import { deleteAllCards } from "@data/card";
+
 import { useSetAfterPinVerified } from "@hooks/actions";
 import { useIsAuthenticatedValue } from "@hooks/auth";
-import { useDeleteAllCards } from "@hooks/card/data.ts";
 
 export function User() {
 	return (
@@ -35,23 +37,22 @@ function UserPage() {
 	const location = useLocation();
 
 	const isAuthenticated = useIsAuthenticatedValue();
-	const deleteAllData = useDeleteAllCards();
 	const setAfterPinVerified = useSetAfterPinVerified();
 
-	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
-	const deleteData = () => {
-		deleteAllData();
+	const _deleteAllCards = () => {
+		deleteAllCards();
 		navigate(location.pathname);
 	};
 
-	const onDeleteConfirmClick = () => {
-		if (isAuthenticated) {
-			setAfterPinVerified(() => deleteData);
-			navigate("pin/verify");
-		} else {
-			deleteData();
-		}
+	const onDeleteAllCards = () => {
+		openBottomSheet(<DeleteDataBottomSheet />, () => {
+			if (isAuthenticated) {
+				setAfterPinVerified(() => _deleteAllCards);
+				navigate("pin/verify");
+			} else {
+				_deleteAllCards();
+			}
+		});
 	};
 
 	return (
@@ -64,24 +65,12 @@ function UserPage() {
 					<SettingsLink Icon={IconMoonStars} title="User Interface" to="interface" />
 				</SettingsGroup>
 				<SettingsGroup title="Danger zone" description={DELETE_DESCRIPTION}>
-					<SettingsButton
-						isDanger
-						Icon={IconTrash}
-						title="Delete all data"
-						onClick={() => setShowDeleteDialog(true)}
-					/>
+					<SettingsButton isDanger Icon={IconTrash} title="Delete all data" onClick={onDeleteAllCards} />
 				</SettingsGroup>
 			</PageContainer>
 			<TabBar />
-
-			<DeleteDataDialog
-				show={showDeleteDialog}
-				onConfirm={onDeleteConfirmClick}
-				onClose={() => setShowDeleteDialog(false)}
-			/>
 		</Fragment>
 	);
 }
 
-const DELETE_DESCRIPTION =
-	"Deleting data will forever delete all data from all your devices and there is no way to recover it.";
+const DELETE_DESCRIPTION = "Deleting data will forever delete all data from all your devices and there is no way to recover it.";

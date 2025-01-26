@@ -1,40 +1,26 @@
-import { useEffect, useRef } from "react";
+import {
+	BottomSheet,
+	BottomSheetButtons,
+	BottomSheetCancelButton,
+	BottomSheetDescription,
+	BottomSheetHeading,
+	BottomSheetPrimaryButton
+} from "@components/BottomSheet";
 
-import { BottomSheet } from "@components/BottomSheet";
-import { Button } from "@components/Button";
-
-type Props = {
-	show: boolean;
-	onConfirm: () => void;
-	onClose: () => void;
-};
-
-export function DeleteDataDialog({ show, onConfirm, onClose }: Props) {
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	const onDialogConfirm = () => {
-		onClose();
-		timeoutRef.current = setTimeout(onConfirm, 300);
-	};
-
-	useEffect(() => {
-		return () => {
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		};
-	}, []);
-
+export function DeleteDataBottomSheet() {
 	return (
-		<BottomSheet onClose={onClose} show={show}>
-			<h1 className="text-th-white text-center text-xl font-bold">Delete all data</h1>
-			<p className="text-th-white/85 text-center font-medium">
-				Are you sure you want to delete all your data from all your devices?
-				<br />
-				This action cannot be undone.
-			</p>
-			<div className="flex flex-col gap-3 mt-10">
-				<Button title="Cancel" variant="flat" onClick={onClose} />
-				<Button title="Confirm" theme="danger" onClick={onDialogConfirm} />
-			</div>
+		<BottomSheet>
+			<BottomSheetHeading>Delete all cards</BottomSheetHeading>
+
+			<BottomSheetDescription>Are you sure you want to delete all your cards?</BottomSheetDescription>
+			<BottomSheetDescription>
+				Your all <span className="font-bold text-th-white">cards data will be permanently deleted</span> from all your devices.
+			</BottomSheetDescription>
+
+			<BottomSheetButtons>
+				<BottomSheetCancelButton />
+				<BottomSheetPrimaryButton title="Confirm" theme="danger" />
+			</BottomSheetButtons>
 		</BottomSheet>
 	);
 }
