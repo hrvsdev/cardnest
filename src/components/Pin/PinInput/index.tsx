@@ -3,30 +3,36 @@ import styles from "./styles.module.css";
 import { c } from "@utils/styles.ts";
 
 type Props = {
-	pin: number[];
-	isPinIncorrect: boolean;
+	pin: string;
+	hasError?: boolean;
+	isLoading?: boolean;
+};
+
+type DotProps = {
+	isFilled: boolean;
+	hasError: boolean;
 };
 
 const PIN_LENGTH_ARR = [1, 2, 3, 4, 5, 6];
 
-export function PinInput({ isPinIncorrect, pin }: Props) {
+export function PinInput({ pin, hasError = false, isLoading = false }: Props) {
+	return (
+		<div className={c("grid grid-cols-6 gap-3", hasError && styles.shake_anim)}>
+			{PIN_LENGTH_ARR.map((n) => (
+				<Dot key={n} isFilled={n <= pin.length} hasError={hasError} />
+			))}
+		</div>
+	);
+}
+
+function Dot({ isFilled, hasError }: DotProps) {
 	return (
 		<div
 			className={c(
-				"grid grid-cols-6 items-center justify-center gap-3",
-				isPinIncorrect && styles.shake_anim
+				"size-3 border rounded-full transition-colors border-th-white",
+				isFilled && "bg-th-white",
+				hasError && "bg-th-red border-th-red"
 			)}
-		>
-			{PIN_LENGTH_ARR.map((n) => (
-				<div
-					key={n}
-					className={c(
-						"w-3 border aspect-square rounded-full transition-colors",
-						pin.length >= n && (isPinIncorrect ? "bg-th-red" : "bg-th-white"),
-						isPinIncorrect ? "border-th-red" : "border-th-white"
-					)}
-				/>
-			))}
-		</div>
+		/>
 	);
 }

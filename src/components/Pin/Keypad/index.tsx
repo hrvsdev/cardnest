@@ -2,48 +2,28 @@ import { ReactNode } from "react";
 
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 
-import { PIN_LENGTH } from "@utils/auth.ts";
 import { c } from "@utils/styles.ts";
 
 const KEYPAD_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 type Props = {
-	pin: number[];
-	setPin: (value: number[]) => void;
-	onPinChange: (pinValue: string) => void;
+	onKeyClick: (key: number) => void;
+	onBackspaceClick: () => void;
+	isDisabled: boolean;
 };
 
-export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
-	const isDisabled = pin.length === PIN_LENGTH;
-
-	const onPinChange = (num: number) => {
-		if (pin.length === PIN_LENGTH) return;
-
-		const newPin = [...pin, num];
-
-		setPin(newPin);
-		onPinChangeEffect(newPin.join(""));
-	};
-
-	const backspace = () => {
-		if (pin.length > 0) {
-			setPin(pin.slice(0, -1));
-		}
-	};
-
+export function Keypad({ onKeyClick, onBackspaceClick, isDisabled }: Props) {
 	return (
-		<div className="flex flex-col items-center justify-center flex-1">
+		<div className="center">
 			<div className="grid grid-cols-3 items-center justify-center gap-5">
 				{KEYPAD_NUMBERS.map((n) => (
-					<KeypadButton key={n} label={n} onClick={() => onPinChange(n)} disabled={isDisabled} />
+					<KeypadButton key={n} label={n} onClick={() => onKeyClick(n)} isDisabled={isDisabled} />
 				))}
+
 				<button />
-				<KeypadButton label={0} onClick={() => onPinChange(0)} disabled={isDisabled} />
-				<KeypadButton
-					label={<BackspaceIcon className="w-8" />}
-					onClick={backspace}
-					disabled={isDisabled}
-				/>
+
+				<KeypadButton label={0} onClick={() => onKeyClick(0)} isDisabled={isDisabled} />
+				<KeypadButton label={<BackspaceIcon className="size-[1.875rem]" />} onClick={onBackspaceClick} isDisabled={isDisabled} />
 			</div>
 		</div>
 	);
@@ -52,20 +32,19 @@ export function Keypad({ pin, setPin, onPinChange: onPinChangeEffect }: Props) {
 type KeypadButtonProps = {
 	label: ReactNode;
 	onClick: () => void;
-	disabled?: boolean;
+	isDisabled?: boolean;
 };
 
-function KeypadButton({ label, onClick, disabled }: KeypadButtonProps) {
+function KeypadButton({ label, onClick, isDisabled }: KeypadButtonProps) {
 	return (
 		<button
-			disabled={disabled}
+			disabled={isDisabled}
 			onClick={onClick}
+			children={label}
 			className={c(
-				"flex items-center justify-center w-18 aspect-square border border-th-white/20 bg-th-white/5 transition duration-150 rounded-full font-card text-3xl text-th-white",
-				disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-th-white/10 active:scale-95"
+				"center size-18 border border-th-white/20 bg-th-white/5 rounded-full text-th-white font-card text-3xl transition duration-100",
+				isDisabled ? "opacity-50" : "hover:bg-th-white/20 active:bg-th-white/20 active:scale-95"
 			)}
-		>
-			{label}
-		</button>
+		/>
 	);
 }
