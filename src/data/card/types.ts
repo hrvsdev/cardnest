@@ -36,7 +36,7 @@ export type CardUnencryptedData = {
 
 export type CardEncrypted = {
 	id: string;
-	data: EncryptedData;
+	data: EncryptedDataEncoded;
 	modifiedAt: number;
 };
 
