@@ -9,6 +9,7 @@ import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 import { Spacer } from "@components/Spacer";
 
+import { afterPinCreated } from "@data/actions";
 import { createAndSetPin } from "@data/auth";
 
 import { InvalidStateError } from "@utils/error.ts";
@@ -31,7 +32,7 @@ export function ConfirmPin() {
 		checkIfPinsMatch();
 		await createAndSetPin(state.pin);
 
-		navigate("/user/security");
+		await afterPinCreated.run();
 	});
 
 	useEffect(() => {

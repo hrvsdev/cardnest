@@ -1,15 +1,17 @@
-import { Fragment } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
-import { IconPasswordMobilePhone } from "@tabler/icons-react";
+import { IconLockOff, IconPasswordMobilePhone } from "@tabler/icons-react";
 import { SettingsGroup } from "components/Settings";
 
 import { CreatePin } from "@pages/CreatePin";
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
 
-import { PageContainer } from "@components/Containers";
-import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { SubPageRoot } from "@components/Containers";
 import { SettingsButton } from "@components/Settings/Button.tsx";
+import { Show } from "@components/Show";
+
+import { afterPinCreated, afterPinVerified } from "@data/actions";
+import { useHasCreatedPin } from "@data/auth";
 
 export function Security() {
 	return (
@@ -23,22 +25,41 @@ export function Security() {
 
 function SecurityPage() {
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const hasCreatedPin = useHasCreatedPin();
 
 	const onCreatePin = () => {
 		navigate("pin/create");
+		afterPinCreated.set(async () => {
+			navigate(location.pathname);
+		});
 	};
 
+	const onChangePin = () => {
+		navigate("pin/verify");
+		afterPinVerified.set(async () => {
+			onCreatePin();
+		});
+	};
+
+	const onRemovePin = () => {};
+
 	return (
-		<Fragment>
-			<SubPageHeader title="Security" backLabel="Settings" />
-			<PageContainer className="space-y-6">
-				<SettingsGroup title="Password" description={CREATE_PASSWORD_DESC}>
-					<SettingsButton title="Create password" onClick={onCreatePin} Icon={IconPasswordMobilePhone} />
-				</SettingsGroup>
-			</PageContainer>
-		</Fragment>
+		<SubPageRoot title="Security" backLabel="Settings" className="space-y-6">
+			<SettingsGroup title="PIN" description={hasCreatedPin ? undefined : CREATE_PIN_DESC_IF_NONE_EXIST}>
+				<SettingsButton
+					title={hasCreatedPin ? "Change PIN" : "Create PIN"}
+					onClick={hasCreatedPin ? onChangePin : onCreatePin}
+					Icon={IconPasswordMobilePhone}
+				/>
+
+				<Show when={hasCreatedPin}>
+					<SettingsButton title="Remove PIN" onClick={onRemovePin} Icon={IconLockOff} />
+				</Show>
+			</SettingsGroup>
+		</SubPageRoot>
 	);
 }
 
-const CREATE_PASSWORD_DESC =
-	"Creating a password will make your data private and secure. You will need to enter the password every time you open the app.";
+const CREATE_PIN_DESC_IF_NONE_EXIST = "Create a PIN to encrypt your data to ensure privacy and security.";
