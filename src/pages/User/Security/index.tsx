@@ -5,13 +5,15 @@ import { SettingsGroup } from "components/Settings";
 
 import { CreatePin } from "@pages/CreatePin";
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
+import { RemovePinBottomSheet } from "@pages/User/components/RemovePinDialog";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
 import { SettingsButton } from "@components/Settings/Button.tsx";
 import { Show } from "@components/Show";
 
 import { afterPinCreated, afterPinVerified } from "@data/actions";
-import { useHasCreatedPin } from "@data/auth";
+import { removePin, useHasCreatedPin } from "@data/auth";
 
 export function Security() {
 	return (
@@ -43,7 +45,15 @@ function SecurityPage() {
 		});
 	};
 
-	const onRemovePin = () => {};
+	const onRemovePin = () => {
+		openBottomSheet(<RemovePinBottomSheet />, () => {
+			navigate("pin/verify");
+			afterPinVerified.set(async () => {
+				await removePin();
+				navigate(location.pathname);
+			});
+		});
+	};
 
 	return (
 		<SubPageRoot title="Security" backLabel="Settings" className="space-y-6">
