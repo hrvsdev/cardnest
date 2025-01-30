@@ -1,66 +1,46 @@
-import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { PageContainer } from "@components/Containers";
-import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { usePinState } from "@pages/CreatePin/data.ts";
+
+import { SubPageRoot } from "@components/Containers";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
-
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { Spacer } from "@components/Spacer";
 
 export function EnterNewPin() {
 	const navigate = useNavigate();
 
-	const [pin, setPin] = useState<number[]>([]);
-	const [isPinInvalid, setIsPinInvalid] = useState(false);
-	const [isCommonPassword, setIsCommonPassword] = useState(false);
+	const state = usePinState();
 
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	const checkPin = (pinValue: string) => {
-		setIsCommonPassword(false);
-
-		if (pinValue.length !== PIN_LENGTH) return;
-		if (pinValue === "123456") {
-			setIsCommonPassword(true);
-			setIsPinInvalid(true);
-
-			timeoutRef.current = setTimeout(() => {
-				setPin([]);
-				setIsPinInvalid(false);
-			}, 1000);
-
-			return;
-		}
-
-		navigate("confirm", { state: { enteredPin: pinValue } });
-	};
-
-	useEffect(() => {
-		return () => {
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		};
-	}, []);
+	state.setOnSubmit(async () => {
+		navigate("confirm", { state: { pin: state.pin } });
+	});
 
 	return (
-		<Fragment>
-			<SubPageHeader title="" />
-			<PageContainer className="flex flex-col justify-center items-center gap-8">
-				<div className="flex flex-col text-th-white/90 items-center justify-center flex-1">
-					<h1 className="text-2xl font-bold mb-2">Create a PIN</h1>
-					<p className="mb-8 px-6 text-center">
-						Please enter a secure 6-digit PIN.
-						<br />
-						Remember it as no way to recover it.
-					</p>
-					<PinInput pin={pin} isPinIncorrect={isPinInvalid} />
-					<p className="mt-6 px-6 text-center text-th-red text-sm h-5">
-						<Show when={isCommonPassword}>Entered PIN is too common to guess</Show>
-					</p>
-				</div>
-				<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
-			</PageContainer>
-		</Fragment>
+		<SubPageRoot title="">
+			<Spacer size={32} />
+			<div>
+				<h1 className="text-th-white text-xl font-bold text-center mb-2">Create a PIN</h1>
+
+				<p className="text-center">It will be used to unlock the app.</p>
+				<p className="text-center">
+					It never gets stored, so it <b className="text-th-white">can't be recovered</b>.
+				</p>
+			</div>
+
+			<Spacer size={32} />
+			<div className="flex flex-col items-center w-full">
+				<PinInput pin={state.pin} hasError={state.hasError} />
+				<p className="mt-6 text-th-red text-sm">
+					<Show when={state.showErrorMessage}>Entered PIN is too common</Show>
+				</p>
+			</div>
+
+			<Spacer className="grow" />
+			<Keypad onKeyClick={state.onKeyClick} onBackspaceClick={state.onBackspaceClick} isDisabled={state.hasMaxLength} />
+
+			<Spacer size={48} />
+		</SubPageRoot>
 	);
 }

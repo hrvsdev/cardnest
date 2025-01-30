@@ -1,88 +1,69 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { PageContainer } from "@components/Containers";
-import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
+import { usePinState } from "@pages/CreatePin/data.ts";
+
+import { SubPageRoot } from "@components/Containers";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
+import { Spacer } from "@components/Spacer";
 
-import { useAfterPinCreated, useSetAfterPinCreated } from "@hooks/actions";
-import { useSetPin } from "@hooks/auth";
-import { useChangeOrAddCardsPin } from "@hooks/card/data.ts";
+import { createAndSetPin } from "@data/auth";
 
-import { PIN_LENGTH } from "@utils/auth.ts";
+import { InvalidStateError } from "@utils/error.ts";
 
 export function ConfirmPin() {
-	const location = useLocation();
 	const navigate = useNavigate();
+	const location = useLocation();
 
-	const setAppPin = useSetPin();
-	const changeOrAddCardsPin = useChangeOrAddCardsPin();
-	const afterPinCreated = useAfterPinCreated();
-	const setAfterPinCreated = useSetAfterPinCreated();
+	const state = usePinState();
 
-	const [pin, setPin] = useState<number[]>([]);
-	const [isPinInvalid, setIsPinInvalid] = useState(false);
-	const [isPinDifferent, setIsPinDifferent] = useState(false);
+	const enteredPin = location.state?.pin as string | null;
 
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	const enteredPin: string | undefined = location.state?.enteredPin;
-
-	const checkPin = async (pinValue: string) => {
-		setIsPinDifferent(false);
-
-		if (pinValue.length !== PIN_LENGTH) return;
-		if (pinValue !== enteredPin) {
-			setIsPinDifferent(true);
-			setIsPinInvalid(true);
-
-			timeoutRef.current = setTimeout(() => {
-				setPin([]);
-				setIsPinInvalid(false);
-			}, 1000);
-
-			return;
-		}
-
-		await changeOrAddCardsPin(pinValue);
-		await setAppPin(pinValue);
-
-		if (afterPinCreated) {
-			afterPinCreated().then(() => setAfterPinCreated(null));
-		} else {
-			navigate("/user/security");
+	const checkIfPinsMatch = () => {
+		if (state.pin !== enteredPin) {
+			throw new InvalidStateError("");
 		}
 	};
 
-	useEffect(() => {
-		if (!enteredPin) navigate("/");
-		return () => {
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		};
-	}, []);
+	state.setOnSubmit(async () => {
+		checkIfPinsMatch();
+		await createAndSetPin(state.pin);
 
-	if (!enteredPin) return null;
+		navigate("/user/security");
+	});
+
+	useEffect(() => {
+		if (enteredPin == null) navigate("..");
+	}, [enteredPin]);
+
+	if (enteredPin == null) return null;
 
 	return (
-		<Fragment>
-			<SubPageHeader title="" backLabel="Create PIN" />
-			<PageContainer className="flex flex-col justify-center items-center gap-8">
-				<div className="flex flex-col text-th-white/90 items-center justify-center flex-1">
-					<h1 className="text-2xl font-bold mb-2">Confirm the PIN</h1>
-					<p className="mb-8 px-6 text-center">
-						Please confirm the PIN you entered.
-						<br />
-						Remember it as no way to recover it.
-					</p>
-					<PinInput pin={pin} isPinIncorrect={isPinInvalid} />
-					<p className="mt-6 px-6 text-center text-th-red text-sm h-5">
-						<Show when={isPinDifferent}>Both PIN don't match</Show>
-					</p>
-				</div>
-				<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
-			</PageContainer>
-		</Fragment>
+		<SubPageRoot title="">
+			<Spacer size={32} />
+			<div>
+				<h1 className="text-th-white text-xl font-bold text-center mb-2">Confirm your PIN</h1>
+
+				<p className="text-center">It will be used to unlock the app.</p>
+				<p className="text-center">
+					It never gets stored, so it <b className="text-th-white">can't be recovered</b>.
+				</p>
+			</div>
+
+			<Spacer size={32} />
+			<div className="flex flex-col items-center w-full">
+				<PinInput pin={state.pin} hasError={state.hasError} />
+				<p className="mt-6 text-th-red text-sm">
+					<Show when={state.showErrorMessage}>PINs do not match</Show>
+				</p>
+			</div>
+
+			<Spacer className="grow" />
+			<Keypad onKeyClick={state.onKeyClick} onBackspaceClick={state.onBackspaceClick} isDisabled={state.hasMaxLength} />
+
+			<Spacer size={48} />
+		</SubPageRoot>
 	);
 }
