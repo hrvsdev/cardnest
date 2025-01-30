@@ -20,7 +20,7 @@ export class InvalidArgumentError extends ExtendedError {
 }
 
 export function toast(e: unknown) {
-	if (e instanceof Error) {
+	if (e instanceof Error && e.message && e.message.trim().length > 0) {
 		// TODO: Implement toast
 		console.log(`Toast: ${e.message}`);
 	}
