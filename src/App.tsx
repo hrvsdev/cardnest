@@ -9,7 +9,7 @@ import { User } from "@pages/User";
 import { BottomSheetProvider } from "@components/BottomSheet";
 
 import { useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
-import { useDecryptAndCollectCards } from "@data/card";
+import { useCheckAndEncryptOrDecryptCards, useDecryptAndCollectCards } from "@data/card";
 
 export default function App() {
 	const hasEnabledAuth = useHasEnabledAuth();
@@ -27,6 +27,7 @@ export default function App() {
 
 function UnlockedRoutes() {
 	useDecryptAndCollectCards();
+	useCheckAndEncryptOrDecryptCards();
 
 	return (
 		<Routes>
