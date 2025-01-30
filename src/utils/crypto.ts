@@ -40,7 +40,7 @@ export async function generateKey(): Promise<CryptoKey> {
 }
 
 export function generateSalt(): ArrayBuffer {
-	return crypto.getRandomValues(new Uint8Array(16));
+	return crypto.getRandomValues(new Uint8Array(16)).buffer;
 }
 
 export async function encrypt(plainText: string, key: CryptoKey): Promise<EncryptedData> {
@@ -51,7 +51,7 @@ export async function encrypt(plainText: string, key: CryptoKey): Promise<Encryp
 
 	try {
 		const encryptedData = await crypto.subtle.encrypt(algorithm, key, encodedPlainText);
-		return { ciphertext: encryptedData, iv };
+		return { ciphertext: encryptedData, iv: iv.buffer };
 	} catch (e) {
 		throw new Error("Failed to encrypt data");
 	}
