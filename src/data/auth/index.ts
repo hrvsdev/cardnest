@@ -1,4 +1,5 @@
-import { computed, observable } from "@legendapp/state";
+import { observable } from "@legendapp/state";
+import { useSelector } from "@legendapp/state/react";
 
 import { authData, setPinData } from "@data/auth/core.ts";
 import { AuthState, PinData } from "@data/auth/types.ts";
@@ -8,9 +9,15 @@ import { decode, decodeEncryptedData, encode, encodeEncryptedData } from "@utils
 
 export const authState = observable<AuthState>({ dek: null });
 
-export const hasEnabledAuth = computed(() => {
-	return authState.dek.get() != null;
-});
+export const hasCreatedPin = observable(() => authData.pin.get() != null);
+export const hasEnabledAuth = observable(() => hasCreatedPin.get());
+
+export const isAuthenticated = observable(() => authState.dek.get() != null);
+
+export const useHasCreatedPin = () => useSelector(hasCreatedPin);
+export const useHasEnabledAuth = () => useSelector(hasEnabledAuth);
+
+export const useIsAuthenticated = () => useSelector(isAuthenticated);
 
 export async function createAndSetPin(pin: string) {
 	const salt = generateSalt();

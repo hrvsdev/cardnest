@@ -1,47 +1,41 @@
-import { useEffect, useRef, useState } from "react";
+import { usePinState } from "@pages/CreatePin/data.ts";
 
+import { SubPageRoot } from "@components/Containers";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
+import { Show } from "@components/Show";
+import { Spacer } from "@components/Spacer";
 
-import { useVerifyAndSetPin } from "@hooks/auth";
+import { unlockWithPin } from "@data/auth";
 
-import { PIN_LENGTH } from "@utils/auth.ts";
+export function UnlockWithPin() {
+	const state = usePinState();
 
-export function Pin() {
-	const [pin, setPin] = useState<number[]>([]);
-	const [isPinIncorrect, setIsPinIncorrect] = useState(false);
-
-	const verifyAndSetPin = useVerifyAndSetPin();
-
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	const checkPin = async (pinValue: string) => {
-		if (pinValue.length !== PIN_LENGTH) return;
-
-		const isPinCorrect = await verifyAndSetPin(pinValue);
-
-		if (!isPinCorrect) {
-			setIsPinIncorrect(true);
-			timeoutRef.current = setTimeout(() => {
-				setPin([]);
-				setIsPinIncorrect(false);
-			}, 1000);
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		};
-	}, []);
+	state.setOnSubmit(async () => {
+		await unlockWithPin(state.pin);
+	});
 
 	return (
-		<div className="flex flex-col justify-center items-center grow">
-			<div className="flex flex-col text-th-white/90 items-center justify-center gap-8 flex-1">
-				<h1 className="text-2xl font-bold">Enter your current PIN</h1>
-				<PinInput pin={pin} isPinIncorrect={isPinIncorrect} />
+		<SubPageRoot title="">
+			<Spacer size={32} />
+			<div>
+				<h1 className="text-th-white text-xl font-bold text-center mb-2">Unlock CardNest</h1>
+
+				<p className="text-center">Unlock using your PIN.</p>
 			</div>
-			<Keypad pin={pin} setPin={setPin} onPinChange={checkPin} />
-		</div>
+
+			<Spacer size={32} />
+			<div className="flex flex-col items-center w-full">
+				<PinInput pin={state.pin} hasError={state.hasError} />
+				<p className="mt-6 text-th-red text-sm">
+					<Show when={state.showErrorMessage}>Entered PIN is incorrect</Show>
+				</p>
+			</div>
+
+			<Spacer className="grow" />
+			<Keypad onKeyClick={state.onKeyClick} onBackspaceClick={state.onBackspaceClick} isDisabled={state.hasMaxLength} />
+
+			<Spacer size={48} />
+		</SubPageRoot>
 	);
 }

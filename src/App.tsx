@@ -1,28 +1,27 @@
-import { Suspense } from "react";
+import { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
-import { Pin } from "@pages/Pin/EnterPin";
+import { UnlockWithPin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
 
+import { useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
 import { useDecryptAndCollectCards } from "@data/card";
 
-import { useHasCreatedPin, useIsAuthenticatedValue } from "@hooks/auth";
-
 export default function App() {
-	const isAuthenticated = useIsAuthenticatedValue();
-	const hasCreatedPin = useHasCreatedPin();
+	const hasEnabledAuth = useHasEnabledAuth();
+	const isAuthenticated = useIsAuthenticated();
 
-	const showApp = hasCreatedPin ? isAuthenticated : true;
+	const isAppUnlocked = hasEnabledAuth ? isAuthenticated : true;
 
 	return (
-		<Suspense>
-			<main className="flex flex-col min-h-dvh h-full w-full">{showApp ? <UnlockedRoutes /> : <LockedRoutes />}</main>
+		<Fragment>
+			<main className="flex flex-col min-h-dvh h-full w-full">{isAppUnlocked ? <UnlockedRoutes /> : <LockedRoutes />}</main>
 			<BottomSheetProvider />
-		</Suspense>
+		</Fragment>
 	);
 }
 
@@ -43,7 +42,7 @@ function UnlockedRoutes() {
 function LockedRoutes() {
 	return (
 		<Routes>
-			<Route index element={<Pin />} />
+			<Route index element={<UnlockWithPin />} />
 			<Route path="*" element={<Navigate to="/" />} />
 		</Routes>
 	);
