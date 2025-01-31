@@ -1,4 +1,5 @@
 import { observable } from "@legendapp/state";
+import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/local-storage";
 import { synced } from "@legendapp/state/sync";
 
 import { defaultPreferences } from "@data/preferences/types.ts";
@@ -6,7 +7,7 @@ import { defaultPreferences } from "@data/preferences/types.ts";
 export const preferencesState = observable(
 	synced({
 		initial: defaultPreferences(),
-		persist: { name: "cardnest/preferences" }
+		persist: { name: "cardnest/preferences", plugin: ObservablePersistLocalStorage }
 	})
 );
 
