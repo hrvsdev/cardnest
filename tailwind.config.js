@@ -38,7 +38,8 @@ export default {
 				"th-dark-blue": "#00203F",
 				"th-blue": "#003a72",
 				"th-sky": "#3fa1ff",
-				"th-green": "#ADEFD1",
+				"th-green": "#1cac78",
+				"th-yellow": "#f5a524",
 				"th-red": "#f31260",
 				"th-white": "#F4F7FB"
 			},
