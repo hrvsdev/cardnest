@@ -15,10 +15,9 @@ import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
 import { SettingsButton, SettingsLink } from "@components/Settings/Button.tsx";
 import { TabBar } from "@components/TabBar";
 
+import { afterPinVerified } from "@data/actions";
+import { isAuthenticated } from "@data/auth";
 import { deleteAllCards } from "@data/card";
-
-import { useSetAfterPinVerified } from "@hooks/actions";
-import { useIsAuthenticatedValue } from "@hooks/auth";
 
 export function User() {
 	return (
@@ -36,21 +35,18 @@ function UserPage() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const isAuthenticated = useIsAuthenticatedValue();
-	const setAfterPinVerified = useSetAfterPinVerified();
-
-	const _deleteAllCards = () => {
+	const _deleteAllCards = async () => {
 		deleteAllCards();
 		navigate(location.pathname);
 	};
 
 	const onDeleteAllCards = () => {
-		openBottomSheet(<DeleteDataBottomSheet />, () => {
+		openBottomSheet(<DeleteDataBottomSheet />, async () => {
 			if (isAuthenticated) {
-				setAfterPinVerified(() => _deleteAllCards);
+				afterPinVerified.set(_deleteAllCards);
 				navigate("pin/verify");
 			} else {
-				_deleteAllCards();
+				await _deleteAllCards();
 			}
 		});
 	};

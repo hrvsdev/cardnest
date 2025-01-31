@@ -7,10 +7,6 @@ import App from "./App";
 
 import "./index.css";
 
-import { getFromLocalStorage } from "@utils/local-storage";
-
-const APP_VERSION = "0.1.2";
-
 const router = createBrowserRouter([{ path: "/*", element: <App /> }]);
 
 function Root() {
@@ -22,13 +18,6 @@ function Root() {
 }
 
 function getAppRoot() {
-	const CURRENT = getFromLocalStorage("cardnest/version") ?? "0";
-
-	if (CURRENT !== APP_VERSION) {
-		localStorage.clear();
-		localStorage.setItem("cardnest/version", JSON.stringify(APP_VERSION));
-	}
-
 	return createRoot(document.getElementById("root")!);
 }
 
