@@ -1,10 +1,11 @@
-import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute, ReactNode } from "react";
+import { ChangeEvent, FocusEvent, HTMLAttributes, HTMLInputTypeAttribute, ReactNode, Ref } from "react";
 
 import { Show } from "@components/Show";
 
 import { c } from "@utils/styles.ts";
 
 type Props = {
+	ref: Ref<HTMLInputElement>;
 	value?: string | number;
 	type?: HTMLInputTypeAttribute;
 	id?: string;
@@ -44,6 +45,7 @@ export function Input(props: Props) {
 					<div className="center absolute right-0">{props.rightIcon}</div>
 				</Show>
 				<input
+					ref={props.ref}
 					type={props.type}
 					id={props.id}
 					readOnly={props.readOnly}
