@@ -59,8 +59,8 @@ export function Input(props: Props) {
 					className={c(
 						"w-full h-12 rounded-1.5xl bg-th-white bg-opacity-07 focus:bg-opacity-10 caret-th-sky",
 						props.error?.hasError ? "text-th-red" : "text-th-white",
-						props.leftIcon == null && "pl-4",
-						props.rightIcon == null && "pr-4"
+						props.leftIcon ? "pl-12" : "pl-4",
+						props.rightIcon ? "pr-12" : "pr-4"
 					)}
 				/>
 			</div>
