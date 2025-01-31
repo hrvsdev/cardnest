@@ -13,7 +13,7 @@ export function ShowAnimated({ when, children }: PropsWithChildren<{ when: boole
 	return (
 		<AnimatePresence initial={false}>
 			{when && (
-				<div className="overflow-hidden">
+				<div className="overflow-hidden w-full">
 					<motion.div initial={initial} animate={animate} exit={initial}>
 						{children}
 					</motion.div>
