@@ -31,7 +31,7 @@ export function Input(props: Props) {
 	const error = props.error ?? { message: "Please enter a valid value", hasError: false };
 
 	return (
-		<div>
+		<div className="w-full">
 			<Show when={props.label}>
 				<label className="inline-block pb-2 pl-2" htmlFor={props.id}>
 					{props.label}
