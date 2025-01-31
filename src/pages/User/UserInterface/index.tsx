@@ -7,22 +7,18 @@ import { PageContainer } from "@components/Containers";
 import { SubPageHeader } from "@components/Header/SubPageHeader.tsx";
 import { SettingsToggleButton } from "@components/Settings/ToggleButton.tsx";
 
-import { useMaskCardNumber } from "@hooks/preferences";
+import { useMaskCardNumber } from "@data/preferences";
+import { setMaskCardNumber } from "@data/preferences/core.ts";
 
 export function UserInterface() {
-	const [maskCard, setMaskCard] = useMaskCardNumber();
+	const maskCardNumber = useMaskCardNumber();
 
 	return (
 		<Fragment>
 			<SubPageHeader title="User Interface" backLabel="Settings" />
 			<PageContainer className="space-y-6">
 				<SettingsGroup title="Card" description={MASK_CARD_DESC}>
-					<SettingsToggleButton
-						title="Mask card number"
-						Icon={IconPassword}
-						checked={maskCard}
-						onChange={setMaskCard}
-					/>
+					<SettingsToggleButton title="Mask card number" Icon={IconPassword} checked={maskCardNumber} onChange={setMaskCardNumber} />
 				</SettingsGroup>
 			</PageContainer>
 		</Fragment>

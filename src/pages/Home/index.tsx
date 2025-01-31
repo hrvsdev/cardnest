@@ -16,8 +16,7 @@ import { TabBar } from "@components/TabBar";
 
 import { cardsState } from "@data/card";
 import { CardUnencrypted } from "@data/card/types.ts";
-
-import { useMaskCardNumberValue } from "@hooks/preferences";
+import { useMaskCardNumber } from "@data/preferences";
 
 export function Home() {
 	return (
@@ -78,7 +77,7 @@ function HomePage() {
 }
 
 function CardList({ cards, filteredIds }: { cards: CardUnencrypted[]; filteredIds: string[] }) {
-	const maskCardNumber = useMaskCardNumberValue();
+	const maskCardNumber = useMaskCardNumber();
 
 	return cards.map(({ id, data }) => (
 		<ShowAnimated key={id} when={filteredIds.includes(id)}>
