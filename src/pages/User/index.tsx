@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
-import { IconMoonStars, IconPasswordFingerprint, IconTrash } from "@tabler/icons-react";
+import { IconMoonStars, IconPasswordFingerprint, IconTrash, IconUserCircle } from "@tabler/icons-react";
 import { SettingsGroup } from "components/Settings";
 import { DeleteDataBottomSheet } from "pages/User/components/DeleteDataDialog";
 
 import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
+import { Account } from "@pages/User/Account";
 import { Security } from "@pages/User/Security";
 import { UserInterface } from "@pages/User/UserInterface";
 
@@ -23,6 +24,8 @@ export function User() {
 	return (
 		<Routes>
 			<Route index element={<UserPage />} />
+
+			<Route path="account/*" element={<Account />} />
 			<Route path="security/*" element={<Security />} />
 			<Route path="interface/*" element={<UserInterface />} />
 
@@ -56,14 +59,20 @@ function UserPage() {
 			<HeaderTitle title="You" />
 
 			<PageContainer className="space-y-6">
+				<SettingsGroup title="User Profile">
+					<SettingsLink Icon={IconUserCircle} title="Account" to="account" />
+				</SettingsGroup>
+
 				<SettingsGroup title="App settings">
 					<SettingsLink Icon={IconPasswordFingerprint} title="Security" to="security" />
 					<SettingsLink Icon={IconMoonStars} title="User Interface" to="interface" />
 				</SettingsGroup>
+
 				<SettingsGroup title="Danger zone" description={DELETE_DESCRIPTION}>
 					<SettingsButton isDanger Icon={IconTrash} title="Delete all data" onClick={onDeleteAllCards} />
 				</SettingsGroup>
 			</PageContainer>
+
 			<TabBar />
 		</Fragment>
 	);

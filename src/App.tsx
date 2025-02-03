@@ -3,19 +3,24 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
+import { UnlockWithPassword } from "@pages/Password/Unlock";
 import { UnlockWithPin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
 
-import { useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
-import { useCheckAndEncryptOrDecryptCards, useDecryptAndCollectCards } from "@data/card";
+import { useCollectRemoteAuthData, useHasCreatedPin, useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
+import { useDecryptAndCollectCards } from "@data/card";
+import { useCollectUser } from "@data/user";
 
 export default function App() {
 	const hasEnabledAuth = useHasEnabledAuth();
 	const isAuthenticated = useIsAuthenticated();
 
 	const isAppUnlocked = hasEnabledAuth ? isAuthenticated : true;
+
+	useCollectUser();
+	useCollectRemoteAuthData();
 
 	return (
 		<Fragment>
@@ -27,7 +32,6 @@ export default function App() {
 
 function UnlockedRoutes() {
 	useDecryptAndCollectCards();
-	useCheckAndEncryptOrDecryptCards();
 
 	return (
 		<Routes>
@@ -35,16 +39,20 @@ function UnlockedRoutes() {
 			<Route path="add/*" element={<AddCard />} />
 			<Route path="user/*" element={<User />} />
 
-			<Route path="*" element={<Navigate to="home" />} />
+			<Route path="*" element={<Navigate to="/home" />} />
 		</Routes>
 	);
 }
 
 function LockedRoutes() {
+	const hasCreatedPin = useHasCreatedPin();
+
 	return (
 		<Routes>
-			<Route index element={<UnlockWithPin />} />
-			<Route path="*" element={<Navigate to="/" />} />
+			<Route path="password/unlock" element={<UnlockWithPassword />} />
+			<Route path="pin/unlock" element={<UnlockWithPin />} />
+
+			<Route path="*" element={<Navigate to={hasCreatedPin ? "/pin/unlock" : "/password/unlock"} />} />
 		</Routes>
 	);
 }

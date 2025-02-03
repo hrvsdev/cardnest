@@ -17,6 +17,7 @@ import { TabBar } from "@components/TabBar";
 import { cardsState } from "@data/card";
 import { CardUnencrypted } from "@data/card/types.ts";
 import { useMaskCardNumber } from "@data/preferences";
+import { userState } from "@data/user";
 
 export function Home() {
 	return (
@@ -29,10 +30,8 @@ export function Home() {
 
 const queryState = observable("");
 
-const useCardRecordList = () => {
-	const cards = useSelector(cardsState);
-	return Object.values(cards);
-};
+const useUserName = () => useSelector(() => userState.name.get());
+const useCardRecordList = () => useSelector(() => Object.values(cardsState.get()));
 
 const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {
 	if (query.trim() === "") return cards.map((it) => it.id);
@@ -48,6 +47,7 @@ const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {
 function HomePage() {
 	const query = useSelector(queryState);
 
+	const userName = useUserName();
 	const cardRecordList = useCardRecordList();
 	const filteredCardIds = useFilteredCardIds(cardRecordList, query);
 
@@ -56,7 +56,7 @@ function HomePage() {
 
 	return (
 		<Fragment>
-			<HeaderTitle title="Home" />
+			<HeaderTitle title={userName ? `Hey, ${userName}` : "Home"} />
 			<HeaderSearch value={query} onChange={queryState.set} noOfResults={noOfResults} totalResults={totalNoOfCards} />
 
 			<PageContainer>

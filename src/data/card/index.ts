@@ -1,18 +1,29 @@
-import { observable } from "@legendapp/state";
+import { observable, observe, when } from "@legendapp/state";
 import { useObserve } from "@legendapp/state/react";
 
 import { authState, hasEnabledAuth } from "@data/auth";
-import { addOrUpdateCard, cardRecordsState, setCards } from "@data/card/core.ts";
+import {
+	addOrUpdateCard,
+	cardRecordsState,
+	getRemoteCards,
+	onRemoteCardsChange,
+	setCards,
+	setLocalCards,
+	setRemoteCards
+} from "@data/card/core.ts";
 import {
 	Card,
 	CardData,
 	CardEncrypted,
 	CardEncryptedData,
 	CardEncryptedRecords,
+	CardRecords,
 	CardUnencrypted,
 	CardUnencryptedData,
 	CardUnencryptedRecords
 } from "@data/card/types.ts";
+import { appDataState } from "@data/index.ts";
+import { isSignedIn } from "@data/user";
 
 import { checkNotNull } from "@utils/conditions.ts";
 import { decrypt, encrypt } from "@utils/crypto.ts";
@@ -22,38 +33,14 @@ import { toastAndLog } from "@utils/error.ts";
 export const cardsState = observable<Record<string, CardUnencrypted>>({});
 
 export function useDecryptAndCollectCards() {
-	useObserve(cardRecordsState, async ({ value: cardRecords }) => {
-		const updatedCards: Record<string, CardUnencrypted> = {};
+	useObserve(isSignedIn, async (e) => {
+		await when(() => appDataState.areCardsMerging.get() === false);
 
-		if (cardRecords == null) return;
-		if (cardRecords.type === "UNENCRYPTED") {
-			for (const [id, card] of Object.entries(cardRecords.cards)) updatedCards[id] = card;
+		if (e.value) {
+			e.onCleanup = onRemoteCardsChange(decryptAndSetCardsState);
 		} else {
-			for (const [id, card] of Object.entries(cardRecords.cards)) {
-				try {
-					const stateCard = cardsState[id].get() as CardUnencrypted | null;
-					if (stateCard == null || stateCard.modifiedAt < card.modifiedAt) {
-						updatedCards[id] = await decryptToCardUnencrypted(card);
-					} else {
-						updatedCards[id] = stateCard;
-					}
-				} catch (e) {
-					toastAndLog(e);
-				}
-			}
+			e.onCleanup = observe(cardRecordsState, (e) => decryptAndSetCardsState(e.value));
 		}
-
-		cardsState.set(updatedCards);
-	});
-}
-
-export function useCheckAndEncryptOrDecryptCards() {
-	useObserve(hasEnabledAuth, async ({ previous, value: current }) => {
-		const shouldEncrypt = previous === false && current === true;
-		const shouldDecrypt = previous === true && current === false;
-
-		if (shouldEncrypt) await encryptCards();
-		else if (shouldDecrypt) await decryptCards();
 	});
 }
 
@@ -66,22 +53,67 @@ export async function encryptAndAddOrUpdateCard(cardUnencrypted: CardUnencrypted
 		cardData = CardUnencryptedData(cardUnencrypted);
 	}
 
-	addOrUpdateCard(cardData);
+	await addOrUpdateCard(cardData);
 }
 
-export function deleteAllCards() {
-	setCards(hasEnabledAuth.get() ? CardEncryptedRecords() : CardUnencryptedRecords());
+export async function deleteAllCards() {
+	const cardRecords = hasEnabledAuth.get() ? CardEncryptedRecords() : CardUnencryptedRecords();
+	await setCards(cardRecords);
 }
 
-async function encryptCards() {
-	const updatedCards: Record<string, CardEncrypted> = {};
-	for (const [id, card] of Object.entries(cardsState.get())) updatedCards[id] = await encryptToCardEncrypted(card);
+export async function mergeCards() {
+	const mergedCards: Record<string, CardEncrypted> = {};
 
-	setCards(CardEncryptedRecords(updatedCards));
+	for (const [id, card] of Object.entries(cardsState.get())) mergedCards[id] = await encryptToCardEncrypted(card);
+	for (const [id, card] of Object.entries((await getRemoteCards()).cards)) mergedCards[id] = card;
+
+	await setRemoteCards(CardEncryptedRecords(mergedCards));
+	setLocalCards(CardUnencryptedRecords());
+
+	appDataState.areCardsMerging.set(false);
 }
 
-async function decryptCards() {
-	setCards(CardUnencryptedRecords(cardsState.get()));
+export function resetLocalCards() {
+	setLocalCards(CardUnencryptedRecords());
+}
+
+export async function resetRemoteCards() {
+	await setRemoteCards(CardEncryptedRecords());
+}
+
+export async function encryptCards() {
+	const cards: Record<string, CardEncrypted> = {};
+	for (const [id, card] of Object.entries(cardsState.get())) cards[id] = await encryptToCardEncrypted(card);
+
+	await setCards(CardEncryptedRecords(cards));
+}
+
+export async function decryptCards() {
+	await setCards(CardUnencryptedRecords(cardsState.get()));
+}
+
+async function decryptAndSetCardsState(cardRecords: CardRecords | null | undefined) {
+	const updatedCards: Record<string, CardUnencrypted> = {};
+
+	if (cardRecords == null) return;
+	if (cardRecords.type === "UNENCRYPTED") {
+		for (const [id, card] of Object.entries(cardRecords.cards)) updatedCards[id] = card;
+	} else {
+		for (const [id, card] of Object.entries(cardRecords.cards)) {
+			try {
+				const stateCard = cardsState[id].get() as CardUnencrypted | null;
+				if (stateCard == null || stateCard.modifiedAt < card.modifiedAt) {
+					updatedCards[id] = await decryptToCardUnencrypted(card);
+				} else {
+					updatedCards[id] = stateCard;
+				}
+			} catch (e) {
+				toastAndLog(e);
+			}
+		}
+	}
+
+	cardsState.set(updatedCards);
 }
 
 async function encryptToCardEncrypted(card: CardUnencrypted): Promise<CardEncrypted> {
