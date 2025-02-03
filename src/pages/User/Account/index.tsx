@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { useSelector } from "@legendapp/state/react";
-import { IconBrandGoogleFilled, IconLogout } from "@tabler/icons-react";
+import { IconBrandGoogleFilled, IconLogout, IconUserCircle } from "@tabler/icons-react";
 
 import { CreatePassword } from "@pages/Password/Create";
 import { SignInWithPassword } from "@pages/Password/SignIn";
 
 import { SubPageRoot } from "@components/Containers";
 import { SettingsGroup } from "@components/Settings";
-import { SettingsButton } from "@components/Settings/Button.tsx";
+import { SettingsButton, SettingsItemContent, SettingsItemWrapper } from "@components/Settings/Button.tsx";
 
 import { signInWithGoogle, signOut, userState } from "@data/user";
 import { SignInResult } from "@data/user/types.ts";
@@ -68,6 +68,10 @@ export function AccountPage() {
 	return (
 		<SubPageRoot title="Account" backLabel="Settings" className="space-y-6">
 			<SettingsGroup title="User" description={SIGN_OUT_DESC}>
+				<SettingsItemWrapper>
+					<SettingsItemContent Icon={IconUserCircle} title={user.fullName} />
+				</SettingsItemWrapper>
+
 				<SettingsButton Icon={IconLogout} title="Sign out of your account" onClick={onSignOut} />
 			</SettingsGroup>
 		</SubPageRoot>
