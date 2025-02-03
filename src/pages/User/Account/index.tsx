@@ -6,7 +6,9 @@ import { IconBrandGoogleFilled, IconLogout, IconUserCircle } from "@tabler/icons
 
 import { CreatePassword } from "@pages/Password/Create";
 import { SignInWithPassword } from "@pages/Password/SignIn";
+import { SignOutBottomSheet } from "@pages/User/Account/SignOutBottomSheet.tsx";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
 import { SettingsGroup } from "@components/Settings";
 import { SettingsButton, SettingsItemContent, SettingsItemWrapper } from "@components/Settings/Button.tsx";
@@ -47,7 +49,9 @@ export function AccountPage() {
 	};
 
 	const onSignOut = async () => {
-		await signOut();
+		openBottomSheet(<SignOutBottomSheet />, async () => {
+			await signOut();
+		});
 	};
 
 	const continueSignInByPassword = (result: SignInResult) => {
