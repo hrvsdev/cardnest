@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 
 import App from "./App";
 
+import "./firebase/index.ts";
 import "./index.css";
 
 const router = createBrowserRouter([{ path: "/*", element: <App /> }]);

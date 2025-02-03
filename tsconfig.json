@@ -17,6 +17,7 @@
 		"jsx": "react-jsx",
 		"moduleResolution": "bundler",
 		"paths": {
+			"@firebase/*": ["firebase/*"],
 			"@components/*": ["components/*"],
 			"@utils/*": ["utils/*"],
 			"@pages/*": ["pages/*"],
