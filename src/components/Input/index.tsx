@@ -5,7 +5,7 @@ import { Show } from "@components/Show";
 import { c } from "@utils/styles.ts";
 
 type Props = {
-	ref: Ref<HTMLInputElement>;
+	ref?: Ref<HTMLInputElement>;
 	value?: string | number;
 	type?: HTMLInputTypeAttribute;
 	id?: string;
