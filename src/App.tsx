@@ -8,6 +8,7 @@ import { UnlockWithPin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
+import { AppToast } from "@components/Toast";
 
 import { useCollectRemoteAuthData, useHasCreatedPin, useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
 import { useDecryptAndCollectCards } from "@data/card";
@@ -26,6 +27,7 @@ export default function App() {
 		<Fragment>
 			<main className="flex flex-col min-h-dvh h-full w-full">{isAppUnlocked ? <UnlockedRoutes /> : <LockedRoutes />}</main>
 			<BottomSheetProvider />
+			<AppToast />
 		</Fragment>
 	);
 }
