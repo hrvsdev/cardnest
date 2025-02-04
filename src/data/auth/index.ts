@@ -81,6 +81,11 @@ export async function unlockWithPassword(password: string) {
 	authState.dek.set(dek);
 }
 
+export async function verifyPassword(password: string) {
+	const passwordData = checkNotNull(authData.password.get(), "Create password first to verify");
+	await decryptDek(passwordData.encryptedDek, password, passwordData.salt);
+}
+
 export async function createAndSetPin(pin: string) {
 	const salt = generateSalt();
 	const dek = await getOrCreateDek();
