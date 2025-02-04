@@ -5,6 +5,7 @@ import {
 	authData,
 	onRemoteAuthDataChange,
 	remoteAuthData,
+	removeRemotePasswordData,
 	setLocalPasswordData,
 	setLocalPinData,
 	setRemotePasswordData
@@ -109,6 +110,10 @@ export async function unlockWithPin(pin: string) {
 
 export function resetLocalAuthData() {
 	authData.set({ password: null, pin: null });
+}
+
+export async function resetRemoteAuthData() {
+	await removeRemotePasswordData();
 }
 
 async function getOrCreateDek(): Promise<CryptoKey> {

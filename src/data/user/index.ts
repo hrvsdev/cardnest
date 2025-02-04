@@ -3,15 +3,16 @@ import { useEffect } from "react";
 import { observable, when } from "@legendapp/state";
 import { useObserve } from "@legendapp/state/react";
 
-import { User as FirebaseUser, GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
+import { User as FirebaseUser, GoogleAuthProvider, reauthenticateWithPopup, signInWithPopup } from "@firebase/auth";
 import { firebaseAuth } from "@firebase/index.ts";
 
-import { createAndSetPassword, resetLocalAuthData, setLocalPassword } from "@data/auth";
+import { createAndSetPassword, resetLocalAuthData, resetRemoteAuthData, setLocalPassword } from "@data/auth";
 import { authData, remoteAuthData } from "@data/auth/core.ts";
-import { mergeCards, resetLocalCards } from "@data/card";
+import { mergeCards, resetLocalCards, resetRemoteCards } from "@data/card";
 import { appDataState } from "@data/index.ts";
 import { SignInResult, User } from "@data/user/types.ts";
 
+import { checkNotNull } from "@utils/conditions.ts";
 import { ExtendedError } from "@utils/error.ts";
 
 export const initialUserState = observable<User | null>(null);
@@ -70,9 +71,32 @@ export async function signOut() {
 	await firebaseAuth.signOut();
 }
 
+export async function deleteUser() {
+	const currentUser = checkNotNull(firebaseAuth.currentUser, "Sign-in again to delete user");
+
+	try {
+		await reauthenticateWithPopup(currentUser, new GoogleAuthProvider());
+	} catch (e) {
+		throw new ExtendedError("Failed to re-authenticate user", e);
+	}
+
+	try {
+		await deleteRemoteData();
+		deleteLocalData();
+		await currentUser.delete();
+	} catch (e) {
+		throw new ExtendedError("Failed to delete user", e);
+	}
+}
+
 function deleteLocalData() {
 	resetLocalCards();
 	resetLocalAuthData();
+}
+
+async function deleteRemoteData() {
+	await resetRemoteCards();
+	await resetRemoteAuthData();
 }
 
 function firebaseUserToUser(user: FirebaseUser | null): User | null {
