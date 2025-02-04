@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { useSelector } from "@legendapp/state/react";
-import { IconBrandGoogleFilled, IconLogout, IconUserCircle } from "@tabler/icons-react";
+import { IconBrandGoogleFilled, IconLogout, IconTrash, IconUserCircle } from "@tabler/icons-react";
 
 import { CreatePassword } from "@pages/Password/Create";
 import { SignInWithPassword } from "@pages/Password/SignIn";
+import { DeleteAccountBottomSheet } from "@pages/User/Account/DeleteAccountBottomSheet.tsx";
 import { SignOutBottomSheet } from "@pages/User/Account/SignOutBottomSheet.tsx";
 
 import { openBottomSheet } from "@components/BottomSheet/state.ts";
@@ -13,7 +14,7 @@ import { SubPageRoot } from "@components/Containers";
 import { SettingsGroup } from "@components/Settings";
 import { SettingsButton, SettingsItemContent, SettingsItemWrapper } from "@components/Settings/Button.tsx";
 
-import { signInWithGoogle, signOut, userState } from "@data/user";
+import { deleteUser, signInWithGoogle, signOut, userState } from "@data/user";
 import { SignInResult } from "@data/user/types.ts";
 
 import { toastAndLog } from "@utils/error.ts";
@@ -36,6 +37,7 @@ export function AccountPage() {
 	const user = useUser();
 
 	const [isSigningIn, setIsSigningIn] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
 
 	const onSignInWithGoogle = async () => {
 		try {
@@ -51,6 +53,18 @@ export function AccountPage() {
 	const onSignOut = async () => {
 		openBottomSheet(<SignOutBottomSheet />, async () => {
 			await signOut();
+		});
+	};
+
+	const onDeleteUser = async () => {
+		openBottomSheet(<DeleteAccountBottomSheet />, async () => {
+			try {
+				setIsDeleting(true);
+				await deleteUser();
+			} catch (e) {
+				toastAndLog(e);
+				setIsDeleting(false);
+			}
 		});
 	};
 
@@ -78,9 +92,15 @@ export function AccountPage() {
 
 				<SettingsButton Icon={IconLogout} title="Sign out of your account" onClick={onSignOut} />
 			</SettingsGroup>
+
+			<SettingsGroup title="Danger Zone" description={DELETE_ACCOUNT_DESC}>
+				<SettingsButton Icon={IconTrash} title="Delete account" isLoading={isDeleting} isDanger={true} onClick={onDeleteUser} />
+			</SettingsGroup>
 		</SubPageRoot>
 	);
 }
 
 const SIGN_IN_GOOGLE_DESC = "Sign in with your account to sync you data across devices.";
 const SIGN_OUT_DESC = "Sign out of your account to remove your data from this device.";
+
+const DELETE_ACCOUNT_DESC = "Delete your account to remove your data and account from this device and the server forever.";
