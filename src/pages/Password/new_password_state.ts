@@ -60,6 +60,10 @@ export function useNewPasswordState() {
 	};
 
 	useEffect(() => {
+		newPasswordRef.current?.focus();
+	}, []);
+
+	useEffect(() => {
 		if (isNewPasswordFocused) setHasNewPasswordSubmitted(false);
 	}, [isNewPasswordFocused]);
 

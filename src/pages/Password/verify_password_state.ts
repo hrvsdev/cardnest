@@ -30,6 +30,10 @@ export function useVerifyPasswordState() {
 	};
 
 	useEffect(() => {
+		currentPasswordRef.current?.focus();
+	}, []);
+
+	useEffect(() => {
 		if (isCurrentPasswordIncorrect) setIsCurrentPasswordIncorrect(false);
 	}, [currentPasswordValue]);
 
