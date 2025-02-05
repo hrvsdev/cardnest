@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { observable, when } from "@legendapp/state";
-import { useObserve } from "@legendapp/state/react";
+import { useObserve, useSelector } from "@legendapp/state/react";
 
 import { User as FirebaseUser, GoogleAuthProvider, reauthenticateWithPopup, signInWithPopup } from "@firebase/auth";
 import { firebaseAuth } from "@firebase/index.ts";
@@ -20,6 +20,8 @@ export const userState = observable<User | null>(null);
 
 export const isInitiallySignedIn = observable(() => initialUserState.get() != null);
 export const isSignedIn = observable(() => userState.get() != null);
+
+export const useIsSignedIn = () => useSelector(isSignedIn);
 
 export function useCollectUser() {
 	useEffect(() => {
