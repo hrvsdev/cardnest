@@ -1,7 +1,9 @@
 import { FormEvent } from "react";
 
+import { ForgotPasswordBottomSheet } from "@pages/Password/ForgotPasswordBottomSheet.tsx";
 import { useVerifyPasswordState } from "@pages/Password/verify_password_state.ts";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { Button } from "@components/Button";
 import { SubPageRoot } from "@components/Containers";
 import { PasswordInput } from "@components/Input/PasswordInput.tsx";
@@ -22,8 +24,14 @@ export function VerifyPassword() {
 		});
 	};
 
+	const onForgotPassword = () => {
+		openBottomSheet(<ForgotPasswordBottomSheet context="VERIFICATION" hasCreatedPin={true} />, () => {
+			// Nothing
+		});
+	};
+
 	return (
-		<SubPageRoot title="">
+		<SubPageRoot title="" actionLabel="Forgot password?" onAction={onForgotPassword}>
 			<Spacer size={32} />
 			<div>
 				<h1 className="text-th-white text-xl font-bold text-center mb-2">Verify your password</h1>

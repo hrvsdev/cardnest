@@ -3,7 +3,9 @@ import { FormEvent } from "react";
 import { IconLock, IconLockCheck } from "@tabler/icons-react";
 
 import { useChangePasswordState } from "@pages/Password/Change/state.ts";
+import { ForgotPasswordBottomSheet } from "@pages/Password/ForgotPasswordBottomSheet.tsx";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { Button } from "@components/Button";
 import { SubPageRoot } from "@components/Containers";
 import { PasswordInput } from "@components/Input/PasswordInput.tsx";
@@ -19,8 +21,14 @@ export function ChangePassword() {
 		state.onSubmit();
 	};
 
+	const onForgotPassword = () => {
+		openBottomSheet(<ForgotPasswordBottomSheet context="CHANGE" hasCreatedPin={true} />, () => {
+			// Nothing
+		});
+	};
+
 	return (
-		<SubPageRoot title="">
+		<SubPageRoot title="" actionLabel="Forgot password?" onAction={onForgotPassword}>
 			<Spacer size={32} />
 			<div>
 				<h1 className="text-th-white text-xl font-bold text-center mb-2">Change your password</h1>
