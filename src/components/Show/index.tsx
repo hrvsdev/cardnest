@@ -7,11 +7,10 @@ export function Show({ when, children }: PropsWithChildren<{ when: any }>) {
 	let falsyChildren: ReactNode[] = [];
 
 	Children.forEach(children, (child) => {
-		if (!isValidElement(child)) return;
-		if (child.type === Else) {
-			falsyChildren.push(child);
-		} else {
+		if (!isValidElement(child) || child.type !== Else) {
 			truthyChildren.push(child);
+		} else {
+			falsyChildren.push(child);
 		}
 	});
 
