@@ -35,6 +35,8 @@ function SecurityPage() {
 	const hasCreatedPassword = useHasCreatedPassword();
 	const hasCreatedPin = useHasCreatedPin();
 
+	const CREATE_PIN_DESC = hasCreatedPassword ? CREATE_PIN_DESC_IF_PASSWORD_EXIST : CREATE_PIN_DESC_IF_NONE_EXIST;
+
 	const onCreatePin = () => {
 		navigate("pin/create");
 		afterPinCreated.set(async () => {
@@ -51,7 +53,7 @@ function SecurityPage() {
 	};
 
 	const onRemovePin = () => {
-		openBottomSheet(<RemovePinBottomSheet />, () => {
+		openBottomSheet(<RemovePinBottomSheet hasCreatedPassword={hasCreatedPassword} />, () => {
 			navigate("pin/verify");
 			afterPinVerified.set(async () => {
 				await removePin();
@@ -69,7 +71,7 @@ function SecurityPage() {
 				</SettingsGroup>
 			</Show>
 
-			<SettingsGroup title="PIN" description={hasCreatedPin ? undefined : CREATE_PIN_DESC_IF_NONE_EXIST}>
+			<SettingsGroup title="PIN" description={hasCreatedPin ? undefined : CREATE_PIN_DESC}>
 				<SettingsButton
 					title={hasCreatedPin ? "Change PIN" : "Create PIN"}
 					onClick={hasCreatedPin ? onChangePin : onCreatePin}
@@ -86,4 +88,5 @@ function SecurityPage() {
 
 const PASSWORD_DESC = "Your password encrypts your data to ensure privacy and security.";
 
+const CREATE_PIN_DESC_IF_PASSWORD_EXIST = "Create a PIN to unlock the app along with password.";
 const CREATE_PIN_DESC_IF_NONE_EXIST = "Create a PIN to encrypt your data to ensure privacy and security.";
