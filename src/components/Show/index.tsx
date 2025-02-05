@@ -1,9 +1,25 @@
-import { PropsWithChildren } from "react";
+import { Children, isValidElement, PropsWithChildren, ReactNode } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 
 export function Show({ when, children }: PropsWithChildren<{ when: any }>) {
-	return when ? <>{children}</> : null;
+	let truthyChildren: ReactNode[] = [];
+	let falsyChildren: ReactNode[] = [];
+
+	Children.forEach(children, (child) => {
+		if (!isValidElement(child)) return;
+		if (child.type === Else) {
+			falsyChildren.push(child);
+		} else {
+			truthyChildren.push(child);
+		}
+	});
+
+	return when ? truthyChildren : falsyChildren;
+}
+
+export function Else({ children }: PropsWithChildren<{}>) {
+	return children;
 }
 
 export function ShowAnimated({ when, children }: PropsWithChildren<{ when: boolean }>) {
