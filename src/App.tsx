@@ -51,7 +51,7 @@ function LockedRoutes() {
 
 	return (
 		<Routes>
-			<Route path="password/unlock" element={<UnlockWithPassword />} />
+			<Route path="password/unlock/*" element={<UnlockWithPassword />} />
 			<Route path="pin/unlock" element={<UnlockWithPin />} />
 
 			<Route path="*" element={<Navigate to={hasCreatedPin ? "/pin/unlock" : "/password/unlock"} />} />

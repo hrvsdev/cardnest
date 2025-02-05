@@ -1,5 +1,7 @@
 import { FormEvent } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
+import { UnlockWithPasswordHelp } from "@pages/Password/Unlock/help";
 import { useVerifyPasswordState } from "@pages/Password/verify_password_state.ts";
 
 import { Button } from "@components/Button";
@@ -11,6 +13,17 @@ import { Spacer } from "@components/Spacer";
 import { unlockWithPassword } from "@data/auth";
 
 export function UnlockWithPassword() {
+	return (
+		<Routes>
+			<Route index element={<UnlockWithPasswordPage />} />
+			<Route path="help" element={<UnlockWithPasswordHelp />} />
+		</Routes>
+	);
+}
+
+export function UnlockWithPasswordPage() {
+	const navigate = useNavigate();
+
 	const state = useVerifyPasswordState();
 
 	const onSubmit = (e: FormEvent) => {
@@ -20,8 +33,12 @@ export function UnlockWithPassword() {
 		});
 	};
 
+	const onHelp = () => {
+		navigate("help");
+	};
+
 	return (
-		<SubPageRoot title="">
+		<SubPageRoot title="" actionLabel="Help" onAction={onHelp}>
 			<Spacer size={32} />
 			<div>
 				<h1 className="text-th-white text-xl font-bold text-center mb-2">Unlock CardNest</h1>
