@@ -1,5 +1,7 @@
 import { usePinState } from "@pages/CreatePin/data.ts";
+import { ForgotPinBottomSheet } from "@pages/Pin/ForgotPinBottomSheet.tsx";
 
+import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
 import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
@@ -7,9 +9,11 @@ import { Show } from "@components/Show";
 import { Spacer } from "@components/Spacer";
 
 import { afterPinVerified } from "@data/actions";
-import { verifyPin } from "@data/auth";
+import { useHasCreatedPassword, verifyPin } from "@data/auth";
 
 export function VerifyPinBeforeAction() {
+	const hasCreatedPassword = useHasCreatedPassword();
+
 	const state = usePinState();
 
 	state.setOnSubmit(async () => {
@@ -17,8 +21,14 @@ export function VerifyPinBeforeAction() {
 		await afterPinVerified.run();
 	});
 
+	const onForgotPin = () => {
+		openBottomSheet(<ForgotPinBottomSheet context="VERIFICATION" hasCreatedPassword={hasCreatedPassword} />, () => {
+			// Nothing
+		});
+	};
+
 	return (
-		<SubPageRoot title="">
+		<SubPageRoot title="" actionLabel="Forgot PIN?" onAction={onForgotPin}>
 			<Spacer size={32} />
 			<div>
 				<h1 className="text-th-white text-xl font-bold text-center mb-2">Verify your PIN</h1>
