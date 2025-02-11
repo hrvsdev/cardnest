@@ -26,12 +26,14 @@ export const hasCreatedPin = observable(() => authData.pin.get() != null);
 export const hasEnabledAuth = observable(() => hasCreatedPassword.get() || hasCreatedPin.get());
 
 export const isAuthenticated = observable(() => authState.dek.get() != null);
+export const isPasswordStale = observable(() => authState.isPasswordStale.get());
 
 export const useHasCreatedPassword = () => useSelector(hasCreatedPassword);
 export const useHasCreatedPin = () => useSelector(hasCreatedPin);
 export const useHasEnabledAuth = () => useSelector(hasEnabledAuth);
 
 export const useIsAuthenticated = () => useSelector(isAuthenticated);
+export const useIsPasswordStale = () => useSelector(isPasswordStale);
 
 export function useCollectRemoteAuthData() {
 	useObserve(initialUserState, async (e) => {
@@ -42,6 +44,14 @@ export function useCollectRemoteAuthData() {
 
 		try {
 			e.onCleanup = onRemoteAuthDataChange((data) => {
+				if (data != null) {
+					const localModifiedAt = authData.password.modifiedAt.get();
+					if (localModifiedAt != null && data.password.modifiedAt > localModifiedAt) {
+						setLocalPinData(null);
+						authState.set({ dek: null, isPasswordStale: true });
+					}
+				}
+
 				remoteAuthData.set(data);
 				appDataState.remoteAuth.set(true);
 			});
@@ -72,6 +82,14 @@ export async function setLocalPassword(password: string) {
 
 	setLocalPasswordData(remotePasswordData);
 	setLocalPinData(null);
+}
+
+export async function updateStalePassword(password: string) {
+	const remotePasswordData = checkNotNull(remoteAuthData.password.get(), "Complete sign-in process to update password");
+	const dek = await decryptDek(remotePasswordData.encryptedDek, password, remotePasswordData.salt);
+
+	authState.dek.set(dek);
+	setLocalPasswordData(remotePasswordData);
 }
 
 export async function unlockWithPassword(password: string) {

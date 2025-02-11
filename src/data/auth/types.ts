@@ -1,5 +1,6 @@
 export type AuthState = {
 	dek: CryptoKey | null;
+	isPasswordStale?: boolean;
 };
 
 export type AuthData = {

@@ -4,13 +4,14 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
 import { UnlockWithPassword } from "@pages/Password/Unlock";
+import { UnlockWithNewPassword } from "@pages/Password/Unlock/UnlockWithNewPassword.tsx";
 import { UnlockWithPin } from "@pages/Pin/EnterPin";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
 import { AppToast } from "@components/Toast";
 
-import { useCollectRemoteAuthData, useHasCreatedPin, useHasEnabledAuth, useIsAuthenticated } from "@data/auth";
+import { useCollectRemoteAuthData, useHasCreatedPin, useHasEnabledAuth, useIsAuthenticated, useIsPasswordStale } from "@data/auth";
 import { useDecryptAndCollectCards } from "@data/card";
 import { useCollectUser } from "@data/user";
 
@@ -48,10 +49,11 @@ function UnlockedRoutes() {
 
 function LockedRoutes() {
 	const hasCreatedPin = useHasCreatedPin();
+	const isPasswordStale = useIsPasswordStale();
 
 	return (
 		<Routes>
-			<Route path="password/unlock/*" element={<UnlockWithPassword />} />
+			<Route path="password/unlock/*" element={isPasswordStale ? <UnlockWithNewPassword /> : <UnlockWithPassword />} />
 			<Route path="pin/unlock/*" element={<UnlockWithPin />} />
 
 			<Route path="*" element={<Navigate to={hasCreatedPin ? "/pin/unlock" : "/password/unlock"} />} />
