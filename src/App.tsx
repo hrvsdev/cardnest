@@ -1,11 +1,13 @@
 import { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useSelector } from "@legendapp/state/react";
+
 import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
 import { UnlockWithPassword } from "@pages/Password/Unlock";
 import { UnlockWithNewPassword } from "@pages/Password/Unlock/UnlockWithNewPassword.tsx";
-import { UnlockWithPin } from "@pages/Pin/EnterPin";
+import { UnlockWithPin } from "@pages/Pin/EnterPin/index.tsx";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
@@ -13,9 +15,16 @@ import { AppToast } from "@components/Toast";
 
 import { useCollectRemoteAuthData, useHasCreatedPin, useHasEnabledAuth, useIsAuthenticated, useIsPasswordStale } from "@data/auth";
 import { useDecryptAndCollectCards } from "@data/card";
-import { useCollectUser } from "@data/user";
+import { appDataState } from "@data/index.ts";
+import { isSignedIn, useCollectUser } from "@data/user";
+
+const useHasLoaded = () => {
+	return useSelector(() => appDataState.user.get() && (isSignedIn.get() ? appDataState.remoteAuth.get() : true));
+};
 
 export default function App() {
+	const hasLoaded = useHasLoaded();
+
 	const hasEnabledAuth = useHasEnabledAuth();
 	const isAuthenticated = useIsAuthenticated();
 
@@ -23,6 +32,8 @@ export default function App() {
 
 	useCollectUser();
 	useCollectRemoteAuthData();
+
+	if (!hasLoaded) return <SplashScreen />;
 
 	return (
 		<Fragment>
@@ -58,5 +69,13 @@ function LockedRoutes() {
 
 			<Route path="*" element={<Navigate to={hasCreatedPin ? "/pin/unlock" : "/password/unlock"} />} />
 		</Routes>
+	);
+}
+
+function SplashScreen() {
+	return (
+		<div className="w-screen h-dvh center">
+			<img src="/images/splash.svg" alt="CardNest" />
+		</div>
 	);
 }
