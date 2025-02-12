@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import { observable, when } from "@legendapp/state";
-import { useObserve, useSelector } from "@legendapp/state/react";
+import { observable, observe, when } from "@legendapp/state";
+import { useSelector } from "@legendapp/state/react";
 
 import { User as FirebaseUser, GoogleAuthProvider, reauthenticateWithPopup, signInWithPopup } from "@firebase/auth";
 import { firebaseAuth } from "@firebase/index.ts";
@@ -25,17 +25,18 @@ export const useIsSignedIn = () => useSelector(isSignedIn);
 
 export function useCollectUser() {
 	useEffect(() => {
-		const unsubscribe = firebaseAuth.onAuthStateChanged((user) => initialUserState.set(firebaseUserToUser(user)));
+		const unsubscribe = firebaseAuth.onAuthStateChanged((firebaseUser) => {
+			const user = firebaseUserToUser(firebaseUser);
+
+			observe(() => {
+				initialUserState.set(user);
+				userState.set(authData.password.get() ? user : null);
+				appDataState.user.set(true);
+			});
+		});
+
 		return () => unsubscribe();
 	}, []);
-
-	useObserve(async () => {
-		const initialUser = initialUserState.get();
-		const passwordData = authData.password.get();
-
-		userState.set(passwordData ? initialUser : null);
-		appDataState.user.set(true);
-	});
 }
 
 export async function signInWithGoogle(): Promise<SignInResult> {
