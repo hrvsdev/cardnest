@@ -1,3 +1,5 @@
+import { Toast } from "@components/Toast/state.ts";
+
 export class ExtendedError extends Error {
 	constructor(message?: string, cause?: unknown) {
 		super(message, { cause });
@@ -21,8 +23,7 @@ export class InvalidArgumentError extends ExtendedError {
 
 export function toast(e: unknown) {
 	if (e instanceof Error && e.message && e.message.trim().length > 0) {
-		// TODO: Implement toast
-		console.log(`Toast: ${e.message}`);
+		Toast.error(e.message);
 	}
 }
 
