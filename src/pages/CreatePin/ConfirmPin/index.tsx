@@ -8,9 +8,10 @@ import { Keypad } from "@components/Pin/Keypad";
 import { PinInput } from "@components/Pin/PinInput";
 import { Show } from "@components/Show";
 import { Spacer } from "@components/Spacer";
+import { Toast } from "@components/Toast/state.ts";
 
 import { afterPinCreated } from "@data/actions";
-import { createAndSetPin } from "@data/auth";
+import { createAndSetPin, useHasCreatedPin } from "@data/auth";
 
 import { InvalidStateError } from "@utils/error.ts";
 
@@ -19,6 +20,7 @@ export function ConfirmPin() {
 	const location = useLocation();
 
 	const state = usePinState();
+	const isUpdating = useHasCreatedPin();
 
 	const enteredPin = location.state?.pin as string | null;
 
@@ -31,8 +33,11 @@ export function ConfirmPin() {
 	state.setOnSubmit(async () => {
 		checkIfPinsMatch();
 		await createAndSetPin(state.pin);
-
 		await afterPinCreated.run();
+
+		if (isUpdating) {
+			Toast.success("PIN has been updated");
+		}
 	});
 
 	useEffect(() => {

@@ -10,6 +10,7 @@ import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
 import { SettingsGroup } from "@components/Settings";
 import { SettingsButton } from "@components/Settings/Button.tsx";
+import { Toast } from "@components/Toast/state.ts";
 
 import { afterPasswordVerified, afterPinVerified } from "@data/actions";
 import { useHasCreatedPassword, useHasCreatedPin } from "@data/auth";
@@ -35,6 +36,7 @@ function DataManagementPage() {
 	const _deleteAllCards = async () => {
 		await deleteAllCards();
 		navigate(location.pathname);
+		Toast.success("Deleted all cards");
 	};
 
 	const onDeleteAllCards = () => {

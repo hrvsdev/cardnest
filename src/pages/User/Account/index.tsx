@@ -13,6 +13,7 @@ import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
 import { SettingsGroup } from "@components/Settings";
 import { SettingsButton, SettingsItemContent, SettingsItemWrapper } from "@components/Settings/Button.tsx";
+import { Toast } from "@components/Toast/state.ts";
 
 import { deleteUser, signInWithGoogle, signOut, userState } from "@data/user";
 import { SignInResult } from "@data/user/types.ts";
@@ -61,6 +62,7 @@ export function AccountPage() {
 			try {
 				setIsDeleting(true);
 				await deleteUser();
+				Toast.success("Account has been deleted");
 			} catch (e) {
 				toastAndLog(e);
 				setIsDeleting(false);
