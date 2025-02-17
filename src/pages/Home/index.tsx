@@ -10,12 +10,14 @@ import { CardPreview } from "@components/Card/Preview";
 import { PageContainer } from "@components/Containers";
 import { HeaderSearch } from "@components/Header/HeaderSearch.tsx";
 import { HeaderTitle } from "@components/Header/HeaderTitle.tsx";
+import { LoadingIcon } from "@components/Loader";
 import { Show, ShowAnimated } from "@components/Show";
 import { Spacer } from "@components/Spacer";
 import { TabBar } from "@components/TabBar";
 
 import { cardsState } from "@data/card";
 import { CardUnencrypted } from "@data/card/types.ts";
+import { appDataState } from "@data/index.ts";
 import { useMaskCardNumber } from "@data/preferences";
 import { userState } from "@data/user";
 
@@ -32,6 +34,7 @@ const queryState = observable("");
 
 const useUserName = () => useSelector(() => userState.name.get());
 const useCardRecordList = () => useSelector(() => Object.values(cardsState.get()));
+const useLoadState = () => useSelector(appDataState);
 
 const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {
 	if (query.trim() === "") return cards.map((it) => it.id);
@@ -50,6 +53,7 @@ function HomePage() {
 	const userName = useUserName();
 	const cardRecordList = useCardRecordList();
 	const filteredCardIds = useFilteredCardIds(cardRecordList, query);
+	const loadState = useLoadState();
 
 	const totalNoOfCards = cardRecordList.length;
 	const noOfResults = filteredCardIds.length;
@@ -62,7 +66,7 @@ function HomePage() {
 			<PageContainer>
 				<CardList cards={cardRecordList} filteredIds={filteredCardIds} />
 
-				<Show when={false}>
+				<Show when={loadState.areCardsMerging}>
 					<Loading />
 				</Show>
 
@@ -90,7 +94,11 @@ function CardList({ cards, filteredIds }: { cards: CardUnencrypted[]; filteredId
 }
 
 function Loading() {
-	return null;
+	return (
+		<div className="w-full center">
+			<LoadingIcon size={24} />
+		</div>
+	);
 }
 
 function NoCardsFoundMessage() {
