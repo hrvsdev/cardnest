@@ -2,11 +2,11 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { IconLockOff, IconLockPassword, IconPasswordMobilePhone } from "@tabler/icons-react";
 import { SettingsGroup } from "components/Settings";
-
-import { CreatePin } from "@pages/Pin/Create";
-import { ChangePassword } from "@pages/Password/Change";
 import { VerifyPinBeforeAction } from "pages/Pin/Verify";
-import { RemovePinBottomSheet } from "@pages/User/components/RemovePinDialog";
+
+import { ChangePassword } from "@pages/Password/Change";
+import { CreatePin } from "@pages/Pin/Create";
+import { RemovePinBottomSheet } from "@pages/User/Security/RemovePinBottomSheet.tsx";
 
 import { openBottomSheet } from "@components/BottomSheet/state.ts";
 import { SubPageRoot } from "@components/Containers";
