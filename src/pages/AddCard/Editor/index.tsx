@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import { CreatePin } from "@pages/CreatePin";
+import { CreatePin } from "@pages/Pin/Create";
 
 import { Button } from "@components/Button";
 import { CardEditor } from "@components/Card/Editor";

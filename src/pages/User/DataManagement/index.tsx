@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { IconTrash } from "@tabler/icons-react";
 
 import { VerifyPassword } from "@pages/Password/Verify";
-import { VerifyPinBeforeAction } from "@pages/Pin/VerifyPinBeforeAction";
+import { VerifyPinBeforeAction } from "pages/Pin/Verify";
 import { DeleteDataBottomSheet } from "@pages/User/DataManagement/DeleteDataBottomSheet.tsx";
 
 import { openBottomSheet } from "@components/BottomSheet/state.ts";

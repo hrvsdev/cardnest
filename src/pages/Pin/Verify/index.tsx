@@ -1,4 +1,4 @@
-import { usePinState } from "@pages/CreatePin/data.ts";
+import { usePinState } from "@pages/Pin/data.ts";
 import { ForgotPinBottomSheet } from "@pages/Pin/ForgotPinBottomSheet.tsx";
 
 import { openBottomSheet } from "@components/BottomSheet/state.ts";

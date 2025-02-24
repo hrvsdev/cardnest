@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { usePinState } from "@pages/CreatePin/data.ts";
+import { usePinState } from "@pages/Pin/data.ts";
 
 import { SubPageRoot } from "@components/Containers";
 import { Keypad } from "@components/Pin/Keypad";

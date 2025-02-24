@@ -7,7 +7,7 @@ import { AddCard } from "@pages/AddCard";
 import { Home } from "@pages/Home";
 import { UnlockWithPassword } from "@pages/Password/Unlock";
 import { UnlockWithNewPassword } from "@pages/Password/Unlock/UnlockWithNewPassword.tsx";
-import { UnlockWithPin } from "@pages/Pin/EnterPin/index.tsx";
+import { UnlockWithPin } from "@pages/Pin/Unlock/index.tsx";
 import { User } from "@pages/User";
 
 import { BottomSheetProvider } from "@components/BottomSheet";
