@@ -15,7 +15,7 @@ type DotProps = {
 
 const PIN_LENGTH_ARR = [1, 2, 3, 4, 5, 6];
 
-export function PinInput({ pin, hasError = false, isLoading = false }: Props) {
+export function PinInput({ pin, hasError = false }: Props) {
 	return (
 		<div className={c("grid grid-cols-6 gap-3", hasError && styles.shake_anim)}>
 			{PIN_LENGTH_ARR.map((n) => (
