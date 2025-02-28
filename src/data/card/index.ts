@@ -120,7 +120,7 @@ async function encryptToCardEncrypted(card: CardUnencrypted): Promise<CardEncryp
 	const dek = checkNotNull(authState.dek.get(), "Encryption Key is not present, refresh and unlock app again to encrypt card data");
 	const encryptedData = await encryptCard(card.data, dek);
 
-	return { id: card.id, data: encryptedData, modifiedAt: Date.now() };
+	return { id: card.id, data: { cipherText: encryptedData.ciphertext, iv: encryptedData.iv }, modifiedAt: Date.now() };
 }
 
 async function encryptCard(card: Card, dek: CryptoKey): Promise<EncryptedDataEncoded> {
@@ -132,7 +132,7 @@ async function encryptCard(card: Card, dek: CryptoKey): Promise<EncryptedDataEnc
 
 async function decryptToCardUnencrypted(card: CardEncrypted): Promise<CardUnencrypted> {
 	const dek = checkNotNull(authState.dek.get(), "Encryption Key is not present, refresh and unlock app again to decrypt card data");
-	const decryptedData = await decryptCardData(card.data, dek);
+	const decryptedData = await decryptCardData({ ciphertext: card.data.cipherText, iv: card.data.iv }, dek);
 
 	return { id: card.id, data: decryptedData, modifiedAt: card.modifiedAt };
 }
