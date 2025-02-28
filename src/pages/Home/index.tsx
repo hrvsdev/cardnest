@@ -33,7 +33,7 @@ export function Home() {
 const queryState = observable("");
 
 const useUserName = () => useSelector(() => userState.name.get());
-const useCardRecordList = () => useSelector(() => Object.values(cardsState.get()));
+const useCardRecordList = () => useSelector(() => Object.values(cardsState.get()).toSorted((a, b) => b.modifiedAt - a.modifiedAt));
 const useLoadState = () => useSelector(appDataState);
 
 const useFilteredCardIds = (cards: CardUnencrypted[], query: string) => {
