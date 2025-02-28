@@ -8,7 +8,7 @@ import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 import { Show } from "@components/Show";
 
-import { Card } from "@data/card/types.ts";
+import { Card, PaymentNetwork } from "@data/card/types.ts";
 
 import { CardFocusableField } from "@hooks/card/editor.ts";
 import { useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
@@ -87,20 +87,20 @@ export function CardPreview({ card, focused, usePlaceholders, maskCardNumber }: 
 	);
 }
 
-export function useCardNetworkLogo(network: string) {
+export function useCardNetworkLogo(network: PaymentNetwork) {
 	return useMemo(() => {
 		switch (network) {
-			case "visa":
+			case "VISA":
 				return Visa;
-			case "mastercard":
+			case "MASTERCARD":
 				return MasterCard;
-			case "amex":
+			case "AMEX":
 				return Amex;
-			case "discover":
+			case "DISCOVER":
 				return Discover;
-			case "diners":
+			case "DINERS":
 				return Diners;
-			case "rupay":
+			case "RUPAY":
 				return Rupay;
 			default:
 				return () => null;
