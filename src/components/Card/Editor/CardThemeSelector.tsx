@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 
-import { cardThemes, getCardTheme } from "@theme/index.ts";
+import { CardTheme } from "@data/card/types.ts";
 
-import { CardTheme } from "@t/card";
+import { cardThemes, getCardTheme } from "@theme/index.ts";
 
 type Props = {
 	theme: CardTheme;

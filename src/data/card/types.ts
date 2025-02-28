@@ -1,5 +1,3 @@
-import { CardTheme, PaymentNetwork } from "@t/card.ts";
-
 export type Card = {
 	number: string;
 	expiry: string;
@@ -45,6 +43,25 @@ export type CardUnencrypted = {
 	data: Card;
 	modifiedAt: number;
 };
+
+export type PaymentNetwork = "VISA" | "MASTERCARD" | "AMEX" | "DISCOVER" | "DINERS" | "RUPAY" | "OTHER";
+
+export type CardTheme =
+	| "SKY"
+	| "PINK"
+	| "RED"
+	| "CYAN"
+	| "YELLOW"
+	| "BLUE"
+	| "GREEN"
+	| "EMERALD"
+	| "FUCHSIA"
+	| "PURPLE"
+	| "VIOLET"
+	| "INDIGO"
+	| "ORANGE"
+	| "TEAL"
+	| "ROSE";
 
 export function CardEncryptedRecords(cards: Record<string, CardEncrypted> = {}): CardEncryptedRecords {
 	return {

@@ -1,15 +1,22 @@
 import { useMemo } from "react";
 
-import { addSpaces, removeSpaces } from "@utils/card.ts";
+import { Card } from "@data/card/types.ts";
 
-import { CardInfo, DisplayCardDetails } from "@t/card";
+import { addSpaces, removeSpaces } from "@utils/card.ts";
 
 export type Options = {
 	usePlaceholders?: boolean;
 	maskCardNumber?: boolean;
 };
 
-export function useFormattedCardViewDetails(card: CardInfo, options?: Options): DisplayCardDetails {
+export type DisplayCardDetails = {
+	number: string;
+	expiry: string;
+	cardholder: string;
+	issuer: string;
+};
+
+export function useFormattedCardViewDetails(card: Card, options?: Options): DisplayCardDetails {
 	const cardNumber = useMemo(() => {
 		let number = removeSpaces(card.number);
 

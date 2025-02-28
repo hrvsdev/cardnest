@@ -12,7 +12,7 @@ export function defaultCard(): Card {
 		cardholder: "",
 		issuer: "",
 		cvv: "",
-		network: "other",
+		network: "OTHER",
 		theme: cardThemes[Math.floor(Math.random() * cardThemes.length)]
 	};
 }

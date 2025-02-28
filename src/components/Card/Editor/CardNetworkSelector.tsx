@@ -6,9 +6,9 @@ import { Other } from "@components/Logos/Other.tsx";
 import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 
-import { c } from "@utils/styles.ts";
+import { PaymentNetwork } from "@data/card/types.ts";
 
-import { PaymentNetwork } from "@t/card";
+import { c } from "@utils/styles.ts";
 
 type Props = {
 	selected: PaymentNetwork;
@@ -16,13 +16,13 @@ type Props = {
 };
 
 const networks: Array<{ network: PaymentNetwork; logo: typeof Amex; width?: string }> = [
-	{ network: "visa", logo: Visa, width: "3rem" },
-	{ network: "mastercard", logo: MasterCard, width: "2.25rem" },
-	{ network: "rupay", logo: Rupay, width: "4.5rem" },
-	{ network: "discover", logo: Discover, width: "5rem" },
-	{ network: "diners", logo: Diners, width: "1.75rem" },
-	{ network: "amex", logo: Amex, width: "4rem" },
-	{ network: "other", logo: Other, width: "1.875rem" }
+	{ network: "VISA", logo: Visa, width: "3rem" },
+	{ network: "MASTERCARD", logo: MasterCard, width: "2.25rem" },
+	{ network: "RUPAY", logo: Rupay, width: "4.5rem" },
+	{ network: "DISCOVER", logo: Discover, width: "5rem" },
+	{ network: "DINERS", logo: Diners, width: "1.75rem" },
+	{ network: "AMEX", logo: Amex, width: "4rem" },
+	{ network: "OTHER", logo: Other, width: "1.875rem" }
 ];
 
 export function CardNetworkSelector({ selected, setSelected }: Props) {

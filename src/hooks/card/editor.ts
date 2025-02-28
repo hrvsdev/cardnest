@@ -2,11 +2,9 @@ import { useMemo, useState } from "react";
 
 import { InputError } from "@components/Input";
 
-import { Card } from "@data/card/types.ts";
+import { Card, CardTheme, PaymentNetwork } from "@data/card/types.ts";
 
 import { addSpaces, defaultCard, removeSpaces } from "@utils/card.ts";
-
-import { CardTheme, PaymentNetwork } from "@t/card";
 
 export type CardFocusableField = "number" | "expiry" | "cardholder" | "issuer" | "network";
 

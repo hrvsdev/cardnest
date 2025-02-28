@@ -8,6 +8,8 @@ import { Rupay } from "@components/Logos/Rupay.tsx";
 import { Visa } from "@components/Logos/Visa.tsx";
 import { Show } from "@components/Show";
 
+import { Card } from "@data/card/types.ts";
+
 import { CardFocusableField } from "@hooks/card/editor.ts";
 import { useFormattedCardViewDetails } from "@hooks/card/formatting.ts";
 
@@ -15,10 +17,8 @@ import { c } from "@utils/styles.ts";
 
 import { getCardTheme } from "@theme/index.ts";
 
-import { CardFullProfile } from "@t/card";
-
 type Props = {
-	card: CardFullProfile;
+	card: Card;
 	usePlaceholders?: boolean;
 	focused?: CardFocusableField;
 	maskCardNumber?: boolean;

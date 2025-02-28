@@ -1,21 +1,21 @@
-import { CardTheme } from "@t/card.ts";
+import { CardTheme } from "@data/card/types.ts";
 
 export const cardThemes: CardTheme[] = [
-	"sky",
-	"pink",
-	"red",
-	"cyan",
-	"yellow",
-	"blue",
-	"green",
-	"emerald",
-	"fuchsia",
-	"purple",
-	"violet",
-	"indigo",
-	"orange",
-	"teal",
-	"rose"
+	"SKY",
+	"PINK",
+	"RED",
+	"CYAN",
+	"YELLOW",
+	"BLUE",
+	"GREEN",
+	"EMERALD",
+	"FUCHSIA",
+	"PURPLE",
+	"VIOLET",
+	"INDIGO",
+	"ORANGE",
+	"TEAL",
+	"ROSE"
 ];
 
 export const CARD_RED_500 = "#EF4444";
@@ -65,35 +65,35 @@ export const CARD_ROSE_700 = "#BE123C";
 
 export function getCardTheme(theme: CardTheme) {
 	switch (theme) {
-		case "red":
+		case "RED":
 			return { from: CARD_RED_500, to: CARD_RED_700 };
-		case "orange":
+		case "ORANGE":
 			return { from: CARD_ORANGE_500, to: CARD_ORANGE_700 };
-		case "yellow":
+		case "YELLOW":
 			return { from: CARD_YELLOW_500, to: CARD_YELLOW_700 };
-		case "green":
+		case "GREEN":
 			return { from: CARD_GREEN_500, to: CARD_GREEN_700 };
-		case "emerald":
+		case "EMERALD":
 			return { from: CARD_EMERALD_500, to: CARD_EMERALD_700 };
-		case "teal":
+		case "TEAL":
 			return { from: CARD_TEAL_500, to: CARD_TEAL_700 };
-		case "cyan":
+		case "CYAN":
 			return { from: CARD_CYAN_500, to: CARD_CYAN_700 };
-		case "sky":
+		case "SKY":
 			return { from: CARD_SKY_500, to: CARD_SKY_700 };
-		case "blue":
+		case "BLUE":
 			return { from: CARD_BLUE_500, to: CARD_BLUE_700 };
-		case "indigo":
+		case "INDIGO":
 			return { from: CARD_INDIGO_500, to: CARD_INDIGO_700 };
-		case "violet":
+		case "VIOLET":
 			return { from: CARD_VIOLET_500, to: CARD_VIOLET_700 };
-		case "purple":
+		case "PURPLE":
 			return { from: CARD_PURPLE_500, to: CARD_PURPLE_700 };
-		case "fuchsia":
+		case "FUCHSIA":
 			return { from: CARD_FUCHSIA_500, to: CARD_FUCHSIA_700 };
-		case "pink":
+		case "PINK":
 			return { from: CARD_PINK_500, to: CARD_PINK_700 };
-		case "rose":
+		case "ROSE":
 			return { from: CARD_ROSE_500, to: CARD_ROSE_700 };
 	}
 }
