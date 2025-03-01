@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import { Amex } from "@components/Logos/Amex.tsx";
 import { Diners } from "@components/Logos/Diners.tsx";
 import { Discover } from "@components/Logos/Discover.tsx";
@@ -15,14 +17,14 @@ type Props = {
 	setSelected: (value: PaymentNetwork) => void;
 };
 
-const networks: Array<{ network: PaymentNetwork; logo: typeof Amex; width?: string }> = [
-	{ network: "VISA", logo: Visa, width: "3rem" },
-	{ network: "MASTERCARD", logo: MasterCard, width: "2.25rem" },
-	{ network: "RUPAY", logo: Rupay, width: "4.5rem" },
-	{ network: "DISCOVER", logo: Discover, width: "5rem" },
-	{ network: "DINERS", logo: Diners, width: "1.75rem" },
-	{ network: "AMEX", logo: Amex, width: "4rem" },
-	{ network: "OTHER", logo: Other, width: "1.875rem" }
+const networks: Array<{ network: PaymentNetwork; logo: ({ className }: { className?: string }) => ReactNode }> = [
+	{ network: "VISA", logo: Visa },
+	{ network: "MASTERCARD", logo: MasterCard },
+	{ network: "RUPAY", logo: Rupay },
+	{ network: "DISCOVER", logo: Discover },
+	{ network: "DINERS", logo: Diners },
+	{ network: "AMEX", logo: Amex },
+	{ network: "OTHER", logo: Other }
 ];
 
 export function CardNetworkSelector({ selected, setSelected }: Props) {
@@ -34,7 +36,7 @@ export function CardNetworkSelector({ selected, setSelected }: Props) {
 					<div
 						key={N.network}
 						onClick={() => setSelected(N.network)}
-						children={<N.logo width={N.width} />}
+						children={<N.logo className={N.network === "OTHER" ? "scale-[1.2]" : "scale-[0.85]"} />}
 						className={c(
 							"h-12 center bg-th-white hover:bg-opacity-10 rounded-1.5lg border border-th-white cursor-pointer transition-all",
 							selected === N.network ? "bg-opacity-10" : "bg-opacity-07 border-opacity-07"
