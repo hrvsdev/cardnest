@@ -1,22 +1,14 @@
 import { CardTheme } from "@data/card/types.ts";
 
-export const cardThemes: CardTheme[] = [
-	"SKY",
-	"PINK",
-	"RED",
-	"CYAN",
-	"YELLOW",
-	"BLUE",
-	"GREEN",
-	"EMERALD",
-	"FUCHSIA",
-	"PURPLE",
-	"VIOLET",
-	"INDIGO",
-	"ORANGE",
-	"TEAL",
-	"ROSE"
-];
+export const TH_BLACK = "#00060c";
+export const TH_DARKER_BLUE = "#001528";
+export const TH_DARK_BLUE = "#00203F";
+export const TH_BLUE = "#003a72";
+export const TH_SKY = "#3fa1ff";
+export const TH_GREEN = "#1cac78";
+export const TH_YELLOW = "#f5a524";
+export const TH_RED = "#f31260";
+export const TH_WHITE = "#F4F7FB";
 
 export const CARD_RED_500 = "#EF4444";
 export const CARD_RED_700 = "#B91C1C";
@@ -62,6 +54,24 @@ export const CARD_PINK_700 = "#BE185D";
 
 export const CARD_ROSE_500 = "#F43F5E";
 export const CARD_ROSE_700 = "#BE123C";
+
+export const cardThemes: CardTheme[] = [
+	"SKY",
+	"PINK",
+	"RED",
+	"CYAN",
+	"YELLOW",
+	"BLUE",
+	"GREEN",
+	"EMERALD",
+	"FUCHSIA",
+	"PURPLE",
+	"VIOLET",
+	"INDIGO",
+	"ORANGE",
+	"TEAL",
+	"ROSE"
+];
 
 export function getCardTheme(theme: CardTheme) {
 	switch (theme) {

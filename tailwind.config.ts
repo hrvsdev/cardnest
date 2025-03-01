@@ -1,5 +1,8 @@
-/** @type {import("tailwindcss").Config} */
-export default {
+import { Config } from "tailwindcss";
+
+import { TH_BLACK, TH_BLUE, TH_DARK_BLUE, TH_DARKER_BLUE, TH_GREEN, TH_RED, TH_SKY, TH_WHITE, TH_YELLOW } from "./src/theme";
+
+const config: Config = {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {
@@ -33,15 +36,15 @@ export default {
 				"payment-card": "1.586"
 			},
 			colors: {
-				"th-black": "#00060c",
-				"th-darker-blue": "#001528",
-				"th-dark-blue": "#00203F",
-				"th-blue": "#003a72",
-				"th-sky": "#3fa1ff",
-				"th-green": "#1cac78",
-				"th-yellow": "#f5a524",
-				"th-red": "#f31260",
-				"th-white": "#F4F7FB"
+				"th-black": TH_BLACK,
+				"th-darker-blue": TH_DARKER_BLUE,
+				"th-dark-blue": TH_DARK_BLUE,
+				"th-blue": TH_BLUE,
+				"th-green": TH_GREEN,
+				"th-yellow": TH_YELLOW,
+				"th-red": TH_RED,
+				"th-sky": TH_SKY,
+				"th-white": TH_WHITE
 			},
 			scale: {
 				98: ".98"
@@ -53,3 +56,5 @@ export default {
 	},
 	plugins: []
 };
+
+export default config;
