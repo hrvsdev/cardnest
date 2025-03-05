@@ -74,7 +74,7 @@ function LockedRoutes() {
 
 function SplashScreen() {
 	return (
-		<div className="w-screen h-dvh center">
+		<div className="h-dvh center">
 			<img src="/images/splash.svg" alt="CardNest" />
 		</div>
 	);
